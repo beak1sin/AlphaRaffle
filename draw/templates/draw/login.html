@@ -103,11 +103,12 @@
                 {% csrf_token %}
                 <div class="signup_box" style="display: none;">
                     <form id="signup_form" action="{% url 'draw:member_insert' %}" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
+
                         <input type="hidden" id="idcheck" value="0"/>
                         <div class="u-form-email u-form-group u-form-group-1">
                             <label for="email-6642" class="u-label u-label-1">이메일</label>
-                             <a onclick="checkId();" class="u-border-none u-btn-20 u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 overlap">중복확인<br>
-                            </a>
+                             <button type='button' onclick="checkId();" class="u-border-none u-btn-20 u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 overlap">중복확인<br>
+                            </button>
                             <input type="email" placeholder="이메일을 입력하세요." id="member_id" name="member_id" class="u-border-3 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-white" required="">
                         </div>
                         <div class="u-form-group u-form-group-2">
@@ -182,9 +183,10 @@
 
                 <!-- 로그인 -->
 
-                {% csrf_token %}
                 <div class="signin_box">
                     <form id="signin_form" action="{% url 'draw:member_login' %}" method="POST" class="u-clearfix u-form-custom-backend u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
+
+                        {% csrf_token %}
                         <div class="u-form-group u-form-name u-label-top">
                             <label for="username-a30d" class="u-label u-spacing-0 u-text-grey-80 u-label-1">이메일 *</label>
                             <input type="text" placeholder="이메일을 입력하세요." id="member_loginid" name="member_loginid" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-1" required="">
@@ -287,6 +289,10 @@
             });
 
         });
+        function validateEmail(email) {
+        var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        return re.test(email);
+        }
 
         function getCookie(name) {
             var cookieValue = null;
@@ -400,41 +406,19 @@
         }
 
         function checkId() {
-            /*
             memberid = document.getElementById("member_id").value;
-            if(memberid == "") {
-                alert('아이디가 비어있습니다.')
+            regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+            if (memberid.match(regExp) == null) {
+                Swal.fire({
+                  icon: 'error',
+                  title: '이메일 형식이 아닙니다.',
+                  confirmButtonColor: '#000000',
+                  timer: 2000,
+                  timerProgressBar: true
+                })
                 document.getElementById("member_id").focus();
                 return false;
             }
-
-            var strurl = "member_idcheck?member_id=" + memberid;
-            //alert(strurl);
-            //return false;
-
-            xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4) {
-                    var data = xhr.responseText;
-
-                    var obj = JSON.parse(data);
-                    if(obj.flag == "1") {
-                        alert(obj.result_msg);
-                        document.getElementById("member_id").focus();
-                    }
-                    else {
-                        alert(obj.result_msg);
-                        document.getElementById("idcheck").value = "1";
-                        document.getElementById("member_id").disabled  = false;
-                    }
-                }
-            };
-            xhr.open("POST", strurl);
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            xhr.send(null);
-            */
-
-            memberid = document.getElementById("member_id").value;
             if(memberid == "") {
                 Swal.fire({
                   icon: 'error',
@@ -445,7 +429,7 @@
                 return false;
             }
 
-            var strurl = "member_idcheck?member_id=" + memberid;
+            var strurl = "/member_idcheck?member_id=" + memberid;
             //alert(strurl);
             //return false;
 
@@ -474,7 +458,7 @@
                     }
                 }
             };
-            xhr.open("POST", strurl);
+            xhr.open("POST",strurl);
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
             xhr.send(null);
         }
@@ -495,7 +479,7 @@
             }
             pwdencrypted = hex_sha1(memberpwd);
 
-            var strurl = "member_login?member_id=" + memberid + "&member_pwd=" + pwdencrypted;
+            var strurl = "/member_login?member_id=" + memberid + "&member_pwd=" + pwdencrypted;
             //alert(strurl);
             //return break;
 
@@ -509,14 +493,21 @@
                         location.href = "/";
                     }
                     else {
-                        alert(obj.result_msg);
-                        document.getElementById("member_loginid").focus();
+                        Swal.fire({
+                          icon: 'error',
+                          title: obj.result_msg,
+                          confirmButtonColor: '#000000'
+
+                        })
+                        document.getElementById("member_id").focus();
+                        return false;
+
                     }
                 }
             };
             xhr.open("POST", '/member_login');
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            xhr.send(null);
+            //xhr.send(null);
         }
 
     </script>

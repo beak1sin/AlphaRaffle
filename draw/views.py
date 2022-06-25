@@ -11,6 +11,8 @@ import time
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, JsonResponse
+from django.contrib import messages
+
 User = get_user_model()
 # Create your views here.
 
@@ -111,7 +113,8 @@ def member_login(request):
         else:
             context['flag'] = '1'
             context['result_msg'] = 'Login error... 아이디와 비번을 확인하세요.'
-            return JsonResponse(context, content_type="application/json")
+            messages.info(request, 'Your password has been changed successfully!')
+            return render(request, 'draw/login.html')
     return redirect('/')
 
     
