@@ -26,7 +26,7 @@ def member_idcheck(request):
 
     if (len(rs)) > 0:
         context['flag'] = '1'
-        context['result_msg'] = '아이디가 있습니다.'
+        context['result_msg'] = '이미 존재하는 아이디입니다.'
     else:
         context['flag'] = '0'
         context['result_msg'] = '사용 가능한 아이디 입니다.'
@@ -45,7 +45,7 @@ def member_insert(request):
     membernikeid = request.POST['member_nikeid']
     memberphonenumber = request.POST['member_phonenumber']
 
-    rs = Member.objects.create(member_id=memberid,
+    rs = Member.objects.crceate(member_id=memberid,
                                member_pwd=memberpwd,
                                member_realname=memberrealname,
                                member_nickname=membernickname,

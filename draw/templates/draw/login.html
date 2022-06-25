@@ -315,7 +315,9 @@
                 Swal.fire({
                   icon: 'error',
                   title: '아이디를 입력하세요.',
-                  confirmButtonColor: '#000000'
+                  confirmButtonColor: '#000000',
+                  timer: 2000,
+                  timerProgressBar: true
                 })
                 document.getElementById("member_id").focus();
                 return false;
@@ -337,7 +339,9 @@
                 Swal.fire({
                   icon: 'error',
                   title: '비밀번호 확인이 틀립니다.',
-                  confirmButtonColor: '#000000'
+                  confirmButtonColor: '#000000',
+                  timer: 2000,
+                  timerProgressBar: true
                 })
                 document.getElementById("member_pwd2").focus();
                 return false;
@@ -350,7 +354,9 @@
                 Swal.fire({
                   icon: 'error',
                   title: '약관에 동의해주세요.',
-                  confirmButtonColor: '#000000'
+                  confirmButtonColor: '#000000',
+                  timer: 2000,
+                  timerProgressBar: true
                 })
                 return false;
             }
@@ -360,7 +366,9 @@
                 Swal.fire({
                   icon: 'error',
                   title: '아이디 중복확인을 하세요.',
-                  confirmButtonColor: '#000000'
+                  confirmButtonColor: '#000000',
+                  timer: 2000,
+                  timerProgressBar: true
                 })
                 return false;
             }
@@ -392,7 +400,9 @@
             Swal.fire({
               icon: 'success',
               title: '회원가입 성공',
-              confirmButtonColor: '#000000'
+              confirmButtonColor: '#000000',
+              timer: 2000,
+              timerProgressBar: true
             })
             xhr.open("POST", "/member_insert");
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
@@ -435,17 +445,33 @@
             */
 
             memberid = document.getElementById("member_id").value;
-            if(memberid == "") {
+            regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+            if (memberid.match(regExp) == null) {
                 Swal.fire({
                   icon: 'error',
-                  title: '아이디가 비어있습니다.',
-                  confirmButtonColor: '#000000'
+                  title: '이메일 형식이 아닙니다.',
+                  confirmButtonColor: '#000000',
+                  timer: 2000,
+                  timerProgressBar: true
                 })
                 document.getElementById("member_id").focus();
                 return false;
             }
 
-            var strurl = "member_idcheck?member_id=" + memberid;
+
+            if(memberid == "") {
+                Swal.fire({
+                  icon: 'error',
+                  title: '아이디가 비어있습니다.',
+                  confirmButtonColor: '#000000',
+                  timer: 2000,
+                  timerProgressBar: true
+                })
+                document.getElementById("member_id").focus();
+                return false;
+            }
+
+            var strurl = "/member_idcheck?member_id=" + memberid;
             //alert(strurl);
             //return false;
 
@@ -459,7 +485,9 @@
                         Swal.fire({
                           icon: 'error',
                           title: obj.result_msg,
-                          confirmButtonColor: '#000000'
+                          confirmButtonColor: '#000000',
+                          timer: 2000,
+                          timerProgressBar: true
                         })
                         document.getElementById("member_id").focus();
                     }
@@ -467,7 +495,9 @@
                         Swal.fire({
                           icon: 'success',
                           title: obj.result_msg,
-                          confirmButtonColor: '#000000'
+                          confirmButtonColor: '#000000',
+                          timer: 2000,
+                          timerProgressBar: true
                         })
                         document.getElementById("idcheck").value = "1";
                         document.getElementById("member_id").readOnly = true; 
