@@ -113,7 +113,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
+LOGIN_REDIRECT_URL = '/'
 # AUTH_USER_MODEL = 'draw.Userdata'
 
 # Static files (CSS, JavaScript, Images)

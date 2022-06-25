@@ -63,16 +63,69 @@ def member_insert(request):
 
 
 def home(request):
-    return render(request, 'draw/login.html')
+    context = {}
+    shoe = Shoe.objects.all()
+    
+    if request.session.has_key('member_no'):
+        member_no = request.session['member_no']
+        member = Member.objects.get(pk= member_no)
+        print(member_no)
 
+    else:
+        member_no = None
+        member = None
+
+    context["member_no"] = member_no
+    context = {'shoe':shoe, 'member':member }
+    return render(request, "draw/main.html", context)
+
+
+@csrf_exempt
+def member_login(request):
+    context = {}
+    memberid = request.POST['member_loginid']
+    memberpwd = request.POST['member_loginpwd']
+
+    if 'member_no' in request.session:
+        context['flag'] = '1'
+        context['result_msg'] = 'Login 되어 있습니다.'
+    else:
+
+        rsTmp = Member.objects.filter(member_id=memberid, member_pwd=memberpwd)
+
+        if rsTmp:
+            # Session에 member_no를 저장
+            rsMember = Member.objects.get(member_id=memberid, member_pwd=memberpwd)
+            memberno = rsMember.member_no
+            membername = rsMember.member_realname
+            rsMember.access_latest = datetime.now()
+            rsMember.save()
+
+            request.session['member_no'] = memberno
+            request.session['member_name'] = membername
+
+            context['flag'] = '0'
+            context['result_msg'] = 'Login 성공... '
+            return redirect('/')
+
+        else:
+            context['flag'] = '1'
+            context['result_msg'] = 'Login error... 아이디와 비번을 확인하세요.'
+            return JsonResponse(context, content_type="application/json")
+    return redirect('/')
+
+    
+
+@csrf_exempt
+def logout(request):
+    context = {}
+
+    request.session.flush()
+    return redirect('/')
+
+@csrf_exempt
 def login(request):
     return render(request, 'draw/login.html')
 
-def logout(request):
-    return render(request, 'draw/login.html')
-
-def create(request):
-    return render(request, 'draw/login.html')
-
 def myPage(request):
-    return render(request, 'draw/login.html')
+    return render(request, 'draw/myPage.html')

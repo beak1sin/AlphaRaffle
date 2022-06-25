@@ -181,15 +181,17 @@
                 </div>
 
                 <!-- 로그인 -->
+
+                {% csrf_token %}
                 <div class="signin_box">
-                    <form id="signin_form" action="{% url 'draw:로그인' %}" method="POST" class="u-clearfix u-form-custom-backend u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
+                    <form id="signin_form" action="{% url 'draw:member_login' %}" method="POST" class="u-clearfix u-form-custom-backend u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
                         <div class="u-form-group u-form-name u-label-top">
                             <label for="username-a30d" class="u-label u-spacing-0 u-text-grey-80 u-label-1">이메일 *</label>
-                            <input type="text" placeholder="이메일을 입력하세요." id="username-a30d" name="username" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-1" required="">
+                            <input type="text" placeholder="이메일을 입력하세요." id="member_loginid" name="member_loginid" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-1" required="">
                         </div>
                         <div class="u-form-group u-form-password u-label-top">
                             <label for="password-a30d" class="u-label u-spacing-0 u-text-grey-80 u-label-2">비밀번호 *</label>
-                            <input type="password" placeholder="비밀번호를 입력하세요." id="password-a30d" name="password" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-2" required="">
+                            <input type="password" placeholder="비밀번호를 입력하세요." id="member_loginpwd" name="member_loginpwd" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-2" required="">
                         </div>
                         <div class="u-form-checkbox u-form-group u-label-top">
                             <input type="checkbox" id="checkbox-a30d" name="remember" value="On">
@@ -197,7 +199,7 @@
                         </div>
                         <div class="u-align-left u-form-group u-form-submit u-label-top">
                             <input type="submit" value="submit" class="u-form-control-hidden">
-                            <a href="#" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">로그인<br>
+                            <a onclick="loginCheck();" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">로그인<br>
                             </a>
                         </div>
                         <input type="hidden" value="" name="recaptchaResponse">
@@ -242,7 +244,7 @@
           </form>
         </div>
         <a href="#" class="u-border-1 u-border-active-palette-2-base u-border-hover-palette-1-base u-btn u-button-style u-login-control u-login-forgot-password u-none u-text-grey-80 u-text-hover-grey-90 u-btn-2">비밀번호를 잊으셨나요?</a>
-        <a href="{% url 'draw:회원가입' %}" class="u-border-1 u-border-active-palette-2-base u-border-hover-white u-btn u-button-style u-login-control u-login-create-account u-none u-text-grey-80 u-text-hover-grey-90 u-btn-3">계정이 없으신가요?</a>
+        <a href="{% url 'draw:로그인' %}" class="u-border-1 u-border-active-palette-2-base u-border-hover-white u-btn u-button-style u-login-control u-login-create-account u-none u-text-grey-80 u-text-hover-grey-90 u-btn-3">계정이 없으신가요?</a>
       </div>
     </section>
     -->
@@ -438,6 +440,46 @@
                 }
             };
             xhr.open("POST", strurl);
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            xhr.send(null);
+        }
+        function loginCheck(bno) {
+
+            memberid = document.getElementById("member_loginid").value;
+            if(memberid == "") {
+                alert("아이디를 넣으세요.");
+                document.getElementById("member_loginid").focus();
+                return false;
+            }
+
+            memberpwd = document.getElementById("member_loginpwd").value;
+            if(memberpwd == "") {
+                alert("비밀번호를 넣으세요.");
+                document.getElementById("member_loginpwd").focus();
+                return false;
+            }
+            pwdencrypted = hex_sha1(memberpwd);
+
+            var strurl = "member_login?member_id=" + memberid + "&member_pwd=" + pwdencrypted;
+            //alert(strurl);
+            //return break;
+
+            xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    var data = xhr.responseText;
+
+                    var obj = JSON.parse(data);
+                    if(obj.flag == "0"){
+                        location.href = "/";
+                    }
+                    else {
+                        alert(obj.result_msg);
+                        document.getElementById("member_loginid").focus();
+                    }
+                }
+            };
+            xhr.open("POST", '/member_login');
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
             xhr.send(null);
         }
