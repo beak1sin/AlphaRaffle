@@ -83,7 +83,7 @@
     </header>
 
     <!-- 본문 -->
-    <section class="u-clearfix u-section-1" id="sec-a597">
+    <section class="u-clearfix u-section-1 wrapper" id="sec-a597">
         <div class="u-clearfix u-sheet u-sheet-1">
             <div class="u-align-center u-form u-login-control u-form-1">
 
@@ -106,7 +106,7 @@
                         <input type="hidden" id="idcheck" value="0"/>
                         <div class="u-form-email u-form-group u-form-group-1">
                             <label for="email-6642" class="u-label u-label-1">이메일</label>
-                             <a onclick="checkId();" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50">중복확인<br>
+                             <a onclick="checkId();" class="u-border-none u-btn-20 u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 overlap">중복확인<br>
                             </a>
                             <input type="email" placeholder="이메일을 입력하세요." id="member_id" name="member_id" class="u-border-3 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-white" required="">
                         </div>
@@ -249,6 +249,7 @@
     </section>
     -->
 
+
     <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-4357">
         <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
             <p class="u-small-text u-text u-text-variant u-text-1">© 2022 AlphaRaffle - All Rights Reserved</p>
@@ -259,6 +260,7 @@
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
     <script type="text/javascript" src="{% static 'draw/js/sha1.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         $(document).ready(function() {
             $('.signin_tab').on('click', function() {
@@ -283,7 +285,6 @@
                 $('.signin_box').hide();
                 $('.signup_box').show();
             });
-
 
         });
 
@@ -311,7 +312,11 @@
 
             memberid = document.getElementById("member_id").value;
             if(memberid == "") {
-                alert('아이디를 입력하세요.')
+                Swal.fire({
+                  icon: 'error',
+                  title: '아이디를 입력하세요.',
+                  confirmButtonColor: '#000000'
+                })
                 document.getElementById("member_id").focus();
                 return false;
             }
@@ -329,7 +334,11 @@
             }
 
             if(memberpwd != memberpwd2) {
-                alert("비밀번호 확인이 틀립니다.");
+                Swal.fire({
+                  icon: 'error',
+                  title: '비밀번호 확인이 틀립니다.',
+                  confirmButtonColor: '#000000'
+                })
                 document.getElementById("member_pwd2").focus();
                 return false;
             }
@@ -338,13 +347,21 @@
 
             wflag = document.getElementById("warrantcheck").checked;
             if(wflag == false) {
-                alert("약관에 동의해주세요.");
+                Swal.fire({
+                  icon: 'error',
+                  title: '약관에 동의해주세요.',
+                  confirmButtonColor: '#000000'
+                })
                 return false;
             }
             
             idchk = document.getElementById("idcheck").value;
             if(idchk != "1") {
-                alert("아이디 중복확인을 하세요.");
+                Swal.fire({
+                  icon: 'error',
+                  title: '아이디 중복확인을 하세요.',
+                  confirmButtonColor: '#000000'
+                })
                 return false;
             }
 
@@ -359,18 +376,24 @@
             //return false;
             var strurl = "/member_insert?&member_id=" + memberid + "&member_pwd=" + pwdencrypted + "&member_realname=" + memberrealname + "&member_nickname=" + membernickname + "&member_birth=" + memberbirth + "&member_nikeid=" + membernikeid + "&member_phonenumber=" + memberphonenumber;
 
+
             xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4) {
                     var data = xhr.responseText;
 
                     var obj = JSON.parse(data);
-                    alert(obj.result_msg);
+                    //alert(obj.result_msg);
                     if(obj.flag == "1"){
                         location.href = "/";
                     }
                 }
             };
+            Swal.fire({
+              icon: 'success',
+              title: '회원가입 성공',
+              confirmButtonColor: '#000000'
+            })
             xhr.open("POST", "/member_insert");
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
             //xhr.send(null);
@@ -413,7 +436,11 @@
 
             memberid = document.getElementById("member_id").value;
             if(memberid == "") {
-                alert('아이디가 비어있습니다.')
+                Swal.fire({
+                  icon: 'error',
+                  title: '아이디가 비어있습니다.',
+                  confirmButtonColor: '#000000'
+                })
                 document.getElementById("member_id").focus();
                 return false;
             }
@@ -429,11 +456,19 @@
 
                     var obj = JSON.parse(data);
                     if(obj.flag == "1") {
-                        alert(obj.result_msg);
+                        Swal.fire({
+                          icon: 'error',
+                          title: obj.result_msg,
+                          confirmButtonColor: '#000000'
+                        })
                         document.getElementById("member_id").focus();
                     }
                     else {
-                        alert(obj.result_msg);
+                        Swal.fire({
+                          icon: 'success',
+                          title: obj.result_msg,
+                          confirmButtonColor: '#000000'
+                        })
                         document.getElementById("idcheck").value = "1";
                         document.getElementById("member_id").readOnly = true; 
                     }
