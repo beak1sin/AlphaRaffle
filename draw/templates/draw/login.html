@@ -54,11 +54,19 @@
                 </div>
                 <div class="u-custom-menu u-nav-container">
                     <ul class="u-nav u-unstyled u-nav-1">
+                        {% if member.member_no == None %}
+                        {% else %}
                         <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-grey-80 u-text-grey-80 u-text-hover-grey-90" href="{% url 'draw:마이페이지' %}" style="padding: 10px 20px;">마이페이지</a>
                         </li>
-                        <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-grey-80 u-text-grey-80 u-text-hover-grey-90" href="{% url 'draw:홈' %}" style="padding: 10px 20px;">발매예정</a>
-                        </li>
-                        <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-grey-80 u-text-grey-80 u-text-hover-grey-90" href="{% url 'draw:로그인' %}" style="padding: 10px 20px;">로그인/회원가입</a>
+                        {% endif %}
+                        <li class="u-nav-item">
+                           {% if member.member_no == None %}                        
+                           
+                          <a class="u-button-style u-nav-link u-text-active-grey-80 u-text-grey-80 u-text-hover-grey-90" href="{% url 'draw:로그인' %}" style="padding: 10px 20px;">로그인/회원가입</a>
+                          {% else %}
+                          {{member.member_nickname}}님 환영합니다.
+                           <br> <a href="{% url 'draw:로그아웃' %}">로그아웃 </a>
+                          {% endif %}
                         </li>
                     </ul>
                 </div>
@@ -67,11 +75,19 @@
                         <div class="u-inner-container-layout u-sidenav-overflow">
                             <div class="u-menu-close"></div>
                             <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+                                {% if member.member_no == None %}
+                                {% else %}
                                 <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'draw:마이페이지' %}">마이페이지</a>
                                 </li>
-                                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'draw:홈' %}">발매예정</a>
-                                </li>
-                                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'draw:로그인' %}">로그인/회원가입</a>
+                                {% endif %}
+                                <li class="u-nav-item">
+                                  {% if member.member_no == None %}
+                                  <a class="u-button-style u-nav-link" href="{% url 'draw:로그인' %}">로그인/회원가입</a>
+                                  
+                                  {% else %}
+                                  {{member.member_nickname}}님 환영합니다.
+                                  <br> <a href="{% url 'draw:로그아웃' %}">로그아웃 </a>
+                                  {% endif %}
                                 </li>
                             </ul>
                         </div>
@@ -321,9 +337,7 @@
                 Swal.fire({
                   icon: 'error',
                   title: '아이디를 입력하세요.',
-                  confirmButtonColor: '#000000',
-                  timer: 2000,
-                  timerProgressBar: true
+                  confirmButtonColor: '#000000'
                 })
                 document.getElementById("member_id").focus();
                 return false;
@@ -345,9 +359,7 @@
                 Swal.fire({
                   icon: 'error',
                   title: '비밀번호 확인이 틀립니다.',
-                  confirmButtonColor: '#000000',
-                  timer: 2000,
-                  timerProgressBar: true
+                  confirmButtonColor: '#000000'
                 })
                 document.getElementById("member_pwd2").focus();
                 return false;
@@ -360,9 +372,7 @@
                 Swal.fire({
                   icon: 'error',
                   title: '약관에 동의해주세요.',
-                  confirmButtonColor: '#000000',
-                  timer: 2000,
-                  timerProgressBar: true
+                  confirmButtonColor: '#000000'
                 })
                 return false;
             }
@@ -372,9 +382,7 @@
                 Swal.fire({
                   icon: 'error',
                   title: '아이디 중복확인을 하세요.',
-                  confirmButtonColor: '#000000',
-                  timer: 2000,
-                  timerProgressBar: true
+                  confirmButtonColor: '#000000'
                 })
                 return false;
             }
@@ -406,9 +414,7 @@
             Swal.fire({
               icon: 'success',
               title: '회원가입 성공',
-              confirmButtonColor: '#000000',
-              timer: 2000,
-              timerProgressBar: true
+              confirmButtonColor: '#000000'
             })
             xhr.open("POST", "/member_insert");
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
@@ -429,55 +435,11 @@
                 document.getElementById("member_id").focus();
                 return false;
             }
-
-            var strurl = "member_idcheck?member_id=" + memberid;
-            //alert(strurl);
-            //return false;
-
-            xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4) {
-                    var data = xhr.responseText;
-
-                    var obj = JSON.parse(data);
-                    if(obj.flag == "1") {
-                        alert(obj.result_msg);
-                        document.getElementById("member_id").focus();
-                    }
-                    else {
-                        alert(obj.result_msg);
-                        document.getElementById("idcheck").value = "1";
-                        document.getElementById("member_id").disabled  = false;
-                    }
-                }
-            };
-            xhr.open("POST", strurl);
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            xhr.send(null);
-            */
-
-            memberid = document.getElementById("member_id").value;
-            regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-            if (memberid.match(regExp) == null) {
-            if(memberid == "") {
-                Swal.fire({
-                  icon: 'error',
-                  title: '이메일 형식이 아닙니다.',
-                  confirmButtonColor: '#000000',
-                  timer: 2000,
-                  timerProgressBar: true
-                })
-                document.getElementById("member_id").focus();
-                return false;
-            }
-
             if(memberid == "") {
                 Swal.fire({
                   icon: 'error',
                   title: '아이디가 비어있습니다.',
-                  confirmButtonColor: '#000000',
-                  timer: 2000,
-                  timerProgressBar: true
+                  confirmButtonColor: '#000000'
                 })
                 document.getElementById("member_id").focus();
                 return false;
@@ -497,9 +459,7 @@
                         Swal.fire({
                           icon: 'error',
                           title: obj.result_msg,
-                          confirmButtonColor: '#000000',
-                          timer: 2000,
-                          timerProgressBar: true
+                          confirmButtonColor: '#000000'
                         })
                         document.getElementById("member_id").focus();
                     }
@@ -507,9 +467,7 @@
                         Swal.fire({
                           icon: 'success',
                           title: obj.result_msg,
-                          confirmButtonColor: '#000000',
-                          timer: 2000,
-                          timerProgressBar: true
+                          confirmButtonColor: '#000000'
                         })
                         document.getElementById("idcheck").value = "1";
                         document.getElementById("member_id").readOnly = true; 
@@ -565,7 +523,7 @@
             };
             xhr.open("POST", '/member_login');
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            //xhr.send(null);
+            //sxhr.send(null);
         }
 
     </script>

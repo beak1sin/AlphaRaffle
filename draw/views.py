@@ -47,7 +47,7 @@ def member_insert(request):
     membernikeid = request.POST['member_nikeid']
     memberphonenumber = request.POST['member_phonenumber']
 
-    rs = Member.objects.crceate(member_id=memberid,
+    rs = Member.objects.create(member_id=memberid,
                                member_pwd=memberpwd,
                                member_realname=memberrealname,
                                member_nickname=membernickname,
@@ -131,4 +131,23 @@ def login(request):
     return render(request, 'draw/login.html')
 
 def myPage(request):
-    return render(request, 'draw/myPage.html')
+    context = {}
+    shoe = Shoe.objects.all()
+    
+    if request.session.has_key('member_no'):
+        member_no = request.session['member_no']
+        member = Member.objects.get(pk= member_no)
+        print(member_no)
+
+    else:
+        member_no = None
+        member = None
+
+    context["member_no"] = member_no
+    context = {'shoe':shoe, 'member':member }
+    return render(request, "draw/myPage.html", context)
+
+
+
+
+    

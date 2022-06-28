@@ -53,11 +53,19 @@
                 </div>
                 <div class="u-custom-menu u-nav-container">
                     <ul class="u-nav u-unstyled u-nav-1">
+                        {% if member.member_no == None %}
+                        {% else %}
                         <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-grey-80 u-text-grey-80 u-text-hover-grey-90" href="{% url 'draw:마이페이지' %}" style="padding: 10px 20px;">마이페이지</a>
                         </li>
-                        <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-grey-80 u-text-grey-80 u-text-hover-grey-90" href="{% url 'draw:홈' %}" style="padding: 10px 20px;">발매예정</a>
-                        </li>
-                        <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-grey-80 u-text-grey-80 u-text-hover-grey-90" href="{% url 'draw:로그인' %}" style="padding: 10px 20px;">로그인/회원가입</a>
+                        {% endif %}
+                        <li class="u-nav-item">
+                           {% if member.member_no == None %}                        
+                           
+                          <a class="u-button-style u-nav-link u-text-active-grey-80 u-text-grey-80 u-text-hover-grey-90" href="{% url 'draw:로그인' %}" style="padding: 10px 20px;">로그인/회원가입</a>
+                          {% else %}
+                          {{member.member_nickname}}님 환영합니다.
+                           <br> <a href="{% url 'draw:로그아웃' %}">로그아웃 </a>
+                          {% endif %}
                         </li>
                     </ul>
                 </div>
@@ -66,11 +74,19 @@
                         <div class="u-inner-container-layout u-sidenav-overflow">
                             <div class="u-menu-close"></div>
                             <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+                                {% if member.member_no == None %}
+                                {% else %}
                                 <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'draw:마이페이지' %}">마이페이지</a>
                                 </li>
-                                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'draw:홈' %}">발매예정</a>
-                                </li>
-                                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'draw:로그인' %}">로그인/회원가입</a>
+                                {% endif %}
+                                <li class="u-nav-item">
+                                  {% if member.member_no == None %}
+                                  <a class="u-button-style u-nav-link" href="{% url 'draw:로그인' %}">로그인/회원가입</a>
+                                  
+                                  {% else %}
+                                  {{member.member_nickname}}님 환영합니다.
+                                  <br> <a href="{% url 'draw:로그아웃' %}">로그아웃 </a>
+                                  {% endif %}
                                 </li>
                             </ul>
                         </div>
@@ -80,29 +96,120 @@
             </nav>
         </div>
     </header>
-    <section class="u-clearfix u-section-1" id="sec-38cb">
+    <section class="u-align-left u-clearfix u-section-1" id="sec-818f">
         <div class="u-clearfix u-sheet u-sheet-1">
-            <div class="u-border-3 u-border-grey-80 u-line u-line-vertical u-line-1"></div>
-            <h4 class="u-text u-text-default u-text-grey-90 u-text-1">마이페이지</h4>
-            <div class="u-border-3 u-border-grey-80 u-line u-line-horizontal u-line-2"></div>
-            <a href="#" class="u-text u-text-default u-text-grey-80 u-text-2">프로필</a>
-            <h5 class="u-text u-text-default u-text-3">이메일</h5>
-            <p class="u-align-left u-text u-text-default u-text-4">honggildong123@example.co.kr</p>
-            <a href="#" class="u-text u-text-default u-text-grey-80 u-text-5">응모내역</a>
-            <p class="u-align-left u-text u-text-6">홍길동</p>
-            <a href="#" class="u-text u-text-default u-text-grey-80 u-text-7">로그아웃</a>
-            <h5 class="u-text u-text-default u-text-8">이름</h5>
-            <p class="u-align-left u-text u-text-default u-text-9">조선최고의적</p>
-            <h5 class="u-text u-text-default u-text-10">닉네임</h5>
-            <h5 class="u-text u-text-default u-text-11">핸드폰번호</h5>
-            <p class="u-align-left u-text u-text-default u-text-12">010-1234-5678</p>
-            <h5 class="u-text u-text-default u-text-13">신발사이즈</h5>
-            <p class="u-align-left u-text u-text-default u-text-14">270</p>
-            <h5 class="u-text u-text-default u-text-15">나이키 ID</h5>
-            <p class="u-align-left u-text u-text-default u-text-16">honggildong123@example.co.kr</p>
-            <p class="u-align-left u-text u-text-17">14430101</p>
-            <h5 class="u-text u-text-default u-text-18">생년월일</h5>
-            <a href="#" class="u-border-hover-grey-80 u-border-none u-btn u-btn-round u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-text-hover-white u-text-white u-btn-1">정보수정</a>
+            <div class="u-expanded-width u-tab-links-align-justify u-tabs u-tabs-1">
+                <ul class="u-spacing-30 u-tab-list u-unstyled" role="tablist">
+                    <li class="u-tab-item" role="presentation">
+                        <a class="active u-active-grey-80 u-button-style u-tab-link u-tab-link-1" id="link-tab-081f" href="#tab-081f" role="tab" aria-controls="tab-081f" aria-selected="true">프로필</a>
+                    </li>
+                    <li class="u-tab-item" role="presentation">
+                        <a class="u-active-grey-80 u-button-style u-tab-link u-tab-link-2" id="link-tab-4d57" href="#tab-4d57" role="tab" aria-controls="tab-4d57" aria-selected="false">응모내역</a>
+                    </li>
+                    <li class="u-tab-item" role="presentation">
+                        <a class="u-active-grey-80 u-button-style u-tab-link u-tab-link-3" id="link-tab-3a42" href="#tab-3a42" role="tab" aria-controls="tab-3a42" aria-selected="false">즐겨찾기</a>
+                    </li>
+                    <li class="u-tab-item u-tab-item-4" role="presentation">
+                        <a class="u-active-grey-80 u-button-style u-tab-link u-tab-link-4" id="tab-d7e7" href="#link-tab-d7e7" role="tab" aria-controls="link-tab-d7e7" aria-selected="false">문의내역</a>
+                    </li>
+                    <li class="u-tab-item u-tab-item-5" role="presentation">
+                        <a class="u-active-grey-80 u-button-style u-tab-link u-tab-link-5" href="{% url 'draw:로그아웃' %}">로그아웃</a>
+                    </li>
+                </ul>
+                <div class="u-tab-content">
+                    <div class="u-container-style u-tab-active u-tab-pane" id="tab-081f" role="tabpanel" aria-labelledby="link-tab-081f">
+                        <div class="u-container-layout u-container-layout-1">
+                            <div class="u-border-3 u-border-grey-dark-1 u-expanded-width u-line u-line-horizontal u-line-1"></div>
+                            <div class="u-container-style u-group u-shape-rectangle u-group-1">
+                                <div class="u-container-layout u-container-layout-2">
+                                    <h6 class="u-text u-text-default u-text-1">이메일</h6>
+                                    <h6 class="u-text u-text-default u-text-2">이름</h6>
+                                    <h6 class="u-text u-text-default u-text-3">닉네임</h6>
+                                    <h6 class="u-text u-text-default u-text-4">핸드폰번호</h6>
+                                    <h6 class="u-text u-text-default u-text-5">신발사이즈</h6>
+                                    <h6 class="u-text u-text-default u-text-6">나이키 ID</h6>
+                                    <h6 class="u-text u-text-default u-text-7">생년월일</h6>
+                                </div>
+                            </div>
+
+                            <div class="u-form u-form-1">
+                                <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px; display: none;">
+                                    <div class="u-form-group u-label-none">
+                                      <label for="name-5490" class="u-label">Name</label>
+                                      <input type="text" id="name-5490" name="name" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-1" required="required">
+                                    </div>
+                                    <div class="u-form-group u-label-none">
+                                      <label for="email-5490" class="u-label">Email</label>
+                                      <input type="text" id="email-5490" name="name-1" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-2" required="required">
+                                    </div>
+                                    <div class="u-form-group u-label-none">
+                                      <label for="message-5490" class="u-label">Message</label>
+                                      <input rows="4" cols="50" id="message-5490" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-3" required="required" type="text">
+                                    </div>
+                                    <div class="u-form-group u-label-none u-form-group-4">
+                                      <label for="text-5306" class="u-label">Input</label>
+                                      <input type="text" placeholder="" id="text-5306" name="text" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-4">
+                                    </div>
+                                    <div class="u-form-group u-label-none u-form-group-5">
+                                      <label for="text-2268" class="u-label">Input</label>
+                                      <input type="text" placeholder="" id="text-2268" name="text-1" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-5">
+                                    </div>
+                                    <div class="u-form-group u-label-none u-form-group-6">
+                                      <label for="text-7ac3" class="u-label">Input</label>
+                                      <input type="text" placeholder="" id="text-7ac3" name="text-2" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-6">
+                                    </div>
+                                    <div class="u-form-group u-label-none u-form-group-7">
+                                      <label for="text-f144" class="u-label">Input</label>
+                                      <input type="text" placeholder="" id="text-f144" name="text-3" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-7">
+                                    </div>
+                                    <div class="u-align-left u-form-group u-form-submit u-label-none">
+                                      <a href="#" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">수정완료<br>
+                                      </a>
+                                      <input type="submit" value="submit" class="u-form-control-hidden">
+                                    </div>
+                                </form>   
+                            </div>
+                            <div class="u-container-style u-group u-shape-rectangle u-group-2">
+                                <div class="u-container-layout u-valign-top u-container-layout-3">
+                                    <p class="u-text u-text-default u-text-8">honggildong123@example.co.kr</p>
+                                    <p class="u-text u-text-default u-text-9">홍길동</p>
+                                    <p class="u-text u-text-default u-text-10">조선최고의적</p>
+                                    <p class="u-text u-text-default u-text-11">010-1234-5678</p>
+                                    <p class="u-text u-text-default u-text-12">280</p>
+                                    <p class="u-text u-text-default u-text-13">honggildong123@example.co.kr</p>
+                                    <p class="u-text u-text-default u-text-14">14430101</p>
+                                </div>
+                            </div>
+                            <a href="#" class="u-border-2 u-border-black u-btn u-btn-round u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-text-hover-white u-btn-1">정보수정</a>
+
+                        </div>
+                    </div>
+                    <div class="u-container-style u-tab-pane" id="tab-4d57" role="tabpanel" aria-labelledby="link-tab-4d57">
+                        <div class="u-container-layout u-container-layout-4">
+                            <div class="u-border-3 u-border-grey-dark-1 u-expanded-width u-line u-line-horizontal u-line-2"></div>
+                            <h2 class="u-text u-text-default u-text-15"> COMING SOON</h2>
+                            <p class="u-large-text u-text u-text-variant u-text-16">구현중..</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-tab-pane" id="tab-3a42" role="tabpanel" aria-labelledby="link-tab-3a42">
+                        <div class="u-container-layout u-container-layout-5">
+                            <div class="u-border-3 u-border-grey-dark-1 u-expanded-width u-line u-line-horizontal u-line-3"></div>
+                            <h2 class="u-text u-text-default u-text-17"> COMING SOON</h2>
+                            <p class="u-large-text u-text u-text-variant u-text-18">구현중..</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-tab-pane" id="link-tab-d7e7" role="tabpanel" aria-labelledby="tab-d7e7">
+                        <div class="u-container-layout u-container-layout-6">
+                            <div class="u-border-3 u-border-grey-dark-1 u-expanded-width u-line u-line-horizontal u-line-4"></div>
+                            <h2 class="u-text u-text-default u-text-19"> COMING SOON</h2>
+                            <p class="u-large-text u-text u-text-variant u-text-20">구현중..</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-tab-pane" id="link-tab-6219" role="tabpanel" aria-labelledby="tab-6219">
+                        <div class="u-container-layout u-container-layout-7"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
