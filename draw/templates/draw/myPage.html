@@ -101,7 +101,7 @@
             <div class="u-expanded-width u-tab-links-align-justify u-tabs u-tabs-1">
                 <ul class="u-spacing-30 u-tab-list u-unstyled" role="tablist">
                     <li class="u-tab-item" role="presentation">
-                        <a class="active u-active-grey-80 u-button-style u-tab-link u-tab-link-1" id="link-tab-081f" href="#tab-081f" role="tab" aria-controls="tab-081f" aria-selected="true">프로필</a>
+                        <a class="active u-active-grey-80 u-button-style u-tab-link u-tab-link-1" id="link-tab-081f" href="#tab-081f" role="tab" aria-controls="tab-081f" aria-selected="true">프로필</a>
                     </li>
                     <li class="u-tab-item" role="presentation">
                         <a class="u-active-grey-80 u-button-style u-tab-link u-tab-link-2" id="link-tab-4d57" href="#tab-4d57" role="tab" aria-controls="tab-4d57" aria-selected="false">응모내역</a>
@@ -126,61 +126,57 @@
                                     <h6 class="u-text u-text-default u-text-2">이름</h6>
                                     <h6 class="u-text u-text-default u-text-3">닉네임</h6>
                                     <h6 class="u-text u-text-default u-text-4">핸드폰번호</h6>
-                                    <h6 class="u-text u-text-default u-text-5">신발사이즈</h6>
                                     <h6 class="u-text u-text-default u-text-6">나이키 ID</h6>
                                     <h6 class="u-text u-text-default u-text-7">생년월일</h6>
                                 </div>
                             </div>
 
                             <div class="u-form u-form-1">
-                                <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px; display: none;">
+                                <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" id="update_box" source="custom" name="form" style="padding: 10px; display: none;">
                                     <div class="u-form-group u-label-none">
                                       <label for="name-5490" class="u-label">Name</label>
-                                      <input type="text" id="name-5490" name="name" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-1" required="required">
+                                      <input type="text" id="name-5490" name="name" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-1" required="required" value="{{member.member_id}}" readonly>
                                     </div>
                                     <div class="u-form-group u-label-none">
                                       <label for="email-5490" class="u-label">Email</label>
-                                      <input type="text" id="email-5490" name="name-1" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-2" required="required">
+                                      <input type="text" id="email-5490" name="name-1" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-2" required="required" value="{{member.member_realname}}" readonly>
                                     </div>
                                     <div class="u-form-group u-label-none">
                                       <label for="message-5490" class="u-label">Message</label>
-                                      <input rows="4" cols="50" id="message-5490" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-3" required="required" type="text">
+                                      <input rows="4" cols="50" id="message-5490" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-3" required="required" type="text" value="{{member.member_nickname}}">
                                     </div>
                                     <div class="u-form-group u-label-none u-form-group-4">
                                       <label for="text-5306" class="u-label">Input</label>
-                                      <input type="text" placeholder="" id="text-5306" name="text" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-4">
-                                    </div>
-                                    <div class="u-form-group u-label-none u-form-group-5">
-                                      <label for="text-2268" class="u-label">Input</label>
-                                      <input type="text" placeholder="" id="text-2268" name="text-1" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-5">
+                                      <input type="text" placeholder="" id="text-5306" name="text" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-4" value="{{member.member_phonenumber}}">
                                     </div>
                                     <div class="u-form-group u-label-none u-form-group-6">
                                       <label for="text-7ac3" class="u-label">Input</label>
-                                      <input type="text" placeholder="" id="text-7ac3" name="text-2" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-6">
+                                      <input type="text" placeholder="" id="text-7ac3" name="text-2" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-6" value="{{member.member_nikeid}}">
                                     </div>
                                     <div class="u-form-group u-label-none u-form-group-7">
                                       <label for="text-f144" class="u-label">Input</label>
-                                      <input type="text" placeholder="" id="text-f144" name="text-3" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-7">
+                                      <input type="text" placeholder="" id="text-f144" name="text-3" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-7" value="{{member.member_birth}}">
                                     </div>
                                     <div class="u-align-left u-form-group u-form-submit u-label-none">
                                       <a href="#" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">수정완료<br>
+                                      </a>
+                                      <a id="cancel_btn" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">취소하기<br>
                                       </a>
                                       <input type="submit" value="submit" class="u-form-control-hidden">
                                     </div>
                                 </form>   
                             </div>
-                            <div class="u-container-style u-group u-shape-rectangle u-group-2">
+                            <div class="u-container-style u-group u-shape-rectangle u-group-2" id="information_box">
                                 <div class="u-container-layout u-valign-top u-container-layout-3">
-                                    <p class="u-text u-text-default u-text-8">honggildong123@example.co.kr</p>
-                                    <p class="u-text u-text-default u-text-9">홍길동</p>
-                                    <p class="u-text u-text-default u-text-10">조선최고의적</p>
-                                    <p class="u-text u-text-default u-text-11">010-1234-5678</p>
-                                    <p class="u-text u-text-default u-text-12">280</p>
-                                    <p class="u-text u-text-default u-text-13">honggildong123@example.co.kr</p>
-                                    <p class="u-text u-text-default u-text-14">14430101</p>
+                                    <p class="u-text u-text-default u-text-8">{{member.member_id}}</p>
+                                    <p class="u-text u-text-default u-text-9">{{member.member_realname}}</p>
+                                    <p class="u-text u-text-default u-text-10">{{member.member_nickname}}</p>
+                                    <p class="u-text u-text-default u-text-11">{{member.member_phonenumber}}</p>
+                                    <p class="u-text u-text-default u-text-13">{{member.member_nikeid}}</p>
+                                    <p class="u-text u-text-default u-text-14">{{member.member_birth}}</p>
                                 </div>
                             </div>
-                            <a href="#" class="u-border-2 u-border-black u-btn u-btn-round u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-text-hover-white u-btn-1">정보수정</a>
+                            <a id="update_btn" class="u-border-2 u-border-black u-btn u-btn-round u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-text-hover-white u-btn-1">정보수정</a>
 
                         </div>
                     </div>
@@ -222,6 +218,22 @@
 
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#update_btn').on('click', function() {
+                $('#update_box').show();
+                $('#information_box').hide();
+                $('#update_btn').hide();
+            });
+            $('#cancel_btn').on('click', function() {
+                $('#update_box').hide();
+                $('#information_box').show();
+                $('#update_btn').show();
+            });
+
+        });
+    </script>
 </body>
 
 </html>
