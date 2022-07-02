@@ -4,6 +4,7 @@
 /* page-1 */
 .u-section-1 .u-sheet-1 {
   min-height: 757px;
+  margin-top: 100px;
 }
 
 .u-section-1 .u-tabs-1 {
@@ -707,7 +708,16 @@
   }
 }
 
-
+header {
+  z-index: 1;
+  background-color: white;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  border-bottom-style: solid;
+  border-bottom-color: black;
+  position: fixed;
+}
 
 
 

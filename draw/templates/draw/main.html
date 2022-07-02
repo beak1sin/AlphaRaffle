@@ -104,7 +104,7 @@
     </header>
 
     <!-- 본문 -->
-    <section class="u-align-center u-clearfix u-white u-section-1" id="carousel_31ec">
+    <section class="u-align-center u-clearfix u-white u-section-1" id="section1">
         <div class="u-clearfix u-sheet u-sheet-1">
             <h2 class="u-text u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-direction="" data-animation-delay="0">AlphaRaffle</h2>
             <p class="u-text u-text-2" data-animation-name="flipIn" data-animation-duration="1000" data-animation-delay="0" data-animation-direction="X">편리한 응모를 통해 시간을 절약하세요!</p>
@@ -184,13 +184,13 @@
                     </div>
                 </div>
             </div>
-            <a href="https://nicepage.com/c/product-list-website-templates" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-radius-50 u-text-hover-white u-btn-1" data-animation-name="flipIn" data-animation-duration="1000" data-animation-direction="X" data-animation-delay="0">응모하기</a>
+            <a onclick="dropped();" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-radius-50 u-text-hover-white u-btn-1" data-animation-name="flipIn" data-animation-duration="1000" data-animation-direction="X" data-animation-delay="0">응모하기</a>
         </div>
     </section>
-    <section class="u-align-center u-clearfix u-section-2" id="sec-a0e1">
+    <section class="u-align-center u-clearfix u-section-2" id="section2">
         <div class="u-clearfix u-sheet u-sheet-1">
             <h2 class="u-align-center u-text u-text-1">
-                <a class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-body-color u-btn-1" href="https://nicepage.com">발매정보<br>
+                <a class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-body-color u-btn-1">발매정보<br>
                 </a>
             </h2>
             <!--products-->
@@ -216,7 +216,7 @@
                             <!--options_json-->
                             <!--{"clickType":"add-to-cart","content":"응모하기"}-->
                             <!--/options_json-->
-                            <a href="" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
+                            <a onclick="dropped();" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
                                 <!--product_button_content-->응모하기
                                 <!--/product_button_content--></a>
                             <!--/product_button-->
@@ -359,6 +359,13 @@
 
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
+    <script type="text/javascript">
+        function dropped() {
+
+            document.getElementById('section2').scrollIntoView(true);
+        
+        }
+    </script>
 </body>
 
 </html>
