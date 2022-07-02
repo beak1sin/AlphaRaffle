@@ -200,15 +200,16 @@
             <div class="u-expanded-width u-products u-products-1">
                 <div class="u-repeater u-repeater-1">
                     <!--product_item-->
+                    {% for shoe in shoe %}
                     <div class="u-align-center u-container-style u-products-item u-repeater-item">
                         <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
                             <!--product_image-->
-                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-1" src="{% static 'draw/images/jordan1OFF-8.jpeg' %}" data-image-width="842" data-image-height="595">
+                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-1" src="{{ shoe.shoeimg.url }}" data-image-width="842" data-image-height="595">
                             <!--/product_image-->
                             <!--product_title-->
                             <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2">
                                 <a class="u-product-title-link" href="#">
-                                    <!--product_title_content-->Product 1 Title
+                                    <!--product_title_content-->{{shoe.shoename}}
                                     <!--/product_title_content--></a>
                             </h4>
                             <!--/product_title-->
@@ -216,12 +217,13 @@
                             <!--options_json-->
                             <!--{"clickType":"add-to-cart","content":"응모하기"}-->
                             <!--/options_json-->
-                            <a href="" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
+                            <a onclick = "window.open('{{shoe.Link}}'+'{{shoe.nameentry}}'+'{{member.member_realname}}'+'&'+'{{shoe.birthentry}}'+'{{member.member_birth}}'+'&'+'{{shoe.phoneentry}}'+'{{member.member_phonenumber}}'+'&'+'{{shoe.nikeidentry}}'+'{{member.member_nikeid}}'+'&')" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
                                 <!--product_button_content-->응모하기
                                 <!--/product_button_content--></a>
                             <!--/product_button-->
                         </div>
                     </div>
+                    {% endfor %}
                     <!--/product_item-->
                     <!--product_item-->
                     <div class="u-align-center u-container-style u-products-item u-repeater-item">
