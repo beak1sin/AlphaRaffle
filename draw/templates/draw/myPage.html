@@ -143,22 +143,22 @@
                                     </div>
                                     <div class="u-form-group u-label-none">
                                       <label for="message-5490" class="u-label">Message</label>
-                                      <input rows="4" cols="50" id="message-5490" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-3" required="required" type="text" value="{{member.member_nickname}}">
+                                      <input rows="4" cols="50" id="member_nickname" name="member_nickname" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-3" required="required" type="text" value="{{member.member_nickname}}">
                                     </div>
                                     <div class="u-form-group u-label-none u-form-group-4">
                                       <label for="text-5306" class="u-label">Input</label>
-                                      <input type="text" placeholder="" id="text-5306" name="text" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-4" value="{{member.member_phonenumber}}">
+                                      <input type="text" placeholder="" id="member_phonenumber" name="member_phonenumber" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-4" value="{{member.member_phonenumber}}">
                                     </div>
                                     <div class="u-form-group u-label-none u-form-group-6">
                                       <label for="text-7ac3" class="u-label">Input</label>
-                                      <input type="text" placeholder="" id="text-7ac3" name="text-2" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-6" value="{{member.member_nikeid}}">
+                                      <input type="text" placeholder="" id="member_nikeid" name="member_nikeid" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-6" value="{{member.member_nikeid}}">
                                     </div>
                                     <div class="u-form-group u-label-none u-form-group-7">
                                       <label for="text-f144" class="u-label">Input</label>
-                                      <input type="text" placeholder="" id="text-f144" name="text-3" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-7" value="{{member.member_birth}}">
+                                      <input type="text" placeholder="" id="member_birth" name="member_birth" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-7" value="{{member.member_birth}}">
                                     </div>
                                     <div class="u-align-left u-form-group u-form-submit u-label-none">
-                                      <a href="#" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">수정완료<br>
+                                      <a onclick="updateMember();" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">수정완료<br>
                                       </a>
                                       <a id="cancel_btn" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">취소하기<br>
                                       </a>
@@ -233,6 +233,73 @@
             });
 
         });
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        var csrftoken = getCookie('csrftoken');
+
+        var xhr;
+
+        function updateMember() {
+            membernickname = document.getElementById("member_nickname").value;
+            if(membernickname == "") {
+                document.getElementById("member_nickname").focus();
+                return false;
+            }
+
+            memberphonenumber = document.getElementById("member_phonenumber").value;
+            if(memberphonenumber == "") {
+                document.getElementById("member_phonenumber").focus();
+                return false;
+            }
+
+            membernikeid = document.getElementById("member_nikeid").value;
+            if(membernikeid == "") {
+                document.getElementById("member_nikeid").focus();
+                return false;
+            }
+
+            memberbirth = document.getElementById("member_birth").value;
+            if(memberbirth == "") {
+                document.getElementById("member_birth").focus();
+                return false;
+            }
+
+
+            var strurl = "member_update?member_nickname=" + membernickname + "&member_phonenumber=" + memberphonenumber + "&member_nikeid=" + membernikeid + "&member_birth=" + memberbirth;
+            //alert(strurl);
+            //return false;
+
+            xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    var data = xhr.responseText;
+
+                    var obj = JSON.parse(data);
+                    alert(obj.result_msg);
+                    if(obj.flag == "0"){
+                        location.href = "/";
+                    }
+                }
+            };
+            xhr.open("GET", strurl);
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            xhr.send(null);
+        }
     </script>
 </body>
 

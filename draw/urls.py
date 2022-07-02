@@ -14,6 +14,6 @@ urlpatterns = [
     path('member_idcheck', views.member_idcheck, name='member_idcheck'),
     path('member_insert', views.member_insert, name='member_insert'),
     path('member_login', views.member_login, name='member_login'),
-
+    path('auth/mypage/member_update', views.member_update, name='member_update'),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

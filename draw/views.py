@@ -130,24 +130,81 @@ def logout(request):
 def login(request):
     return render(request, 'draw/login.html')
 
+@csrf_exempt
 def myPage(request):
-    context = {}
-    shoe = Shoe.objects.all()
+
+    # context = {}
+    # shoe = Shoe.objects.all()
     
-    if request.session.has_key('member_no'):
-        member_no = request.session['member_no']
-        member = Member.objects.get(pk= member_no)
-        print(member_no)
+    # if request.session.has_key('member_no'):
+    #     member_no = request.session['member_no']
+    #     member = Member.objects.get(pk= member_no)
+    #     print(member_no)
+
+    # else:
+    #     member_no = None
+    #     member = None
+
+    # context["member_no"] = member_no
+    # context = {'shoe':shoe, 'member':member }
+    # return render(request, "draw/myPage.html", context)
+
+    context = {}
+
+    if 'member_no' in request.session:
+        memberno = request.session['member_no']
+        member = Member.objects.get(member_no=memberno)
+        context['member_no'] = member.member_no
+        context['member_id'] = member.member_id
+        context['member_realname'] = member.member_realname
+        context['member_nickname'] = member.member_nickname
+        context['member_phonenumber'] = member.member_phonenumber
+        context['member_nikeid'] = member.member_nikeid
+        context['member_birth'] = member.member_birth
+
+        context['flag'] = "0"
+        context['result_msg'] = "Member read..."
+        context = {'member':member }
+        return render(request, "draw/myPage.html", context)
 
     else:
-        member_no = None
-        member = None
+        return redirect('/')
 
-    context["member_no"] = member_no
-    context = {'shoe':shoe, 'member':member }
-    return render(request, "draw/myPage.html", context)
+@csrf_exempt
+def member_update(request):
+    context = {}
+
+    membernickname = request.GET['member_nickname']
+    memberbirth = request.GET['member_birth']
+    membernikeid = request.GET['member_nikeid']
+    memberphonenumber = request.GET['member_phonenumber']
+
+    if 'member_no' in request.session:
+        memberno = request.session['member_no']
+        rsMember = Member.objects.get(member_no=memberno)
+
+        rsMember.member_nickname = membernickname
+        rsMember.member_birth = memberbirth
+        rsMember.member_nikeid = membernikeid
+        rsMember.member_phonenumber = memberphonenumber
+        rsMember.save()
+
+        context['flag'] = '0'
+        context['result_msg'] = '정보 변경되었습니다'
+
+        return JsonResponse(context, content_type="application/json")
+        # return redirect('/')
+
+    else:
+        context['flag'] = '1'
+        context['result_msg'] = '회원 정보가 없습니다.'
+
+        return JsonResponse(context, content_type="application/json")
 
 
 
 
-    
+
+
+
+
