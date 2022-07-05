@@ -337,7 +337,9 @@
                 Swal.fire({
                   icon: 'error',
                   title: '아이디를 입력하세요.',
-                  confirmButtonColor: '#000000'
+                  confirmButtonColor: '#000000',
+                  timer: 2000,
+                  timerProgressBar: true
                 })
                 document.getElementById("member_id").focus();
                 return false;
@@ -359,7 +361,9 @@
                 Swal.fire({
                   icon: 'error',
                   title: '비밀번호 확인이 틀립니다.',
-                  confirmButtonColor: '#000000'
+                  confirmButtonColor: '#000000',
+                  timer: 2000,
+                  timerProgressBar: true
                 })
                 document.getElementById("member_pwd2").focus();
                 return false;
@@ -372,7 +376,9 @@
                 Swal.fire({
                   icon: 'error',
                   title: '약관에 동의해주세요.',
-                  confirmButtonColor: '#000000'
+                  confirmButtonColor: '#000000',
+                  timer: 2000,
+                  timerProgressBar: true
                 })
                 return false;
             }
@@ -382,7 +388,9 @@
                 Swal.fire({
                   icon: 'error',
                   title: '아이디 중복확인을 하세요.',
-                  confirmButtonColor: '#000000'
+                  confirmButtonColor: '#000000',
+                  timer: 2000,
+                  timerProgressBar: true
                 })
                 return false;
             }
@@ -405,7 +413,7 @@
                     var data = xhr.responseText;
 
                     var obj = JSON.parse(data);
-                    //alert(obj.result_msg);
+                    // alert(obj.result_msg);
                     if(obj.flag == "1"){
                         location.href = "/";
                     }
@@ -414,7 +422,9 @@
             Swal.fire({
               icon: 'success',
               title: '회원가입 성공',
-              confirmButtonColor: '#000000'
+              confirmButtonColor: '#000000',
+              timer: 2000,
+              timerProgressBar: true
             })
             xhr.open("POST", "/member_insert");
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
@@ -439,7 +449,9 @@
                 Swal.fire({
                   icon: 'error',
                   title: '아이디가 비어있습니다.',
-                  confirmButtonColor: '#000000'
+                  confirmButtonColor: '#000000',
+                  timer: 2000,
+                  timerProgressBar: true
                 })
                 document.getElementById("member_id").focus();
                 return false;
@@ -459,7 +471,9 @@
                         Swal.fire({
                           icon: 'error',
                           title: obj.result_msg,
-                          confirmButtonColor: '#000000'
+                          confirmButtonColor: '#000000',
+                          timer: 2000,
+                          timerProgressBar: true
                         })
                         document.getElementById("member_id").focus();
                     }
@@ -467,7 +481,9 @@
                         Swal.fire({
                           icon: 'success',
                           title: obj.result_msg,
-                          confirmButtonColor: '#000000'
+                          confirmButtonColor: '#000000',
+                          timer: 2000,
+                          timerProgressBar: true
                         })
                         document.getElementById("idcheck").value = "1";
                         document.getElementById("member_id").readOnly = true; 
@@ -512,8 +528,9 @@
                         Swal.fire({
                           icon: 'error',
                           title: obj.result_msg,
-                          confirmButtonColor: '#000000'
-
+                          confirmButtonColor: '#000000',
+                          timer: 2000,
+                          timerProgressBar: true
                         })
                         document.getElementById("member_id").focus();
                         return false;
@@ -523,7 +540,7 @@
             };
             xhr.open("POST", '/member_login');
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            //sxhr.send(null);
+            //xhr.send(null);
         }
 
     </script>

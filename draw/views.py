@@ -201,7 +201,10 @@ def member_update(request):
 
         return JsonResponse(context, content_type="application/json")
 
-
+@csrf_exempt
+def details(request):
+    context = {}
+    return render(request, "draw/details.html", context)
 
 
 

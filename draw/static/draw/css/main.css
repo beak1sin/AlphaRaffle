@@ -638,3 +638,7 @@ header {
   border-bottom-color: black;
   position: fixed;
 }
+
+.u-section-2 {
+  animation: fadeIn 2s;
+}

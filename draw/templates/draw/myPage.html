@@ -219,6 +219,7 @@
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $('#update_btn').on('click', function() {
@@ -291,6 +292,13 @@
 
                     var obj = JSON.parse(data);
                     alert(obj.result_msg);
+                    // Swal.fire({
+                    //   icon: 'success',
+                    //   title: obj.result_msg,
+                    //   confirmButtonColor: '#000000',
+                    //   timer: 2000,
+                    //   timerProgressBar: true
+                    // })
                     if(obj.flag == "0"){
                         location.href = "/";
                     }

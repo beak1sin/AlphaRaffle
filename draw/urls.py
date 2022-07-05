@@ -11,6 +11,7 @@ urlpatterns = [
     path('auth/login/', views.login, name='로그인'),
     path('auth/logout/', views.logout, name='로그아웃'),
     path('auth/mypage/', views.myPage, name='마이페이지'),
+    path('auth/details/', views.details, name='상세정보'),
     path('member_idcheck', views.member_idcheck, name='member_idcheck'),
     path('member_insert', views.member_insert, name='member_insert'),
     path('member_login', views.member_login, name='member_login'),

@@ -35,7 +35,7 @@
 <body class="u-body u-xl-mode">
     <header class="u-clearfix u-header u-header" id="sec-1606">
         <div class="u-clearfix u-sheet u-sheet-1">
-            <a href="{% url 'draw:홈' %}" data-page-id="1211428442" class="u-image u-logo u-image-1" data-image-width="1280" data-image-height="960">
+            <a href="{% url 'draw:홈' %}" id="logo" data-page-id="1211428442" class="u-image u-logo u-image-1" data-image-width="1280" data-image-height="960">
                 <img src="{% static 'draw/images/logo3.jpeg' %}" class="u-logo-image u-logo-image-1">
             </a>
             <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
@@ -105,6 +105,7 @@
 
     <!-- 본문 -->
     <section class="u-align-center u-clearfix u-white u-section-1" id="section1">
+        <div type="hidden" id="first"></div>
         <div class="u-clearfix u-sheet u-sheet-1">
             <h2 class="u-text u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-direction="" data-animation-delay="0">AlphaRaffle</h2>
             <p class="u-text u-text-2" data-animation-name="flipIn" data-animation-duration="1000" data-animation-delay="0" data-animation-direction="X">편리한 응모를 통해 시간을 절약하세요!</p>
@@ -200,15 +201,16 @@
             <div class="u-expanded-width u-products u-products-1">
                 <div class="u-repeater u-repeater-1">
                     <!--product_item-->
+                    {% for shoe in shoe %}
                     <div class="u-align-center u-container-style u-products-item u-repeater-item">
                         <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
                             <!--product_image-->
-                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-1" src="{% static 'draw/images/jordan1OFF-8.jpeg' %}" data-image-width="842" data-image-height="595">
+                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" src="{{ shoe.shoeimg.url }}" data-image-width="842" data-image-height="595">
                             <!--/product_image-->
                             <!--product_title-->
                             <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2">
                                 <a class="u-product-title-link" href="#">
-                                    <!--product_title_content-->Product 1 Title
+                                    <!--product_title_content-->{{shoe.shoename}}
                                     <!--/product_title_content--></a>
                             </h4>
                             <!--/product_title-->
@@ -216,18 +218,19 @@
                             <!--options_json-->
                             <!--{"clickType":"add-to-cart","content":"응모하기"}-->
                             <!--/options_json-->
-                            <a onclick="dropped();" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
+                            <a onclick = "window.open('{{shoe.Link}}'+'{{shoe.nameentry}}'+'{{member.member_realname}}'+'&'+'{{shoe.birthentry}}'+'{{member.member_birth}}'+'&'+'{{shoe.phoneentry}}'+'{{member.member_phonenumber}}'+'&'+'{{shoe.nikeidentry}}'+'{{member.member_nikeid}}'+'&')" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
                                 <!--product_button_content-->응모하기
                                 <!--/product_button_content--></a>
                             <!--/product_button-->
                         </div>
                     </div>
+                    {% endfor %}
                     <!--/product_item-->
                     <!--product_item-->
                     <div class="u-align-center u-container-style u-products-item u-repeater-item">
                         <div class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
                             <!--product_image-->
-                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-2" src="{% static 'draw/images/jordan1OFF-8.jpeg' %}" data-image-width="842" data-image-height="595">
+                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-2 u-radius-50" src="{% static 'draw/images/jordan1OFF-8.jpeg' %}" data-image-width="842" data-image-height="595">
                             <!--/product_image-->
                             <!--product_title-->
                             <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-3">
@@ -251,7 +254,7 @@
                     <div class="u-align-center u-container-style u-products-item u-repeater-item">
                         <div class="u-container-layout u-similar-container u-valign-top u-container-layout-3">
                             <!--product_image-->
-                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-3" src="{% static 'draw/images/jordan1OFF-8.jpeg' %}" data-image-width="842" data-image-height="595">
+                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-3 u-radius-50" src="{% static 'draw/images/jordan1OFF-8.jpeg' %}" data-image-width="842" data-image-height="595">
                             <!--/product_image-->
                             <!--product_title-->
                             <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-4">
@@ -264,7 +267,7 @@
                             <!--options_json-->
                             <!--{"clickType":"add-to-cart","content":"응모하기"}-->
                             <!--/options_json-->
-                            <a href="" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-4">
+                            <a href="{% url 'draw:상세정보' %}" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-4">
                                 <!--product_button_content-->응모하기
                                 <!--/product_button_content--></a>
                             <!--/product_button-->
@@ -275,7 +278,7 @@
                     <div class="u-align-center u-container-style u-products-item u-repeater-item">
                         <div class="u-container-layout u-similar-container u-valign-top u-container-layout-4">
                             <!--product_image-->
-                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-4" src="{% static 'draw/images/jordan1OFF-8.jpeg' %}" data-image-width="842" data-image-height="595">
+                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-4 u-radius-50" src="{% static 'draw/images/jordan1OFF-8.jpeg' %}" data-image-width="842" data-image-height="595">
                             <!--/product_image-->
                             <!--product_title-->
                             <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-5">
@@ -297,9 +300,9 @@
                     <!--/product_item-->
                     <!--product_item-->
                     <div class="u-align-center u-container-style u-products-item u-repeater-item">
-                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-5">
+                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-5 u-radius-50">
                             <!--product_image-->
-                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-5" src="{% static 'draw/images/jordan1OFF-8.jpeg' %}" data-image-width="842" data-image-height="595">
+                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-5 u-radius-50" src="{% static 'draw/images/jordan1OFF-8.jpeg' %}" data-image-width="842" data-image-height="595">
                             <!--/product_image-->
                             <!--product_title-->
                             <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-6">
@@ -323,7 +326,7 @@
                     <div class="u-align-center u-container-style u-products-item u-repeater-item">
                         <div class="u-container-layout u-similar-container u-valign-top u-container-layout-6">
                             <!--product_image-->
-                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-6" src="{% static 'draw/images/jordan1OFF-8.jpeg' %}" data-image-width="842" data-image-height="595">
+                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-6 u-radius-50" src="{% static 'draw/images/jordan1OFF-8.jpeg' %}" data-image-width="842" data-image-height="595">
                             <!--/product_image-->
                             <!--product_title-->
                             <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-7">
@@ -361,9 +364,7 @@
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
     <script type="text/javascript">
         function dropped() {
-
-            document.getElementById('section2').scrollIntoView(true);
-        
+            document.getElementById('section2').scrollIntoView({behavior: 'smooth'});
         }
     </script>
 </body>
