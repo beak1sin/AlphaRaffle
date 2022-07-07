@@ -204,7 +204,38 @@ def member_update(request):
 @csrf_exempt
 def details(request):
     context = {}
+    shoe = Shoe.objects.all()
+    
+    if request.session.has_key('member_no'):
+        member_no = request.session['member_no']
+        member = Member.objects.get(pk= member_no)
+        print(member_no)
+
+    else:
+        member_no = None
+        member = None
+
+    context["member_no"] = member_no
+    context = {'shoe':shoe, 'member':member }
     return render(request, "draw/details.html", context)
+
+@csrf_exempt
+def delete(request):
+    context = {}
+    shoe = Shoe.objects.all()
+    
+    if request.session.has_key('member_no'):
+        member_no = request.session['member_no']
+        member = Member.objects.get(pk= member_no)
+        print(member_no)
+
+    else:
+        member_no = None
+        member = None
+
+    context["member_no"] = member_no
+    context = {'shoe':shoe, 'member':member }
+    return render(request, "draw/delete.html", context)
 
 
 
