@@ -106,20 +106,19 @@
                     <h6 class="u-text u-text-2"> AlphaRaffle 웹사이트에서 <strong>{{ member.member_nickname}}</strong> 회원님의 계정이 삭제됩니다.<br>탈퇴 시 개인정보 및 이용정보가 삭제되며 복구할 수 없습니다.<br>본인의 비밀번호를 입력한 후 하단의 유의사항 동의에 체크에 체크하세요.
                     </h6>
                     <div class="u-form u-form-1">
-                        <form action="" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form-2" style="padding: 10px;">
-
-
+                        {% csrf_token %}
+                        <form action="{% url 'draw:member_delete' %}" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form-2" style="padding: 10px;">
                             <div class="u-form-group u-form-group-1">
                                 <label for="text-a31f" class="u-label u-label-1">Input</label>
-                                <input type="text" placeholder="비밀번호를 입력하세요." id="text-a31f" name="본인인증을 위해 비밀번호를 입력해주세요." class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-white">
+                                <input type="password" placeholder="비밀번호를 입력하세요." id="member_pwd" name="member_pwd" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-white">
                             </div>
                             <div class="u-form-checkbox u-form-group u-form-group-2">
-                                <input type="checkbox" id="checkbox-bf0d" name="checkbox" value="On">
+                                <input type="checkbox" id="warrantcheck" name="warrantcheck" value="On">
                                 <label for="checkbox-bf0d" class="u-label u-label-2">유의사항 동의</label>
                             </div>
-                            <div class="u-align-center u-form-group u-form-submit">
-                                <a href="{% url 'draw:마이페이지' %}" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-btn-submit u-button-style u-hover-grey-80 u-none u-radius-50 u-text-black u-text-hover-white u-btn-1" target="_self">돌아가기</a>
-                                <a href="{% url 'draw:마이페이지' %}" class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-2-base u-none u-radius-50 u-text-palette-2-base u-text-hover-white u-btn-2">탈퇴하기</a>
+                            <div class="u-align-center u-form-group">
+                                <a href="{% url 'draw:마이페이지' %}" id="back_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-btn-submit u-button-style u-hover-grey-80 u-none u-radius-50 u-text-black u-text-hover-white u-btn-1" target="_self">돌아가기</a>
+                                <a onclick="member_delete();" id="delete_btn" class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-2-base u-none u-radius-50 u-text-palette-2-base u-text-hover-white u-btn-2">탈퇴하기</a>
                                 <input type="submit" value="submit" class="u-form-control-hidden">
                             </div>
                         </form>
@@ -142,6 +141,91 @@
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script type="text/javascript">
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        var csrftoken = getCookie('csrftoken');
+
+        var xhr;
+
+        function member_delete() {
+            memberpwd = document.getElementById("member_pwd").value;
+            if(memberpwd == "") {
+                Swal.fire({
+                  icon: 'error',
+                  title: '비밀번호를 입력하세요.',
+                  confirmButtonColor: '#000000',
+                  timer: 2000,
+                  timerProgressBar: true
+                })
+                return false;
+            }
+
+            wflag = document.getElementById("warrantcheck").checked;
+            if(wflag == false) {
+                Swal.fire({
+                  icon: 'error',
+                  title: '약관에 동의해주세요.',
+                  confirmButtonColor: '#000000',
+                  timer: 2000,
+                  timerProgressBar: true
+                })
+                return false;
+            }
+
+            var strurl = "/member_delete?member_pwd=" + memberpwd;
+            // alert(strurl);
+            // return false;
+
+            xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    var data = xhr.responseText;
+
+                    var obj = JSON.parse(data);
+                    // alert(obj.result_msg);
+                    // location.href = "/";
+
+                    if(obj.flag == "1"){
+                        Swal.fire({
+                          icon: 'success',
+                          title: obj.result_msg,
+                          confirmButtonColor: '#000000',
+                          timer: 2000,
+                          timerProgressBar: true
+                        })
+                        location.href = "/";
+                    } else {
+                      Swal.fire({
+                        icon: 'error',
+                        title: obj.result_msg,
+                        confirmButtonColor: '#000000',
+                        timer: 2000,
+                        timerProgressBar: true
+                      })
+                    }
+                }
+            };
+
+            xhr.open("POST", strurl);
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            xhr.send(null);
+        }
+    </script>
 </body>
 
 </html>

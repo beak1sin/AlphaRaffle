@@ -237,8 +237,21 @@ def delete(request):
     context = {'shoe':shoe, 'member':member }
     return render(request, "draw/delete.html", context)
 
+@csrf_exempt
+def member_delete(request):
+    context = {}
+    memberpwd = request.GET.get('member_pwd')
+    memberno = request.session['member_no']
+    rsMember = Member.objects.get(member_no=memberno)
 
+    if (rsMember.member_pwd == memberpwd):
+        Member.objects.get(member_no=memberno).delete()
+        request.session.flush()
+        context['flag'] = '1'
+        context['result_msg'] = '회원 탈퇴 완료하였습니다.'
+    else:
+        context['flag'] = '0'
+        context['result_msg'] = '비밀번호가 일치하지 않습니다.'
 
-
-
+    return JsonResponse(context, content_type="application/json")
 
