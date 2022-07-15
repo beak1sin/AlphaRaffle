@@ -59,7 +59,7 @@
                         <div class="u-container-layout u-container-layout-1">
                             <div class="u-border-3 u-border-grey-dark-1 u-expanded-width u-line u-line-horizontal u-line-1"></div>
                             <div class="u-container-style u-group u-shape-rectangle u-group-1">
-                                <div class="u-container-layout u-container-layout-2">
+                                <div class="u-container-layout u-container-layout-2" id="title_box">
                                     <h6 class="u-text u-text-default u-text-1">이메일</h6>
                                     <h6 class="u-text u-text-default u-text-2">이름</h6>
                                     <h6 class="u-text u-text-default u-text-3">닉네임</h6>
@@ -71,28 +71,28 @@
 
                             <div class="u-form u-form-1">
                                 <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" id="update_box" source="custom" name="form" style="padding: 10px; display: none;">
-                                    <div class="u-form-group u-label-none">
-                                      <label for="name-5490" class="u-label">Name</label>
+                                    <div class="u-form-group u-label-none" id="label-email">
+                                      <label for="name-5490" class="u-label">이메일</label>
                                       <input type="text" id="name-5490" name="name" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-1" required="required" value="{{member.member_id}}" readonly>
                                     </div>
-                                    <div class="u-form-group u-label-none">
-                                      <label for="email-5490" class="u-label">Email</label>
+                                    <div class="u-form-group u-label-none" id="label-name">
+                                      <label for="email-5490" class="u-label">이름</label>
                                       <input type="text" id="email-5490" name="name-1" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-2" required="required" value="{{member.member_realname}}" readonly>
                                     </div>
-                                    <div class="u-form-group u-label-none">
-                                      <label for="message-5490" class="u-label">Message</label>
+                                    <div class="u-form-group u-label-none" id="label-nickname">
+                                      <label for="message-5490" class="u-label">닉네임</label>
                                       <input rows="4" cols="50" id="member_nickname" name="member_nickname" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-3" required="required" type="text" value="{{member.member_nickname}}">
                                     </div>
-                                    <div class="u-form-group u-label-none u-form-group-4">
-                                      <label for="text-5306" class="u-label">Input</label>
+                                    <div class="u-form-group u-form-group-4 u-label-none" id="label-phonenumber">
+                                      <label for="text-5306" class="u-label">핸드폰번호</label>
                                       <input type="text" placeholder="" id="member_phonenumber" name="member_phonenumber" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-4" value="{{member.member_phonenumber}}">
                                     </div>
-                                    <div class="u-form-group u-label-none u-form-group-6">
-                                      <label for="text-7ac3" class="u-label">Input</label>
+                                    <div class="u-form-group u-form-group-6 u-label-none" id="label-nikeid">
+                                      <label for="text-7ac3" class="u-label">나이키 ID</label>
                                       <input type="text" placeholder="" id="member_nikeid" name="member_nikeid" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-6" value="{{member.member_nikeid}}">
                                     </div>
-                                    <div class="u-form-group u-label-none u-form-group-7">
-                                      <label for="text-f144" class="u-label">Input</label>
+                                    <div class="u-form-group u-form-group-7 u-label-none" id="label-birth">
+                                      <label for="text-f144" class="u-label">생년월일</label>
                                       <input type="text" placeholder="" id="member_birth" name="member_birth" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-7" value="{{member.member_birth}}">
                                     </div>
                                     <div class="u-align-left u-form-group u-form-submit u-label-none">
@@ -162,12 +162,33 @@
                 $('#information_box').hide();
                 $('#update_btn').hide();
                 $('#delete_btn').show();
+                $('#title_box').addClass('title_box');
+                if ($(window).width() <= 767) {
+                    $('#label-email').removeClass('u-label-none');
+                    $('#label-name').removeClass('u-label-none');
+                    $('#label-nickname').removeClass('u-label-none');
+                    $('#label-phonenumber').removeClass('u-label-none');
+                    $('#label-nikeid').removeClass('u-label-none');
+                    $('#label-birth').removeClass('u-label-none');
+                } else {
+                    if ($('#label-email').hasClass('u-label-none')) {
+                        // alert('good');
+                    } else {
+                        $('#label-email').addClass('u-label-none');
+                        $('#label-name').addClass('u-label-none');
+                        $('#label-nickname').addClass('u-label-none');
+                        $('#label-phonenumber').addClass('u-label-none');
+                        $('#label-nikeid').addClass('u-label-none');
+                        $('#label-birth').addClass('u-label-none');
+                    }
+                }
             });
             $('#cancel_btn').on('click', function() {
                 $('#update_box').hide();
                 $('#information_box').show();
                 $('#update_btn').show();
                 $('#delete_btn').hide();
+                $('#title_box').removeClass('title_box');
             });
 
         });
