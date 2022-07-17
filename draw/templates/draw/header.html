@@ -29,7 +29,7 @@
 
                     {% if member.member_no == None %} 
                     <li class="u-nav-item">
-                      <a class="u-button-style u-nav-link u-text-active-grey-80 u-text-grey-80 u-text-hover-grey-90" href="{% url 'draw:로그인' %}" style="padding: 10px 20px;">로그인/회원가입</a>
+                      <a class="u-nav-link" id="login-btn" href="{% url 'draw:로그인' %}" style="padding: 10px 20px; border: 2px solid; border-radius: 50px; transition-duration: 0.5s; ">로그인/회원가입</a>
                     </li>
                     {% else %}
                     <li class="u-nav-item">
@@ -56,7 +56,7 @@
                             -->
                             {% if member.member_no == None %}
                             <li class="u-nav-item">
-                              <a class="u-button-style u-nav-link" href="{% url 'draw:로그인' %}">로그인/회원가입</a>
+                              <a class="u-button-style u-nav-link" id="login-btn-nav" href="{% url 'draw:로그인' %}" style="border: 2px solid; border-radius: 50px; transition-duration: 0.5s;">로그인/회원가입</a>
                             </li>
                             {% else %}
                             <li class="u-nav-item">
@@ -74,3 +74,15 @@
         </nav>
     </div>
 </header>
+<style type="text/css">
+    #login-btn:hover {
+        transition-duration: 0.5s;
+        background: black;
+        border: 2x solid black;
+        color: white;
+    }
+
+    #login-btn-nav:hover {
+        transition-duration: 0.5s;
+    }
+</style>
