@@ -141,3 +141,38 @@ header {
   border-bottom-color: black;
   position: fixed;
 }
+
+/* 체크박스 스타일 */
+input[type="checkbox"] {
+  transition-duration: 0.5s;
+}
+
+input[type="checkbox"]:hover {
+  transition-duration: 0.5s;
+  width: 16px;
+  height: 16px;
+}
+
+input[type="checkbox"]:checked {
+  accent-color: black;
+  animation: fadeIn 1s;
+}
+/* ----------체크박스 스타일 */
+
+/* 버튼 hover 시간 */
+.u-btn {
+  transition-duration: 0.5s;
+}
+
+.u-btn:hover {
+  transition-duration: 0.5s;
+}
+
+.overlap {
+  transition-duration: 0.5s;
+}
+
+.overlap:hover {
+  transition-duration: 0.5s;
+}
+/* ----------버튼 hover 시간 */

@@ -642,3 +642,12 @@ header {
 .u-section-2 {
   animation: fadeIn 2s;
 }
+
+/* 버튼 hover 시간 */
+.u-btn {
+  transition-duration: 0.5s;
+}
+
+.u-btn:hover {
+  transition-duration: 0.5s;
+}

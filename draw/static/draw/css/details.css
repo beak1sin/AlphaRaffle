@@ -493,3 +493,13 @@ table {
 .u-section-2 {
   animation: fadeIn 1s;
 }
+
+/* 버튼 hover 시간 */
+.u-btn {
+  transition-duration: 0.5s;
+}
+
+.u-btn:hover {
+  transition-duration: 0.5s;
+}
+/* ----------버튼 hover 시간 */

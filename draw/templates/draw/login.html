@@ -61,8 +61,8 @@
                         <input type="hidden" id="idcheck" value="0"/>
                         <div class="u-form-email u-form-group u-form-group-1">
                             <label for="email-6642" class="u-label u-label-1">이메일</label>
-                             <button type='button' onclick="checkId();" class="u-border-none u-btn-20 u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 overlap">중복확인<br>
-                            </button>
+                             <a onclick="checkId();" class="u-border-none u-btn-20 u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 overlap">중복확인<br>
+                            </a>
                             <input type="email" placeholder="이메일을 입력하세요." id="member_id" name="member_id" class="u-border-3 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-white" required="">
                         </div>
                         <div class="u-form-group u-form-group-2">
@@ -124,7 +124,7 @@
                         </div>
                         <div class="u-form-checkbox u-form-group u-label-top u-form-group-9">
                             <input type="checkbox" id="warrantcheck" name="warrantcheck" value="On">
-                            <label class="u-text-grey-80">&nbsp;(필수) 본인은 만 14세 이상이며 이메일 주소 수집에 동의합니다.</label>
+                            <label for="warrantcheck" class="u-text-grey-80">&nbsp;(필수) 본인은 만 14세 이상이며 이메일 주소 수집에 동의합니다.</label>
                         </div>
                         <div class="u-align-left u-form-group u-form-submit">
                             <a onclick="registerMember();" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">회원가입<br>
