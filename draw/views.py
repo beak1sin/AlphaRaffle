@@ -81,13 +81,16 @@ def home(request):
     context = {'shoe':shoe, 'member':member }
     return render(request, "draw/main.html", context)
 
-
 @csrf_exempt
 def member_login(request):
     context = {}
-    memberid = request.POST['member_loginid']
-    memberpwd = request.POST['member_loginpwd']
+    # memberid = request.POST['member_loginid']
+    # memberpwd = request.POST['member_loginpwd']
 
+    memberid = request.POST.get('member_loginid')
+    memberpwd = request.POST.get('member_loginpwd')
+    print(memberid)
+    print(memberpwd)
     if 'member_no' in request.session:
         context['flag'] = '1'
         context['result_msg'] = 'Login 되어 있습니다.'
@@ -104,20 +107,23 @@ def member_login(request):
             rsMember.save()
 
             request.session['member_no'] = memberno
-            request.session['member_name'] = membername
+            request.session['member_nickname'] = membername
 
-            context['flag'] = '0'
-            context['result_msg'] = 'Login 성공... '
-            return redirect('/')
+            # context['flag'] = '0'
+            # context['result_msg'] = 'Login 성공... '
+            context = {
+                'flag': '0',
+                'result_msg': 'Login 성공...'
+            }
+            # return redirect('/')
 
         else:
             context['flag'] = '1'
             context['result_msg'] = 'Login error... 아이디와 비번을 확인하세요.'
-            messages.info(request, 'Your password has been changed successfully!')
-            return render(request, 'draw/login.html')
-    return redirect('/')
+            # return render(request, 'draw/login.html')
 
-    
+    return JsonResponse(context, content_type="application/json")
+
 
 @csrf_exempt
 def logout(request):

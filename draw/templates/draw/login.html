@@ -49,7 +49,7 @@
 
                 <!-- 에러 메세지 -->
                 <div class="message_box">
-                    <p class="danger hidden" id="error_message"></p>
+                    <p class="danger hidden" id=""></p>
                 </div>
 
 
@@ -153,6 +153,10 @@
                             <input type="checkbox" id="checkbox-a30d" name="remember" value="On">
                             <label for="checkbox-a30d" class="u-label u-spacing-0 u-text-grey-80 u-label-3">이메일 기억하기</label>
                         </div>
+                        <div class="error_box" style="width: 550px; text-align: center; display: none;">
+                            <p class="error_message" style="margin-top: 0px; color: red;"></p>
+                        </div>
+                        
                         <div class="u-align-left u-form-group u-form-submit u-label-top">
                             <input type="submit" value="submit" class="u-form-control-hidden">
                             <a onclick="loginCheck();" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">로그인<br>
@@ -178,7 +182,7 @@
     <script>
         $(document).ready(function() {
             $('.signin_tab').on('click', function() {
-                $('#error_message').html('');
+                $('.error_box').hide();
                 $('#error_message').addClass('hidden');
                 $('.login_error_message').addClass('hidden');
                 $(this).addClass('active');
@@ -189,7 +193,7 @@
                 $('.signup_box').hide();
             });
             $('.signup_tab').on('click', function() {
-                $('#error_message').html('');
+                $('.error_box').hide();
                 $('#error_message').addClass('hidden');
                 $('.login_error_message').addClass('hidden');
                 $(this).addClass('active');
@@ -389,18 +393,21 @@
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
             xhr.send(null);
         }
+
         function loginCheck(bno) {
 
             memberid = document.getElementById("member_loginid").value;
             if(memberid == "") {
-                alert("아이디를 넣으세요.");
+                $('.error_box').show();
+                $('.error_message').html('이메일을 입력하세요.');
                 document.getElementById("member_loginid").focus();
                 return false;
             }
 
             memberpwd = document.getElementById("member_loginpwd").value;
             if(memberpwd == "") {
-                alert("비밀번호를 넣으세요.");
+                $('.error_box').show();
+                $('.error_message').html('비밀번호를 입력하세요.');
                 document.getElementById("member_loginpwd").focus();
                 return false;
             }
@@ -414,9 +421,14 @@
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4) {
                     var data = xhr.responseText;
+                    print(data);
+                    alert(data);
 
                     var obj = JSON.parse(data);
+                    // print(obj)
+                    print(obj.flag);
                     if(obj.flag == "0"){
+                        alert(obj.result_msg);
                         location.href = "/";
                     }
                     else {
@@ -432,11 +444,10 @@
                     }
                 }
             };
-            xhr.open("POST", '/member_login');
+            xhr.open("POST", strurl);
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            //xhr.send(null);
+            xhr.send(null);
         }
-
     </script>
 </body>
 
