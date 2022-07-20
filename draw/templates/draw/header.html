@@ -23,7 +23,7 @@
                 <ul class="u-nav u-unstyled u-nav-1">
                     {% if member.member_no == None %}
                     {% else %}
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-grey-80 u-text-grey-80 u-text-hover-grey-90" href="{% url 'draw:마이페이지' %}" style="padding: 10px 20px;">마이페이지</a>
+                    <li class="u-nav-item"><a class="u-nav-link" id="mypage-btn" href="{% url 'draw:마이페이지' %}" style="padding: 10px 20px; transition-duration: 0.5s;">마이페이지</a>
                     </li>
                     {% endif %}
 
@@ -35,7 +35,7 @@
                     <li class="u-nav-item">
                         {{member.member_nickname}}님 환영합니다.
                     </li>
-                    <li class="u-nav-item"><a class="u-button-style u-border-2 u-border-grey-80 u-btn-round u-radius-50 u-nav-link u-hover-grey-80 u-text-active-grey-80 u-text-grey-80 u-text-hover-white" href="{% url 'draw:로그아웃' %}" style="padding: 10px 20px;">로그아웃</a>
+                    <li class="u-nav-item"><a class="u-button-style u-border-2 u-border-grey-80 u-btn-round u-radius-50 u-nav-link u-hover-grey-80 u-text-active-grey-80 u-text-grey-80 u-text-hover-white" id="logout-btn" href="{% url 'draw:로그아웃' %}" style="padding: 10px 20px; border: 2px solid; border-radius: 50px; transition-duration: 0.5s;">로그아웃</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -47,7 +47,7 @@
                         <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
                             {% if member.member_no == None %}
                             {% else %}
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'draw:마이페이지' %}">마이페이지</a>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" id="mypage-btn-nav" style="transition-duration: 0.5s;" href="{% url 'draw:마이페이지' %}">마이페이지</a>
                             </li>
                             {% endif %}
                             <!--
@@ -63,7 +63,7 @@
                                 {{member.member_nickname}}님 환영합니다.
                             </li>
                             <li class="u-nav-item">
-                                <a class="u-button-style u-nav-link" href="{% url 'draw:로그아웃' %}">로그아웃</a>
+                                <a class="u-button-style u-nav-link" id="logout-btn-nav" href="{% url 'draw:로그아웃' %}" style="border: 2px solid; border-radius: 50px; transition-duration: 0.5s;">로그아웃</a>
                             </li>
                             {% endif %}
                         </ul>
@@ -75,14 +75,20 @@
     </div>
 </header>
 <style type="text/css">
-    #login-btn:hover {
+    #login-btn:hover, #logout-btn:hover {
         transition-duration: 0.5s;
         background: black;
-        border: 2x solid black;
+        border: 2px solid black;
         color: white;
     }
 
-    #login-btn-nav:hover {
+    #login-btn-nav:hover, #logout-btn-nav:hover, #mypage-btn-nav:hover {
         transition-duration: 0.5s;
+    }
+
+    #mypage-btn:hover {
+        transition-duration: 0.5s;
+        border: 2px solid black;
+        /*background: black;*/
     }
 </style>

@@ -136,18 +136,17 @@
                 </div>
 
                 <!-- 로그인 -->
-
+                {% csrf_token %}
                 <div class="signin_box">
                     <form id="signin_form" action="{% url 'draw:member_login' %}" method="POST" class="u-clearfix u-form-custom-backend u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
 
-                        {% csrf_token %}
                         <div class="u-form-group u-form-name u-label-top">
                             <label for="username-a30d" class="u-label u-spacing-0 u-text-grey-80 u-label-1">이메일 *</label>
                             <input type="text" placeholder="이메일을 입력하세요." id="member_loginid" name="member_loginid" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-1" required="">
                         </div>
                         <div class="u-form-group u-form-password u-label-top">
                             <label for="password-a30d" class="u-label u-spacing-0 u-text-grey-80 u-label-2">비밀번호 *</label>
-                            <input type="password" placeholder="비밀번호를 입력하세요." id="member_loginpwd" name="member_loginpwd" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-2" required="">
+                            <input onkeyup="enterkey();" type="password" placeholder="비밀번호를 입력하세요." id="member_loginpwd" name="member_loginpwd" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-2" required="">
                         </div>
                         <div class="u-form-checkbox u-form-group u-label-top">
                             <input type="checkbox" id="checkbox-a30d" name="remember" value="On">
@@ -158,9 +157,10 @@
                         </div>
                         
                         <div class="u-align-left u-form-group u-form-submit u-label-top">
-                            <input type="submit" value="submit" class="u-form-control-hidden">
+                            
                             <a onclick="loginCheck();" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">로그인<br>
                             </a>
+                            <input type="submit" value="submit" class="u-form-control-hidden">
                         </div>
                         <input type="hidden" value="" name="recaptchaResponse">
                     </form>
@@ -394,7 +394,7 @@
             xhr.send(null);
         }
 
-        function loginCheck(bno) {
+        function loginCheck() {
 
             memberid = document.getElementById("member_loginid").value;
             if(memberid == "") {
@@ -421,26 +421,27 @@
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4) {
                     var data = xhr.responseText;
-                    print(data);
-                    alert(data);
+                    // alert(data);
 
                     var obj = JSON.parse(data);
-                    // print(obj)
-                    print(obj.flag);
+                    // alert(obj.flag)
                     if(obj.flag == "0"){
                         alert(obj.result_msg);
                         location.href = "/";
                     }
                     else {
-                        Swal.fire({
-                          icon: 'error',
-                          title: obj.result_msg,
-                          confirmButtonColor: '#000000',
-                          timer: 2000,
-                          timerProgressBar: true
-                        })
+                        // alert(obj.result_msg);
+                        // location.href = "/auth/login/";
+                        $('.error_box').show();
+                        $('.error_message').html(obj.result_msg);
+                        // Swal.fire({
+                        //   icon: 'error',
+                        //   title: obj.result_msg,
+                        //   confirmButtonColor: '#000000',
+                        //   timer: 2000,
+                        //   timerProgressBar: true
+                        // })
                         document.getElementById("member_id").focus();
-                        return false;
                     }
                 }
             };
@@ -448,6 +449,7 @@
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
             xhr.send(null);
         }
+
     </script>
 </body>
 

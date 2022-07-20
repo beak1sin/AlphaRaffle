@@ -93,7 +93,8 @@ def member_login(request):
     print(memberpwd)
     if 'member_no' in request.session:
         context['flag'] = '1'
-        context['result_msg'] = 'Login 되어 있습니다.'
+        context['result_msg'] = 'Already Login 되어 있습니다.'
+
     else:
 
         rsTmp = Member.objects.filter(member_id=memberid, member_pwd=memberpwd)
@@ -113,7 +114,7 @@ def member_login(request):
             # context['result_msg'] = 'Login 성공... '
             context = {
                 'flag': '0',
-                'result_msg': 'Login 성공...'
+                'result_msg': 'Login complete 성공...'
             }
             # return redirect('/')
 
@@ -121,8 +122,10 @@ def member_login(request):
             context['flag'] = '1'
             context['result_msg'] = 'Login error... 아이디와 비번을 확인하세요.'
             # return render(request, 'draw/login.html')
+            # return render(request, "draw/login.html", context)
 
     return JsonResponse(context, content_type="application/json")
+    # return render(request, "draw/main.html", context)
 
 
 @csrf_exempt
