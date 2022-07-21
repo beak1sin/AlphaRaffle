@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 {% load static %}
-<html style="font-size: 16px;">
+<html style="font-size: 16px;" lang="ko">
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,10 +54,9 @@
 
 
                 <!-- 회원가입 -->
-                {% csrf_token %}
                 <div class="signup_box" style="display: none;">
                     <form id="signup_form" action="{% url 'draw:member_insert' %}" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
-
+                        {% csrf_token %}
                         <input type="hidden" id="idcheck" value="0"/>
                         <div class="u-form-email u-form-group u-form-group-1">
                             <label for="email-6642" class="u-label u-label-1">이메일</label>
@@ -136,17 +135,16 @@
                 </div>
 
                 <!-- 로그인 -->
-                {% csrf_token %}
                 <div class="signin_box">
                     <form id="signin_form" action="{% url 'draw:member_login' %}" method="POST" class="u-clearfix u-form-custom-backend u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
-
+                        {% csrf_token %}
                         <div class="u-form-group u-form-name u-label-top">
                             <label for="username-a30d" class="u-label u-spacing-0 u-text-grey-80 u-label-1">이메일 *</label>
                             <input type="text" placeholder="이메일을 입력하세요." id="member_loginid" name="member_loginid" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-1" required="">
                         </div>
                         <div class="u-form-group u-form-password u-label-top">
                             <label for="password-a30d" class="u-label u-spacing-0 u-text-grey-80 u-label-2">비밀번호 *</label>
-                            <input onkeyup="enterkey();" type="password" placeholder="비밀번호를 입력하세요." id="member_loginpwd" name="member_loginpwd" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-2" required="">
+                            <input type="password" placeholder="비밀번호를 입력하세요." id="member_loginpwd" name="member_loginpwd" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-2" required="">
                         </div>
                         <div class="u-form-checkbox u-form-group u-label-top">
                             <input type="checkbox" id="checkbox-a30d" name="remember" value="On">
@@ -301,33 +299,43 @@
             membernikeid = document.getElementById("member_nikeid").value;
             memberphonenumber = document.getElementById("member_phonenumber").value;
 
-            //alert(strurl);
-            //return false;
             var strurl = "/member_insert?&member_id=" + memberid + "&member_pwd=" + pwdencrypted + "&member_realname=" + memberrealname + "&member_nickname=" + membernickname + "&member_birth=" + memberbirth + "&member_nikeid=" + membernikeid + "&member_phonenumber=" + memberphonenumber;
 
 
-            xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4) {
-                    var data = xhr.responseText;
+            // xhr = new XMLHttpRequest();
+            // xhr.onreadystatechange = function() {
+            //     if (xhr.readyState == 4) {
+            //         var data = xhr.responseText;
 
-                    var obj = JSON.parse(data);
-                    alert(obj.result_msg);
-                    if(obj.flag == "1"){
+            //         var obj = JSON.parse(data);
+            //         alert(obj.result_msg);
+            //         if(obj.flag == "1"){
+            //             location.href = "/";
+            //         }
+            //     }
+            // };
+            // xhr.open("POST", "/member_insert");
+            // xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            $.ajax({
+                url: '/member_insert',
+                type: 'POST',
+                data: {
+                    'member_id': memberid,
+                    'member_pwd': pwdencrypted,
+                    'member_realname': memberrealname,
+                    'member_nickname': membernickname,
+                    'member_birth': memberbirth,
+                    'member_nikeid': membernikeid,
+                    'member_phonenumber': memberphonenumber
+                },
+                datatype: 'json',
+                success: function(data) {
+                    if (data['flag'] == '1') {
+                        alert(data['result_msg']);
                         location.href = "/";
                     }
                 }
-            };
-            // Swal.fire({
-            //   icon: 'success',
-            //   title: '회원가입 성공',
-            //   confirmButtonColor: '#000000',
-            //   timer: 2000,
-            //   timerProgressBar: true
-            // })
-            xhr.open("POST", "/member_insert");
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            // xhr.send(null);
+            });
         }
 
         function checkId() {
@@ -417,37 +425,66 @@
             //alert(strurl);
             //return break;
 
-            xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4) {
-                    var data = xhr.responseText;
-                    // alert(data);
+            // xhr = new XMLHttpRequest();
+            // xhr.onreadystatechange = function() {
+            //     if (xhr.readyState == 4) {
+            //         var data = xhr.responseText;
+            //         // alert(data);
 
-                    var obj = JSON.parse(data);
-                    // alert(obj.flag)
-                    if(obj.flag == "0"){
-                        alert(obj.result_msg);
-                        location.href = "/";
-                    }
-                    else {
-                        // alert(obj.result_msg);
-                        // location.href = "/auth/login/";
+            //         var obj = JSON.parse(data);
+            //         alert(obj.flag);
+            //         // location.href = "/";
+            //         if(obj.flag == "0"){
+            //             alert(obj.result_msg);
+            //             // location.href = "/";
+            //         }
+            //         else {
+            //             // alert(obj.result_msg);
+            //             $('.error_box').show();
+            //             $('.error_message').html(obj.result_msg);
+            //             return false;
+            //             // Swal.fire({
+            //             //   icon: 'error',
+            //             //   title: obj.result_msg,
+            //             //   confirmButtonColor: '#000000',
+            //             //   timer: 2000,
+            //             //   timerProgressBar: true
+            //             // })
+            //             $('#member_id').focus();
+            //         }
+            //     }
+            // };
+            // xhr.open("POST", strurl);
+            // xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            // xhr.send(null);
+
+            $.ajax({
+                url: '/member_login',
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                data: {
+                    'member_id': memberid,
+                    'member_pwd': pwdencrypted
+                },
+                // data:JSON.stringify(data),
+                datatype: 'json',
+                success: function(data) {
+                    alert(data['flag']);
+                    opener.parent.location.reload();
+                    if (data['flag'] == '1') {
                         $('.error_box').show();
                         $('.error_message').html(obj.result_msg);
-                        // Swal.fire({
-                        //   icon: 'error',
-                        //   title: obj.result_msg,
-                        //   confirmButtonColor: '#000000',
-                        //   timer: 2000,
-                        //   timerProgressBar: true
-                        // })
-                        document.getElementById("member_id").focus();
+                        $('#member_id').focus();
+                        return false;
+                    } else {
+                        alert('로그인 성공');
+                        location.href('/');
                     }
+                },
+                error: function(data) {
+                    alert('failed');
                 }
-            };
-            xhr.open("POST", strurl);
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            xhr.send(null);
+            });
         }
 
     </script>

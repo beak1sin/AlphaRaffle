@@ -10,8 +10,13 @@ from django.db.models import Q
 import time
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.core import serializers
 from django.contrib import messages
+import json
+from flask import Flask
+app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 
 User = get_user_model()
 # Create your views here.
@@ -39,13 +44,21 @@ def member_idcheck(request):
 def member_insert(request):
     context = {}
 
-    memberid = request.POST['member_id']
-    memberpwd = request.POST['member_pwd']
-    memberrealname = request.POST['member_realname']
-    membernickname = request.POST['member_nickname']
-    memberbirth = request.POST['member_birth']
-    membernikeid = request.POST['member_nikeid']
-    memberphonenumber = request.POST['member_phonenumber']
+    # memberid = request.POST['member_id']
+    # memberpwd = request.POST['member_pwd']
+    # memberrealname = request.POST['member_realname']
+    # membernickname = request.POST['member_nickname']
+    # memberbirth = request.POST['member_birth']
+    # membernikeid = request.POST['member_nikeid']
+    # memberphonenumber = request.POST['member_phonenumber']
+
+    memberid = request.POST.get('member_id')
+    memberpwd = request.POST.get('member_pwd')
+    memberrealname = request.POST.get('member_realname')
+    membernickname = request.POST.get('member_nickname')
+    memberbirth = request.POST.get('member_birth')
+    membernikeid = request.POST.get('member_nikeid')
+    memberphonenumber = request.POST.get('member_phonenumber')
 
     rs = Member.objects.create(member_id=memberid,
                                member_pwd=memberpwd,
@@ -89,6 +102,7 @@ def member_login(request):
 
     memberid = request.POST.get('member_loginid')
     memberpwd = request.POST.get('member_loginpwd')
+
     print(memberid)
     print(memberpwd)
     if 'member_no' in request.session:
@@ -117,14 +131,17 @@ def member_login(request):
                 'result_msg': 'Login complete 성공...'
             }
             # return redirect('/')
-
+            # return render(request, "draw/main.html", context)
         else:
             context['flag'] = '1'
             context['result_msg'] = 'Login error... 아이디와 비번을 확인하세요.'
             # return render(request, 'draw/login.html')
             # return render(request, "draw/login.html", context)
-
-    return JsonResponse(context, content_type="application/json")
+    # return HttpResponseRedirect('auth/login/', context) 
+    # return JsonResponse(context, content_type="application/json; charset=utf-8")
+    return JsonResponse(context, json_dumps_params={'ensure_ascii': False}, status=200)
+    # queryset_json = json.loads(serializers.serialize('json', context, ensure_ascii=False))
+    # return JsonResponse({'reload_all': False, 'queryset_json': queryset_json})
     # return render(request, "draw/main.html", context)
 
 
