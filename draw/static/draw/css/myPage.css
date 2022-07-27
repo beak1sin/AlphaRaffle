@@ -606,6 +606,7 @@
   }
 }
 
+/* 헤더 고정 */
 header {
   z-index: 1;
   background-color: white;
