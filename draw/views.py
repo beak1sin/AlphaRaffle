@@ -52,13 +52,22 @@ def member_insert(request):
     # membernikeid = request.POST['member_nikeid']
     # memberphonenumber = request.POST['member_phonenumber']
 
-    memberid = request.POST.get('member_id')
-    memberpwd = request.POST.get('member_pwd')
-    memberrealname = request.POST.get('member_realname')
-    membernickname = request.POST.get('member_nickname')
-    memberbirth = request.POST.get('member_birth')
-    membernikeid = request.POST.get('member_nikeid')
-    memberphonenumber = request.POST.get('member_phonenumber')
+    # memberid = request.POST.get('member_id')
+    # memberpwd = request.POST.get('member_pwd')
+    # memberrealname = request.POST.get('member_realname')
+    # membernickname = request.POST.get('member_nickname')
+    # memberbirth = request.POST.get('member_birth')
+    # membernikeid = request.POST.get('member_nikeid')
+    # memberphonenumber = request.POST.get('member_phonenumber')
+
+    memberid = request.GET['member_id']
+    memberpwd = request.GET['member_pwd']
+    memberrealname = request.GET['member_realname']
+    membernickname = request.GET['member_nickname']
+    memberbirth = request.GET['member_birth']
+    membernikeid = request.GET['member_nikeid']
+    memberphonenumber = request.GET['member_phonenumber']
+
 
     rs = Member.objects.create(member_id=memberid,
                                member_pwd=memberpwd,
@@ -72,7 +81,7 @@ def member_insert(request):
                                )
 
     context['flag'] = '1'
-    context['result_msg'] = '회원가입 되었습니다.<br>Home에서 로그인하세요.'
+    context['result_msg'] = '회원가입 되었습니다. Home에서 로그인하세요.'
 
     return JsonResponse(context, content_type="application/json")
 
@@ -100,9 +109,11 @@ def member_login(request):
     # memberid = request.POST['member_loginid']
     # memberpwd = request.POST['member_loginpwd']
 
-    memberid = request.POST.get('member_loginid')
-    memberpwd = request.POST.get('member_loginpwd')
+    # memberid = request.POST.get('member_loginid')
+    # memberpwd = request.POST.get('member_loginpwd')
 
+    memberid = request.GET['member_loginid']
+    memberpwd = request.GET['member_loginpwd']
     print(memberid)
     print(memberpwd)
     if 'member_no' in request.session:
@@ -280,4 +291,3 @@ def member_delete(request):
         context['result_msg'] = '비밀번호가 일치하지 않습니다.'
 
     return JsonResponse(context, content_type="application/json")
-

@@ -55,8 +55,8 @@
 
                 <!-- 회원가입 -->
                 <div class="signup_box" style="display: none;">
-                    <form id="signup_form" action="{% url 'draw:member_insert' %}" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
-                        {% csrf_token %}
+                    <form id="signup_form" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
+                        
                         <input type="hidden" id="idcheck" value="0"/>
                         <div class="u-form-email u-form-group u-form-group-1">
                             <label for="email-6642" class="u-label u-label-1">이메일</label>
@@ -126,17 +126,35 @@
                             <label for="warrantcheck" class="u-text-grey-80">&nbsp;(필수) 본인은 만 14세 이상이며 이메일 주소 수집에 동의합니다.</label>
                         </div>
                         <div class="u-align-left u-form-group u-form-submit">
-                            <a onclick="registerMember();" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">회원가입<br>
-                            </a>
-                            <input type="submit" value="submit" class="u-form-control-hidden" id="signup_btn">
+                            <button onclick="registerMember();" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">회원가입<br>
+                            </button>
+                            <!-- <input type="submit" value="submit" class="u-form-control-hidden" id="signup_btn"> -->
                         </div>
-                        <input type="hidden" value="" name="recaptchaResponse">
+                        <!-- <input type="hidden" value="" name="recaptchaResponse"> -->
                     </form>
                 </div>
 
                 <!-- 로그인 -->
                 <div class="signin_box">
-                    <form id="signin_form" action="{% url 'draw:member_login' %}" method="POST" class="u-clearfix u-form-custom-backend u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
+                    <!-- <table>
+                        <tr>
+                            <td width="30%">
+                            <input type="text" class="form-control" id="member_loginid">
+                            </td>
+                            <td width="30%">
+                            <input type="password" class="form-control" id="member_loginpwd">
+                            </td>
+                            <td width="30%">
+                            <button class="btn-get-started scrollto" onclick="loginCheck();">로그인</button>
+                            </td>
+                            <td width="10%">
+                            </td>
+                        </tr>
+                        <div class="error_box" style="width: 550px; text-align: center; display: none;">
+                            <p class="error_message" style="margin-top: 0px; color: red;"></p>
+                        </div>
+                    </table> -->
+                    <form id="signin_form" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
                         {% csrf_token %}
                         <div class="u-form-group u-form-name u-label-top">
                             <label for="username-a30d" class="u-label u-spacing-0 u-text-grey-80 u-label-1">이메일 *</label>
@@ -156,9 +174,9 @@
                         
                         <div class="u-align-left u-form-group u-form-submit u-label-top">
                             
-                            <a onclick="loginCheck();" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">로그인<br>
-                            </a>
-                            <input type="submit" value="submit" class="u-form-control-hidden">
+                            <button onclick="loginCheck();" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1" id="login_btn">로그인<br>
+                            </button>
+                            <!-- <input type="submit" value="submit" class="u-form-control-hidden"> -->
                         </div>
                         <input type="hidden" value="" name="recaptchaResponse">
                     </form>
@@ -299,49 +317,50 @@
             membernikeid = document.getElementById("member_nikeid").value;
             memberphonenumber = document.getElementById("member_phonenumber").value;
 
-            var strurl = "/member_insert?&member_id=" + memberid + "&member_pwd=" + pwdencrypted + "&member_realname=" + memberrealname + "&member_nickname=" + membernickname + "&member_birth=" + memberbirth + "&member_nikeid=" + membernikeid + "&member_phonenumber=" + memberphonenumber;
+            var strurl = "/member_insert?member_id=" + memberid + "&member_pwd=" + pwdencrypted + "&member_realname=" + memberrealname + "&member_nickname=" + membernickname + "&member_birth=" + memberbirth + "&member_nikeid=" + membernikeid + "&member_phonenumber=" + memberphonenumber+'/';
 
 
-            // xhr = new XMLHttpRequest();
-            // xhr.onreadystatechange = function() {
-            //     if (xhr.readyState == 4) {
-            //         var data = xhr.responseText;
+            xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    var data = xhr.responseText;
 
-            //         var obj = JSON.parse(data);
-            //         alert(obj.result_msg);
-            //         if(obj.flag == "1"){
-            //             location.href = "/";
-            //         }
-            //     }
-            // };
-            // xhr.open("POST", "/member_insert");
-            // xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            $.ajax({
-                url: '/member_insert',
-                type: 'POST',
-                data: {
-                    'member_id': memberid,
-                    'member_pwd': pwdencrypted,
-                    'member_realname': memberrealname,
-                    'member_nickname': membernickname,
-                    'member_birth': memberbirth,
-                    'member_nikeid': membernikeid,
-                    'member_phonenumber': memberphonenumber
-                },
-                datatype: 'json',
-                success: function(data) {
-                    if (data['flag'] == '1') {
-                        alert(data['result_msg']);
+                    var obj = JSON.parse(data);
+                    alert(obj.result_msg);
+                    if(obj.flag == "1"){
                         location.href = "/";
                     }
                 }
-            });
+            };
+            xhr.open("POST", strurl);
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            xhr.send(null);
+            // $.ajax({
+            //     url: '/member_insert',
+            //     type: 'POST',
+            //     data: {
+            //         'member_id': memberid,
+            //         'member_pwd': pwdencrypted,
+            //         'member_realname': memberrealname,
+            //         'member_nickname': membernickname,
+            //         'member_birth': memberbirth,
+            //         'member_nikeid': membernikeid,
+            //         'member_phonenumber': memberphonenumber
+            //     },
+            //     datatype: 'json',
+            //     success: function(data) {
+            //         if (data['flag'] == '1') {
+            //             alert(data['result_msg']);
+            //             location.href = "/";
+            //         }
+            //     }
+            // });
         }
 
         function checkId() {
-            memberid = document.getElementById("member_id").value;
+            memberidcheck = document.getElementById("member_id").value;
             regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-            if (memberid.match(regExp) == null) {
+            if (memberidcheck.match(regExp) == null) {
                 Swal.fire({
                   icon: 'error',
                   title: '이메일 형식이 아닙니다.',
@@ -352,7 +371,7 @@
                 document.getElementById("member_id").focus();
                 return false;
             }
-            if(memberid == "") {
+            if(memberidcheck == "") {
                 Swal.fire({
                   icon: 'error',
                   title: '아이디가 비어있습니다.',
@@ -364,7 +383,7 @@
                 return false;
             }
 
-            var strurl = "/member_idcheck?member_id=" + memberid;
+            var strurl = "/member_idcheck?member_id=" + memberidcheck;
             //alert(strurl);
             //return false;
 
@@ -421,70 +440,72 @@
             }
             pwdencrypted = hex_sha1(memberpwd);
 
-            var strurl = "/member_login?member_id=" + memberid + "&member_pwd=" + pwdencrypted;
+            var strurl = "/member_login?member_loginid=" + memberid + "&member_loginpwd=" + pwdencrypted;
             //alert(strurl);
             //return break;
 
-            // xhr = new XMLHttpRequest();
-            // xhr.onreadystatechange = function() {
-            //     if (xhr.readyState == 4) {
-            //         var data = xhr.responseText;
-            //         // alert(data);
+            xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    var data = xhr.responseText;
+                    // alert(data);
 
-            //         var obj = JSON.parse(data);
-            //         alert(obj.flag);
-            //         // location.href = "/";
-            //         if(obj.flag == "0"){
-            //             alert(obj.result_msg);
-            //             // location.href = "/";
-            //         }
-            //         else {
-            //             // alert(obj.result_msg);
-            //             $('.error_box').show();
-            //             $('.error_message').html(obj.result_msg);
-            //             return false;
-            //             // Swal.fire({
-            //             //   icon: 'error',
-            //             //   title: obj.result_msg,
-            //             //   confirmButtonColor: '#000000',
-            //             //   timer: 2000,
-            //             //   timerProgressBar: true
-            //             // })
-            //             $('#member_id').focus();
-            //         }
-            //     }
-            // };
-            // xhr.open("POST", strurl);
-            // xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            // xhr.send(null);
-
-            $.ajax({
-                url: '/member_login',
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                data: {
-                    'member_id': memberid,
-                    'member_pwd': pwdencrypted
-                },
-                // data:JSON.stringify(data),
-                datatype: 'json',
-                success: function(data) {
-                    alert(data['flag']);
-                    opener.parent.location.reload();
-                    if (data['flag'] == '1') {
+                    var obj = JSON.parse(data);
+                    // alert(obj.flag);
+                    // location.href = "/";
+                    if(obj.flag == "0"){
+                        // alert(obj.result_msg);
+                        location.href = "/";
+                    }
+                    else {
+                        // alert(obj.result_msg);
                         $('.error_box').show();
                         $('.error_message').html(obj.result_msg);
+                        // return false;
+                        // Swal.fire({
+                        //   icon: 'error',
+                        //   title: obj.result_msg,
+                        //   confirmButtonColor: '#000000',
+                        //   timer: 2000,
+                        //   timerProgressBar: true
+                        // })
                         $('#member_id').focus();
-                        return false;
-                    } else {
-                        alert('로그인 성공');
-                        location.href('/');
                     }
-                },
-                error: function(data) {
-                    alert('failed');
                 }
-            });
+            };
+            xhr.open("POST", strurl);
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            xhr.send(null);
+
+            // $.ajax({
+            //     url: '/member_login',
+            //     type: 'POST',
+            //     contentType: 'application/json; charset=utf-8',
+            //     data: {
+            //         'member_id': memberid,
+            //         'member_pwd': pwdencrypted
+            //     },
+            //     // data:JSON.stringify(data),
+            //     datatype: 'json',
+            //     success: function(data) {
+            //         alert(data['flag']);
+            //         // opener.parent.location.reload();
+            //         if (data['flag'] == '1') {
+            //             $('.error_box').show();
+            //             $('.error_message').html(data['result_msg']);
+            //             $('#member_id').focus();
+            //             return false;
+            //         } else {
+            //             alert('로그인 성공');
+            //             location.href('/');
+            //         }
+            //     },
+            //     error: function(data) {
+            //         alert('failed');
+            //     }
+            // }).done(function(e) {
+            //     $('#signin_form').submit();
+            // });
         }
 
     </script>
