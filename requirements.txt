@@ -91,7 +91,6 @@ Pygments==2.11.2
 PyMsgBox==1.0.9
 PyMySQL==1.0.2
 pyobjc==8.5
-pyobjc-core==8.5
 pyobjc-framework-Accessibility==8.5
 pyobjc-framework-Accounts==8.5
 pyobjc-framework-AddressBook==8.5
@@ -113,7 +112,6 @@ pyobjc-framework-CallKit==8.5
 pyobjc-framework-CFNetwork==8.5
 pyobjc-framework-ClassKit==8.5
 pyobjc-framework-CloudKit==8.5
-pyobjc-framework-Cocoa==8.5
 pyobjc-framework-Collaboration==8.5
 pyobjc-framework-ColorSync==8.5
 pyobjc-framework-Contacts==8.5
@@ -197,7 +195,6 @@ pyobjc-framework-Photos==8.5
 pyobjc-framework-PhotosUI==8.5
 pyobjc-framework-PreferencePanes==8.5
 pyobjc-framework-PushKit==8.5
-pyobjc-framework-Quartz==8.5
 pyobjc-framework-QuickLookThumbnailing==8.5
 pyobjc-framework-ReplayKit==8.5
 pyobjc-framework-SafariServices==8.5
