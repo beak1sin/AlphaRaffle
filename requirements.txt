@@ -202,6 +202,7 @@ pyobjc-framework-QuickLookThumbnailing==8.5
 pyobjc-framework-ReplayKit==8.5
 pyobjc-framework-SafariServices==8.5
 pyobjc-framework-SceneKit==8.5
+pyobjc-framework-ScreenCaptureKit==8.5
 pyobjc-framework-ScreenSaver==8.5
 pyobjc-framework-ScreenTime==8.5
 pyobjc-framework-ScriptingBridge==8.5
@@ -267,7 +268,7 @@ traitlets==5.1.1
 trio==0.20.0
 trio-websocket==0.9.2
 Twisted==22.2.0
-typing-extensions==4.1.1
+typing_extensions==4.1.1
 urllib3==1.26.8
 w3lib==1.22.0
 wcwidth==0.2.5
