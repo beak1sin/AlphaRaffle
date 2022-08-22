@@ -328,6 +328,56 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
             <!--/products-->
         </div>
     </section>
+    <section class="u-clearfix u-section-3" id="sec-00f7">
+        <div class="u-clearfix u-sheet u-sheet-1">
+            <h4 class="u-text u-text-1">댓글 쓰기</h4>
+            <p class="u-text u-text-2">작성된 글이 없습니다.</p>
+            <div class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-container-style u-group u-shape-rectangle u-group-1">
+                <div class="u-container-layout u-container-layout-1"></div>
+            </div>
+            {% if member.member_no == None %}
+            <div class="u-border-2 u-border-grey-80 u-form u-radius-25 u-form-1">
+                <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
+
+
+                    <div class="u-form-group u-form-message">
+                        <label for="message-872b" class="u-label u-text-grey-80 u-label-1"><a href="{% url 'draw:로그인' %}">로그인</a> 후에 이용해주시기 바랍니다.</label>
+                        <textarea placeholder="댓글을 작성하세요." rows="4" cols="50" id="message-872b" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-25" required="" readonly></textarea>
+                    </div>
+                    <!-- <input type="text" placeholder="이메일을 입력하세요." id="member_loginid" name="member_loginid" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-1" required=""> -->
+                    <div class="u-align-right u-form-group u-form-submit">
+                        <!-- <a href="#" class="u-btn u-btn-submit u-button-style">Submit</a> -->
+                        <!-- <input type="submit" value="submit" class="u-form-control-hidden"> -->
+                        <button class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">작성하기<br>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            {% else %}
+            <div class="u-border-2 u-border-grey-80 u-form u-radius-25 u-form-1">
+                <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
+
+
+                    <div class="u-form-group u-form-message">
+                        <div class="profile_img">
+                            <img src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
+                        </div>
+                        <label for="message-872b" class="u-label u-text-grey-80 u-label-1">{{member.member_nickname}}님</label>
+                        <textarea placeholder="댓글을 작성하세요." id="commentArea" rows="4" cols="50" id="message-872b" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-25" style="resize: none;" required=""></textarea>
+                    </div>
+                    <!-- <input type="text" placeholder="이메일을 입력하세요." id="member_loginid" name="member_loginid" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-1" required=""> -->
+                    <div class="u-align-right u-form-group u-form-submit">
+                        <!-- <a href="#" class="u-btn u-btn-submit u-button-style">Submit</a> -->
+                        <!-- <input type="submit" value="submit" class="u-form-control-hidden"> -->
+                        <button onclick="comment();" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">작성하기<br>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            {% endif %}
+            <p class="u-text u-text-3" id="comment_error_msg" style="color: red; display: none;">내용을 입력해주세요.</p>
+        </div>
+    </section>
 
 
     <!-- 풋터 -->
@@ -335,6 +385,16 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
+    <script type="text/javascript">
+
+        function comment() {
+            commentValue = document.getElementById("commentArea").value;
+            if (commentValue == "") {
+                $('#comment_error_msg').show();
+                return false;
+            }
+        }
+    </script>
 </body>
 
 </html>

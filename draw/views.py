@@ -291,3 +291,6 @@ def member_delete(request):
         context['result_msg'] = '비밀번호가 일치하지 않습니다.'
 
     return JsonResponse(context, content_type="application/json")
+
+def practice(request):
+    return render(request, 'draw/practice.html')
