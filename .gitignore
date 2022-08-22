@@ -310,3 +310,4 @@ tags
 my_settings.py
 
 # End of https://www.toptal.com/developers/gitignore/api/vim,linux,macos,django,python
+node_modules/
