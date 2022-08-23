@@ -40,34 +40,67 @@ def member_idcheck(request):
 
     return JsonResponse(context, content_type="application/json")
 
+# 기존 회원가입 방식   
+# @csrf_exempt
+# def member_insert(request):
+#     context = {}
+
+#     # memberid = request.POST['member_id']
+#     # memberpwd = request.POST['member_pwd']
+#     # memberrealname = request.POST['member_realname']
+#     # membernickname = request.POST['member_nickname']
+#     # memberbirth = request.POST['member_birth']
+#     # membernikeid = request.POST['member_nikeid']
+#     # memberphonenumber = request.POST['member_phonenumber']
+
+#     # memberid = request.POST.get('member_id')
+#     # memberpwd = request.POST.get('member_pwd')
+#     # memberrealname = request.POST.get('member_realname')
+#     # membernickname = request.POST.get('member_nickname')
+#     # memberbirth = request.POST.get('member_birth')
+#     # membernikeid = request.POST.get('member_nikeid')
+#     # memberphonenumber = request.POST.get('member_phonenumber')
+
+#     memberid = request.GET['member_id']
+#     memberpwd = request.GET['member_pwd']
+#     memberrealname = request.GET['member_realname']
+#     membernickname = request.GET['member_nickname']
+#     memberbirth = request.GET['member_birth']
+#     membernikeid = request.GET['member_nikeid']
+#     memberphonenumber = request.GET['member_phonenumber']
+
+
+#     rs = Member.objects.create(member_id=memberid,
+#                                member_pwd=memberpwd,
+#                                member_realname=memberrealname,
+#                                member_nickname=membernickname,
+#                                member_birth=memberbirth,
+#                                member_nikeid=membernikeid,
+#                                member_phonenumber=memberphonenumber,
+#                                usage_flag='1',
+#                                register_date=datetime.now()
+#                                )
+
+#     context['flag'] = '1'
+#     context['result_msg'] = '회원가입 되었습니다. Home에서 로그인하세요.'
+
+#     return JsonResponse(context, content_type="application/json")
+
+# 새로운 회원가입 방식
 @csrf_exempt
 def member_insert(request):
     context = {}
 
-    # memberid = request.POST['member_id']
-    # memberpwd = request.POST['member_pwd']
-    # memberrealname = request.POST['member_realname']
-    # membernickname = request.POST['member_nickname']
-    # memberbirth = request.POST['member_birth']
-    # membernikeid = request.POST['member_nikeid']
-    # memberphonenumber = request.POST['member_phonenumber']
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
 
-    # memberid = request.POST.get('member_id')
-    # memberpwd = request.POST.get('member_pwd')
-    # memberrealname = request.POST.get('member_realname')
-    # membernickname = request.POST.get('member_nickname')
-    # memberbirth = request.POST.get('member_birth')
-    # membernikeid = request.POST.get('member_nikeid')
-    # memberphonenumber = request.POST.get('member_phonenumber')
-
-    memberid = request.GET['member_id']
-    memberpwd = request.GET['member_pwd']
-    memberrealname = request.GET['member_realname']
-    membernickname = request.GET['member_nickname']
-    memberbirth = request.GET['member_birth']
-    membernikeid = request.GET['member_nikeid']
-    memberphonenumber = request.GET['member_phonenumber']
-
+    memberid = bodyjson['member_id']
+    memberpwd = bodyjson['member_pwd']
+    memberrealname = bodyjson['member_realname']
+    membernickname = bodyjson['member_nickname']
+    memberbirth = bodyjson['member_birth']
+    membernikeid = bodyjson['member_nikeid']
+    memberphonenumber = bodyjson['member_phonenumber']
 
     rs = Member.objects.create(member_id=memberid,
                                member_pwd=memberpwd,
@@ -84,7 +117,6 @@ def member_insert(request):
     context['result_msg'] = '회원가입 되었습니다. Home에서 로그인하세요.'
 
     return JsonResponse(context, content_type="application/json")
-
 
 def home(request):
     context = {}
@@ -103,19 +135,70 @@ def home(request):
     context = {'shoe':shoe, 'member':member }
     return render(request, "draw/main.html", context)
 
+# 기존 멤버로그인 
+# @csrf_exempt
+# def member_login(request):
+#     context = {}
+#     # memberid = request.POST['member_loginid']
+#     # memberpwd = request.POST['member_loginpwd']
+
+#     # memberid = request.POST.get('member_loginid')
+#     # memberpwd = request.POST.get('member_loginpwd')
+
+#     memberid = request.GET['member_loginid']
+#     memberpwd = request.GET['member_loginpwd']
+#     print(memberid)
+#     print(memberpwd)
+#     if 'member_no' in request.session:
+#         context['flag'] = '1'
+#         context['result_msg'] = 'Already Login 되어 있습니다.'
+
+#     else:
+
+#         rsTmp = Member.objects.filter(member_id=memberid, member_pwd=memberpwd)
+
+#         if rsTmp:
+#             # Session에 member_no를 저장
+#             rsMember = Member.objects.get(member_id=memberid, member_pwd=memberpwd)
+#             memberno = rsMember.member_no
+#             membername = rsMember.member_realname
+#             rsMember.access_latest = datetime.now()
+#             rsMember.save()
+
+#             request.session['member_no'] = memberno
+#             request.session['member_nickname'] = membername
+
+#             # context['flag'] = '0'
+#             # context['result_msg'] = 'Login 성공... '
+#             context = {
+#                 'flag': '0',
+#                 'result_msg': 'Login complete 성공...'
+#             }
+#             # return redirect('/')
+#             # return render(request, "draw/main.html", context)
+#         else:
+#             context['flag'] = '1'
+#             context['result_msg'] = 'Login error... 아이디와 비번을 확인하세요.'
+#             # return render(request, 'draw/login.html')
+#             # return render(request, "draw/login.html", context)
+#     # return HttpResponseRedirect('auth/login/', context) 
+#     # return JsonResponse(context, content_type="application/json; charset=utf-8")
+#     return JsonResponse(context, json_dumps_params={'ensure_ascii': False}, status=200)
+#     # queryset_json = json.loads(serializers.serialize('json', context, ensure_ascii=False))
+#     # return JsonResponse({'reload_all': False, 'queryset_json': queryset_json})
+#     # return render(request, "draw/main.html", context)
+
+# 새로운 멤버로그인
 @csrf_exempt
 def member_login(request):
     context = {}
-    # memberid = request.POST['member_loginid']
-    # memberpwd = request.POST['member_loginpwd']
 
-    # memberid = request.POST.get('member_loginid')
-    # memberpwd = request.POST.get('member_loginpwd')
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
 
-    memberid = request.GET['member_loginid']
-    memberpwd = request.GET['member_loginpwd']
-    print(memberid)
-    print(memberpwd)
+    memberid = bodyjson['member_loginid']
+    memberpwd = bodyjson['member_loginpwd']
+
     if 'member_no' in request.session:
         context['flag'] = '1'
         context['result_msg'] = 'Already Login 되어 있습니다.'
@@ -135,26 +218,14 @@ def member_login(request):
             request.session['member_no'] = memberno
             request.session['member_nickname'] = membername
 
-            # context['flag'] = '0'
-            # context['result_msg'] = 'Login 성공... '
             context = {
                 'flag': '0',
                 'result_msg': 'Login complete 성공...'
             }
-            # return redirect('/')
-            # return render(request, "draw/main.html", context)
         else:
             context['flag'] = '1'
             context['result_msg'] = 'Login error... 아이디와 비번을 확인하세요.'
-            # return render(request, 'draw/login.html')
-            # return render(request, "draw/login.html", context)
-    # return HttpResponseRedirect('auth/login/', context) 
-    # return JsonResponse(context, content_type="application/json; charset=utf-8")
-    return JsonResponse(context, json_dumps_params={'ensure_ascii': False}, status=200)
-    # queryset_json = json.loads(serializers.serialize('json', context, ensure_ascii=False))
-    # return JsonResponse({'reload_all': False, 'queryset_json': queryset_json})
-    # return render(request, "draw/main.html", context)
-
+    return JsonResponse(context, content_type="application/json")
 
 @csrf_exempt
 def logout(request):
@@ -207,14 +278,50 @@ def myPage(request):
     else:
         return redirect('/')
 
+# 기존 회원정보수정 방식 
+# @csrf_exempt
+# def member_update(request):
+#     context = {}
+
+#     membernickname = request.GET['member_nickname']
+#     memberbirth = request.GET['member_birth']
+#     membernikeid = request.GET['member_nikeid']
+#     memberphonenumber = request.GET['member_phonenumber']
+
+#     if 'member_no' in request.session:
+#         memberno = request.session['member_no']
+#         rsMember = Member.objects.get(member_no=memberno)
+
+#         rsMember.member_nickname = membernickname
+#         rsMember.member_birth = memberbirth
+#         rsMember.member_nikeid = membernikeid
+#         rsMember.member_phonenumber = memberphonenumber
+#         rsMember.save()
+
+#         context['flag'] = '0'
+#         context['result_msg'] = '정보 변경되었습니다'
+
+#         return JsonResponse(context, content_type="application/json")
+#         # return redirect('/')
+
+#     else:
+#         context['flag'] = '1'
+#         context['result_msg'] = '회원 정보가 없습니다.'
+
+#         return JsonResponse(context, content_type="application/json")
+
+# 새로운 회원정보수정 방식
 @csrf_exempt
 def member_update(request):
     context = {}
 
-    membernickname = request.GET['member_nickname']
-    memberbirth = request.GET['member_birth']
-    membernikeid = request.GET['member_nikeid']
-    memberphonenumber = request.GET['member_phonenumber']
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+
+    membernickname = bodyjson['member_nickname']
+    memberbirth = bodyjson['member_birth']
+    membernikeid = bodyjson['member_nikeid']
+    memberphonenumber = bodyjson['member_phonenumber']
 
     if 'member_no' in request.session:
         memberno = request.session['member_no']
