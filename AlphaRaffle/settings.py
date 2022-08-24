@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import my_settings
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +22,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = my_settings.SECRET
+# SECRET_KEY = my_settings.SECRET
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-j_st-lkoalyake(0_tr^uw=jc&oqpm0!+dn9##j&8b_^12ua2z')
+
+SECRET = {
+      'secret':'django-insecure-j_st-lkoalyake(0_tr^uw=jc&oqpm0!+dn9##j&8b_^12ua2z',
+}
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -49,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'AlphaRaffle.urls'
@@ -74,7 +81,7 @@ WSGI_APPLICATION = 'AlphaRaffle.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-DATABASES = my_settings.DATABASES
+# DATABASES = my_settings.DATABASES
 """
 DATABASES = {
     'default': {
@@ -83,6 +90,21 @@ DATABASES = {
     }
 }
 """
+
+DATABASES = {
+  'default' : {
+      'ENGINE': 'django.db.backends.mysql',
+      'NAME': 'AlphaRaffle',
+      'USER': 'root', #주로 'root'
+      'PASSWORD': 'wkdrns12',
+      'HOST': 'localhost',
+      'PORT': '3306',
+  }
+}
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
