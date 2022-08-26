@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
-# import my_settings
+import my_settings
 import dj_database_url
 import pymysql  
 pymysql.install_as_MySQLdb()
@@ -24,8 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = my_settings.SECRET
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-j_st-lkoalyake(0_tr^uw=jc&oqpm0!+dn9##j&8b_^12ua2z')
+SECRET_KEY = my_settings.SECRET
 
 
 
@@ -81,7 +80,7 @@ WSGI_APPLICATION = 'AlphaRaffle.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-# DATABASES = my_settings.DATABASES
+DATABASES = my_settings.DATABASES
 """
 DATABASES = {
     'default': {
@@ -91,27 +90,6 @@ DATABASES = {
 }
 """
 
-# DATABASES = {
-#   'default' : {
-#       'ENGINE': 'django.db.backends.mysql',
-#       'NAME': 'AlphaRaffle',
-#       'USER': 'root', #주로 'root'
-#       'PASSWORD': 'wkdrns12',
-#       'HOST': 'localhost',
-#       'PORT': '3306',
-#   }
-# }
-
-DATABASES = {
-  'default' : {
-      'ENGINE': 'django.db.backends.mysql',
-      'NAME': 'z5qqc4mh1ih5pdyw',
-      'USER': 'c4ddvl7d29vbhdbw', #주로 'root'
-      'PASSWORD': 'lp62xkq1xtc0vwvn',
-      'HOST': 'r98du2bxwqkq3shg.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-      'PORT': '3306',
-  }
-}
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
