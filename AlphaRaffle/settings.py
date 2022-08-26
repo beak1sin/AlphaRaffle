@@ -91,13 +91,24 @@ DATABASES = {
 }
 """
 
+# DATABASES = {
+#   'default' : {
+#       'ENGINE': 'django.db.backends.mysql',
+#       'NAME': 'AlphaRaffle',
+#       'USER': 'root', #주로 'root'
+#       'PASSWORD': 'wkdrns12',
+#       'HOST': 'localhost',
+#       'PORT': '3306',
+#   }
+# }
+
 DATABASES = {
   'default' : {
       'ENGINE': 'django.db.backends.mysql',
-      'NAME': 'AlphaRaffle',
-      'USER': 'root', #주로 'root'
-      'PASSWORD': 'wkdrns12',
-      'HOST': 'localhost',
+      'NAME': 'z5qqc4mh1ih5pdyw',
+      'USER': 'c4ddvl7d29vbhdbw', #주로 'root'
+      'PASSWORD': 'lp62xkq1xtc0vwvn',
+      'HOST': 'r98du2bxwqkq3shg.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
       'PORT': '3306',
   }
 }
