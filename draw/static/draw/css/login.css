@@ -61,6 +61,9 @@
   .u-section-1 .u-form-1 {
     width: 340px;
   }
+  input::placeholder {
+    font-size: 12px;
+  }
 }
 
 
@@ -176,3 +179,7 @@ input[type="checkbox"]:checked {
   transition-duration: 0.5s;
 }
 /* ----------버튼 hover 시간 */
+
+/*input::placeholder {
+  font-size: 20px;
+}*/
