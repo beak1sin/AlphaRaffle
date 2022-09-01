@@ -78,6 +78,61 @@
         <div class="u-clearfix u-sheet u-sheet-1">
             <div class="u-container-style u-expanded-width-sm u-expanded-width-xs u-group u-shape-rectangle u-group-1" data-animation-name="customAnimationIn" data-animation-duration="1000">
                 <div class="u-container-layout u-container-layout-1">
+                    <div class="u-countdown u-countdown-1" data-timer-id="30fc" data-type="to-time" data-target-date="Thu, 08 Sep 2022 17:33:27 GMT" data-for="everyone" data-direction="down" data-time-left="750m" data-count-animation="slide" data-animation-name="" data-animation-duration="0" data-animation-direction="" data-after-count="message">
+                        <div class="u-countdown-wrapper u-spacing-20">
+                            <div class="u-countdown-item u-countdown-years u-hidden u-spacing-10">
+                                <div class="u-countdown-counter u-countdown-counter-1">
+                                    <div class="u-countdown-number u-text-custom-color-1">0</div>
+                                    <div class="u-countdown-number u-hidden u-text-custom-color-1">0</div>
+                                </div>
+                                <div class="u-countdown-label u-countdown-label-1">Years</div>
+                            </div>
+                            <div class="u-countdown-separator u-hidden u-text-custom-color-1 u-countdown-separator-1">:</div>
+                            <div class="u-countdown-days u-countdown-item u-spacing-10">
+                                <div class="u-countdown-counter u-countdown-counter-2">
+                                    <div class="u-countdown-number u-text-custom-color-1">7</div>
+                                    <div class="u-countdown-number u-hidden u-text-custom-color-1">6</div>
+                                    <div class="u-countdown-number u-hidden u-text-custom-color-1">0</div>
+                                </div>
+                                <div class="u-countdown-label u-countdown-label-2">일</div>
+                            </div>
+                            <div class="u-countdown-separator u-text-custom-color-1 u-countdown-separator-2">:</div>
+                            <div class="u-countdown-hours u-countdown-item u-spacing-10">
+                                <div class="u-countdown-counter u-countdown-counter-3">
+                                    <div class="u-countdown-number u-text-custom-color-1">1</div>
+                                    <div class="u-countdown-number u-text-custom-color-1">2</div>
+                                </div>
+                                <div class="u-countdown-label u-countdown-label-3">시</div>
+                            </div>
+                            <div class="u-countdown-separator u-text-custom-color-1 u-countdown-separator-3">:</div>
+                            <div class="u-countdown-item u-countdown-minutes u-spacing-10">
+                                <div class="u-countdown-counter u-countdown-counter-4">
+                                    <div class="u-countdown-number u-text-custom-color-1">2</div>
+                                    <div class="u-countdown-number u-text-custom-color-1">9</div>
+                                </div>
+                                <div class="u-countdown-label u-countdown-label-4">분</div>
+                            </div>
+                            <div class="u-countdown-separator u-text-custom-color-1 u-countdown-separator-4">:</div>
+                            <div class="u-countdown-item u-countdown-seconds u-spacing-10">
+                                <div class="u-countdown-counter u-countdown-counter-5">
+                                    <div class="u-countdown-number u-text-custom-color-1">5</div>
+                                    <div class="u-countdown-number u-text-custom-color-1">5</div>
+                                </div>
+                                <div class="u-countdown-label u-countdown-label-5">초</div>
+                            </div>
+                            <div class="u-countdown-separator u-hidden u-text-custom-color-1 u-countdown-separator-5">:</div>
+                            <div class="u-countdown-item u-countdown-numbers u-hidden u-spacing-10">
+                                <div class="u-countdown-counter u-countdown-counter-6">
+                                    <div class="u-countdown-number u-text-custom-color-1">0</div>
+                                    <div class="u-countdown-number u-text-custom-color-1">0</div>
+                                </div>
+                                <div class="u-countdown-label u-countdown-label-6">Items</div>
+                            </div>
+                        </div>
+                        <div class="u-countdown-message u-hidden u-text-custom-color-1 u-countdown-message-1">
+                            <p>응모가 마감됐습니다.</p>
+                        </div>
+                    </div>
                     <div class="u-table u-table-responsive u-table-1">
                         <table class="u-table-entity">
                             <colgroup>
@@ -166,11 +221,12 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                             </span>
                         </a>
                     </div>
+                    <a onclick="dropped();" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-radius-50 u-text-hover-white u-btn-1">응모하기</a>
                 </div>
             </div>
         </div>
     </section>
-    <section class="u-clearfix u-section-2" id="sec-38e5">
+    <section class="u-clearfix u-section-2" id="section2">
         <div class="u-clearfix u-sheet u-sheet-1">
             <h3 class="u-text u-text-default u-text-1">URL</h3>
             <!--products-->
@@ -393,6 +449,10 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                 $('#comment_error_msg').show();
                 return false;
             }
+        }
+
+        function dropped() {
+            document.getElementById('section2').scrollIntoView({behavior: 'smooth'});
         }
     </script>
 </body>
