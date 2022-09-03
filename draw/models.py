@@ -5,9 +5,9 @@ from django.contrib.auth.models import AbstractUser
 
 class Shoe(models.Model):
 	shoename = models.CharField(max_length=200) 		# 신발명
-	shoeimg = models.ImageField(blank = True)
-	Link = models.CharField(max_length=200)				# 신발링크
-	Site = models.CharField(max_length=200)				# 발매사이트
+	shoeimg = models.CharField(max_length=1000)	
+	Link = models.CharField(max_length=1000)				# 신발링크
+	serialno = models.CharField(max_length=200)				# 발매사이트
 	nameentry = models.CharField(max_length=200, default= None, blank = True)			
 	birthentry = models.CharField(max_length=200, default= None, blank = True)			
 	phoneentry = models.CharField(max_length=200, default= None, blank = True)	
