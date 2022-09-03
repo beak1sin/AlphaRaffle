@@ -659,8 +659,8 @@
 .u-section-3 .u-group-1 {
   width: 844px;
   min-height: 22px;
-  height: auto;
-  margin: 123px auto 0;
+  /*height: auto;*/
+  margin: 0px auto 0;
 }
 
 .u-section-3 .u-container-layout-1 {
@@ -750,6 +750,7 @@
   }
 }
 
+
 /* 헤더 고정 */
 header {
   z-index: 1;
@@ -799,8 +800,16 @@ table {
 }
 
 .comment_div {
+  width: 700px;
   height: 120px;
-  margin: 30px 100px 0px 100px;
+  /*margin: 30px 100px 0px 100px;*/
+  margin: 30px auto;
+}
+
+@media (max-width: 1199px) {
+  .comment_div {
+    width: 80%;
+  }
 }
 
 .comment_header {
@@ -811,6 +820,10 @@ table {
 .comment_content {
   width: 100%;
   height: 40px;
+}
+
+.reply-btn {
+  transition-duration: 0.5s;
 }
 
 .comment_footer {

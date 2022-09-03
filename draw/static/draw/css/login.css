@@ -131,6 +131,7 @@ footer {
   height: 120px;
   position: relative;
   transform: translateY(-100%);
+  margin-top: auto;
 }
 /* ---------푸터 하단 고정 */
 
