@@ -798,8 +798,23 @@ table {
     color: #ff0000 !important;
 }
 
+.comment_div {
+  height: 120px;
+  margin: 30px 100px 0px 100px;
+}
 
+.comment_header {
+  width: 100%;
+  height: 40px;
+}
 
+.comment_content {
+  width: 100%;
+  height: 40px;
+}
 
-
+.comment_footer {
+  width: 100%;
+  height: 40px;
+}
 
