@@ -13,7 +13,7 @@ import os
 from pathlib import Path
 # import my_settings
 import dj_database_url
-import pymysql  
+import pymysql
 pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -84,8 +84,7 @@ WSGI_APPLICATION = 'AlphaRaffle.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
     }
 }
 
