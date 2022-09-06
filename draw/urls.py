@@ -1,7 +1,8 @@
-from django.urls import path
+from django.urls import path, re_path
 from draw import views
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.static import serve
 
 app_name = 'draw'
 
@@ -19,5 +20,7 @@ urlpatterns = [
     path('member_login', views.member_login, name='member_login'),
     path('member_delete', views.member_delete, name='member_delete'),
     path('auth/mypage/member_update', views.member_update, name='member_update'),
+    re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
+    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

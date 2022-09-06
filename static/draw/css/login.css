@@ -1,0 +1,185 @@
+.u-section-1 .u-sheet-1 {
+  min-height: 500px;
+  margin-top: 100px;
+}
+
+.u-section-1 .u-form-1 {
+  height: 289px;
+  width: 570px;
+  margin: 115px auto 0;
+}
+
+.u-section-1 .u-label-1 {
+  width: 117px;
+  font-weight: 700;
+}
+
+.u-section-1 .u-input-1 {
+  background-image: none;
+}
+
+.u-section-1 .u-label-2 {
+  width: 117px;
+  font-weight: 700;
+}
+
+.u-section-1 .u-input-2 {
+  background-image: none;
+}
+
+.u-section-1 .u-label-3 {
+  width: 117px;
+  font-weight: 700;
+}
+
+.u-section-1 .u-btn-1 {
+  width: 100%;
+  background-image: none;
+  padding: 10px 30px;
+}
+
+.u-section-1 .u-btn-2 {
+  border-style: none none solid;
+  align-self: center;
+  margin: 25px auto 0;
+  padding: 0;
+}
+
+.u-section-1 .u-btn-3 {
+  border-style: none none solid;
+  margin: 26px auto 59px;
+  padding: 0;
+}
+
+@media (max-width: 767px) {
+  .u-section-1 .u-form-1 {
+    width: 540px;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-1 .u-form-1 {
+    width: 340px;
+  }
+  input::placeholder {
+    font-size: 12px;
+  }
+}
+
+
+.signin_tab.active, .signup_tab.active {
+    border-bottom: 2px solid black;
+    color: #222222;
+}
+
+.signin_tab.disable, .signup_tab.disable {
+    border-bottom: 2px solid #999999;
+    color: #999999;
+}
+
+.signin_tab, .signup_tab {
+    width: 45%;
+    margin: 0;
+    display: inline-block;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 3% 2% 3% 2%;
+    border-bottom: 2px solid black;
+    cursor: pointer;
+}
+
+.message_box {
+    text-align: center;
+    width: 100%;
+    height: 40px;
+}
+
+.danger {
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    line-height: 40px;
+    color: red;
+}
+
+.hidden {
+    display: none!important;
+}
+
+.overlap {
+    float: right;
+}
+
+.signup_box, .signin_box {
+  position: relative;
+  animation: fadeIn 1s;
+}
+
+/* 푸터 하단 고정 */
+html, body {
+  margin: 0; padding: 0;
+  width: 100%; height: 100%;
+}
+
+.wrapper {
+  height: auto;
+  min-height: 100%;
+  padding-bottom: 120px;
+}
+footer {
+  height: 120px;
+  position: relative;
+  transform: translateY(-100%);
+}
+/* ---------푸터 하단 고정 */
+
+header {
+  z-index: 1;
+  background-color: white;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  border-bottom-style: solid;
+  border-bottom-color: black;
+  position: fixed;
+}
+
+/* 체크박스 스타일 */
+input[type="checkbox"] {
+  transition-duration: 0.5s;
+}
+
+input[type="checkbox"]:hover {
+  transition-duration: 0.5s;
+  width: 16px;
+  height: 16px;
+}
+
+input[type="checkbox"]:checked {
+  accent-color: black;
+  animation: fadeIn 1s;
+}
+/* ----------체크박스 스타일 */
+
+/* 버튼 hover 시간 */
+.u-btn {
+  transition-duration: 0.5s;
+}
+
+.u-btn:hover {
+  transition-duration: 0.5s;
+}
+
+.overlap {
+  transition-duration: 0.5s;
+}
+
+.overlap:hover {
+  transition-duration: 0.5s;
+}
+/* ----------버튼 hover 시간 */
+
+/*input::placeholder {
+  font-size: 20px;
+}*/
