@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # DEBUG = True
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
-ALLOWED_HOSTS = ['https://alpharaffle.herokuapp.com/','127.0.0.1']
+ALLOWED_HOSTS = ['alpharaffle.herokuapp.com','127.0.0.1']
 
 
 # Application definition
