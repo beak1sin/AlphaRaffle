@@ -10,23 +10,19 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
-import environ
 from pathlib import Path
 # import my_settings
 import dj_database_url
 import pymysql  
 pymysql.install_as_MySQLdb()
 
-env = environ.Env()
-# reading .env file
-
+# env = os.environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
-#...
-#...rest will be same
+# reading .env file
+# environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -98,14 +94,28 @@ WSGI_APPLICATION = 'AlphaRaffle.wsgi.application'
 # }
 
 
+# DATABASES = {
+#   'default' : {
+#       'ENGINE': 'django.db.backends.mysql',
+#       'NAME': env('JAWSDB_NAME'),
+#       'USER': env('JAWSDB_USER'), #주로 'root'
+#       'PASSWORD': env('JAWSDB_PASSWORD'),
+#       'HOST': env('JAWSDB_HOST'),
+#       'PORT': env('JAWSDB_PORT'),
+#       'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+#         },
+#   }
+# }
+
 DATABASES = {
   'default' : {
       'ENGINE': 'django.db.backends.mysql',
-      'NAME': env('JAWSDB_NAME'),
-      'USER': env('JAWSDB_USER'), #주로 'root'
-      'PASSWORD': env('JAWSDB_PASSWORD'),
-      'HOST': env('JAWSDB_HOST'),
-      'PORT': env('JAWSDB_PORT'),
+      'NAME': os.environ.get('JAWSDB_NAME'),
+      'USER': os.environ.get('JAWSDB_USER'), #주로 'root'
+      'PASSWORD': os.environ.get('JAWSDB_PASSWORD'),
+      'HOST': os.environ.get('JAWSDB_HOST'),
+      'PORT': os.environ.get('JAWSDB_PORT'),
       'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
         },
