@@ -9,16 +9,23 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-import os
+import os, environ
 from pathlib import Path
 # import my_settings
 import dj_database_url
 import pymysql  
 pymysql.install_as_MySQLdb()
 
+env = environ.Env()
+# reading .env file
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
+#...
+#...rest will be same
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -82,27 +89,28 @@ WSGI_APPLICATION = 'AlphaRaffle.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 # DATABASES = my_settings.DATABASES
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 
 DATABASES = {
   'default' : {
       'ENGINE': 'django.db.backends.mysql',
-      'NAME': 'z5qqc4mh1ih5pdyw',
-      # 'NAME': 'AlphaRaffle',
-      'USER': 'c4ddvl7d29vbhdbw', #주로 'root'
-      'PASSWORD': 'lp62xkq1xtc0vwvn',
-      'HOST': 'r98du2bxwqkq3shg.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-      'PORT': '3306',
+      'NAME': env('JAWSDB_NAME'),
+      'USER': env('JAWSDB_USER'), #주로 'root'
+      'PASSWORD': env('JAWSDB_PASSWORD'),
+      'HOST': env('JAWSDB_HOST'),
+      'PORT': env('JAWSDB_PORT'),
       'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
         },
   }
 }
+
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
@@ -140,7 +148,7 @@ LOGIN_REDIRECT_URL = '/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = 'static/'
 
 # Default primary key field type
