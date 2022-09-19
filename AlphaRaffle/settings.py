@@ -13,7 +13,7 @@ import os
 from pathlib import Path
 # import my_settings
 import dj_database_url
-import pymysql  
+import pymysql
 pymysql.install_as_MySQLdb()
 
 # env = os.environ.Env()
@@ -167,6 +167,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # STATIC_ROOT = BASE_DIR / 'static/'
 
+# 로컬에서 진행할거면 주석처리하고 서버로 배포하는거면 주석해제 후 collectstatic 진행 후 배포
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'staticfiles'),
 )
@@ -179,14 +180,5 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-'''
-import urllib
-import ssl
 
-def get_redirected_url(url):
-    context = ssl._create_unverified_context()
-    return urllib.urlopen(url, context=context)
-
-print(get_redirected_url("https://주소").geturl())
-'''
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

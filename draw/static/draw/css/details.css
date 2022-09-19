@@ -824,6 +824,11 @@ table {
 
 .reply-btn {
   transition-duration: 0.5s;
+  background-color: white;
+  font-size: 10px;
+  border: 1px solid;
+  border-radius: 50px;
+  margin: 0px 0px 0px 50px;
 }
 
 .comment_footer {
@@ -831,3 +836,9 @@ table {
   height: 40px;
 }
 
+.comment-created-date {
+  margin: 0;
+  padding: 0;
+  float: right;
+  font-size: 10px;
+}
