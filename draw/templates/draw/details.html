@@ -401,14 +401,14 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                     <p class="comment-created-date">2022-09-19 11:59AM</p>
                 </div>
                 <div class="comment_content">
-                    <p style="margin: 10px 0px 0px 50px;">글이 있음.</p>
+                    <p class="p_comment">글이 있음.</p>
                 </div>
                 <div class="comment_footer" style="border-bottom: 1px dashed #666666;">
                     <button class="reply-btn u-hover-grey-60 disabled">답글 쓰기</button>
                 </div>
             </div>
             <!-- reply -->
-            <div class="u-border-2 u-border-grey-80 u-form u-radius-25 u-form-1 reply" style="resize: 80%; display: none;">
+            <div class="u-border-2 u-border-grey-80 u-form u-radius-25 u-form-1 reply" style="display: none;">
                 <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
                     <div class="u-form-group u-form-message">
                         <div class="profile_img">
@@ -435,14 +435,14 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                     <p class="comment-created-date">2022-09-19 11:59AM</p>
                 </div>
                 <div class="comment_content">
-                    <p style="margin: 10px 0px 0px 50px;">글이 있음.</p>
+                    <p class="p_comment">글이 있음.</p>
                 </div>
                 <div class="comment_footer" style="border-bottom: 1px dashed #666666;">
                     <button class="reply-btn u-hover-grey-60 disabled">답글 쓰기</button>
                 </div>
             </div>
             <!-- reply -->
-            <div class="u-border-2 u-border-grey-80 u-form u-radius-25 u-form-1 reply" style="resize: 80%; display: none;">
+            <div class="u-border-2 u-border-grey-80 u-form u-radius-25 u-form-1 reply" style="display: none;">
                 <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
                     <div class="u-form-group u-form-message">
                         <div class="profile_img">
@@ -469,14 +469,14 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                     <p class="comment-created-date">2022-09-19 11:59AM</p>
                 </div>
                 <div class="comment_content">
-                    <p style="margin: 10px 0px 0px 50px;">글이 있음.</p>
+                    <p class="p_comment">글이 있음.</p>
                 </div>
                 <div class="comment_footer" style="border-bottom: 1px dashed #666666;">
                     <button class="reply-btn u-hover-grey-60">답글 쓰기</button>
                 </div>
             </div>
             <!-- reply -->
-            <div class="u-border-2 u-border-grey-80 u-form u-radius-25 u-form-1 reply" style="resize: 80%; display: none;">
+            <div class="u-border-2 u-border-grey-80 u-form u-radius-25 u-form-1 reply" style="display: none;">
                 <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
                     <div class="u-form-group u-form-message">
                         <div class="profile_img">
@@ -503,14 +503,14 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                     <p class="comment-created-date">2022-09-19 11:59AM</p>
                 </div>
                 <div class="comment_content">
-                    <p style="margin: 10px 0px 0px 50px;">글이 있음.</p>
+                    <p class="p_comment">글이 있음.</p>
                 </div>
                 <div class="comment_footer">
                     <button class="reply-btn u-hover-grey-60 disabled">답글 쓰기</button>
                 </div>
             </div>
             <!-- reply -->
-            <div class="u-border-2 u-border-grey-80 u-form u-radius-25 u-form-1 reply" style="resize: 80%; display: none;">
+            <div class="u-border-2 u-border-grey-80 u-form u-radius-25 u-form-1 reply" style="display: none;">
                 <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
                     <div class="u-form-group u-form-message">
                         <div class="profile_img">
@@ -636,7 +636,8 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                 //     $(this).addClass('disabled');
                 //     $(this).removeClass('active');
                 // }
-                $(".reply").toggle();
+                // $(".reply").toggle();
+                $(this).parent().parent().next().toggle();
             });
         }); 
     </script>
