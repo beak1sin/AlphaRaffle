@@ -810,6 +810,9 @@ table {
   .comment_div {
     width: 80%;
   }
+  .reply {
+    width: 70%;
+  }
 }
 
 .comment_header {
@@ -841,4 +844,8 @@ table {
   padding: 0;
   float: right;
   font-size: 10px;
+}
+
+.p_comment {
+  margin: 10px 0px 0px 50px;
 }

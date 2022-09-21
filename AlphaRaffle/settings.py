@@ -169,7 +169,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # 로컬에서 진행할거면 주석처리하고 서버로 배포하는거면 주석해제 후 collectstatic 진행 후 배포
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'staticfiles'),
+    # os.path.join(BASE_DIR, 'static2'),
+    os.path.join(BASE_DIR, 'static2'),
 )
 
 # STATICFILES_DIRS = []
