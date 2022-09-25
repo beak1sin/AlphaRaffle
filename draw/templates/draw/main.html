@@ -133,11 +133,12 @@
             <div class="u-expanded-width u-products u-products-1">
                 <div class="u-repeater u-repeater-1">
                     <!--product_item-->
+                    {% csrf_token %}
                     {% for shoe in shoe %}
                     <div class="u-align-center u-container-style u-products-item u-repeater-item">
                         <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
                             <!--product_image-->
-                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" src="{{ shoe.shoeimg }}" data-image-width="842" data-image-height="595">
+                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" src="{{ shoe.shoethumbnail }}" data-image-width="842" data-image-height="595">
                             <!--/product_image-->
                             <!--product_title-->
                             <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2">
@@ -150,135 +151,16 @@
                             <!--options_json-->
                             <!--{"clickType":"add-to-cart","content":"응모하기"}-->
                             <!--/options_json-->
-                            <a onclick = "window.open('{{shoe.Link}}'+'{{shoe.nameentry}}'+'{{member.member_realname}}'+'&'+'{{shoe.birthentry}}'+'{{member.member_birth}}'+'&'+'{{shoe.phoneentry}}'+'{{member.member_phonenumber}}'+'&'+'{{shoe.nikeidentry}}'+'{{member.member_nikeid}}'+'&')" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
+                            <!--<a onclick = "window.open('{{shoe.Link}}'+'{{shoe.nameentry}}'+'{{member.member_realname}}'+'&'+'{{shoe.birthentry}}'+'{{member.member_birth}}'+'&'+'{{shoe.phoneentry}}'+'{{member.member_phonenumber}}'+'&'+'{{shoe.nikeidentry}}'+'{{member.member_nikeid}}'+'&')" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">-->
+                                <!--product_button_content-->
+
+                            <a onclick="detail();" id = "serial" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2" data-value = {{shoe.serialno}}>
                                 <!--product_button_content-->응모하기
                                 <!--/product_button_content--></a>
                             <!--/product_button-->
                         </div>
                     </div>
                     {% endfor %}
-                    <!--/product_item-->
-                    <!--product_item-->
-                    <div class="u-align-center u-container-style u-products-item u-repeater-item">
-                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
-                            <!--product_image-->
-                            
-<img src="https://luckydraw-media.s3.amazonaws.com/product/2050/main_carousel/22168.jpeg" alt="Nike Air Force 1 '07 LX Coconut Milk and Lemon Wash WMNS">
-                            <!--/product_image-->
-                            <!--product_title-->
-                            <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-3">
-                                <a class="u-product-title-link" href="#">
-                                    <!--product_title_content-->신발명
-                                    <!--/product_title_content--></a>
-                            </h4>
-                            <!--/product_title-->
-                            <!--product_button-->
-                            <!--options_json-->
-                            <!--{"clickType":"add-to-cart","content":"응모하기"}-->
-                            <!--/options_json-->
-                            <a href="{% url 'draw:상세정보' %}" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-3">
-                                <!--product_button_content-->응모하기
-                                <!--/product_button_content--></a>
-                            <!--/product_button-->
-                        </div>
-                    </div>
-                    <!--/product_item-->
-                    <!--product_item-->
-                    <div class="u-align-center u-container-style u-products-item u-repeater-item">
-                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-3">
-                            <!--product_image-->
-                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-3 u-radius-50" src="{% static 'draw/images/jordan1OFF-8.jpeg' %}" data-image-width="842" data-image-height="595">
-                            <!--/product_image-->
-                            <!--product_title-->
-                            <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-4">
-                                <a class="u-product-title-link" href="#">
-                                    <!--product_title_content-->신발명
-                                    <!--/product_title_content--></a>
-                            </h4>
-                            <!--/product_title-->
-                            <!--product_button-->
-                            <!--options_json-->
-                            <!--{"clickType":"add-to-cart","content":"응모하기"}-->
-                            <!--/options_json-->
-                            <a href="{% url 'draw:상세정보' %}" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-4">
-                                <!--product_button_content-->응모하기
-                                <!--/product_button_content--></a>
-                            <!--/product_button-->
-                        </div>
-                    </div>
-                    <!--/product_item-->
-                    <!--product_item-->
-                    <div class="u-align-center u-container-style u-products-item u-repeater-item">
-                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-4">
-                            <!--product_image-->
-                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-4 u-radius-50" src="{% static 'draw/images/jordan1OFF-8.jpeg' %}" data-image-width="842" data-image-height="595">
-                            <!--/product_image-->
-                            <!--product_title-->
-                            <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-5">
-                                <a class="u-product-title-link" href="#">
-                                    <!--product_title_content-->신발명
-                                    <!--/product_title_content--></a>
-                            </h4>
-                            <!--/product_title-->
-                            <!--product_button-->
-                            <!--options_json-->
-                            <!--{"clickType":"add-to-cart","content":"응모하기"}-->
-                            <!--/options_json-->
-                            <a href="{% url 'draw:상세정보' %}" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-5">
-                                <!--product_button_content-->응모하기
-                                <!--/product_button_content--></a>
-                            <!--/product_button-->
-                        </div>
-                    </div>
-                    <!--/product_item-->
-                    <!--product_item-->
-                    <div class="u-align-center u-container-style u-products-item u-repeater-item">
-                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-5 u-radius-50">
-                            <!--product_image-->
-                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-5 u-radius-50" src="{% static 'draw/images/jordan1OFF-8.jpeg' %}" data-image-width="842" data-image-height="595">
-                            <!--/product_image-->
-                            <!--product_title-->
-                            <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-6">
-                                <a class="u-product-title-link" href="#">
-                                    <!--product_title_content-->신발명
-                                    <!--/product_title_content--></a>
-                            </h4>
-                            <!--/product_title-->
-                            <!--product_button-->
-                            <!--options_json-->
-                            <!--{"clickType":"add-to-cart","content":"응모하기"}-->
-                            <!--/options_json-->
-                            <a href="{% url 'draw:상세정보' %}" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-6">
-                                <!--product_button_content-->응모하기
-                                <!--/product_button_content--></a>
-                            <!--/product_button-->
-                        </div>
-                    </div>
-                    <!--/product_item-->
-                    <!--product_item-->
-                    <div class="u-align-center u-container-style u-products-item u-repeater-item">
-                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-6">
-                            <!--product_image-->
-                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-6 u-radius-50" src="{% static 'draw/images/jordan1OFF-8.jpeg' %}" data-image-width="842" data-image-height="595">
-                            <!--/product_image-->
-                            <!--product_title-->
-                            <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-7">
-                                <a class="u-product-title-link" href="#">
-                                    <!--product_title_content-->신발명
-                                    <!--/product_title_content--></a>
-                            </h4>
-                            <!--/product_title-->
-                            <!--product_button-->
-                            <!--options_json-->
-                            <!--{"clickType":"add-to-cart","content":"응모하기"}-->
-                            <!--/options_json-->
-                            <a href="{% url 'draw:상세정보' %}" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-7">
-                                <!--product_button_content-->응모하기
-                                <!--/product_button_content--></a>
-                            <!--/product_button-->
-                        </div>
-                    </div>
-                    <!--/product_item-->
                 </div>
             </div>
             <!--/products-->
@@ -291,10 +173,47 @@
 
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
         function dropped() {
             document.getElementById('section2').scrollIntoView({behavior: 'smooth'});
         }
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        var csrftoken = getCookie('csrftoken');
+
+        var xhr;
+        function detail() {
+
+            serial = document.getElementById("serial").getAttribute('data-value');
+            
+            
+            var data = { serial: serial};
+            var datastr = JSON.stringify(data);
+
+
+            xhr = new XMLHttpRequest();
+            xhr.open("POST", "/auth/details");
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            xhr.send(datastr);
+        }
+
+
+
     </script>
 </body>
 

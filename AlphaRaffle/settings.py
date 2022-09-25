@@ -23,8 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # reading .env file 
 # 로컬에서는 주석처리해제, 서버로는 주석처리
-# import environ
-# environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
+
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
+# DEBUG = False
+
+if DEBUG == True:
+    import environ
+    environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -35,7 +41,6 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 # DEBUG = False
 
 ALLOWED_HOSTS = ['alpharaffle.herokuapp.com','127.0.0.1']
@@ -178,6 +183,7 @@ if DEBUG == False:
    ]
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATICFILES_DIRS = []
 
 # STATICFILES_DIRS = []
 

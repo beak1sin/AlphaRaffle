@@ -5,17 +5,26 @@ from django.contrib.auth.models import AbstractUser
 
 class Shoe(models.Model):
 	shoename = models.CharField(max_length=200) 		# 신발명
-	shoeimg = models.CharField(max_length=1000)	
-	Link = models.CharField(max_length=1000)				# 신발링크
-	serialno = models.CharField(max_length=200)				# 발매사이트
+	shoeengname = models.CharField(max_length=200) 		# 신발영어명	
+	serialno = models.CharField(max_length=50,unique=True, default= None)			# 발매사이트
+	shoethumbnail = models.CharField(max_length=200)
+	def __str__(self):
+		return self.shoename
+class Shoeimg(models.Model):
+	serialno = models.CharField(max_length=50,unique=True, default= None)
+	shoeimg = models.CharField(max_length=200)	
+
+class Shoesite(models.Model):
+	serialno = models.CharField(max_length=50,unique=True, default= None)
+	logoimg = models.CharField(max_length=200)	
+	sitename = models.CharField(max_length=200)	
 	nameentry = models.CharField(max_length=200, default= None, blank = True)			
 	birthentry = models.CharField(max_length=200, default= None, blank = True)			
 	phoneentry = models.CharField(max_length=200, default= None, blank = True)	
-	nikeidentry = models.CharField(max_length=200, default= None, blank = True)	
-	pub_date = models.DateTimeField('date published')	# 발매기간
-	end_date = models.DateTimeField('date end')
-	def __str__(self):
-		return self.shoename
+	nikeidentry = models.CharField(max_length=200, default= None, blank = True)
+	pub_date = models.DateTimeField('date published', default= None)	# 발매기간
+	end_date = models.DateTimeField('date end', default= None)
+	sitelink = models.CharField(max_length=200)
 
 
 class Member(models.Model):

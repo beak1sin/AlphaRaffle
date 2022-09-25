@@ -167,7 +167,8 @@
                         <div class="u-carousel-inner u-gallery-inner u-radius-50" role="listbox">
                             <div class="u-active u-carousel-item u-gallery-item u-carousel-item-1">
                                 <div class="u-back-slide u-back-slide-1">
-                                    <img src="{% static 'draw/images/jordan1OFF.jpeg' %}" alt="" data-image-width="2000" data-image-height="1333" class="u-back-image u-expanded">
+
+                                    <img src="{{ shoeimg.shoeimg }}" alt="" data-image-width="2000" data-image-height="1333" class="u-back-image u-expanded">
                                 </div>
                                 <!--
                                 <div class="u-align-center-xs u-over-slide u-shading u-valign-bottom-xs u-over-slide-1">
@@ -221,6 +222,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                             </span>
                         </a>
                     </div>
+
                     <a onclick="dropped();" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-radius-50 u-text-hover-white u-btn-1">응모하기</a>
                 </div>
             </div>
@@ -236,15 +238,16 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
             <div class="u-products u-products-1">
                 <div class="u-repeater u-repeater-1">
                     <!--product_item-->
+                    {% for site in site %}
                     <div class="u-align-center u-container-style u-products-item u-repeater-item">
                         <div class="u-container-layout u-similar-container u-valign-top-sm u-valign-top-xs u-container-layout-1">
                             <!--product_image-->
-                            <img alt="" class="u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-image u-image-round u-product-control u-radius-50 u-image-1" src="{% static 'draw/images/jordan1OFF.jpeg' %}" data-image-width="842" data-image-height="595">
+                            <img alt="" class="u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-image u-image-round u-product-control u-radius-50 u-image-1" src="{{ site.logoimg }}" data-image-width="842" data-image-height="595">
                             <!--/product_image-->
                             <!--product_title-->
                             <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2">
                                 <a class="u-product-title-link" href="#">
-                                    <!--product_title_content-->xx점
+                                    <!--product_title_content-->{{ site.sitename }} 점
                                     <!--/product_title_content--></a>
                             </h4>
                             <!--/product_title-->
@@ -252,133 +255,14 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                             <!--options_json-->
                             <!--{"clickType":"add-to-cart","content":"응모하기"}-->
                             <!--/options_json-->
-                            <a href="" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-1">
+                                <!--product_button_content-->
+                            <a onclick = "window.open('{{site.sitelink}}'+'{{site.nameentry}}'+'{{member.member_realname}}'+'&'+'{{site.birthentry}}'+'{{member.member_birth}}'+'&'+'{{site.phoneentry}}'+'{{member.member_phonenumber}}'+'&'+'{{site.nikeidentry}}'+'{{member.member_nikeid}}'+'&')"  class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-1">
                                 <!--product_button_content-->응모하기
                                 <!--/product_button_content--></a>
                             <!--/product_button-->
                         </div>
                     </div>
-                    <!--/product_item-->
-                    <!--product_item-->
-                    <div class="u-align-center u-container-style u-products-item u-repeater-item">
-                        <div class="u-container-layout u-similar-container u-valign-top-sm u-valign-top-xs u-container-layout-2">
-                            <!--product_image-->
-                            <img alt="" class="u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-image u-image-round u-product-control u-radius-50 u-image-2" src="{% static 'draw/images/jordan1OFF.jpeg' %}" data-image-width="842" data-image-height="595">
-                            <!--/product_image-->
-                            <!--product_title-->
-                            <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-3">
-                                <a class="u-product-title-link" href="#">
-                                    <!--product_title_content-->xx점
-                                    <!--/product_title_content--></a>
-                            </h4>
-                            <!--/product_title-->
-                            <!--product_button-->
-                            <!--options_json-->
-                            <!--{"clickType":"add-to-cart","content":"응모하기"}-->
-                            <!--/options_json-->
-                            <a href="" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
-                                <!--product_button_content-->응모하기
-                                <!--/product_button_content--></a>
-                            <!--/product_button-->
-                        </div>
-                    </div>
-                    <!--/product_item-->
-                    <!--product_item-->
-                    <div class="u-align-center u-container-style u-products-item u-repeater-item">
-                        <div class="u-container-layout u-similar-container u-valign-top-sm u-valign-top-xs u-container-layout-3">
-                            <!--product_image-->
-                            <img alt="" class="u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-image u-image-round u-product-control u-radius-50 u-image-3" src="{% static 'draw/images/jordan1OFF.jpeg' %}" data-image-width="842" data-image-height="595">
-                            <!--/product_image-->
-                            <!--product_title-->
-                            <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-4">
-                                <a class="u-product-title-link" href="#">
-                                    <!--product_title_content-->xx점
-                                    <!--/product_title_content--></a>
-                            </h4>
-                            <!--/product_title-->
-                            <!--product_button-->
-                            <!--options_json-->
-                            <!--{"clickType":"add-to-cart","content":"응모하기"}-->
-                            <!--/options_json-->
-                            <a href="" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-3">
-                                <!--product_button_content-->응모하기
-                                <!--/product_button_content--></a>
-                            <!--/product_button-->
-                        </div>
-                    </div>
-                    <!--/product_item-->
-                    <!--product_item-->
-                    <div class="u-align-center u-container-style u-products-item u-repeater-item">
-                        <div class="u-container-layout u-similar-container u-valign-top-sm u-valign-top-xs u-container-layout-4">
-                            <!--product_image-->
-                            <img alt="" class="u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-image u-image-round u-product-control u-radius-50 u-image-4" src="{% static 'draw/images/jordan1OFF.jpeg' %}" data-image-width="842" data-image-height="595">
-                            <!--/product_image-->
-                            <!--product_title-->
-                            <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-5">
-                                <a class="u-product-title-link" href="#">
-                                    <!--product_title_content-->xx점
-                                    <!--/product_title_content--></a>
-                            </h4>
-                            <!--/product_title-->
-                            <!--product_button-->
-                            <!--options_json-->
-                            <!--{"clickType":"add-to-cart","content":"응모하기"}-->
-                            <!--/options_json-->
-                            <a href="" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-4">
-                                <!--product_button_content-->응모하기
-                                <!--/product_button_content--></a>
-                            <!--/product_button-->
-                        </div>
-                    </div>
-                    <!--/product_item-->
-                    <!--product_item-->
-                    <div class="u-align-center u-container-style u-products-item u-repeater-item">
-                        <div class="u-container-layout u-similar-container u-valign-top-sm u-valign-top-xs u-container-layout-5">
-                            <!--product_image-->
-                            <img alt="" class="u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-image u-image-round u-product-control u-radius-50 u-image-5" src="{% static 'draw/images/jordan1OFF.jpeg' %}" data-image-width="842" data-image-height="595">
-                            <!--/product_image-->
-                            <!--product_title-->
-                            <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-6">
-                                <a class="u-product-title-link" href="#">
-                                    <!--product_title_content-->xx점
-                                    <!--/product_title_content--></a>
-                            </h4>
-                            <!--/product_title-->
-                            <!--product_button-->
-                            <!--options_json-->
-                            <!--{"clickType":"add-to-cart","content":"응모하기"}-->
-                            <!--/options_json-->
-                            <a href="" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-5">
-                                <!--product_button_content-->응모하기
-                                <!--/product_button_content--></a>
-                            <!--/product_button-->
-                        </div>
-                    </div>
-                    <!--/product_item-->
-                    <!--product_item-->
-                    <div class="u-align-center u-container-style u-products-item u-repeater-item">
-                        <div class="u-container-layout u-similar-container u-valign-top-sm u-valign-top-xs u-container-layout-6">
-                            <!--product_image-->
-                            <img alt="" class="u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-image u-image-round u-product-control u-radius-50 u-image-6" src="{% static 'draw/images/jordan1OFF.jpeg' %}" data-image-width="842" data-image-height="595">
-                            <!--/product_image-->
-                            <!--product_title-->
-                            <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-7">
-                                <a class="u-product-title-link" href="#">
-                                    <!--product_title_content-->xx점
-                                    <!--/product_title_content--></a>
-                            </h4>
-                            <!--/product_title-->
-                            <!--product_button-->
-                            <!--options_json-->
-                            <!--{"clickType":"add-to-cart","content":"응모하기"}-->
-                            <!--/options_json-->
-                            <a href="" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-6">
-                                <!--product_button_content-->응모하기
-                                <!--/product_button_content--></a>
-                            <!--/product_button-->
-                        </div>
-                    </div>
-                    <!--/product_item-->
+                    {% endfor %}
                 </div>
             </div>
             <!--/products-->

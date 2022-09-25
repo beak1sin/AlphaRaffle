@@ -12,14 +12,17 @@ urlpatterns = [
     path('auth/login/', views.login, name='로그인'),
     path('auth/logout/', views.logout, name='로그아웃'),
     path('auth/mypage/', views.myPage, name='마이페이지'),
-    path('auth/details/', views.details, name='상세정보'),
     path('auth/delete/', views.delete, name='회원탈퇴'),
     path('auth/practice/', views.practice, name='연습모드'),
     path('member_idcheck', views.member_idcheck, name='member_idcheck'),
     path('member_insert', views.member_insert, name='member_insert'),
     path('member_login', views.member_login, name='member_login'),
     path('member_delete', views.member_delete, name='member_delete'),
+
+    path('crawl', views.crawl, name='crawl'),
     path('auth/mypage/member_update', views.member_update, name='member_update'),
+    path('auth/details', views.details, name='상세정보'),
+
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

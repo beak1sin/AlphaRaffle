@@ -1,11 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import auth
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
-from .models import Shoe, Member
+from .models import Shoe, Member, Shoeimg, Shoesite
 from django.views.decorators.csrf import csrf_exempt
 from datetime import timedelta, datetime
-import schedule
 from django.db.models import Q
 import time
 from django.utils import timezone
@@ -14,10 +13,7 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.core import serializers
 from django.contrib import messages
 import json
-from flask import Flask
-
-app = Flask(__name__)
-app.config['JSON_AS_ASCII'] = False
+from pathlib import Path
 
 User = get_user_model()
 # Create your views here.
@@ -348,9 +344,19 @@ def member_update(request):
 
 @csrf_exempt
 def details(request):
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+    pk = bodyjson['serial']
+
     context = {}
-    shoe = Shoe.objects.all()
-    
+
+    shoe = get_object_or_404(Shoe, serialno=pk) 
+    #site = Shoesite.objects.filter(Q(serialno=pk)&Q(Published_date__gte=start_date, Published_date__lte=end_date))
+    site = Shoesite.objects.filter(serialno=pk)
+    img = get_object_or_404(Shoeimg, serialno=pk) 
+    print(shoe.serialno)
+    print(site)
+    print(img)
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
         member = Member.objects.get(pk= member_no)
@@ -361,8 +367,9 @@ def details(request):
         member = None
 
     context["member_no"] = member_no
-    context = {'shoe':shoe, 'member':member }
-    return render(request, "draw/details.html", context)
+    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img }
+    return render(request, 'draw/details.html', context)
+    #return JsonResponse(context, content_type="application/json")
 
 @csrf_exempt
 def delete(request):
@@ -402,3 +409,127 @@ def member_delete(request):
 
 def practice(request):
     return render(request, 'draw/practice.html')
+
+
+
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import urllib.request
+from bs4 import BeautifulSoup
+import time
+import re
+import os
+import shutil
+import json
+import requests
+import datetime
+
+currentDateTime = datetime.datetime.now()
+date = currentDateTime.date()
+year = date.strftime("%Y")
+drawpath = Path(__file__).resolve().parent
+#======== 셀 레 니 움 설 정 ========#
+#options = webdriver.ChromeOptions()
+#헤들리스로 만들기-----------------
+#options.add_argument('headless')
+#options.add_argument('--disable-gpu')
+#options.add_argument('lang=ko_KR')
+#----------------------------------
+def luckd_crowler(no):
+    path = 'C:/Users/mundd/chromedriver.exe'
+    #driver = webdriver.Chrome(path,chrome_options=options)
+    url = 'https://www.luck-d.com/release/product/%d/'%no
+    #print(no)
+    html = requests.get(url).text
+    soup = BeautifulSoup(html,'html.parser')
+    time.sleep(0.01)
+    #신발 한글이름
+    shoename = soup.select("h3.page_title")[0].text
+    #신발 영어이름
+    try:
+        subname  = soup.select("h5.sub_title")[0].text
+    except:
+        subname = shoename
+
+    #신발 이미지 링크들
+    imglist = []
+    imglen  = soup.select("div.carousel-inner>div.item")
+
+
+    #제품코드
+    product_info_data = soup.select('span.product_info_data')
+
+    serialno = product_info_data[1].text
+    ###제품설명
+    #product_detail = soup.select(' div.product_info_div > div:nth-child(1) > div')[0].text.strip() 
+    #print(product_detail)
+
+    try:
+        Shoe.objects.create(shoename = shoename , shoeengname = subname, serialno = serialno, shoethumbnail = os.path.join(str(drawpath)+"/static/draw/images/"+shoename+str(0)+'.jpeg'))
+    except:
+        pass
+    try:
+        shoe = Shoe.objects.get(serialno = serialno)
+    except:
+        pass
+
+
+    for i in range(len(imglen)):
+        img_file = imglen[i].img['src']
+        img_name = os.path.join(str(drawpath)+"/static/draw/images/"+shoename+str(i)+'.jpeg')
+        try:
+            Shoeimg.objects.create(serialno= serialno, shoeimg = img_name)
+            urllib.request.urlretrieve(img_file, img_name)
+        except:
+            pass
+
+    #사이트별 
+    sitecard = soup.select('div.site_card')    
+    for i in range(len(sitecard)):
+        #사이트명
+        sitename = soup.select('h4.agent_site_title')[i].text
+        #로고
+        logo_file = sitecard[i].img['src']
+        logo_name = str(drawpath)+"/static/draw/logoimg/"+sitename+'.jpeg'
+        urllib.request.urlretrieve(logo_file, logo_name)
+      
+ 
+        #종료일
+        end_date = soup.select('p.release_date_time')[i].text
+        if end_date == '종료':
+            end_date = '2022-09-01 00:00:00'
+        else :
+            end_date = end_date.replace("월",'-')
+            end_date = end_date.replace("일",'')
+            end_date = end_date.replace("까",'')
+            end_date = end_date.replace("지",'')
+            end_date = end_date.replace(" ",'')
+            end_date = "".join(end_date)
+            end_date = year +'-'+ end_date 
+        #링크
+        link = sitecard[i].a['href']
+        try:
+            Shoesite.objects.create(serialno = serialno , logoimg = logo_name, sitename = sitename, sitelink = link )
+        except:
+            pass
+
+def crawl(request):
+    url = 'https://www.luck-d.com/'
+    html = requests.get(url).text
+    soup = BeautifulSoup(html,'html.parser')
+    time.sleep(0.01)
+    shoenum = []
+    
+    sitecard = soup.select('div.site_card')
+    for i in range(len(sitecard)):
+        link = sitecard[i].a['href']
+        shoenum.append(link[17:21].split('/')[0])
+    print(shoenum)
+
+    for num in shoenum:
+        try:
+            luckd_crowler(int(num))
+
+        except:
+            pass
+    return render(request, "draw/main.html")
