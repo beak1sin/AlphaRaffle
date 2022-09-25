@@ -21,7 +21,7 @@ urlpatterns = [
 
     path('crawl', views.crawl, name='crawl'),
     path('auth/mypage/member_update', views.member_update, name='member_update'),
-    path('auth/details', views.details, name='상세정보'),
+    path('auth/details/', views.details, name='상세정보'),
 
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),

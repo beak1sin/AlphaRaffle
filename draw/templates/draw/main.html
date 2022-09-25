@@ -154,9 +154,12 @@
                             <!--<a onclick = "window.open('{{shoe.Link}}'+'{{shoe.nameentry}}'+'{{member.member_realname}}'+'&'+'{{shoe.birthentry}}'+'{{member.member_birth}}'+'&'+'{{shoe.phoneentry}}'+'{{member.member_phonenumber}}'+'&'+'{{shoe.nikeidentry}}'+'{{member.member_nikeid}}'+'&')" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">-->
                                 <!--product_button_content-->
 
-                            <a onclick="detail();" id = "serial" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2" data-value = {{shoe.serialno}}>
+                            <a href="{% url 'draw:상세정보' %}?serialnum={{shoe.serialno}}" id = "serial" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2" data-value = {{shoe.serialno}}>
                                 <!--product_button_content-->응모하기
                                 <!--/product_button_content--></a>
+
+                            <!--a onclick="detail();" id = "serial" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2" data-value = {{shoe.serialno}}-->
+                                <!--product_button_content-->
                             <!--/product_button-->
                         </div>
                     </div>
@@ -202,12 +205,12 @@
             serial = document.getElementById("serial").getAttribute('data-value');
             
             
-            var data = { serial: serial};
+            var data = { serialnum: serial};
             var datastr = JSON.stringify(data);
 
 
             xhr = new XMLHttpRequest();
-            xhr.open("POST", "/auth/details");
+            xhr.open("POST", "/auth/login/");
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
             xhr.send(datastr);
         }

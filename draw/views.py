@@ -14,7 +14,6 @@ from django.core import serializers
 from django.contrib import messages
 import json
 from pathlib import Path
-
 User = get_user_model()
 # Create your views here.
 
@@ -122,7 +121,7 @@ def home(request):
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
         member = Member.objects.get(pk= member_no)
-        print(member_no)
+        #print(member_no)
 
     else:
         member_no = None
@@ -209,7 +208,7 @@ def member_login(request):
             rsMember = Member.objects.get(member_id=memberid, member_pwd=memberpwd)
             memberno = rsMember.member_no
             membername = rsMember.member_realname
-            rsMember.access_latest = datetime.now()
+            rsMember.access_latest = datetime.datetime.now()
             rsMember.save()
 
             request.session['member_no'] = memberno
@@ -233,6 +232,7 @@ def logout(request):
 
 @csrf_exempt
 def login(request):
+
     return render(request, 'draw/login.html')
 
 @csrf_exempt
@@ -344,9 +344,7 @@ def member_update(request):
 
 @csrf_exempt
 def details(request):
-    bodydata = request.body.decode('utf-8')
-    bodyjson = json.loads(bodydata)
-    pk = bodyjson['serial']
+    pk = request.GET['serialnum']
 
     context = {}
 
@@ -354,7 +352,7 @@ def details(request):
     #site = Shoesite.objects.filter(Q(serialno=pk)&Q(Published_date__gte=start_date, Published_date__lte=end_date))
     site = Shoesite.objects.filter(serialno=pk)
     img = get_object_or_404(Shoeimg, serialno=pk) 
-    print(shoe.serialno)
+    print(pk)
     print(site)
     print(img)
     if request.session.has_key('member_no'):
@@ -368,6 +366,7 @@ def details(request):
 
     context["member_no"] = member_no
     context = {'shoe':shoe, 'member':member, 'site': site, 'img':img }
+    print(shoe.serialno)
     return render(request, 'draw/details.html', context)
     #return JsonResponse(context, content_type="application/json")
 
