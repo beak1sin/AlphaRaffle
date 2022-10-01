@@ -165,7 +165,7 @@
                             <li data-u-target="#carousel-edf8" data-u-slide-to="1" class="u-grey-70 u-shape-circle" style="width: 10px; height: 10px;"></li>
                         </ol>
                         <div class="u-carousel-inner u-gallery-inner u-radius-50" role="listbox">
-                            <div class="u-active u-carousel-item u-gallery-item u-carousel-item-1">
+                            <div class="u-active u-carousel-item u-gallery-item u-carousel-item-default">
                                 <div class="u-back-slide u-back-slide-1">
 
                                     <img src="{% static 'draw/images/' %}{{shoe.shoename}}1.jpeg" alt="" data-image-width="2000" data-image-height="1333" class="u-back-image u-expanded">
@@ -177,9 +177,10 @@
                                 </div>
                                 -->
                             </div>
-                            <div class="u-carousel-item u-gallery-item u-carousel-item-2">
+                            {% for img in img %}
+                            <div class="u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter0}}">
                                 <div class="u-back-slide">
-                                    <img class="u-back-image u-expanded" src="{% static 'draw/images/jordan1OFF.jpeg' %}">
+                                    <img class="u-back-image u-expanded" src="{% static 'draw/images/' %}{{shoe.shoename}}{{forloop.counter0}}.jpeg">
                                 </div>
                                 <!--
                                 <div class="u-align-center-xs u-over-slide u-shading u-valign-bottom-xs u-over-slide-2">
@@ -188,6 +189,8 @@
                                 </div>
                                 -->
                             </div>
+                            {% endfor %}
+
                         </div>
                         <a class="u-absolute-vcenter u-carousel-control u-carousel-control-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-carousel-control-1" href="#carousel-edf8" role="button" data-u-slide="prev">
                             <span aria-hidden="true">
@@ -242,7 +245,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                     <div class="u-align-center u-container-style u-products-item u-repeater-item">
                         <div class="u-container-layout u-similar-container u-valign-top-sm u-valign-top-xs u-container-layout-1">
                             <!--product_image-->
-                            <img alt="" class="u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-image u-image-round u-product-control u-radius-50 u-image-1" src="{{ site.logoimg }}" data-image-width="842" data-image-height="595">
+                            <img alt="" class="u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-image u-image-round u-product-control u-radius-50 u-image-1" src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" data-image-width="842" data-image-height="595">
                             <!--/product_image-->
                             <!--product_title-->
                             <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2">

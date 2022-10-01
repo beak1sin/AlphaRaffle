@@ -351,7 +351,7 @@ def details(request):
     shoe = get_object_or_404(Shoe, serialno=pk) 
     #site = Shoesite.objects.filter(Q(serialno=pk)&Q(Published_date__gte=start_date, Published_date__lte=end_date))
     site = Shoesite.objects.filter(serialno=pk)
-    img = get_object_or_404(Shoeimg, serialno=pk) 
+    img = Shoeimg.objects.filter(serialno=pk) 
     print(pk)
     print(site)
     print(img)
@@ -506,11 +506,17 @@ def luckd_crowler(no):
             end_date = "".join(end_date)
             end_date = year +'-'+ end_date 
         #링크
-        link = sitecard[i].a['href']
-        try:
-            Shoesite.objects.create(serialno = serialno , logoimg = logo_name, sitename = sitename, sitelink = link )
-        except:
-            pass
+        sitelink = sitecard[i].a['href']
+        print('serialno =', serialno)
+        print('logoimg =', logo_name)
+        print('sitename =', sitename)
+        print('sitelink =', sitelink)
+        
+        Shoesite.objects.create(serialno = serialno , logoimg = logo_name, sitename = sitename, sitelink = sitelink )
+        # try:
+        #     Shoesite.objects.create(serialno = serialno , logoimg = logo_name, sitename = sitename, sitelink = link )
+        # except:
+        #     pass
 
 def crawl(request):
     url = 'https://www.luck-d.com/'
@@ -523,12 +529,10 @@ def crawl(request):
     for i in range(len(sitecard)):
         link = sitecard[i].a['href']
         shoenum.append(link[17:21].split('/')[0])
-    print(shoenum)
+    #print(shoenum)
 
-    for num in shoenum:
-        try:
-            luckd_crowler(int(num))
+    #for num in shoenum:
+    for num in range(1891,1893):
+        luckd_crowler(int(num))
 
-        except:
-            pass
     return render(request, "draw/main.html")

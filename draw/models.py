@@ -11,19 +11,19 @@ class Shoe(models.Model):
 	def __str__(self):
 		return self.shoename
 class Shoeimg(models.Model):
-	serialno = models.CharField(max_length=50,unique=True, default= None)
+	serialno = models.CharField(max_length=50, default= None)
 	shoeimg = models.CharField(max_length=200)	
 
 class Shoesite(models.Model):
-	serialno = models.CharField(max_length=50,unique=True, default= None)
+	serialno = models.CharField(max_length=50, default= None)
 	logoimg = models.CharField(max_length=200)	
 	sitename = models.CharField(max_length=200)	
-	nameentry = models.CharField(max_length=200, default= None, blank = True)			
-	birthentry = models.CharField(max_length=200, default= None, blank = True)			
-	phoneentry = models.CharField(max_length=200, default= None, blank = True)	
-	nikeidentry = models.CharField(max_length=200, default= None, blank = True)
-	pub_date = models.DateTimeField('date published', default= None)	# 발매기간
-	end_date = models.DateTimeField('date end', default= None)
+	nameentry = models.CharField(max_length=200, null=True, blank=True)			
+	birthentry = models.CharField(max_length=200, null=True, blank=True)			
+	phoneentry = models.CharField(max_length=200, null=True, blank=True)	
+	nikeidentry = models.CharField(max_length=200, null=True, blank=True)
+	pub_date = models.DateTimeField('date published', null=True, blank=True)	# 발매기간
+	end_date = models.DateTimeField('date end', null=True, blank=True)
 	sitelink = models.CharField(max_length=200)
 
 
