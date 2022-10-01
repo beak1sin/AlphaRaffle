@@ -106,7 +106,7 @@ def member_insert(request):
                                member_nikeid=membernikeid,
                                member_phonenumber=memberphonenumber,
                                usage_flag='1',
-                               register_date=datetime.now()
+                               register_date=datetime.datetime.now()
                                )
 
     context['flag'] = '1'
