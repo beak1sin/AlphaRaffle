@@ -85,18 +85,18 @@
                             </div>
                         </div>
                         <div class="u-container-style u-layout-cell u-size-10-lg u-size-10-xl u-size-8-md u-size-8-sm u-size-8-xs u-layout-cell-2">
-                            <div class="u-container-layout u-container-layout-2"><span class="u-align-center u-file-icon u-icon u-icon-2" data-animation-name="customAnimationIn" data-animation-duration="1000"><img src="{% static 'draw/images/545682.png' %}" alt=""></span>
+                            <div class="u-container-layout u-container-layout-2"><span class="u-align-center u-file-icon u-icon u-icon-2" data-animation-name="customAnimationIn" data-animation-duration="1000"><img class="lazyload" data-src="{% static 'draw/images/545682.png' %}" alt=""></span>
                             </div>
                         </div>
                         <div class="u-align-center u-container-style u-layout-cell u-size-14-lg u-size-14-xl u-size-16-md u-size-16-sm u-size-16-xs u-layout-cell-3" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-direction="" data-animation-delay="0">
-                            <div class="u-container-layout u-container-layout-3"><span class="u-align-center u-file-icon u-icon u-icon-3"><img src="{% static 'draw/images/2742817.png' %}" alt=""></span>
+                            <div class="u-container-layout u-container-layout-3"><span class="u-align-center u-file-icon u-icon u-icon-3"><img class="lazyload" data-src="{% static 'draw/images/2742817.png' %}" alt=""></span>
                                 <h5 class="u-text u-text-default u-text-5">step 2</h5>
                                 <p class="u-text u-text-6">발매정보 중 응모하고 싶으신&nbsp;<br>신발을 선택하세요.
                                 </p>
                             </div>
                         </div>
                         <div class="u-container-style u-layout-cell u-size-10-lg u-size-10-xl u-size-8-md u-size-8-sm u-size-8-xs u-layout-cell-4">
-                            <div class="u-container-layout u-container-layout-4"><span class="u-align-center u-file-icon u-icon u-icon-4" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="0"><img src="{% static 'draw/images/545682.png' %}" alt=""></span>
+                            <div class="u-container-layout u-container-layout-4"><span class="u-align-center u-file-icon u-icon u-icon-4" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="0"><img class="lazyload" data-src="{% static 'draw/images/545682.png' %}" alt=""></span>
                             </div>
                         </div>
                         <div class="u-align-center u-container-style u-layout-cell u-size-13-lg u-size-13-xl u-size-14-md u-size-14-sm u-size-14-xs u-layout-cell-5" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-direction="" data-animation-delay="0">
@@ -140,7 +140,7 @@
                         <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
                             <!--product_image-->
                             <!-- <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" src="{% static '/' %}{{shoe.shoethumbnail}}" data-image-width="842" data-image-height="595"> -->
-                            <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" src="{% static 'draw/images/' %}{{shoe.shoename}}0.jpeg" data-image-width="842" data-image-height="595">
+                            <img alt="" class="lazyload u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" data-src="{% static 'draw/images/' %}{{shoe.shoename}}0.jpeg" data-image-width="842" data-image-height="595">
                             <!--/product_image-->
                             <!--product_title-->
                             <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2">
@@ -179,6 +179,7 @@
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
     <script type="text/javascript">
         function dropped() {
             document.getElementById('section2').scrollIntoView({behavior: 'smooth'});

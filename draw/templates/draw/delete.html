@@ -38,7 +38,7 @@
         <div class="u-align-left u-clearfix u-sheet u-valign-middle u-sheet-1">
             <div class="u-border-2 u-border-grey-75 u-container-style u-group u-radius-50 u-shape-round u-group-1">
                 <div class="u-container-layout u-container-layout-1">
-                    <h3 class="u-text u-text-default u-text-1"> &nbsp;&nbsp; <span class="u-file-icon u-icon"><img src="{% static 'draw/images/delete_member.png' %}" alt=""></span> &nbsp;회원탈퇴
+                    <h3 class="u-text u-text-default u-text-1"> &nbsp;&nbsp; <span class="u-file-icon u-icon"><img class="lazyload" data-src="{% static 'draw/images/delete_member.png' %}" alt=""></span> &nbsp;회원탈퇴
                     </h3>
                     <div class="u-border-2 u-border-grey-dark-1 u-expanded-width u-line u-line-horizontal u-line-1"></div>
                     <h6 class="u-text u-text-2"> AlphaRaffle 웹사이트에서 <strong>{{ member.member_nickname}}</strong> 회원님의 계정이 삭제됩니다.<br>탈퇴 시 개인정보 및 이용정보가 삭제되며 복구할 수 없습니다.<br>본인의 비밀번호를 입력한 후 하단의 유의사항 동의에 체크에 체크하세요.
@@ -76,6 +76,7 @@
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
     <script type="text/javascript">
         function getCookie(name) {
             var cookieValue = null;

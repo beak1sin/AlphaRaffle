@@ -174,13 +174,13 @@
                             {% if forloop.counter == 1 %}
                             <div class="u-active u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter}}">
                                 <div class="u-back-slide u-back-slide-1">
-                                    <img src="{% static 'draw/images/' %}{{shoe.shoename}}{{forloop.counter}}.jpeg" alt="" data-image-width="2000" data-image-height="1333" class="u-back-image u-expanded">
+                                    <img class="lazyload" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{forloop.counter}}.jpeg" alt="" data-image-width="2000" data-image-height="1333" class="u-back-image u-expanded">
                                 </div>
                             </div>
                             {% else %}
                             <div class="u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter}}">
                                 <div class="u-back-slide">
-                                    <img class="u-back-image u-expanded" src="{% static 'draw/images/' %}{{shoe.shoename}}{{forloop.counter}}.jpeg">
+                                    <img class="lazyload u-back-image u-expanded" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{forloop.counter}}.jpeg">
                                 </div>
                             </div>
                             {% endif %}
@@ -239,7 +239,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                     <div class="u-align-center u-container-style u-products-item u-repeater-item">
                         <div class="u-container-layout u-similar-container u-valign-top-sm u-valign-top-xs u-container-layout-1">
                             <!--product_image-->
-                            <img alt="" class="u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-image u-image-round u-product-control u-radius-50 u-image-1" src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" data-image-width="842" data-image-height="595">
+                            <img alt="" class="lazyload u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-image u-image-round u-product-control u-radius-50 u-image-1" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" data-image-width="842" data-image-height="595">
                             <!--/product_image-->
                             <!--product_title-->
                             <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2">
@@ -276,7 +276,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
             <div class="comment_div">
                 <div class="comment_header">
                     <div class="profile_img">
-                        <img src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
+                        <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
                     </div>
                     <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
                     <p class="comment-created-date">2022-09-19 11:59AM</p>
@@ -293,7 +293,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                 <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
                     <div class="u-form-group u-form-message">
                         <div class="profile_img">
-                            <img src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
+                            <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
                         </div>
                         <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
                         <textarea placeholder="댓글을 작성하세요." id="commentArea" rows="4" cols="50" id="message-872b" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-25" style="resize: none; margin-top: 10px;" required=""></textarea>
@@ -310,7 +310,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
             <div class="comment_div">
                 <div class="comment_header">
                     <div class="profile_img">
-                        <img src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
+                        <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
                     </div>
                     <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
                     <p class="comment-created-date">2022-09-19 11:59AM</p>
@@ -327,7 +327,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                 <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
                     <div class="u-form-group u-form-message">
                         <div class="profile_img">
-                            <img src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
+                            <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
                         </div>
                         <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
                         <textarea placeholder="댓글을 작성하세요." id="commentArea" rows="4" cols="50" id="message-872b" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-25" style="resize: none; margin-top: 10px;" required=""></textarea>
@@ -344,7 +344,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
             <div class="comment_div">
                 <div class="comment_header">
                     <div class="profile_img">
-                        <img src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
+                        <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
                     </div>
                     <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
                     <p class="comment-created-date">2022-09-19 11:59AM</p>
@@ -361,7 +361,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                 <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
                     <div class="u-form-group u-form-message">
                         <div class="profile_img">
-                            <img src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
+                            <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
                         </div>
                         <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
                         <textarea placeholder="댓글을 작성하세요." id="commentArea" rows="4" cols="50" id="message-872b" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-25" style="resize: none; margin-top: 10px;" required=""></textarea>
@@ -378,7 +378,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
             <div class="comment_div">
                 <div class="comment_header">
                     <div class="profile_img">
-                        <img src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
+                        <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
                     </div>
                     <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
                     <p class="comment-created-date">2022-09-19 11:59AM</p>
@@ -395,7 +395,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                 <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
                     <div class="u-form-group u-form-message">
                         <div class="profile_img">
-                            <img src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
+                            <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
                         </div>
                         <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
                         <textarea placeholder="댓글을 작성하세요." id="commentArea" rows="4" cols="50" id="message-872b" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-25" style="resize: none; margin-top: 10px;" required=""></textarea>
@@ -440,7 +440,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 
                     <div class="u-form-group u-form-message">
                         <div class="profile_img">
-                            <img src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
+                            <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
                         </div>
                         <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
                         <textarea placeholder="댓글을 작성하세요." id="commentArea" rows="4" cols="50" id="message-872b" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-25" style="resize: none; margin-top: 10px;" required=""></textarea>
@@ -468,6 +468,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
     <script type="text/javascript">
 
         function comment() {
@@ -519,6 +520,12 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                 // }
                 // $(".reply").toggle();
                 $(this).parent().parent().next().toggle();
+                if ($(this).parent().hasClass('borderBottomNone')) {
+                    $(this).parent().removeClass('borderBottomNone');
+                } else {
+                    $(this).parent().addClass('borderBottomNone');
+                }
+                // $(this).parent().parent().prev().children().next().next().style.borderBottom="15px dotted red";
             });
         }); 
     </script>
