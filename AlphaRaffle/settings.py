@@ -43,7 +43,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # DEBUG = True
 # DEBUG = False
 
-ALLOWED_HOSTS = ['alpharaffle.herokuapp.com','127.0.0.1','129.154.211.163']
+ALLOWED_HOSTS = ['alpharaffle.herokuapp.com','127.0.0.1','129.154.211.163', 'alpharaffle.ml']
 
 
 # Application definition
@@ -56,9 +56,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
 ]
 
+# The Debug Toolbar is shown only if your IP is listed in the INTERNAL_IPS setting.
+INTERNAL_IPS = ['127.0.0.1']
+
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -67,6 +72,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'AlphaRaffle.urls'
