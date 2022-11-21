@@ -74,6 +74,7 @@
 
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
+    <script type="text/javascript" src="{% static 'draw/js/sha1.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
@@ -97,7 +98,7 @@
         var csrftoken = getCookie('csrftoken');
 
         var xhr;
-
+        /*
         function member_delete() {
             memberpwd = document.getElementById("member_pwd").value;
             if(memberpwd == "") {
@@ -110,6 +111,8 @@
                 })
                 return false;
             }
+
+            pwdencrypted = hex_sha1(memberpwd);
 
             wflag = document.getElementById("warrantcheck").checked;
             if(wflag == false) {
@@ -160,6 +163,69 @@
             xhr.open("POST", strurl);
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
             xhr.send(null);
+        }
+        */
+
+        function member_delete() {
+            memberpwd = document.getElementById("member_pwd").value;
+            if(memberpwd == "") {
+                Swal.fire({
+                  icon: 'error',
+                  title: '비밀번호를 입력하세요.',
+                  confirmButtonColor: '#000000',
+                  timer: 2000,
+                  timerProgressBar: true
+                })
+                return false;
+            }
+
+            pwdencrypted = hex_sha1(memberpwd);
+
+            wflag = document.getElementById("warrantcheck").checked;
+            if(wflag == false) {
+                Swal.fire({
+                  icon: 'error',
+                  title: '약관에 동의해주세요.',
+                  confirmButtonColor: '#000000',
+                  timer: 2000,
+                  timerProgressBar: true
+                })
+                return false;
+            }
+
+            var data = {member_pwd: pwdencrypted};
+            var datastr = JSON.stringify(data);
+
+            xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    var data = xhr.responseText;
+
+                    var obj = JSON.parse(data);
+
+                    if(obj.flag == "1"){
+                        Swal.fire({
+                          icon: 'success',
+                          title: obj.result_msg,
+                          confirmButtonColor: '#000000',
+                          timer: 2000,
+                          timerProgressBar: true
+                        })
+                        location.href = "/";
+                    } else {
+                      Swal.fire({
+                        icon: 'error',
+                        title: obj.result_msg,
+                        confirmButtonColor: '#000000',
+                        timer: 2000,
+                        timerProgressBar: true
+                      })
+                    }
+                }
+            };
+            xhr.open("POST", "/member_delete");
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            xhr.send(datastr);
         }
     </script>
 </body>

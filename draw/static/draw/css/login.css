@@ -7,6 +7,8 @@
   height: 289px;
   width: 570px;
   margin: 115px auto 0;
+  border: 2px solid black;
+  border-radius: 50px;
 }
 
 .u-section-1 .u-label-1 {

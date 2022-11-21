@@ -170,6 +170,7 @@
                         </div>
                         <div class="error_box" style="width: 550px; text-align: center; display: none;">
                             <p class="error_message" style="margin-top: 0px; color: red;"></p>
+                            <a class="sendmail_btn" href="{% url 'draw:연습모드' %}" style="display: none;">메일인증</a>
                         </div>
                         
                         <div class="u-align-left u-form-group u-form-submit u-label-top">
@@ -181,9 +182,9 @@
                         <input type="hidden" value="" name="recaptchaResponse">
                     </form>
                 </div>
-                <br><br>
+                <br/><br/>
             </div>
-
+            <br/><br/><br/>
         </div>
     </section>
 
@@ -654,6 +655,9 @@
                         $('.error_box').show();
                         $('.error_message').html(obj.result_msg);
                         $('#member_id').focus();
+                        if(obj.inactive == "1") {
+                            $('.sendmail_btn').show();
+                        }
                     }
                 }
             };

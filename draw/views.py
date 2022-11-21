@@ -14,6 +14,16 @@ from django.core import serializers
 from django.contrib import messages
 import json
 from pathlib import Path
+from django.core.mail import send_mail
+
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from django.core.mail import EmailMessage
+from .tokens import account_activation_token
+from django.utils.encoding import force_bytes, force_str
+
 User = get_user_model()
 # Create your views here.
 
@@ -108,11 +118,35 @@ def member_insert(request):
                                usage_flag='1',
                                register_date=datetime.datetime.now()
                                )
+    rs.save()
+    current_site = get_current_site(request)
+    message = render_to_string('draw/user_activate_email.html',                         {
+                'user': rs,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(rs.pk)).encode().decode(),
+                'token': account_activation_token.make_token(rs),
+            })
+    mail_subject = "[AlphaRaffle] 회원가입 인증 메일입니다."
+    user_email = rs.member_id
+    email = EmailMessage(mail_subject, message, to=[user_email])
+    email.send()
 
     context['flag'] = '1'
-    context['result_msg'] = '회원가입 되었습니다. Home에서 로그인하세요.'
+    context['result_msg'] = '회원가입 인증메일을 보냈습니다. 인증 후 로그인 바랍니다.'
 
     return JsonResponse(context, content_type="application/json")
+
+def activate(request, uid64, token):
+
+    uid = force_str(urlsafe_base64_decode(uid64))
+    user = Member.objects.get(pk=uid)
+
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        return HttpResponse('메일인증 성공')
+    else:
+        return HttpResponse('비정상적인 접근입니다.')
 
 def home(request):
     context = {}
@@ -206,18 +240,25 @@ def member_login(request):
         if rsTmp:
             # Session에 member_no를 저장
             rsMember = Member.objects.get(member_id=memberid, member_pwd=memberpwd)
-            memberno = rsMember.member_no
-            membername = rsMember.member_realname
-            rsMember.access_latest = datetime.datetime.now()
-            rsMember.save()
+            is_active = rsMember.is_active
 
-            request.session['member_no'] = memberno
-            request.session['member_nickname'] = membername
+            if is_active:
+                memberno = rsMember.member_no                
+                membername = rsMember.member_realname
+                rsMember.access_latest = datetime.datetime.now()
+                rsMember.save()
 
-            context = {
-                'flag': '0',
-                'result_msg': 'Login complete 성공...'
-            }
+                request.session['member_no'] = memberno
+                request.session['member_nickname'] = membername
+
+                context = {
+                    'flag': '0',
+                    'result_msg': 'Login complete 성공...'
+                }
+            else:
+                context['flag'] = '1'
+                context['inactive'] = '1'
+                context['result_msg'] = '비활성화 되어 있습니다. 인증 후 로그인 바랍니다.'
         else:
             context['flag'] = '1'
             context['result_msg'] = 'Login error... 아이디와 비번을 확인하세요.'
@@ -391,7 +432,12 @@ def delete(request):
 @csrf_exempt
 def member_delete(request):
     context = {}
-    memberpwd = request.GET.get('member_pwd')
+
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+
+    memberpwd = bodyjson['member_pwd']
+
     memberno = request.session['member_no']
     rsMember = Member.objects.get(member_no=memberno)
 
@@ -536,3 +582,17 @@ def crawl(request):
         luckd_crowler(int(num))
 
     return render(request, "draw/main.html")
+
+def sendmail(request):
+    send_mail('안녕하세요. AlphaRaffle입니다.',
+              '안녕하세요. 자동메시지입니다.\n\nHave a Nice Day~!',
+              'dbswlrla112@naver.com',
+              ['dbswlrla1112@gmail.com'],
+              fail_silently=False)
+
+    return redirect('/auth/practice')
+
+
+
+
+
