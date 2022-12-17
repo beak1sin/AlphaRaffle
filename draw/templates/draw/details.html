@@ -33,7 +33,7 @@
 </head>
 
 <body class="u-body u-xl-mode">
-
+    <article>
     <!-- 헤더 -->
     {% include 'draw/header.html' %}
 
@@ -286,6 +286,10 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                 </div>
                 <div class="comment_footer" style="border-bottom: 1px dashed #666666;">
                     <button class="reply-btn u-hover-grey-60 disabled">답글 쓰기</button>
+                    <button class="report_btn u-hover-grey-60">신고</button>
+                      <a href="javascript:;" class="icon heart">
+                         <img src="https://cdn-icons-png.flaticon.com/512/812/812327.png" alt="찜하기">
+                      </a>
                 </div>
             </div>
             <!-- reply -->
@@ -464,71 +468,13 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 
     <!-- 풋터 -->
     {% include 'draw/footer.html' %}
+    </article>
 
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
-    <script type="text/javascript">
-
-        function comment() {
-            commentValue = document.getElementById("commentArea").value;
-            if (commentValue == "") {
-                $('#comment_error_msg').show();
-                return false;
-            }
-        }
-
-        function dropped() {
-            document.getElementById('section2').scrollIntoView({behavior: 'smooth'});
-        }
-
-        // function reply() {
-        //     if ($('.reply-btn').hasClass('disabled')) {
-        //         $('.reply').show();
-        //         $(this).addClass('active');
-        //         $(this).removeClass('disabled');
-        //     } else {
-        //         $('.reply').hide();
-        //         $(this).removeClass('active');
-        //         $(this).addClass('disabled');
-        //     }
-        // }
-
-        // $(document).ready(function() {
-        //     $('.reply-btn').on('click', function() {
-        //         if ($('.reply-btn').hasClass('disabled')) {
-        //             $('.reply').show();
-        //             $(this).addClass('active');
-        //             $(this).removeClass('disabled');
-        //         } else {
-        //             $('.reply').hide();
-        //             $(this).removeClass('active');
-        //             $(this).addClass('disabled');
-        //         }
-        //     });
-        // })
-
-        $(document).ready(function() {
-            $('.reply-btn').on('click', function() {
-                // if ($('.reply-btn').hasClass('disabled')) {
-                //     $(this).addClass('active');
-                //     $(this).removeClass('disabled');
-                // } else {
-                //     $(this).addClass('disabled');
-                //     $(this).removeClass('active');
-                // }
-                // $(".reply").toggle();
-                $(this).parent().parent().next().toggle();
-                if ($(this).parent().hasClass('borderBottomNone')) {
-                    $(this).parent().removeClass('borderBottomNone');
-                } else {
-                    $(this).parent().addClass('borderBottomNone');
-                }
-                // $(this).parent().parent().prev().children().next().next().style.borderBottom="15px dotted red";
-            });
-        }); 
-    </script>
+    <script src="{% static 'draw/js/details.js' %}"></script>
 </body>
 
 </html>

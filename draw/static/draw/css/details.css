@@ -917,3 +917,54 @@ table {
 .borderBottomNone {
   border-bottom: none !important;
 }
+
+/* 신고버튼 */
+.report_btn {
+  transition-duration: 0.5s;
+  background-color: white;
+  border: 1px solid;
+  border-radius: 50px;
+  float: right;
+  margin: 10px 20px 0px 0px;
+  font-size: 10px;
+}
+
+
+/* 좋아요 버튼 */
+.icon{
+  display: flex;
+  float: right;
+  margin: 10px 10px 0px 0px;
+  align-items: center;
+  justify-content: center;
+  width: calc(100vw * (45 / 1920));
+  height: calc(100vw * (45 / 1920));
+
+  border-radius: 50%;
+  border: solid 1px black;
+  background-color: #fff;
+}
+
+.icon.heart img{
+  width: calc(100vw * (24 / 1920));
+  height: calc(100vw * (24 / 1920));
+}
+
+.icon.heart.fas{
+  color:red
+}
+
+.heart{
+  transform-origin: center;
+}
+
+.heart.active img{
+  animation: animateHeart .3s linear forwards;
+}
+
+@keyframes animateHeart{
+  0%{transform:scale(.2);}
+  40%{transform:scale(1.2);}
+  100%{transform:scale(1);}
+}
+/* ---------- 좋아요 버튼 */
