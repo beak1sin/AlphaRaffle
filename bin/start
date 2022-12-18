@@ -1,0 +1,11 @@
+git pull origin master
+echo "############# GIT OK #############"
+python /usr/local/share/AlphaRaffle/manage.py makemigrations
+echo "############# makemigrations OK #############"
+python /usr/local/share/AlphaRaffle/manage.py migrate
+echo "############# migrate OK #############"
+killall -9 uwsgi
+echo "############# KILL OK #############"
+uwsgi --ini /usr/local/share/AlphaRaffle/AlphaRaffle_uwsgi.ini
+echo "############# START OK #############"
+tail -111f /usr/local/share/AlphaRaffle/logs/uwsgi.log
