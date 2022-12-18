@@ -25,6 +25,7 @@ class Shoesite(models.Model):
 	pub_date = models.DateTimeField('date published', null=True, blank=True)	# 발매기간
 	end_date = models.DateTimeField('date end', null=True, blank=True)
 	sitelink = models.CharField(max_length=200)
+	shoesiteunique = models.CharField(max_length=500,unique=True)
 
 
 class Member(models.Model):

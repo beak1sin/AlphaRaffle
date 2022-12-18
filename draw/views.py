@@ -558,7 +558,9 @@ def luckd_crowler(no):
         print('sitename =', sitename)
         print('sitelink =', sitelink)
         
-        Shoesite.objects.create(serialno = serialno , logoimg = logo_name, sitename = sitename, sitelink = sitelink )
+        shoeunique = serialno+logoimg+sitename+sitelink
+        
+        Shoesite.objects.create(serialno = serialno , logoimg = logo_name, sitename = sitename, sitelink = sitelink, shoeunique = shoeunique )
         # try:
         #     Shoesite.objects.create(serialno = serialno , logoimg = logo_name, sitename = sitename, sitelink = link )
         # except:
@@ -577,8 +579,8 @@ def crawl(request):
         shoenum.append(link[17:21].split('/')[0])
     #print(shoenum)
 
-    #for num in shoenum:
-    for num in range(1891,1893):
+    for num in shoenum:
+    #for num in range(1891,1893):
         luckd_crowler(int(num))
 
     return render(request, "draw/main.html")

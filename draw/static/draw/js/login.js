@@ -240,7 +240,7 @@ function loginCheck() {
 
     var data = { member_loginid: memberid, member_loginpwd: pwdencrypted};
     var datastr = JSON.stringify(data);
-
+    
     xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
