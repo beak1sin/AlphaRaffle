@@ -588,8 +588,8 @@ def crawl(request):
 def sendmail(request):
     send_mail('안녕하세요. AlphaRaffle입니다.',
               '안녕하세요. 자동메시지입니다.\n\nHave a Nice Day~!',
-              'dbswlrla112@naver.com',
-              ['dbswlrla1112@gmail.com'],
+              'dbswlrla1112@gmail.com',
+              ['dbswlrla112@gmail.com'],
               fail_silently=False)
 
     return redirect('/auth/practice')

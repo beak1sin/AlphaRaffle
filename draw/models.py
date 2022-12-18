@@ -12,20 +12,22 @@ class Shoe(models.Model):
 		return self.shoename
 class Shoeimg(models.Model):
 	serialno = models.CharField(max_length=50, default= None)
-	shoeimg = models.CharField(max_length=200)	
+	shoeimg = models.CharField(max_length=200, unique=True)	
+
+class Shoesiteimg(models.Model):
+   sitename = models.CharField(max_length=200,unique=True)   
 
 class Shoesite(models.Model):
-	serialno = models.CharField(max_length=50, default= None)
-	logoimg = models.CharField(max_length=200)	
-	sitename = models.CharField(max_length=200)	
-	nameentry = models.CharField(max_length=200, null=True, blank=True)			
-	birthentry = models.CharField(max_length=200, null=True, blank=True)			
-	phoneentry = models.CharField(max_length=200, null=True, blank=True)	
-	nikeidentry = models.CharField(max_length=200, null=True, blank=True)
-	pub_date = models.DateTimeField('date published', null=True, blank=True)	# 발매기간
-	end_date = models.DateTimeField('date end', null=True, blank=True)
-	sitelink = models.CharField(max_length=200)
-	shoesiteunique = models.CharField(max_length=500,unique=True)
+   serialno = models.CharField(max_length=50, default= None)
+   sitename = models.CharField(max_length=200)   
+   nameentry = models.CharField(max_length=200, null=True, blank=True)         
+   birthentry = models.CharField(max_length=200, null=True, blank=True)         
+   phoneentry = models.CharField(max_length=200, null=True, blank=True)   
+   nikeidentry = models.CharField(max_length=200, null=True, blank=True)
+   pub_date = models.DateTimeField('date published', null=True, blank=True)   # 발매기간
+   end_date = models.DateTimeField('date end', null=True, blank=True)
+   sitelink = models.CharField(max_length=200)
+   shoesiteunique = models.CharField(max_length=255,unique=True)
 
 
 class Member(models.Model):
@@ -39,7 +41,7 @@ class Member(models.Model):
 	member_nikeid = models.CharField(db_column='member_nikeid', max_length=200)
 	member_phonenumber = models.CharField(db_column='member_phonenumber', max_length=200)
 	usage_flag = models.CharField(db_column='usage_flag', max_length=10, default='1')
-	register_date = models.DateTimeField(db_column='register_date', )
+	register_date = models.DateTimeField(db_column='register_date')
 	is_active = models.BooleanField(db_column='is_active', default=False)
 
 	class Meta:
