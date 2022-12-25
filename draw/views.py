@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import auth
+from urllib.parse import quote
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
-from .models import Shoe, Member, Shoeimg, Shoesite
+from .models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg
 from django.views.decorators.csrf import csrf_exempt
 from datetime import timedelta, datetime
 from django.db.models import Q
@@ -481,7 +482,7 @@ drawpath = Path(__file__).resolve().parent
 #options.add_argument('lang=ko_KR')
 #----------------------------------
 def luckd_crowler(no):
-    path = 'C:/Users/mundd/chromedriver.exe'
+    #path = 'C:/Users/mundd/chromedriver.exe'
     #driver = webdriver.Chrome(path,chrome_options=options)
     url = 'https://www.luck-d.com/release/product/%d/'%no
     #print(no)
@@ -495,6 +496,11 @@ def luckd_crowler(no):
         subname  = soup.select("h5.sub_title")[0].text
     except:
         subname = shoename
+    #신발 브랜드
+    try:
+        shoebrand = soup.select("h3.brand")[0].text.strip()
+    except:
+        shoebrand = '-'
 
     #신발 이미지 링크들
     imglist = []
@@ -502,32 +508,59 @@ def luckd_crowler(no):
 
 
     #제품코드
-    product_info_data = soup.select('span.product_info_data')
+    detail_info = soup.select('ul.detail_info>li')
+    #print('detail_info = ', len(detail_info),detail_info)
+    serialno = detail_info[0].text[5:]
+    shoepubdate = detail_info[1].text[3:]
+    shoeprice = detail_info[2].text[2:]
+    
+    try:
+        product_detail = detail_info[3].text[5:].strip() 
+    except:
+        product_detail = '-'
 
-    serialno = product_info_data[1].text
+
+    if len(serialno) <= 2:
+        print('no serial number')
+        return 
+    else:
+        pass
+    #print('serialno = ',serialno)
     ###제품설명
     #product_detail = soup.select(' div.product_info_div > div:nth-child(1) > div')[0].text.strip() 
     #print(product_detail)
 
     try:
-        Shoe.objects.create(shoename = shoename , shoeengname = subname, serialno = serialno, shoethumbnail = os.path.join(str(drawpath)+"/static/draw/images/"+shoename+str(0)+'.jpeg'))
+        Shoe.objects.create(shoename = shoename , shoeengname = subname, serialno = serialno,
+                        shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, shoeprice = shoeprice)
     except:
+        print(no,'already exist shoe')
         pass
-    try:
-        shoe = Shoe.objects.get(serialno = serialno)
-    except:
-        pass
-
-
-    for i in range(len(imglen)):
-        img_file = imglen[i].img['src']
-        img_name = os.path.join(str(drawpath)+"/static/draw/images/"+shoename+str(i)+'.jpeg')
-        try:
-            Shoeimg.objects.create(serialno= serialno, shoeimg = img_name)
+    if len(imglen)>=1:            
+        for i in range(len(imglen)):
+            img_file = imglen[i].img['src']
+            img_name = os.path.join(str(Path(__file__).resolve().parent)+"/static/draw/images/"+shoename+str(i)+'.jpeg')
+            
+            try:
+                Shoeimg.objects.create(serialno= serialno, shoeimg = shoename+str(i))
+            except:
+                pass
+            
             urllib.request.urlretrieve(img_file, img_name)
+    else:
+        
+        img2 = soup.select("div.img_div")
+        img_file = img2[0].img['src']
+        img_name = os.path.join(str(Path(__file__).resolve().parent)+"/static/draw/images/"+shoename+str(0)+'.jpeg')
+            
+        try:
+            Shoeimg.objects.create(serialno= serialno, shoeimg = shoename+str(0))
         except:
             pass
-
+        
+        urllib.request.urlretrieve(img_file, img_name)
+    
+    
     #사이트별 
     sitecard = soup.select('div.site_card')    
     for i in range(len(sitecard)):
@@ -535,9 +568,18 @@ def luckd_crowler(no):
         sitename = soup.select('h4.agent_site_title')[i].text
         #로고
         logo_file = sitecard[i].img['src']
-        logo_name = str(drawpath)+"/static/draw/logoimg/"+sitename+'.jpeg'
-        urllib.request.urlretrieve(logo_file, logo_name)
-      
+        logo_name = str(Path(__file__).resolve().parent)+"/static/draw/logoimg/"+sitename+'.jpeg'
+        #print(logo_file,logo_name)
+        try:
+            Shoesiteimg.objects.create(sitename = sitename)
+        except:
+            print('Shoesiteimg already exist or error')
+            pass
+        leng = len('https://luckydraw-media.s3.amazonaws.com/agent_site/')
+        
+        #print(quote(logo_file[leng:]), logo_name)
+        urllib.request.urlretrieve('https://luckydraw-media.s3.amazonaws.com/agent_site/'+quote(logo_file[leng:]), logo_name)
+         
  
         #종료일
         end_date = soup.select('p.release_date_time')[i].text
@@ -553,18 +595,15 @@ def luckd_crowler(no):
             end_date = year +'-'+ end_date 
         #링크
         sitelink = sitecard[i].a['href']
-        print('serialno =', serialno)
-        print('logoimg =', logo_name)
-        print('sitename =', sitename)
-        print('sitelink =', sitelink)
-        
-        shoeunique = serialno+logoimg+sitename+sitelink
-        
-        Shoesite.objects.create(serialno = serialno , logoimg = logo_name, sitename = sitename, sitelink = sitelink, shoeunique = shoeunique )
-        # try:
-        #     Shoesite.objects.create(serialno = serialno , logoimg = logo_name, sitename = sitename, sitelink = link )
-        # except:
-        #     pass
+        #print('serialno =', serialno)
+        #print('logoimg =', logo_name)
+        #print('sitename =', sitename)
+        #print('sitelink =', sitelink)
+        shoeunique = serialno+sitename+sitelink
+        try:
+            Shoesite.objects.create(serialno = serialno , sitename = sitename, sitelink = sitelink, shoesiteunique = shoeunique )
+        except:
+            pass
 
 def crawl(request):
     url = 'https://www.luck-d.com/'
@@ -593,7 +632,7 @@ def sendmail(request):
               fail_silently=False)
 
     return redirect('/auth/practice')
-
+    
 
 
 

@@ -33,8 +33,15 @@
     <meta property="og:type" content="website">
 </head>
 
-<body class="u-body u-xl-mode">
+<body class="u-body u-xl-mode" id="drawing_line">
+    <!-- 마우스커서 영역 -->
+    <svg class="drawing_line_svg">
+        <circle class="drawing_line_circle" cx="0" cy="0" r="8"></circle>
+        <polyline class="drawing_line_polyline" points=""></polyline>
+    </svg>
+    <!-- -----마우스커서 영역 -->
     <article>
+
     <!-- 헤더 -->
     {% include 'draw/header.html' %}
 
@@ -137,7 +144,7 @@
                     <!--product_item-->
                     {% csrf_token %}
                     {% for shoe in shoe %}
-                    <div class="u-align-center u-container-style u-products-item u-repeater-item">
+                    <div class="u-align-center u-container-style u-products-item u-repeater-item product-item">
                         <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
                             <!--product_image-->
                             <!-- <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" src="{% static '/' %}{{shoe.shoethumbnail}}" data-image-width="842" data-image-height="595"> -->

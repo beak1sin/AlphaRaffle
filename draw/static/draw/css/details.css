@@ -4,7 +4,7 @@
 }
 
 .u-section-1 .u-group-1 {
-  width: 927px;
+  width: 1140px;
   --animation-custom_in-scale: 1;
   height: auto;
   min-height: 541px;
@@ -17,160 +17,11 @@
   padding-bottom: 0;
 }
 
-.u-section-1 .u-countdown-1 {
-  margin: 37px 28px 0 auto;
-  padding: 32px 88px;
-}
-
-.u-section-1 .u-countdown-counter-1 {
-  font-weight: 700;
-  font-size: 2.25rem;
-  line-height: 1;
-}
-
-.u-section-1 .u-countdown-label-1 {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  font-weight: 400;
-}
-
-.u-section-1 .u-countdown-separator-1 {
-  font-weight: 700;
-  font-size: 2.25rem;
-  line-height: 1;
-}
-
-.u-section-1 .u-countdown-counter-2 {
-  font-weight: 700;
-  font-size: 2.25rem;
-  line-height: 1;
-}
-
-.u-section-1 .u-countdown-label-2 {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  font-weight: 400;
-}
-
-.u-section-1 .u-countdown-separator-2 {
-  font-weight: 700;
-  font-size: 2.25rem;
-  line-height: 1;
-}
-
-.u-section-1 .u-countdown-counter-3 {
-  font-weight: 700;
-  font-size: 2.25rem;
-  line-height: 1;
-}
-
-.u-section-1 .u-countdown-label-3 {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  font-weight: 400;
-}
-
-.u-section-1 .u-countdown-separator-3 {
-  font-weight: 700;
-  font-size: 2.25rem;
-  line-height: 1;
-}
-
-.u-section-1 .u-countdown-counter-4 {
-  font-weight: 700;
-  font-size: 2.25rem;
-  line-height: 1;
-}
-
-.u-section-1 .u-countdown-label-4 {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  font-weight: 400;
-}
-
-.u-section-1 .u-countdown-separator-4 {
-  font-weight: 700;
-  font-size: 2.25rem;
-  line-height: 1;
-}
-
-.u-section-1 .u-countdown-counter-5 {
-  font-weight: 700;
-  font-size: 2.25rem;
-  line-height: 1;
-}
-
-.u-section-1 .u-countdown-label-5 {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  font-weight: 400;
-}
-
-.u-section-1 .u-countdown-separator-5 {
-  font-weight: 700;
-  font-size: 2.25rem;
-  line-height: 1;
-}
-
-.u-section-1 .u-countdown-counter-6 {
-  font-weight: 700;
-  font-size: 2.25rem;
-  line-height: 1;
-}
-
-.u-section-1 .u-countdown-label-6 {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  font-weight: 400;
-}
-
-.u-section-1 .u-countdown-message-1 {
-  font-weight: 700;
-  font-size: 1.875rem;
-}
-
-.u-section-1 .u-table-1 {
-  width: 434px;
-  margin: 16px 16px 0 auto;
-}
-
-.u-block-57f3-38 {
-  font-weight: 700;
-  border-style: solid;
-}
-
-.u-block-57f3-44 {
-  height: 46px;
-}
-
-.u-section-1 .u-table-cell-1 {
-  font-weight: 700;
-  border-style: solid;
-}
-
-.u-section-1 .u-table-cell-3 {
-  font-weight: 700;
-  border-style: solid;
-}
-
-.u-section-1 .u-table-cell-5 {
-  font-weight: 700;
-  border-style: solid;
-}
-
-.u-section-1 .u-table-cell-7 {
-  font-weight: 700;
-  border-style: solid;
-}
-
-.u-block-57f3-57 {
-  height: 46px;
-}
-
 .u-section-1 .u-gallery-1 {
-  height: 450px;
-  width: 450px;
-  margin: -350px auto 0 11px;
+  height: 600px;
+  width: 600px;
+  margin: 50px auto 0 11px;
+  float: left;
 }
 
 .u-section-1 .u-carousel-indicators-1 {
@@ -289,15 +140,21 @@
     height: auto;
   }
 
-  .u-section-1 .u-countdown-1 {
-    transition-duration: 0.5s;
-    transform: translateX(0px) translateY(100px) scale(1) rotate(0deg);
-    margin-top: -58px;
+  .u-section-1 .u-gallery-1 {
+    width: 500px;
+    height: 500px;
   }
 
-  .u-section-1 .u-table-1 {
-    height: 213px;
-    margin-top: 111px;
+  .product-info {
+    /* margin: auto !important; */
+    /* width: auto !important; */
+    margin-left: auto !important;
+    margin-right: 100px !important;
+    width: 500px !important;
+    height: 500px !important;
+    position: relative !important;
+    display: inline-block;
+    /* z-index: 10; */
   }
 }
 
@@ -937,8 +794,8 @@ table {
   margin: 10px 10px 0px 0px;
   align-items: center;
   justify-content: center;
-  width: calc(100vw * (45 / 1920));
-  height: calc(100vw * (45 / 1920));
+  width: 20px;
+  height: 20px;
 
   border-radius: 50%;
   border: solid 1px black;
@@ -946,8 +803,8 @@ table {
 }
 
 .icon.heart img{
-  width: calc(100vw * (24 / 1920));
-  height: calc(100vw * (24 / 1920));
+  width: 11px;
+  height: 11px;
 }
 
 .icon.heart.fas{
