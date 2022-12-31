@@ -622,7 +622,8 @@ def crawl(request):
     #for num in range(1891,1893):
         luckd_crowler(int(num))
 
-    return render(request, "draw/main.html")
+    # return render(request, "draw/main.html")
+    return redirect('/')
 
 def sendmail(request):
     send_mail('안녕하세요. AlphaRaffle입니다.',

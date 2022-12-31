@@ -104,60 +104,62 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                     </div>
 
                     <!-- 제품정보 -->
-                    <div class="product-info" style="width: 480px; height: 700px; float: right; margin: 50px 0px 0px 40px;">
-                        <div style="height: 30%;">
-                            <div style="width: 80%; height: 179.4px; float: left;">
-                                <div style="height: 50%;">
-                                    <p style="margin: 0px 0px 0px 20px; padding-top: 50px; font: 17px bold;">{{shoe.shoename}}</p>
+                    <div class="product-info">
+                        <div class="product-info-name">
+                            <div class="product-info-name-shoename">
+                                <div class="product-info-name-shoename-ko">
+                                    <p class="product-info-name-shoename-ko-text">{{shoe.shoename}}</p>
                                 </div>
-                                <div style="height: 50%; border-bottom: 1px solid;">
-                                    <p style="margin: 0px 0px 0px 20px; font: 17px bold;">{{shoe.shoeengname}}</p>
+                                <div class="product-info-name-shoename-en">
+                                    <p class="product-info-name-shoename-en-text">{{shoe.shoeengname}}</p>
                                 </div>
                             </div>
-                            <div style="width: 20%; height: 179.4px; float: right; text-align: center; justify-content: center; display: flex; align-items: center; border-bottom: 1px solid;">
+                            <div class="product-info-name-logo">
                                 {% if 'NIKE' in shoe.shoebrand %}
-                                <img class="lazyload" data-src="{% static 'draw/logoimg/NIKE.png' %}" style="width: 80px; height: 80px; border-radius: 50px;">
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/NIKE.png' %}">
                                 {% elif 'ADIDAS' in shoe.shoebrand %}
-                                <img class="lazyload" data-src="{% static 'draw/logoimg/ADIDAS_ORIGINALS.jpeg' %}" style="width: 80px; height: 80px; border-radius: 50px;">
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/ADIDAS_ORIGINALS.jpeg' %}">
                                 {% elif 'JORDAN' in shoe.shoebrand %}
-                                <img class="lazyload" data-src="{% static 'draw/logoimg/JORDAN.png' %}" style="width: 80px; height: 80px; border-radius: 50px;">
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/JORDAN.png' %}">
                                 {% elif 'YEEZY' in shoe.shoebrand %}
-                                <img class="lazyload" data-src="{% static 'draw/logoimg/ADIDAS_YEEZY.jpg' %}" style="width: 80px; height: 80px; border-radius: 50px;">
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/ADIDAS_YEEZY.jpg' %}">
                                 {% elif 'CONVERSE' in shoe.shoebrand %}
-                                <img class="lazyload" data-src="{% static 'draw/logoimg/CONVERSE.jpeg' %}" style="width: 80px; height: 80px; border-radius: 50px;">
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/CONVERSE.jpeg' %}">
                                 {% elif 'VANS' in shoe.shoebrand %}
-                                <img class="lazyload" data-src="{% static 'draw/logoimg/VANS.svg' %}" style="width: 80px; height: 80px; border-radius: 50px;">
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/VANS.svg' %}">
                                 {% elif 'NEW BALANCE' in shoe.shoebrand %}
-                                <img class="lazyload" data-src="{% static 'draw/logoimg/NEW_BALANCE.png' %}" style="width: 80px; height: 80px; border-radius: 50px;">
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/NEW_BALANCE.png' %}">
                                 {% elif 'PUMA' in shoe.shoebrand %}
-                                <img class="lazyload" data-src="{% static 'draw/logoimg/PUMA.png' %}" style="width: 80px; height: 80px; border-radius: 50px;">
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/PUMA.png' %}">
                                 {% elif 'REEBOK' in shoe.shoebrand %}
-                                <img class="lazyload" data-src="{% static 'draw/logoimg/REEBOK.jpg' %}" style="width: 80px; height: 80px; border-radius: 50px;">
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/REEBOK.jpg' %}">
                                 {% elif 'ASICS' in shoe.shoebrand %}
-                                <img class="lazyload" data-src="{% static 'draw/logoimg/ASICS.png' %}" style="width: 80px; height: 80px; border-radius: 50px;">
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/ASICS.png' %}">
+                                {% elif 'SALOMON' in shoe.shoebrand %}
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/SALOMON.jpeg' %}">
                                 {% endif %}
                             </div>
                         </div>
-                        <div style="height: 30%;">
-                            <div style="height: 33.3%; align-items: center;">
-                                <span style="margin-left: 20px; margin-top: 20px; font-size: 15px;">제품코드</span>
-                                <span style="float: right; margin-right: 20px; font-size: 17px;">{{shoe.serialno}}</span>
+                        <div class="product-info-details">
+                            <div class="product-info-details-serialno">
+                                <span class="product-info-details-name">제품코드</span>
+                                <span class="product-info-details-data">{{shoe.serialno}}</span>
                             </div>
-                            <div style="height: 33.3%;">
-                                <span style="margin-left: 20px; margin-top: 20px; font-size: 15px;">발매일</span>
-                                <span style="float: right; margin-right: 20px; font-size: 17px;">{{shoe.pubdate}}</span>
+                            <div class="product-info-details-pubdate">
+                                <span class="product-info-details-name">발매일</span>
+                                <span class="product-info-details-data">{{shoe.pubdate}}</span>
                             </div>
-                            <div style="height: 33.3%;">
-                                <span style="margin-left: 20px; margin-top: 20px; font-size: 15px;">가격</span>
-                                <span style="float: right; margin-right: 20px; font-size: 17px;">{{shoe.shoeprice}}</span>
+                            <div class="product-info-details-shoeprice">
+                                <span class="product-info-details-name">가격</span>
+                                <span class="product-info-details-data">{{shoe.shoeprice}}</span>
                             </div>
                         </div>
-                        <div style="height: 40%; margin-top: 20px; border-top: 1px solid;">
-                            <p style="margin: 20px 0px 0px 20px; font-size: 15px;">설명</p>
+                        <div class="product-info-contents">
+                            <p class="product-info-contents-name">설명</p>
                             {% if '-' in shoe.shoedetail %}
-                            <div>제품 설명이 없습니다.</div>
+                            <div class="product-info-contents-none">제품 설명이 없습니다.</div>
                             {% else %}
-                            <div style="margin: 20px 20px 20px 20px; font-size: 13px;">{{shoe.shoedetail}}</div>
+                            <div class="product-info-contents-shoedetail">{{shoe.shoedetail}}</div>
                             {% endif %}
                         </div>
                     </div>
@@ -177,17 +179,18 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                 <div class="u-repeater u-repeater-1">
                     <!--product_item-->
                     {% for site in site %}
-                    <div class="u-align-center u-container-style u-products-item u-repeater-item">
+                    <div class="u-align-center u-container-style u-products-item u-repeater-item u-radius-50">
                         <div class="u-container-layout u-similar-container u-valign-top-sm u-valign-top-xs u-container-layout-1">
                             <!--product_image-->
-                            <img alt="" class="lazyload u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-image u-image-round u-product-control u-radius-50 u-image-1" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" data-image-width="842" data-image-height="595">
+                            <img class="lazyload u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-image u-image-round u-product-control u-radius-50 u-image-1" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" data-image-width="842" data-image-height="595">
                             <!--/product_image-->
                             <!--product_title-->
                             <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2">
-                                <a class="u-product-title-link" href="#">
                                     <!--product_title_content-->{{ site.sitename }} 점
-                                    <!--/product_title_content--></a>
                             </h4>
+                            <h5 style="font-size: 15px;">
+                                시간
+                            </h5>
                             <!--/product_title-->
                             <!--product_button-->
                             <!--options_json-->
