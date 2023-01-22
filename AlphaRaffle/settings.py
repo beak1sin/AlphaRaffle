@@ -57,6 +57,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'django_crontab',
+]
+
+CRONJOBS = [
+    ('* * * * *', 'AlphaRaffle.cron.hello', '>> ./AlphaRaffle/AlphaRaffle/cron.log'),
+    ('* */12 * * *', 'AlphaRaffle.cron.crawl', '>> ./AlphaRaffle/AlphaRaffle/cron2.log'),
 ]
 
 # The Debug Toolbar is shown only if your IP is listed in the INTERNAL_IPS setting.
@@ -167,7 +173,7 @@ TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 LOGIN_REDIRECT_URL = '/'
 # AUTH_USER_MODEL = 'draw.Userdata'
 

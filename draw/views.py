@@ -24,7 +24,9 @@ from django.utils.encoding import force_bytes
 from django.core.mail import EmailMessage
 from .tokens import account_activation_token
 from django.utils.encoding import force_bytes, force_str
+from django.utils import timezone
 
+nowtime = timezone.now()
 User = get_user_model()
 # Create your views here.
 
@@ -137,6 +139,28 @@ def member_insert(request):
 
     return JsonResponse(context, content_type="application/json")
 
+@csrf_exempt
+def send_mail(request):
+    bodydata = request.body.decode('utf-8')
+    context = {}
+    bodyjson = json.loads(bodydata)
+    memberid = bodyjson['member_loginid']
+    rs = Member.objects.get(member_id=memberid)
+    current_site = get_current_site(request)
+    message = render_to_string('draw/user_activate_email.html',                         {
+                'user': rs,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(rs.pk)).encode().decode(),
+                'token': account_activation_token.make_token(rs),
+            })
+    mail_subject = "[AlphaRaffle] 회원가입 인증 메일입니다."
+    user_email = rs.member_id
+    email = EmailMessage(mail_subject, message, to=[user_email])
+    email.send()
+    context['flag'] = '0'
+    context['result_msg'] = '회원가입 재인증메일을 보냈습니다. 인증 후 로그인 바랍니다.'
+    return JsonResponse(context, content_type="application/json")
+
 def activate(request, uid64, token):
 
     uid = force_str(urlsafe_base64_decode(uid64))
@@ -151,8 +175,13 @@ def activate(request, uid64, token):
 
 def home(request):
     context = {}
-    shoe = Shoe.objects.all()
-    
+    site = Shoesite.objects.filter(end_date__gte=nowtime).order_by('-end_date')
+    serial = []
+    for site in site:
+        serial.append(site.serialno)
+    print(serial)
+    shoe = Shoe.objects.filter(serialno__in = serial)
+    print(shoe)
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
         member = Member.objects.get(pk= member_no)
@@ -257,6 +286,7 @@ def member_login(request):
                     'result_msg': 'Login complete 성공...'
                 }
             else:
+                context['member_loginid'] = memberid
                 context['flag'] = '1'
                 context['inactive'] = '1'
                 context['result_msg'] = '비활성화 되어 있습니다. 인증 후 로그인 바랍니다.'
@@ -394,13 +424,13 @@ def details(request):
     #site = Shoesite.objects.filter(Q(serialno=pk)&Q(Published_date__gte=start_date, Published_date__lte=end_date))
     site = Shoesite.objects.filter(serialno=pk)
     img = Shoeimg.objects.filter(serialno=pk) 
-    print(pk)
-    print(site)
-    print(img)
+    #print(pk)
+    #print(site)
+    #print(img)
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
         member = Member.objects.get(pk= member_no)
-        print(member_no)
+        #print(member_no)
 
     else:
         member_no = None
@@ -408,7 +438,7 @@ def details(request):
 
     context["member_no"] = member_no
     context = {'shoe':shoe, 'member':member, 'site': site, 'img':img }
-    print(shoe.serialno)
+    #print(shoe.serialno)
     return render(request, 'draw/details.html', context)
     #return JsonResponse(context, content_type="application/json")
 
@@ -490,10 +520,10 @@ def luckd_crowler(no):
     soup = BeautifulSoup(html,'html.parser')
     time.sleep(0.01)
     #신발 한글이름
-    shoename = soup.select("h3.page_title")[0].text
+    shoename = soup.select("h1.page_title")[0].text
     #신발 영어이름
     try:
-        subname  = soup.select("h5.sub_title")[0].text
+        subname  = soup.select("h2.sub_title")[0].text
     except:
         subname = shoename
     #신발 브랜드
@@ -509,15 +539,32 @@ def luckd_crowler(no):
 
     #제품코드
     detail_info = soup.select('ul.detail_info>li')
-    #print('detail_info = ', len(detail_info),detail_info)
-    serialno = detail_info[0].text[5:]
-    shoepubdate = detail_info[1].text[3:]
-    shoeprice = detail_info[2].text[2:]
+
+    for i in range(len(detail_info)):
+        detail_info_find = soup.select('ul.detail_info>li')[i].text
+        if '제품 코드' in detail_info_find:
+            serialno = detail_info_find[5:]
+        if '발매일' in detail_info_find:
+            shoepubdate = detail_info_find[3:]
+        if '가격' in detail_info_find:
+            shoeprice = detail_info_find[2:]
+        if '제품 설명' in detail_info_find:
+            product_detail = detail_info_find[5:].strip()
+        else:
+            product_detail = '-'
     
-    try:
-        product_detail = detail_info[3].text[5:].strip() 
-    except:
-        product_detail = '-'
+    # serialno = detail_info[2].text[5:]
+    #발매일
+    # shoepubdate = detail_info[4].text[3:]
+    #가격
+    # shoeprice = detail_info[5].text[2:]
+    
+    #print(serialno, shoepubdate, shoeprice, product_detail)
+    #제품설명
+    # try:
+    #     product_detail = detail_info[6].text[5:].strip() 
+    # except:
+    #     product_detail = '-'
 
 
     if len(serialno) <= 2:
@@ -536,13 +583,18 @@ def luckd_crowler(no):
     except:
         print(no,'already exist shoe')
         pass
+    
+    # shoeDB = Shoe.objects.filter(serialno = serialno)
+    # shoeDB.update(shoename = shoename , shoeengname = subname,
+    #                 shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, shoeprice = shoeprice)
+    
     if len(imglen)>=1:            
         for i in range(len(imglen)):
             img_file = imglen[i].img['src']
-            img_name = os.path.join(str(Path(__file__).resolve().parent)+"/static/draw/images/"+shoename+str(i)+'.jpeg')
+            img_name = os.path.join(str(Path(__file__).resolve().parent)+"/static/draw/images/"+shoename+serialno+str(i)+'.jpeg')
             
             try:
-                Shoeimg.objects.create(serialno= serialno, shoeimg = shoename+str(i))
+                Shoeimg.objects.create(serialno= serialno, shoeimg = shoename+serialno+str(i))
             except:
                 pass
             
@@ -551,10 +603,10 @@ def luckd_crowler(no):
         
         img2 = soup.select("div.img_div")
         img_file = img2[0].img['src']
-        img_name = os.path.join(str(Path(__file__).resolve().parent)+"/static/draw/images/"+shoename+str(0)+'.jpeg')
-            
+        img_name = os.path.join(str(Path(__file__).resolve().parent)+"/static/draw/images/"+shoename+serialno+str(0)+'.jpeg')
+        
         try:
-            Shoeimg.objects.create(serialno= serialno, shoeimg = shoename+str(0))
+            Shoeimg.objects.create(serialno= serialno, shoeimg = shoename+serialno+str(0))
         except:
             pass
         
@@ -575,25 +627,11 @@ def luckd_crowler(no):
         except:
             print('Shoesiteimg already exist or error')
             pass
-        leng = len('https://luckydraw-media.s3.amazonaws.com/agent_site/')
-        
+        leng = len('https://static.luck-d.com/agent_site/')
+
         #print(quote(logo_file[leng:]), logo_name)
-        urllib.request.urlretrieve('https://luckydraw-media.s3.amazonaws.com/agent_site/'+quote(logo_file[leng:]), logo_name)
-         
- 
-        #종료일
-        end_date = soup.select('p.release_date_time')[i].text
-        if end_date == '종료':
-            end_date = '2022-09-01 00:00:00'
-        else :
-            end_date = end_date.replace("월",'-')
-            end_date = end_date.replace("일",'')
-            end_date = end_date.replace("까",'')
-            end_date = end_date.replace("지",'')
-            end_date = end_date.replace(" ",'')
-            end_date = "".join(end_date)
-            end_date = year +'-'+ end_date 
-        #링크
+        urllib.request.urlretrieve('https://static.luck-d.com/agent_site/'+quote(logo_file[leng:]), logo_name)
+        
         sitelink = sitecard[i].a['href']
         #print('serialno =', serialno)
         #print('logoimg =', logo_name)
@@ -601,9 +639,56 @@ def luckd_crowler(no):
         #print('sitelink =', sitelink)
         shoeunique = serialno+sitename+sitelink
         try:
-            Shoesite.objects.create(serialno = serialno , sitename = sitename, sitelink = sitelink, shoesiteunique = shoeunique )
+            Shoesite.objects.create(serialno = serialno , sitename = sitename, sitelink = sitelink, shoesiteunique = shoeunique)
+            # Shoesite.objects.create()
         except:
             pass
+        
+        #종료일
+        end_date = soup.select('p.release_date_time')[i].text
+        if '종료' in end_date:
+            end_date = '2022-09-01 00:00:00'
+            end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
+            Shoesite.objects.filter(shoesiteunique = shoeunique).update(end_date = end_date_datetime)
+                        
+    
+        else :
+            if '까지' in end_date:
+                end_date = end_date.replace("월",'-')
+                end_date = end_date.replace(" ",'')
+                end_date = end_date.replace("일",' ')
+                end_date = end_date.replace("까",'')
+                end_date = end_date.replace("지",'')
+                # end_date = end_date + ":59"
+                end_date = "".join(end_date)
+                end_date = year +'-'+ end_date
+                if len(end_date) == 11:
+                    end_date = end_date.replace(" ",'')
+                    end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+                elif len(end_date) == 16:
+                    end_date = end_date + ":59"
+                    end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
+                    
+                Shoesite.objects.filter(shoesiteunique = shoeunique).update(end_date = end_date_datetime)
+            else:
+                end_date = end_date.replace("월",'-')
+                end_date = end_date.replace(" ",'')
+                end_date = end_date.replace("일",' ')
+                end_date = end_date.replace("발",'')
+                end_date = end_date.replace("매",'')      
+                # end_date = end_date + ":59"
+                end_date = "".join(end_date)
+                end_date = year +'-'+ end_date
+                if len(end_date) == 11:
+                    end_date = end_date.replace(" ",'')
+                    pub_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+                elif len(end_date) == 16:
+                    end_date = end_date + ":59"
+                    pub_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
+                
+                Shoesite.objects.filter(shoesiteunique = shoeunique).update(pub_date = pub_date_datetime)
+        #링크
+        
 
 def crawl(request):
     url = 'https://www.luck-d.com/'
@@ -612,10 +697,12 @@ def crawl(request):
     time.sleep(0.01)
     shoenum = []
     
-    sitecard = soup.select('div.site_card')
+    sitecard = soup.select('div.release_card')
+
     for i in range(len(sitecard)):
-        link = sitecard[i].a['href']
-        shoenum.append(link[17:21].split('/')[0])
+        link = sitecard[i].attrs['onclick']
+        shoenum.append(link[39:].split('/')[0])
+    shoenum = list(set(shoenum))
     #print(shoenum)
 
     for num in shoenum:
@@ -623,6 +710,30 @@ def crawl(request):
         luckd_crowler(int(num))
 
     # return render(request, "draw/main.html")
+    return redirect('/')
+
+def crawl2(request):
+    url = 'https://www.luck-d.com/release/product/2377/'
+    html = requests.get(url).text
+    soup = BeautifulSoup(html,'html.parser')
+    time.sleep(0.01)
+    sitecard = soup.select('div.site_card')
+    for i in range(len(sitecard)):
+        end_date = soup.select('p.release_date_time')[i].text
+        if end_date == '종료':
+            end_date = '2022-09-01 00:00:00'
+        else :
+            end_date = end_date.replace("월",'-')
+            end_date = end_date.replace(" ",'')
+            end_date = end_date.replace("일",' ')
+            end_date = end_date.replace("까",'')
+            end_date = end_date.replace("지",'')
+            # end_date = end_date.replace(" ",'')
+            end_date = end_date + ":59"
+            end_date = "".join(end_date)
+            end_date = year +'-'+ end_date
+        end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
+        print(end_date_datetime)
     return redirect('/')
 
 def sendmail(request):

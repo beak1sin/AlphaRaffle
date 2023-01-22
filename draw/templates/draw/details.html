@@ -12,6 +12,7 @@
     <link rel="shortcut icon" href="{% static 'draw/images/favicon.jpeg' %}">
     <link rel="stylesheet" href="{% static 'draw/css/nicepage.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'draw/css/details.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
 
     <meta name="generator" content="Nicepage 4.11.3, nicepage.com">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
@@ -57,13 +58,13 @@
                             {% if forloop.counter == 1 %}
                             <div class="u-active u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter0}}">
                                 <div class="u-back-slide u-back-slide-1">
-                                    <img class="lazyload u-back-image u-expanded" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{forloop.counter0}}.jpeg">
+                                    <img class="lazyload u-back-image u-expanded" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{img.serialno}}{{forloop.counter0}}.jpeg">
                                 </div>
                             </div>
                             {% else %}
                             <div class="u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter0}}">
                                 <div class="u-back-slide">
-                                    <img class="lazyload u-back-image u-expanded" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{forloop.counter0}}.jpeg">
+                                    <img class="lazyload u-back-image u-expanded" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{img.serialno}}{{forloop.counter0}}.jpeg">
                                 </div>
                             </div>
                             {% endif %}
@@ -189,7 +190,14 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                                     <!--product_title_content-->{{ site.sitename }} 점
                             </h4>
                             <h5 style="font-size: 15px;">
-                                시간
+                            {% if site.pub_date == None %}
+                                ~ {{ site.end_date }} 까지
+                            {% elif site.end_date == None %}
+                                발매 : {{ site.pub_date }} ~ 
+                            {% else %}
+                                
+                                {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                            {% endif %}                                
                             </h5>
                             <!--/product_title-->
                             <!--product_button-->
@@ -419,6 +427,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
     <script src="{% static 'draw/js/details.js' %}"></script>
+    <script src="{% static 'draw/js/alpharaffle.js' %}"></script>
 </body>
 
 </html>

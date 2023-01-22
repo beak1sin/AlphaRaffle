@@ -21,8 +21,8 @@ $(document).ready(function() {
         $('.signin_box').hide();
         $('.signup_box').show();
     });
-
 });
+
 function validateEmail(email) {
 var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 return re.test(email);
@@ -209,7 +209,8 @@ function checkId() {
                   timerProgressBar: true
                 })
                 document.getElementById("idcheck").value = "1";
-                document.getElementById("member_id").readOnly = true; 
+                document.getElementById("member_id").readOnly = true;
+                $("#member_id_icon_close").removeClass("active");
             }
         }
     };
@@ -256,6 +257,7 @@ function loginCheck() {
                 $('#member_id').focus();
                 if(obj.inactive == "1") {
                     $('.sendmail_btn').show();
+                    getid(obj.member_loginid);
                 }
             }
         }
@@ -265,3 +267,33 @@ function loginCheck() {
     xhr.send(datastr);
 
 }
+
+var member_loginid_temp = '';
+
+function getid(member_loginid) {
+    member_loginid_temp = member_loginid;
+    return member_loginid_temp;
+}
+
+function send_mail() {
+    var data = {member_loginid: member_loginid_temp};
+    var datastr = JSON.stringify(data);
+    
+    xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+            var data = xhr.responseText;
+
+            var obj = JSON.parse(data);
+            if(obj.flag == "0"){
+                alert(obj.result_msg);
+                member_loginid_temp = '';
+            }
+        }
+    };
+    xhr.open("POST", "/auth/login/send_mail");
+    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+    xhr.send(datastr);
+}
+
+

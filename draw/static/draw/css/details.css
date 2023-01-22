@@ -138,6 +138,7 @@
   height: 30%;
 }
 
+
 .u-section-1 .product-info-name-shoename {
   width: 80%;
   height: 179.4px;
@@ -151,17 +152,20 @@
 .u-section-1 .product-info-name-shoename-ko-text {
   margin: 0px 0px 0px 20px;
   padding-top: 50px;
-  font: 17px bold;
+  font: 20px bold;
+  font-weight: 600;
 }
 
 .u-section-1 .product-info-name-shoename-en {
   height: 50%;
   border-bottom: 1px solid;
+  font-size: 13px;
 }
 
 .u-section-1 .product-info-name-shoename-en-text {
   margin: 0px 0px 0px 20px;
-  font: 17px bold;
+  /* font: 17px bold; */
+  font-size: 13px;
 }
 
 .u-section-1 .product-info-name-logo {
@@ -201,7 +205,8 @@
 .u-section-1 .product-info-details-name {
   margin-left: 20px;
   margin-top: 20px;
-  font-size: 15px;
+  font-size: 15px bold;
+  font-weight: 600;
 }
 
 .u-section-1 .product-info-details-data {
@@ -218,7 +223,8 @@
 
 .u-section-1 .product-info-contents-name {
   margin: 20px 0px 0px 20px;
-  font-size: 15px;
+  font-size: 15px bold;
+  font-weight: 600;
 }
 
 .u-section-1 .product-info-contents-none {

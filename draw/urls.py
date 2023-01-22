@@ -20,10 +20,13 @@ urlpatterns = [
     path('member_delete', views.member_delete, name='member_delete'),
 
     path('crawl', views.crawl, name='crawl'),
+    path('crawl2', views.crawl2, name='crawl2'),
+    
     path('auth/mypage/member_update', views.member_update, name='member_update'),
     path('auth/details/', views.details, name='상세정보'),
 
     path('auth/practice/sendmail/', views.sendmail, name='sendmail'),
+    path('auth/login/send_mail', views.send_mail, name='send_mail'),
 
     path('activate/<str:uid64>/<str:token>/', views.activate, name='activate'),
 

@@ -453,6 +453,7 @@
 
 .u-section-2 .u-text-2 {
   margin: 20px 0 0;
+  height: 60px;
 }
 
 .u-section-2 .u-btn-2 {
@@ -703,5 +704,83 @@ html { cursor: none; }
 #drawing_line { position: relative; z-index: 1500; height: 0; }
 #drawing_line > svg { position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 #drawing_line > svg .drawing_line_polyline { fill: none; stroke: #000000; stroke-width: 2; }
-#drawing_line > svg .drawing_line_circle { fill: #000000; }
+#drawing_line > svg .drawing_line_circle { fill: #000000;}
 /* --------마우스커서 */
+
+.hover_temp .screen {
+  position: relative;
+  /* overflow: hidden; */
+  /* padding-bottom: 56.25%; */
+}
+
+.hover_temp .screen img {
+  /* position: absolute;
+  top: 50%;
+  left: 50%; */
+  /* transform: translate(-50%,-50%); */
+  width: 100%;
+  z-index: 1;
+  transition-duration: 0.5s;
+}
+
+.hover_temp .screen span {
+  display: block;
+  position: absolute;
+  background: black;
+  z-index: 2;
+}
+
+.hover_temp .screen span:nth-child(1) {
+  top: 0;
+  height: 5px;
+  width: 0;
+}
+
+.hover_temp .screen span:nth-child(2) {
+  top: 0;
+  right: 0;
+  height: 0;
+  width: 5px;
+}
+
+.hover_temp .screen span:nth-child(3) {
+  bottom: 0;
+  right: 0;
+  height: 5px;
+  width: 0;
+}
+
+.hover_temp .screen span:nth-child(4) {
+  bottom: 0;
+  left: 0;
+  width: 5px;
+  height: 0;
+}
+
+/* .hover_temp:hover .screen span:nth-child(1) {
+  width: 100%;
+  transition-duration: 0.5s;
+}
+
+.hover_temp:hover .screen span:nth-child(2) {
+  height: 100%;
+  transition-delay: 0.4s;
+  transition-duration: 0.5s;
+}
+
+.hover_temp:hover .screen span:nth-child(3) {
+  width: 100%;
+  transition-delay: 0.8s;
+  transition-duration: 0.5s;
+}
+
+.hover_temp:hover .screen span:nth-child(4) {
+  height: 100%;
+  transition-delay: 1.2s;
+  transition-duration: 0.5s;
+} */
+
+.hover_temp:hover .screen img {
+  box-shadow: 0px 0px 7px #000;
+  filter: brightness(90%);
+}
