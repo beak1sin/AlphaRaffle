@@ -61,7 +61,7 @@ INSTALLED_APPS = [
 ]
 
 CRONJOBS = [
-    ('* * * * *', 'AlphaRaffle.cron.hello', '>> ./AlphaRaffle/AlphaRaffle/cron.log'),
+    ('*/1 * * * *', 'AlphaRaffle.cron.hello', '>> ./AlphaRaffle/AlphaRaffle/cron.log'),
     ('* */12 * * *', 'AlphaRaffle.cron.crawl', '>> ./AlphaRaffle/AlphaRaffle/cron2.log'),
 ]
 

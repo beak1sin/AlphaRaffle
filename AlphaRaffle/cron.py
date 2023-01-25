@@ -60,7 +60,8 @@ import requests
 import datetime
 
 def hello():
-    print('hello')
+    now = datetime.datetime.now()
+    print(now)
     return
 
 currentDateTime = datetime.datetime.now()
@@ -209,6 +210,7 @@ def luckd_crowler(no):
         
         #종료일
         end_date = soup.select('p.release_date_time')[i].text
+        #시간이 종료일 경우
         if '종료' in end_date:
             end_date = '2022-09-01 00:00:00'
             end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
@@ -216,6 +218,7 @@ def luckd_crowler(no):
                         
     
         else :
+            # 시간이 까지일 경우
             if '까지' in end_date:
                 end_date = end_date.replace("월",'-')
                 end_date = end_date.replace(" ",'')
@@ -233,6 +236,7 @@ def luckd_crowler(no):
                     end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
                     
                 Shoesite.objects.filter(shoesiteunique = shoeunique).update(end_date = end_date_datetime)
+            # 시간이 발매 시작일 경우
             else:
                 end_date = end_date.replace("월",'-')
                 end_date = end_date.replace(" ",'')
@@ -254,7 +258,9 @@ def luckd_crowler(no):
         
 
 def crawl():
-    print('gooood')
+    now = datetime.datetime.now()
+    print(now)
+
     url = 'https://www.luck-d.com/'
     html = requests.get(url).text
     soup = BeautifulSoup(html,'html.parser')
