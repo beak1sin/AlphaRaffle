@@ -60,9 +60,11 @@ INSTALLED_APPS = [
     'django_crontab',
 ]
 
+cronPath = os.path.join(BASE_DIR, 'cron.log')
+cronPath2 = os.path.join(BASE_DIR, 'cron2.log')
 CRONJOBS = [
-    ('*/1 * * * *', 'AlphaRaffle.cron.hello', '>> ./AlphaRaffle/AlphaRaffle/cron.log'),
-    ('* */12 * * *', 'AlphaRaffle.cron.crawl', '>> ./AlphaRaffle/AlphaRaffle/cron2.log'),
+    ('*/1 * * * *', 'AlphaRaffle.cron.hello', '>> ' + cronPath),
+    ('* */12 * * *', 'AlphaRaffle.cron.crawl', '>> ' + cronPath2),
 ]
 
 # The Debug Toolbar is shown only if your IP is listed in the INTERNAL_IPS setting.

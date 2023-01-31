@@ -113,6 +113,12 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                                 </div>
                                 <div class="product-info-name-shoename-en">
                                     <p class="product-info-name-shoename-en-text">{{shoe.shoeengname}}</p>
+                                    <div style="height: 30px;"></div>
+                                    <div class="product-info-name-tag">
+                                        {% for shoebrand in shoebrand %}
+                                        <a class="product-info-name-tag-tagname">#{{shoebrand}}</a>
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             </div>
                             <div class="product-info-name-logo">

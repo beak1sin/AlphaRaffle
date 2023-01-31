@@ -4,8 +4,7 @@ python /usr/local/share/AlphaRaffle/manage.py makemigrations
 echo "############# makemigrations OK #############"
 python /usr/local/share/AlphaRaffle/manage.py migrate
 echo "############# migrate OK #############"
-python /usr/local/share/AlphaRaffle/manage.py collectstatic
-yes
+python /usr/local/share/AlphaRaffle/manage.py collectstatic --noinput
 echo "############# collectstatic OK #############"
 killall -9 uwsgi
 echo "############# KILL OK #############"

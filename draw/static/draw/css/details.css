@@ -164,8 +164,20 @@
 
 .u-section-1 .product-info-name-shoename-en-text {
   margin: 0px 0px 0px 20px;
+  padding: 10px 0px 0px 0px;
   /* font: 17px bold; */
   font-size: 13px;
+}
+
+.u-section-1 .product-info-name-tag {
+  height: 20px;
+}
+
+.u-section-1 .product-info-name-tag-tagname {
+  padding: 0px 0px 0px 20px;
+  color: black;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .u-section-1 .product-info-name-logo {

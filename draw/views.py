@@ -179,9 +179,9 @@ def home(request):
     serial = []
     for site in site:
         serial.append(site.serialno)
-    print(serial)
+    # print(serial)
     shoe = Shoe.objects.filter(serialno__in = serial)
-    print(shoe)
+    # print(shoe)
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
         member = Member.objects.get(pk= member_no)
@@ -423,10 +423,10 @@ def details(request):
     shoe = get_object_or_404(Shoe, serialno=pk) 
     #site = Shoesite.objects.filter(Q(serialno=pk)&Q(Published_date__gte=start_date, Published_date__lte=end_date))
     site = Shoesite.objects.filter(serialno=pk)
-    img = Shoeimg.objects.filter(serialno=pk) 
-    #print(pk)
-    #print(site)
-    #print(img)
+    img = Shoeimg.objects.filter(serialno=pk)
+
+    shoebrand = shoe.shoebrand.split(' ')
+    
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
         member = Member.objects.get(pk= member_no)
@@ -437,7 +437,7 @@ def details(request):
         member = None
 
     context["member_no"] = member_no
-    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img }
+    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand }
     #print(shoe.serialno)
     return render(request, 'draw/details.html', context)
     #return JsonResponse(context, content_type="application/json")
@@ -528,7 +528,8 @@ def luckd_crowler(no):
         subname = shoename
     #신발 브랜드
     try:
-        shoebrand = soup.select("h3.brand")[0].text.strip()
+        shoebrandlist = soup.select('h3.brand')[0].text.split()
+        shoebrand = ' '.join(shoebrandlist)
     except:
         shoebrand = '-'
 
@@ -713,27 +714,13 @@ def crawl(request):
     return redirect('/')
 
 def crawl2(request):
-    url = 'https://www.luck-d.com/release/product/2377/'
+    url = 'https://www.luck-d.com/release/product/4038/'
     html = requests.get(url).text
     soup = BeautifulSoup(html,'html.parser')
     time.sleep(0.01)
-    sitecard = soup.select('div.site_card')
-    for i in range(len(sitecard)):
-        end_date = soup.select('p.release_date_time')[i].text
-        if end_date == '종료':
-            end_date = '2022-09-01 00:00:00'
-        else :
-            end_date = end_date.replace("월",'-')
-            end_date = end_date.replace(" ",'')
-            end_date = end_date.replace("일",' ')
-            end_date = end_date.replace("까",'')
-            end_date = end_date.replace("지",'')
-            # end_date = end_date.replace(" ",'')
-            end_date = end_date + ":59"
-            end_date = "".join(end_date)
-            end_date = year +'-'+ end_date
-        end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
-        print(end_date_datetime)
+    brandname = soup.select('h3.brand')[0].text.split()
+    brand = ' '.join(brandname)
+    print(brand)
     return redirect('/')
 
 def sendmail(request):

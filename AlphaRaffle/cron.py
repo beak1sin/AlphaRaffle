@@ -278,6 +278,7 @@ def crawl():
     for num in shoenum:
     #for num in range(1891,1893):
         luckd_crowler(int(num))
+        time.sleep(30)
 
     # return render(request, "draw/main.html")
     return redirect('/')
