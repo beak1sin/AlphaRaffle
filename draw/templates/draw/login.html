@@ -33,12 +33,13 @@
 </head>
 
 <body class="u-body u-xl-mode">
+
     <article>
     <!-- 헤더 -->
     {% include 'draw/header.html' %}
 
     <!-- 본문 -->
-    <section class="u-clearfix u-section-1 wrapper" id="sec-a597">
+    <section class="u-clearfix u-section-1" id="wrapper">
         <div class="u-clearfix u-sheet u-sheet-1">
             <div class="u-align-center u-form u-login-control u-form-1">
 
@@ -93,7 +94,7 @@
                             <input type="tel" pattern="\+?\d{0,3}[\s\(\-]?([0-9]{2,3})[\s\)\-]?([\s\-]?)([0-9]{3})[\s\-]?([0-9]{2})[\s\-]?([0-9]{2})" placeholder="핸드폰번호를 입력하세요. ex)01012345678" id="member_phonenumber" name="member_phonenumber" class="u-border-3 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-white input-value" maxlength="11" required="">
                             <button type="button" class="input-icon-close"></button>
                         </div>
-                        <!--
+<!--                         
                         <div class="u-form-group u-form-select u-form-group-6">
                             <label for="select-8282" class="u-label u-label-6">신발 사이즈</label>
                             <div class="u-form-select-wrapper">
@@ -205,7 +206,7 @@
     <!-- 풋터 -->
     {% include 'draw/footer.html' %}
     </article>
-    
+
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
     <script type="text/javascript" src="{% static 'draw/js/sha1.js' %}"></script>

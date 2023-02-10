@@ -160,6 +160,8 @@
   height: 50%;
   border-bottom: 1px solid;
   font-size: 13px;
+  display: flex;
+  flex-direction: column;
 }
 
 .u-section-1 .product-info-name-shoename-en-text {
@@ -170,7 +172,9 @@
 }
 
 .u-section-1 .product-info-name-tag {
-  height: 20px;
+  flex: 1 0 auto;
+  /* height: 100%; */
+  position: relative;
 }
 
 .u-section-1 .product-info-name-tag-tagname {
@@ -178,6 +182,8 @@
   color: black;
   font-size: 14px;
   font-weight: 700;
+  position: absolute;
+  bottom: 0px;
 }
 
 .u-section-1 .product-info-name-logo {

@@ -18,6 +18,7 @@ urlpatterns = [
     path('member_insert', views.member_insert, name='member_insert'),
     path('member_login', views.member_login, name='member_login'),
     path('member_delete', views.member_delete, name='member_delete'),
+    path('full/', views.full, name='full'),
 
     path('crawl', views.crawl, name='crawl'),
     path('crawl2', views.crawl2, name='crawl2'),

@@ -90,9 +90,11 @@ def luckd_crowler(no):
         subname  = soup.select("h2.sub_title")[0].text
     except:
         subname = shoename
+
     #신발 브랜드
     try:
-        shoebrand = soup.select("h3.brand")[0].text.strip()
+        shoebrandlist = soup.select('h3.brand')[0].text.split()
+        shoebrand = ' '.join(shoebrandlist)
     except:
         shoebrand = '-'
 
@@ -101,7 +103,6 @@ def luckd_crowler(no):
     imglen  = soup.select("div.carousel-inner>div.item")
 
 
-    #제품코드
     detail_info = soup.select('ul.detail_info>li')
 
     for i in range(len(detail_info)):
@@ -117,29 +118,14 @@ def luckd_crowler(no):
         else:
             product_detail = '-'
     
-    # serialno = detail_info[2].text[5:]
-    #발매일
-    # shoepubdate = detail_info[4].text[3:]
-    #가격
-    # shoeprice = detail_info[5].text[2:]
     
-    #print(serialno, shoepubdate, shoeprice, product_detail)
-    #제품설명
-    # try:
-    #     product_detail = detail_info[6].text[5:].strip() 
-    # except:
-    #     product_detail = '-'
-
+    # print(serialno, shoepubdate, shoeprice, product_detail)
 
     if len(serialno) <= 2:
         print('no serial number')
         return 
     else:
         pass
-    #print('serialno = ',serialno)
-    ###제품설명
-    #product_detail = soup.select(' div.product_info_div > div:nth-child(1) > div')[0].text.strip() 
-    #print(product_detail)
 
     try:
         Shoe.objects.create(shoename = shoename , shoeengname = subname, serialno = serialno,
@@ -178,14 +164,17 @@ def luckd_crowler(no):
     
     
     #사이트별 
-    sitecard = soup.select('div.site_card')    
+    sitecard = soup.select('div.release_card')    
+
     for i in range(len(sitecard)):
         #사이트명
-        sitename = soup.select('h4.agent_site_title')[i].text
+        print(i)
+        sitename = soup.select('div.release_card_header > span')[i].text
         #로고
         logo_file = sitecard[i].img['src']
         logo_name = str(Path(__file__).resolve().parent.parent)+"/draw/static/draw/logoimg/"+sitename+'.jpeg'
         #print(logo_file,logo_name)
+
         try:
             Shoesiteimg.objects.create(sitename = sitename)
         except:
@@ -197,26 +186,24 @@ def luckd_crowler(no):
         urllib.request.urlretrieve('https://static.luck-d.com/agent_site/'+quote(logo_file[leng:]), logo_name)
         
         sitelink = sitecard[i].a['href']
-        #print('serialno =', serialno)
-        #print('logoimg =', logo_name)
-        #print('sitename =', sitename)
-        #print('sitelink =', sitelink)
+
         shoeunique = serialno+sitename+sitelink
+
         try:
             Shoesite.objects.create(serialno = serialno , sitename = sitename, sitelink = sitelink, shoesiteunique = shoeunique)
             # Shoesite.objects.create()
         except:
             pass
-        
-        #종료일
-        end_date = soup.select('p.release_date_time')[i].text
-        #시간이 종료일 경우
+        # print(sitename, logo_file, sitelink)
+
+        # #종료일
+        end_date = soup.select('li.release_time > label > span')[i].text.strip()
+
+        # #시간이 종료일 경우
         if '종료' in end_date:
             end_date = '2022-09-01 00:00:00'
             end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
             Shoesite.objects.filter(shoesiteunique = shoeunique).update(end_date = end_date_datetime)
-                        
-    
         else :
             # 시간이 까지일 경우
             if '까지' in end_date:
@@ -254,13 +241,10 @@ def luckd_crowler(no):
                     pub_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
                 
                 Shoesite.objects.filter(shoesiteunique = shoeunique).update(pub_date = pub_date_datetime)
-        #링크
-        
-
+                
 def crawl():
     now = datetime.datetime.now()
-    print(now)
-
+    
     url = 'https://www.luck-d.com/'
     html = requests.get(url).text
     soup = BeautifulSoup(html,'html.parser')
@@ -272,13 +256,12 @@ def crawl():
     for i in range(len(sitecard)):
         link = sitecard[i].attrs['onclick']
         shoenum.append(link[39:].split('/')[0])
+    
     shoenum = list(set(shoenum))
-    #print(shoenum)
+    print(shoenum)
 
     for num in shoenum:
-    #for num in range(1891,1893):
+        print(now)
         luckd_crowler(int(num))
-        # time.sleep(30)
 
-    # return render(request, "draw/main.html")
     return redirect('/')

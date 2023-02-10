@@ -33,7 +33,14 @@
     <meta property="og:type" content="website">
 </head>
 
-<body class="u-body u-xl-mode">
+<body class="u-body u-xl-mode" id="drawing_line">
+    <!-- 마우스커서 영역 -->
+    <svg class="drawing_line_svg">
+        <circle class="drawing_line_circle" cx="0" cy="0" r="8"></circle>
+        <polyline class="drawing_line_polyline" points=""></polyline>
+    </svg>
+    <!-- -----마우스커서 영역 -->
+
     <article>
     <!-- 헤더 -->
     {% include 'draw/header.html' %}
@@ -113,10 +120,10 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                                 </div>
                                 <div class="product-info-name-shoename-en">
                                     <p class="product-info-name-shoename-en-text">{{shoe.shoeengname}}</p>
-                                    <div style="height: 30px;"></div>
+                                    <!-- <div style="height: 30px;"></div> -->
                                     <div class="product-info-name-tag">
                                         {% for shoebrand in shoebrand %}
-                                        <a class="product-info-name-tag-tagname">#{{shoebrand}}</a>
+                                        <a class="product-info-name-tag-tagname tagname{{forloop.counter}}">#{{shoebrand}}</a>
                                         {% endfor %}
                                     </div>
                                 </div>
@@ -211,10 +218,17 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                             <!--{"clickType":"add-to-cart","content":"응모하기"}-->
                             <!--/options_json-->
                                 <!--product_button_content-->
-                            <a onclick = "window.open('{{site.sitelink}}'+'&'+'{{site.nameentry}}'+'{{member.member_realname}}'+'&'+'{{site.birthentry}}'+'{{member.member_birth}}'+'&'+'{{site.phoneentry}}'+'{{member.member_phonenumber}}'+'&'+'{{site.nikeidentry}}'+'{{member.member_nikeid}}'+'&')"  class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-1">
+                            {% if 'google' in site.sitelink %}
+                            <a onclick="window.open('{{site.sitelink}}'+'&'+'{{site.nameentry}}'+'{{member.member_realname}}'+'&'+'{{site.birthentry}}'+'{{member.member_birth}}'+'&'+'{{site.phoneentry}}'+'{{member.member_phonenumber}}'+'&'+'{{site.nikeidentry}}'+'{{member.member_nikeid}}'+'&')"  class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-1">
                                 <!--product_button_content-->응모하기
                                 <!--/product_button_content--></a>
                             <!--/product_button-->
+                            {% else %}
+                            <a onclick="window.open('{{site.sitelink}}')" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-1">
+                                <!--product_button_content-->응모하기
+                                <!--/product_button_content--></a>
+                            <!--/product_button-->
+                            {% endif %}
                         </div>
                     </div>
                     {% endfor %}

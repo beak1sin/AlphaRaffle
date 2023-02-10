@@ -50,7 +50,8 @@
     <section class="u-align-center u-clearfix u-white u-section-1" id="section1">
         <div class="u-clearfix u-sheet u-sheet-1">
             <h2 class="u-text u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-direction="" data-animation-delay="0">AlphaRaffle</h2>
-            <p class="u-text u-text-2" data-animation-name="flipIn" data-animation-duration="1000" data-animation-delay="1000" data-animation-direction="X">편리한 응모를 통해 시간을 절약하세요!</p>
+            <!-- <p class="u-text u-text-2" data-animation-name="flipIn" data-animation-duration="1000" data-animation-delay="1000" data-animation-direction="X">편리한 응모를 통해 시간을 절약하세요!</p> -->
+            <h4 class="text"></h1>
             <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
                 <div class="u-layout">
                     <div class="u-layout-row">
@@ -133,7 +134,70 @@
     <section class="u-align-center u-clearfix u-section-2" id="section2">
         <div class="u-clearfix u-sheet u-sheet-1" data-animation-name="customAnimationIn" data-animation-duration="0" data-animation-direction="" data-animation-delay="0">
             <h2 class="u-align-center u-text u-text-1">
-                <a class="u-btn-1">발매정보<br>
+                <a class="u-btn-1">진행중인 발매<br>
+                </a>
+            </h2>
+            {% csrf_token %}
+            {% if droppedShoe == None %}
+            <div class="div-noDropped">
+                <h5 id="noDropped">진행중인 발매정보가 없습니다.</h2>
+            </div>
+            {% else %}
+            <!--products-->
+            <!--products_options_json-->
+            <!--{"type":"Recent","source":"","tags":"","count":""}-->
+            <!--/products_options_json-->
+            <div class="u-expanded-width u-products u-products-1">
+                <div class="u-repeater u-repeater-1">
+                    <!--product_item-->
+                    {% csrf_token %}
+                    {% for shoe in droppedShoe %}
+                    <div class="u-align-center u-container-style u-products-item u-repeater-item product-item">
+                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
+                            <!--product_image-->
+                            <!-- <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" src="{% static '/' %}{{shoe.shoethumbnail}}" data-image-width="842" data-image-height="595"> -->
+                            <a class="hover_temp" style="display: block; width: auto; margin: 5px 5px 10px 5px;">
+                            <div class="screen u-radius-50">
+                            <span></span><span></span><span></span><span></span>
+                            <img alt="" class="lazyload u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{shoe.serialno}}0.jpeg" data-image-width="842" data-image-height="595">
+                            </div>
+                            </a>
+                            <!--/product_image-->
+                            <!--product_title-->
+                            <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2" style="display: table;">
+                                <a class="u-product-title-link" style="font-size: 18px; display: table-cell; vertical-align: middle;">
+                                    <!--product_title_content-->{{shoe.shoename}}
+                                    <!--/product_title_content--></a>
+                            </h4>
+                            <!--/product_title-->
+                            <!--product_button-->
+                            <!--options_json-->
+                            <!--{"clickType":"add-to-cart","content":"응모하기"}-->
+                            <!--/options_json-->
+                            <!--<a onclick = "window.open('{{shoe.Link}}'+'{{shoe.nameentry}}'+'{{member.member_realname}}'+'&'+'{{shoe.birthentry}}'+'{{member.member_birth}}'+'&'+'{{shoe.phoneentry}}'+'{{member.member_phonenumber}}'+'&'+'{{shoe.nikeidentry}}'+'{{member.member_nikeid}}'+'&')" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">-->
+                                <!--product_button_content-->
+
+                            <a href="{% url 'draw:상세정보' %}?serialnum={{shoe.serialno}}" id = "serial" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2" data-value = {{shoe.serialno}}>
+                                <!--product_button_content-->응모하기
+                                <!--/product_button_content--></a>
+
+                            <!--a onclick="detail();" id = "serial" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2" data-value = {{shoe.serialno}}-->
+                                <!--product_button_content-->
+                            <!--/product_button-->
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            <!--/products-->
+        </div>
+    </section>
+
+    <section class="u-align-center u-clearfix u-section-2" id="section2">
+        <div class="u-clearfix u-sheet u-sheet-1" data-animation-name="customAnimationIn" data-animation-duration="0" data-animation-direction="" data-animation-delay="0">
+            <h2 class="u-align-center u-text u-text-1">
+                <a class="u-btn-1">발매종료<br>
                 </a>
             </h2>
             <!--products-->
@@ -144,7 +208,7 @@
                 <div class="u-repeater u-repeater-1">
                     <!--product_item-->
                     {% csrf_token %}
-                    {% for shoe in shoe %}
+                    {% for shoe in endShoe %}
                     <div class="u-align-center u-container-style u-products-item u-repeater-item product-item">
                         <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
                             <!--product_image-->

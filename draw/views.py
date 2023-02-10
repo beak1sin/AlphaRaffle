@@ -49,52 +49,6 @@ def member_idcheck(request):
 
     return JsonResponse(context, content_type="application/json")
 
-# 기존 회원가입 방식   
-# @csrf_exempt
-# def member_insert(request):
-#     context = {}
-
-#     # memberid = request.POST['member_id']
-#     # memberpwd = request.POST['member_pwd']
-#     # memberrealname = request.POST['member_realname']
-#     # membernickname = request.POST['member_nickname']
-#     # memberbirth = request.POST['member_birth']
-#     # membernikeid = request.POST['member_nikeid']
-#     # memberphonenumber = request.POST['member_phonenumber']
-
-#     # memberid = request.POST.get('member_id')
-#     # memberpwd = request.POST.get('member_pwd')
-#     # memberrealname = request.POST.get('member_realname')
-#     # membernickname = request.POST.get('member_nickname')
-#     # memberbirth = request.POST.get('member_birth')
-#     # membernikeid = request.POST.get('member_nikeid')
-#     # memberphonenumber = request.POST.get('member_phonenumber')
-
-#     memberid = request.GET['member_id']
-#     memberpwd = request.GET['member_pwd']
-#     memberrealname = request.GET['member_realname']
-#     membernickname = request.GET['member_nickname']
-#     memberbirth = request.GET['member_birth']
-#     membernikeid = request.GET['member_nikeid']
-#     memberphonenumber = request.GET['member_phonenumber']
-
-
-#     rs = Member.objects.create(member_id=memberid,
-#                                member_pwd=memberpwd,
-#                                member_realname=memberrealname,
-#                                member_nickname=membernickname,
-#                                member_birth=memberbirth,
-#                                member_nikeid=membernikeid,
-#                                member_phonenumber=memberphonenumber,
-#                                usage_flag='1',
-#                                register_date=datetime.now()
-#                                )
-
-#     context['flag'] = '1'
-#     context['result_msg'] = '회원가입 되었습니다. Home에서 로그인하세요.'
-
-#     return JsonResponse(context, content_type="application/json")
-
 # 새로운 회원가입 방식
 @csrf_exempt
 def member_insert(request):
@@ -139,6 +93,7 @@ def member_insert(request):
 
     return JsonResponse(context, content_type="application/json")
 
+# 메일 인증
 @csrf_exempt
 def send_mail(request):
     bodydata = request.body.decode('utf-8')
@@ -161,6 +116,7 @@ def send_mail(request):
     context['result_msg'] = '회원가입 재인증메일을 보냈습니다. 인증 후 로그인 바랍니다.'
     return JsonResponse(context, content_type="application/json")
 
+# 메일 인증 토큰
 def activate(request, uid64, token):
 
     uid = force_str(urlsafe_base64_decode(uid64))
@@ -175,12 +131,18 @@ def activate(request, uid64, token):
 
 def home(request):
     context = {}
-    site = Shoesite.objects.filter(end_date__gte=nowtime).order_by('-end_date')
-    serial = []
-    for site in site:
-        serial.append(site.serialno)
+    droppedSite = Shoesite.objects.filter(end_date__gte=nowtime).order_by('-end_date')
+    endSite = Shoesite.objects.filter(end_date__lt=nowtime).order_by('-end_date')
+    droppedSerial = []
+    endSerial = []
+    for site in droppedSite:
+        droppedSerial.append(site.serialno)
+    for site in endSite:
+        endSerial.append(site.serialno)
     # print(serial)
-    shoe = Shoe.objects.filter(serialno__in = serial)
+    droppedShoe = Shoe.objects.filter(serialno__in = droppedSerial)
+    print(droppedShoe)
+    endShoe = Shoe.objects.filter(serialno__in = endSerial)
     # print(shoe)
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
@@ -192,61 +154,8 @@ def home(request):
         member = None
 
     context["member_no"] = member_no
-    context = {'shoe':shoe, 'member':member }
+    context = {'droppedShoe':droppedShoe, 'endShoe':endShoe, 'member':member }
     return render(request, "draw/main.html", context)
-
-# 기존 멤버로그인 
-# @csrf_exempt
-# def member_login(request):
-#     context = {}
-#     # memberid = request.POST['member_loginid']
-#     # memberpwd = request.POST['member_loginpwd']
-
-#     # memberid = request.POST.get('member_loginid')
-#     # memberpwd = request.POST.get('member_loginpwd')
-
-#     memberid = request.GET['member_loginid']
-#     memberpwd = request.GET['member_loginpwd']
-#     print(memberid)
-#     print(memberpwd)
-#     if 'member_no' in request.session:
-#         context['flag'] = '1'
-#         context['result_msg'] = 'Already Login 되어 있습니다.'
-
-#     else:
-
-#         rsTmp = Member.objects.filter(member_id=memberid, member_pwd=memberpwd)
-
-#         if rsTmp:
-#             # Session에 member_no를 저장
-#             rsMember = Member.objects.get(member_id=memberid, member_pwd=memberpwd)
-#             memberno = rsMember.member_no
-#             membername = rsMember.member_realname
-#             rsMember.access_latest = datetime.now()
-#             rsMember.save()
-
-#             request.session['member_no'] = memberno
-#             request.session['member_nickname'] = membername
-
-#             # context['flag'] = '0'
-#             # context['result_msg'] = 'Login 성공... '
-#             context = {
-#                 'flag': '0',
-#                 'result_msg': 'Login complete 성공...'
-#             }
-#             # return redirect('/')
-#             # return render(request, "draw/main.html", context)
-#         else:
-#             context['flag'] = '1'
-#             context['result_msg'] = 'Login error... 아이디와 비번을 확인하세요.'
-#             # return render(request, 'draw/login.html')
-#             # return render(request, "draw/login.html", context)
-#     # return HttpResponseRedirect('auth/login/', context) 
-#     # return JsonResponse(context, content_type="application/json; charset=utf-8")
-#     return JsonResponse(context, json_dumps_params={'ensure_ascii': False}, status=200)
-#     # queryset_json = json.loads(serializers.serialize('json', context, ensure_ascii=False))
-#     # return JsonResponse({'reload_all': False, 'queryset_json': queryset_json})
-#     # return render(request, "draw/main.html", context)
 
 # 새로운 멤버로그인
 @csrf_exempt
@@ -310,22 +219,6 @@ def login(request):
 @csrf_exempt
 def myPage(request):
 
-    # context = {}
-    # shoe = Shoe.objects.all()
-    
-    # if request.session.has_key('member_no'):
-    #     member_no = request.session['member_no']
-    #     member = Member.objects.get(pk= member_no)
-    #     print(member_no)
-
-    # else:
-    #     member_no = None
-    #     member = None
-
-    # context["member_no"] = member_no
-    # context = {'shoe':shoe, 'member':member }
-    # return render(request, "draw/myPage.html", context)
-
     context = {}
 
     if 'member_no' in request.session:
@@ -346,38 +239,6 @@ def myPage(request):
 
     else:
         return redirect('/')
-
-# 기존 회원정보수정 방식 
-# @csrf_exempt
-# def member_update(request):
-#     context = {}
-
-#     membernickname = request.GET['member_nickname']
-#     memberbirth = request.GET['member_birth']
-#     membernikeid = request.GET['member_nikeid']
-#     memberphonenumber = request.GET['member_phonenumber']
-
-#     if 'member_no' in request.session:
-#         memberno = request.session['member_no']
-#         rsMember = Member.objects.get(member_no=memberno)
-
-#         rsMember.member_nickname = membernickname
-#         rsMember.member_birth = memberbirth
-#         rsMember.member_nikeid = membernikeid
-#         rsMember.member_phonenumber = memberphonenumber
-#         rsMember.save()
-
-#         context['flag'] = '0'
-#         context['result_msg'] = '정보 변경되었습니다'
-
-#         return JsonResponse(context, content_type="application/json")
-#         # return redirect('/')
-
-#     else:
-#         context['flag'] = '1'
-#         context['result_msg'] = '회원 정보가 없습니다.'
-
-#         return JsonResponse(context, content_type="application/json")
 
 # 새로운 회원정보수정 방식
 @csrf_exempt
@@ -426,6 +287,9 @@ def details(request):
     img = Shoeimg.objects.filter(serialno=pk)
 
     shoebrand = shoe.shoebrand.split(' ')
+
+    while 'x' in shoebrand:
+        shoebrand.remove('x')
     
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
@@ -483,6 +347,23 @@ def member_delete(request):
 
     return JsonResponse(context, content_type="application/json")
 
+@csrf_exempt
+def full(request):
+    context = {}
+    shoe = Shoe.objects.filter()
+    if request.session.has_key('member_no'):
+        member_no = request.session['member_no']
+        member = Member.objects.get(pk= member_no)
+        #print(member_no)
+
+    else:
+        member_no = None
+        member = None
+
+    context["member_no"] = member_no
+    context = {'shoe':shoe, 'member':member }
+    return render(request, "draw/full.html", context)
+
 def practice(request):
     return render(request, 'draw/practice.html')
 
@@ -526,6 +407,7 @@ def luckd_crowler(no):
         subname  = soup.select("h2.sub_title")[0].text
     except:
         subname = shoename
+
     #신발 브랜드
     try:
         shoebrandlist = soup.select('h3.brand')[0].text.split()
@@ -538,7 +420,6 @@ def luckd_crowler(no):
     imglen  = soup.select("div.carousel-inner>div.item")
 
 
-    #제품코드
     detail_info = soup.select('ul.detail_info>li')
 
     for i in range(len(detail_info)):
@@ -554,29 +435,14 @@ def luckd_crowler(no):
         else:
             product_detail = '-'
     
-    # serialno = detail_info[2].text[5:]
-    #발매일
-    # shoepubdate = detail_info[4].text[3:]
-    #가격
-    # shoeprice = detail_info[5].text[2:]
     
-    #print(serialno, shoepubdate, shoeprice, product_detail)
-    #제품설명
-    # try:
-    #     product_detail = detail_info[6].text[5:].strip() 
-    # except:
-    #     product_detail = '-'
-
+    # print(serialno, shoepubdate, shoeprice, product_detail)
 
     if len(serialno) <= 2:
         print('no serial number')
         return 
     else:
         pass
-    #print('serialno = ',serialno)
-    ###제품설명
-    #product_detail = soup.select(' div.product_info_div > div:nth-child(1) > div')[0].text.strip() 
-    #print(product_detail)
 
     try:
         Shoe.objects.create(shoename = shoename , shoeengname = subname, serialno = serialno,
@@ -615,14 +481,17 @@ def luckd_crowler(no):
     
     
     #사이트별 
-    sitecard = soup.select('div.site_card')    
+    sitecard = soup.select('div.release_card')    
+
     for i in range(len(sitecard)):
         #사이트명
-        sitename = soup.select('h4.agent_site_title')[i].text
+        print(i)
+        sitename = soup.select('div.release_card_header > span')[i].text
         #로고
         logo_file = sitecard[i].img['src']
         logo_name = str(Path(__file__).resolve().parent)+"/static/draw/logoimg/"+sitename+'.jpeg'
         #print(logo_file,logo_name)
+
         try:
             Shoesiteimg.objects.create(sitename = sitename)
         except:
@@ -634,26 +503,26 @@ def luckd_crowler(no):
         urllib.request.urlretrieve('https://static.luck-d.com/agent_site/'+quote(logo_file[leng:]), logo_name)
         
         sitelink = sitecard[i].a['href']
-        #print('serialno =', serialno)
-        #print('logoimg =', logo_name)
-        #print('sitename =', sitename)
-        #print('sitelink =', sitelink)
+
         shoeunique = serialno+sitename+sitelink
+
         try:
             Shoesite.objects.create(serialno = serialno , sitename = sitename, sitelink = sitelink, shoesiteunique = shoeunique)
             # Shoesite.objects.create()
         except:
             pass
-        
-        #종료일
-        end_date = soup.select('p.release_date_time')[i].text
+        # print(sitename, logo_file, sitelink)
+
+        # #종료일
+        end_date = soup.select('li.release_time > label > span')[i].text.strip()
+
+        # #시간이 종료일 경우
         if '종료' in end_date:
             end_date = '2022-09-01 00:00:00'
             end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
             Shoesite.objects.filter(shoesiteunique = shoeunique).update(end_date = end_date_datetime)
-                        
-    
         else :
+            # 시간이 까지일 경우
             if '까지' in end_date:
                 end_date = end_date.replace("월",'-')
                 end_date = end_date.replace(" ",'')
@@ -671,6 +540,7 @@ def luckd_crowler(no):
                     end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
                     
                 Shoesite.objects.filter(shoesiteunique = shoeunique).update(end_date = end_date_datetime)
+            # 시간이 발매 시작일 경우
             else:
                 end_date = end_date.replace("월",'-')
                 end_date = end_date.replace(" ",'')
@@ -688,10 +558,10 @@ def luckd_crowler(no):
                     pub_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
                 
                 Shoesite.objects.filter(shoesiteunique = shoeunique).update(pub_date = pub_date_datetime)
-        #링크
-        
 
 def crawl(request):
+    now = datetime.datetime.now()
+    
     url = 'https://www.luck-d.com/'
     html = requests.get(url).text
     soup = BeautifulSoup(html,'html.parser')
@@ -703,14 +573,14 @@ def crawl(request):
     for i in range(len(sitecard)):
         link = sitecard[i].attrs['onclick']
         shoenum.append(link[39:].split('/')[0])
+    
     shoenum = list(set(shoenum))
-    #print(shoenum)
+    print(shoenum)
 
     for num in shoenum:
-    #for num in range(1891,1893):
+        print(now)
         luckd_crowler(int(num))
 
-    # return render(request, "draw/main.html")
     return redirect('/')
 
 def crawl2(request):

@@ -121,24 +121,6 @@
   animation: fadeIn 1s;
 }
 
-/* 푸터 하단 고정 */
-html, body {
-  margin: 0; padding: 0;
-  width: 100%; height: 100%;
-}
-
-.wrapper {
-  height: auto;
-  min-height: 100%;
-  padding-bottom: 120px;
-}
-footer {
-  height: 120px;
-  position: relative;
-  transform: translateY(-100%);
-}
-/* ---------푸터 하단 고정 */
-
 header {
   z-index: 1;
   background-color: white;

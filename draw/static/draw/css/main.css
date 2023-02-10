@@ -420,6 +420,10 @@
   min-height: 1220px;
 }
 
+.u-section-2 .div-noDropped {
+  margin-top:100px;
+}
+
 .u-section-2 .u-text-1 {
   font-size: 3.75rem;
   margin: 34px 0 0;
@@ -699,14 +703,6 @@ header {
   /* animation: fadeInUp 2s; */
 }
 
-/* 마우스커서 */
-html { cursor: none; }
-#drawing_line { position: relative; z-index: 1500; height: 0; }
-#drawing_line > svg { position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
-#drawing_line > svg .drawing_line_polyline { fill: none; stroke: #000000; stroke-width: 2; }
-#drawing_line > svg .drawing_line_circle { fill: #000000;}
-/* --------마우스커서 */
-
 .hover_temp .screen {
   position: relative;
   /* overflow: hidden; */
@@ -783,4 +779,18 @@ html { cursor: none; }
 .hover_temp:hover .screen img {
   box-shadow: 0px 0px 7px #000;
   filter: brightness(90%);
+}
+
+.text::after {
+  content: '';
+  margin-left: .4rem;
+  border-right: 10px solid #ff0000;
+  animation: cursor .9s infinite steps(2);
+}
+
+
+
+@keyframes cursor {
+  from { border-right: 10px solid #ffffff; }
+  to { border-right: 10px solid #ff0000; }
 }

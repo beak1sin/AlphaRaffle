@@ -28,6 +28,17 @@ $(document).ready(function() {
         }
         // $(this).parent().parent().prev().children().next().next().style.borderBottom="15px dotted red";
     });
+
+    // 태그 여러개 있을 경우 margin-left 추가
+    var length = $('.product-info-name-tag-tagname').length;
+    var marginWidth = 0;
+    for (var i = 1; i <= length; i++) {
+        var width = $('.product-info-name-tag-tagname.tagname'+i).width() + 10;
+        marginWidth += width;
+        var tagplus = i+1;
+        $('.product-info-name-tag-tagname.tagname'+tagplus).css("margin-left", marginWidth + "px");
+        if(i+1==length) {break;}
+    }
 }); 
 
 //heart 좋아요 클릭시! 하트 뿅

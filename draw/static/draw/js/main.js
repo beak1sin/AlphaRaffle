@@ -56,6 +56,11 @@ $(document).ready(function() {
             
         }); 
     });
+
+    // 발매정보 없으면 section 사이즈 줄이기
+    if ($('#noDropped').length > 0) {
+      $('.u-section-2 .u-sheet-1').css('min-height', '300px');
+    }
 });
 
 $(window).load( function(){
@@ -76,97 +81,52 @@ $(window).load( function(){
     }); 
 });
 
-// 마우스커서
-var polyline = document.querySelector('.drawing_line_polyline');
-var polyPoints = polyline.getAttribute('points');
-var circle = document.querySelector('.drawing_line_circle');
-var circleX = circle.getAttribute('cx');
-var circleY = circle.getAttribute('cy');
-var circleR = circle.getAttribute('r');
+const $text = document.querySelector(".text");
 
-var total = 12;
-var gap = 30;
-var ease = 0.5;
-var debounce_removeLine;
-var debounce_counter = 0;
+// 글자 입력 속도
+const speed = 100;
 
-var pointer = {
-  x: window.innerWidth / 2,
-  y: window.innerHeight / 2,
-  tx: 0,
-  ty: 0,
-  dist: 0,
-  scale: 1,
-  speed: 2,
-  circRadius: 8,
-  updateCrds: function () {
-    if (this.x != 0) {
-      this.dist = Math.abs((this.x - this.tx) + (this.y - this.ty));
-      this.scale = Math.max(this.scale + ((100 - this.dist * 8) * 0.01 - this.scale) * 0.1, 0.25); // gt 0.25 = 4px
-      this.tx += (this.x - this.tx) / this.speed;
-      this.ty += (this.y - this.ty) / this.speed;
-    }
-  }
-};
-
-var points = [];
-
-$(window).on('mousemove', function (e) {
-  pointer.x = e.clientX;
-  pointer.y = e.clientY;
-  debounce_counter = 0;
-  drawLine();
-
-  // debounce
-  clearTimeout(debounce_removeLine);
-  debounce_removeLine = setTimeout(() => {
-    //console.log('debounce_removeLine', new Date().getTime());
-    debounce_counter = 12;
-    drawLine();
-  }, 80);
-})
-
-$(window).on('mousedown', function (e) {
-  pointer.circRadius = 6;
-  drawLine();
-});
-
-$(window).on('mouseup', function (e) {
-  pointer.circRadius = 8;
-  drawLine();
-});
-
-function drawLine() {
-  pointer.updateCrds();
-
-  points.push({
-    x: pointer.tx,
-    y: pointer.ty
-  });
-  while (points.length > total) {
-    points.shift();
-    if (points.length > gap) {
-      for (var i = 0; i < 5; i++) {
-        points.shift();
-      }
-    }
-  }
-  var pointsArr = points.map(point => `${point.x},${point.y}`);
-  polyPoints = pointsArr.join(' ');
-  polyline.setAttribute('points', polyPoints);
-
-  // circle
-  circleX = pointer.x;
-  circleY = pointer.y;
-  circleR = pointer.scale * pointer.circRadius;
-
-  circle.setAttribute('cx', circleX);
-  circle.setAttribute('cy', circleY);
-  circle.setAttribute('r', circleR);
-
-  if (debounce_counter > 0) {
-    debounce_counter--;
-    requestAnimationFrame(drawLine);
-  }
+const changeLineBreak = (letter) => {
+  return letter.map(text => text === "\n" ? "<br>" : text);
 }
-// ----------마우스커서
+const letters = "클릭 한 번으로 \n 응모해보세요"
+
+// 타이핑 효과
+const typing = async () => {  
+  const letter = changeLineBreak(letters.split(""));
+  
+  while (letter.length) {
+    await wait(speed);
+    $text.innerHTML += letter.shift(); 
+  }
+  
+  // 잠시 대기
+  await wait(1500)
+  
+  // 지우는 효과
+  remove();
+}
+
+// 글자 지우는 효과
+const remove = async () => {
+  const letter = changeLineBreak(letters.split(""));
+  
+  while (letter.length) {
+    await wait(speed);
+    
+    letter.pop();
+    $text.innerHTML = letter.join(""); 
+  }
+  
+  await wait(1000)
+  // 다음 순서의 글자로 지정, 타이핑 함수 다시 실행
+  typing();
+}
+
+// 딜레이 기능 ( 마이크로초 )
+function wait(ms) {
+  return new Promise(res => setTimeout(res, ms))
+}
+
+// 초기 실행
+setTimeout(typing, 1500);
