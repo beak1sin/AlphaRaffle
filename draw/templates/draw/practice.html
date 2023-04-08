@@ -15,4 +15,28 @@
 		</div>
 
 </body>
+<script>
+
+function send_mail() {
+    var data = {member_loginid: member_loginid_temp};
+    var datastr = JSON.stringify(data);
+    
+    xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+            var data = xhr.responseText;
+
+            var obj = JSON.parse(data);
+            if(obj.flag == "0"){
+                alert(obj.result_msg);
+                member_loginid_temp = '';
+            }
+        }
+    };
+    xhr.open("POST", "/auth/login/send_mail");
+    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+    xhr.send(datastr);
+}
+	
+</script>
 </html>

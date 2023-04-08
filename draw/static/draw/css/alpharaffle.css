@@ -23,3 +23,136 @@ html { cursor: none; }
 #drawing_line > svg .drawing_line_polyline { fill: none; stroke: #000000; stroke-width: 2; }
 #drawing_line > svg .drawing_line_circle { fill: #000000;}
 /* --------마우스커서 */
+
+/* 로고 이미지 */
+.u-logo.u-image-1 {
+    padding-bottom: 14px;
+}
+
+/* 북마크 아이콘 */
+.bookmark-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+}
+
+.bookmark-icon-label {
+    width: 36px;
+    height: 36px;
+    display: inline-block;
+}
+
+.bookmark-icon-label .icon {
+    display: block;
+    height: 100%;
+    background: url(../images/bookmark.svg) no-repeat center center/18px auto;
+    position: relative;
+    z-index: 1;
+}
+
+.bookmark-icon-label input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.bookmark-icon-label.on input:checked + .icon {
+    background: url(../images/bookmark_checked.svg) no-repeat center center/18px auto;
+}
+
+.bookmark-layer {
+    transition: all 0.1s;
+}
+
+.bookmark-layer.off {
+    /* display: none; */
+    visibility: hidden;
+    opacity: 0;
+    width: 0px;
+    height: 0px;
+    background: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -300;
+    font-size: 0px;
+    border: 2px solid black;
+    border-radius: 50px;
+}
+
+/* .bookmark-layer.off .title_area, .bookmark-layer.off .title_area .title {
+    height: 0px;
+} */
+
+.bookmark-layer.on {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 280px;
+    padding: 24px 20px 20px;
+    background: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    /* transition: all 0.5s; */
+    border: 2px solid black;
+    border-radius: 50px;
+}
+
+.u-section-1.blurOn {
+    filter: blur(4px);
+    transition: all 0.5s;
+}
+
+.u-section-1.blurOff {
+    filter: blur(0px);
+    transition: all 0.5s;
+}
+
+.u-section-2.blurOn {
+    filter: blur(4px);
+    transition: all 0.5s;
+}
+
+.u-section-2.blurOff {
+    filter: blur(0px);
+    transition: all 0.5s;
+}
+
+.bookmark-layer .title_area {
+    font-size: 16px;
+    line-height: 22px;
+    color: #000;
+    font-weight: 700;
+    text-align: center;
+}
+
+.bookmark-layer .content_area {
+    overflow: auto;
+    flex: 1;
+    margin-top: 16px;
+    font-size: 13px;
+    line-height: 18px;
+    color: #000;
+    text-align: center;
+}
+
+.bookmark-layer .btn_area {
+    display: flex;
+    margin-top: 24px;
+}
+
+.bookmark-layer .btn_area .u-btn-2 {
+    flex: 1;
+    margin-left: 8px;
+}
+
+.bookmark-layer .btn_area .u-btn-2:first-child {
+    margin-left: 0px;
+}

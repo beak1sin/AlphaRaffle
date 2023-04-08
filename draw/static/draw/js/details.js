@@ -1,15 +1,3 @@
-function comment() {
-    commentValue = document.getElementById("commentArea").value;
-    if (commentValue == "") {
-        $('#comment_error_msg').show();
-        return false;
-    }
-}
-
-function dropped() {
-    document.getElementById('section2').scrollIntoView({behavior: 'smooth'});
-}
-
 $(document).ready(function() {
     $('.reply-btn').on('click', function() {
         // if ($('.reply-btn').hasClass('disabled')) {
@@ -38,6 +26,59 @@ $(document).ready(function() {
         var tagplus = i+1;
         $('.product-info-name-tag-tagname.tagname'+tagplus).css("margin-left", marginWidth + "px");
         if(i+1==length) {break;}
+    }
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getCookie('csrftoken');
+
+    var xhr;
+
+    // 댓글 기능
+    $(document).on("click", "#comment_btn", function() {
+        var commentValue = document.getElementById("commentArea").value;
+        if (commentValue == "") {
+            $('#comment_error_msg').show();
+            return false;
+        }
+        var serialno = $('#serialno').text();
+        var data = {commentValueAJAX: commentValue, serialnoAJAX: serialno};
+        var datastr = JSON.stringify(data);
+
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                var data = xhr.responseText;
+                var obj = JSON.parse(data);
+                if (obj.flag == "0") {
+                    alert(obj.result_msg);
+                } else {
+                    alert(obj.result_msg);
+                }
+            }
+        };
+        xhr.open("POST", "comment");
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.send(datastr);
+    });
+
+    // 응모하기 버튼 누를 시 스크롤 이동
+    function dropped() {
+        document.getElementById('section2').scrollIntoView({behavior: 'smooth'});
     }
 }); 
 

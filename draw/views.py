@@ -3,7 +3,7 @@ from django.contrib import auth
 from urllib.parse import quote
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
-from .models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg
+from .models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg, Comment
 from django.views.decorators.csrf import csrf_exempt
 from datetime import timedelta, datetime
 from django.db.models import Q
@@ -284,8 +284,25 @@ def details(request):
     shoe = get_object_or_404(Shoe, serialno=pk) 
     #site = Shoesite.objects.filter(Q(serialno=pk)&Q(Published_date__gte=start_date, Published_date__lte=end_date))
     site = Shoesite.objects.filter(serialno=pk)
+    notGoogleSite = site.exclude(sitelink__contains='google')
+    googleSite = Shoesite.objects.filter(serialno=pk, sitelink__contains='google')
+    print(googleSite)
+    # print(type(googleSite))
+    googleSiteOnly = {}
+    # if googleSite 
+    for googleSiteGet in googleSite.values():
+        print('00000000')
+        # print(type(googleSiteGet))
+        # print(googleSiteGet['sitelink'])
+        url = googleSiteGet['sitelink']
+        url = googleFormCrawl(url)
+        # print(url)
+        googleSiteGet['sitelink'] = url
+        # print(googleSiteGet['sitelink'])
+        googleSiteOnly = googleSiteGet
+        print(googleSiteOnly)
     img = Shoeimg.objects.filter(serialno=pk)
-
+    
     shoebrand = shoe.shoebrand.split(' ')
 
     while 'x' in shoebrand:
@@ -301,7 +318,7 @@ def details(request):
         member = None
 
     context["member_no"] = member_no
-    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand }
+    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'googleSiteOnly': googleSiteOnly }
     #print(shoe.serialno)
     return render(request, 'draw/details.html', context)
     #return JsonResponse(context, content_type="application/json")
@@ -364,6 +381,74 @@ def full(request):
     context = {'shoe':shoe, 'member':member }
     return render(request, "draw/full.html", context)
 
+@csrf_exempt
+def filtering(request):
+    context = {}
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+    
+    brandList = bodyjson['brandListAJAX']
+    regionList = bodyjson['regionListAJAX']
+    onofflineList = bodyjson['onofflineListAJAX']
+    releaseList = bodyjson['releaseListAJAX']
+    deliveryList = bodyjson['deliveryListAJAX']
+    print('------------------------')
+    print(brandList, regionList, onofflineList, releaseList, deliveryList)
+    # for i in range(len(brandList)):
+    #     shoe = list(Shoe.objects.filter(shoebrand = brandList[i]).values())
+    # print(shoe)
+    shoe = list(Shoe.objects.filter(shoebrand__in=brandList).values())
+    print(shoe)
+    context['flag'] = '0'
+    context['result_msg'] = '필터링 작업'
+    context['shoe'] = shoe
+    return JsonResponse(context, content_type="application/json")
+
+@csrf_exempt
+def bookmark(request):
+    context = {}
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+    
+    if 'member_no' in request.session:
+        context['flag'] = '1'
+        context['result_msg'] = '로그인 되어 있는 상태'
+    else :
+        context['flag'] = '0'
+        context['result_msg'] = '로그인 안되어 있는 상태'
+
+    return JsonResponse(context, content_type="application/json")
+
+@csrf_exempt
+def comment(request):
+    context = {}
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+    
+    comment = bodyjson['commentValueAJAX']
+    serialno = bodyjson['serialnoAJAX']
+    
+    if 'member_no' in request.session:
+        member_no = request.session['member_no']
+        member = Member.objects.get(member_no=member_no)
+        comment_member_nickname = member.member_nickname
+
+        rs = Comment.objects.create(serialno=serialno,
+                                    comment=comment,
+                                    member_nickname=comment_member_nickname,
+                                    created_date=datetime.datetime.now(),
+                                    approved_comment=False
+                                    )
+        rs.save()
+
+        context['flag'] = '1'
+        context['result_msg'] = '로그인 되어 있는 상태'
+    else :
+        context['flag'] = '0'
+        context['result_msg'] = '로그인 안되어 있는 상태'
+
+    return JsonResponse(context, content_type="application/json")
+
 def practice(request):
     return render(request, 'draw/practice.html')
 
@@ -380,6 +465,7 @@ import shutil
 import json
 import requests
 import datetime
+import random
 
 currentDateTime = datetime.datetime.now()
 date = currentDateTime.date()
@@ -444,6 +530,8 @@ def luckd_crowler(no):
     else:
         pass
 
+    # print(shoename, subname, serialno, shoebrand, shoepubdate, product_detail, shoeprice)
+
     try:
         Shoe.objects.create(shoename = shoename , shoeengname = subname, serialno = serialno,
                         shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, shoeprice = shoeprice)
@@ -451,9 +539,9 @@ def luckd_crowler(no):
         print(no,'already exist shoe')
         pass
     
-    # shoeDB = Shoe.objects.filter(serialno = serialno)
-    # shoeDB.update(shoename = shoename , shoeengname = subname,
-    #                 shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, shoeprice = shoeprice)
+    shoeDB = Shoe.objects.filter(serialno = serialno)
+    shoeDB.update(shoename = shoename , shoeengname = subname,
+                    shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, shoeprice = shoeprice)
     
     if len(imglen)>=1:            
         for i in range(len(imglen)):
@@ -485,7 +573,6 @@ def luckd_crowler(no):
 
     for i in range(len(sitecard)):
         #사이트명
-        print(i)
         sitename = soup.select('div.release_card_header > span')[i].text
         #로고
         logo_file = sitecard[i].img['src']
@@ -560,17 +647,15 @@ def luckd_crowler(no):
                 Shoesite.objects.filter(shoesiteunique = shoeunique).update(pub_date = pub_date_datetime)
 
 def crawl(request):
-    now = datetime.datetime.now()
-    
     url = 'https://www.luck-d.com/'
     html = requests.get(url).text
     soup = BeautifulSoup(html,'html.parser')
     time.sleep(0.01)
     shoenum = []
     
-    sitecard = soup.select('div.release_card')
+    sitecard = soup.select('div.product_info_layer > div.product_thumb')
 
-    for i in range(len(sitecard)):
+    for i in range(len(sitecard)):    
         link = sitecard[i].attrs['onclick']
         shoenum.append(link[39:].split('/')[0])
     
@@ -578,20 +663,124 @@ def crawl(request):
     print(shoenum)
 
     for num in shoenum:
+        now = datetime.datetime.now()
         print(now)
+        randomTime = random.randint(30, 60)
         luckd_crowler(int(num))
+        time.sleep(randomTime)
 
     return redirect('/')
 
-def crawl2(request):
-    url = 'https://www.luck-d.com/release/product/4038/'
+# 티셔츠 신청 test7 (202302131500)
+# 티셔츠 신청
+def googleFormCrawl(url):
+    # url = 'https://docs.google.com/forms/d/e/1FAIpQLSeD5cUf-XH9Q5lxF3_EQurNnnXNolM-oARjVxnW7XP2QVx9sA/viewform'
+    # url = 'https://docs.google.com/forms/d/e/1FAIpQLSc_RlwPQjfqI7DRfEf9CFzNTQbI6pmqOkI26FfJ5kvj7V6A5g/viewform'
+    # url = 'https://docs.google.com/forms/d/e/1FAIpQLSc_RlwPQjfqI7DRfEf9CFzNTQbI6pmqOkI26FfJ5kvj7V6A5g/formResponse'
     html = requests.get(url).text
     soup = BeautifulSoup(html,'html.parser')
-    time.sleep(0.01)
-    brandname = soup.select('h3.brand')[0].text.split()
-    brand = ' '.join(brandname)
-    print(brand)
-    return redirect('/')
+    matched = re.search(r'var FB_PUBLIC_LOAD_DATA_ = (.*);', html, re.S)
+    # print('------------------------')
+    # print(matched)
+    if matched == None:
+        return url
+    entryList = matched.group(1)
+    output_entryList = json.loads(entryList)
+
+    output_entryList2 = []
+    for i in range(len(output_entryList[1][1])):
+        output_entryList2.append(output_entryList[1][1][i])
+        
+
+    googleEntry = []
+    for i in range(len(output_entryList2)):
+        # print(output_entryList2[i])
+        # print()
+
+        # 타이틀
+        title = output_entryList2[i][1]
+        
+        # checkbox value 값
+        # try:
+        #     print(output_entryList2[i][4][0][1][0][0])
+        # except:
+        #     None
+        try:
+            checkboxValue = output_entryList2[i][4][0][1][0][0]
+        except:
+            checkboxValue = None
+        
+        # checkbox entry 값
+        # try:
+        #     print(output_entryList2[i][4][0][0])
+        # except:
+        #     None
+        try:
+            entry = output_entryList2[i][4][0][0]
+        except:
+            entry = None
+            
+        # input 글자 제한 수
+        try:
+            inputLimitChar = output_entryList2[i][4][0][4][0][2][0]
+        except:
+            inputLimitChar = None
+        
+        # 유형 index(0: input, 3: dropdown, 4: checkbox, 8: text)
+        # print(output_entryList2[i][3])
+        index = output_entryList2[i][3]
+
+        # 체크박스 개수
+        # try:
+        #     print(len(output_entryList2[i][4][0][1]))
+        # except:
+        #     None
+        try:
+            checkboxLength = len(output_entryList2[i][4][0][1])
+        except:
+            checkboxLength = None
+        
+        # print(title, 'index:'+ str(index), checkboxLength, entry, checkboxValue, inputLimitChar)
+        googleEntry.append([])
+        googleEntry[i].append(title)
+        googleEntry[i].append(index)
+        googleEntry[i].append(checkboxLength)
+        googleEntry[i].append(entry)
+        googleEntry[i].append(checkboxValue)
+        googleEntry[i].append(inputLimitChar)
+        
+    # 0: title, 1: index, 2: checkboxLength, 3: entry, 4: checkboxValue, 5: inputLimitChar
+    checkbox_dict = {}
+    input_dict = {}
+    for i in range(len(googleEntry)):
+        # 필수 체크박스이고 체크박스가 한개인 경우
+        if googleEntry[i][1] == 4 and googleEntry[i][2] == 1:
+            checkbox_dict[googleEntry[i][3]] = googleEntry[i][4]
+        # input인 경우
+        if googleEntry[i][1] == 0:
+            if '성함' in googleEntry[i][0] or '이름' in googleEntry[i][0]:
+                input_dict[googleEntry[i][3]] = '이재백'
+            if '연락처' in googleEntry[i][0] or '전화번호' in googleEntry[i][0] or '휴대폰' in googleEntry[i][0] or '핸드폰' in googleEntry[i][0]:
+                if '11' in googleEntry[i][5]:
+                    input_dict[googleEntry[i][3]] = '01023956787'
+                else:
+                    input_dict[googleEntry[i][3]] = '010-2395-6787'
+            if '생년월일' in googleEntry[i][0] or '생일' in googleEntry[i][0]:
+                if '6' in googleEntry[i][5]:
+                    input_dict[googleEntry[i][3]] = '961016'
+                else:
+                    input_dict[googleEntry[i][3]] = '19961016'
+            if '아이디' in googleEntry[i][0] or 'ID' in googleEntry[i][0] or 'id' in googleEntry[i][0]:
+                input_dict[googleEntry[i][3]] = 'dbswlrla112@naver.com'
+    for index, (entry,value) in enumerate(checkbox_dict.items()):
+        if index == 0:
+            url = url + '?' + 'entry.' + str(entry) + '=' + value
+        else:
+            url = url + '&' + 'entry.' + str(entry) + '=' + value
+    for entry,value in input_dict.items():
+        url = url + '&' + 'entry.' + str(entry) + '=' + value
+    print(url)    
+    return url
 
 def sendmail(request):
     send_mail('안녕하세요. AlphaRaffle입니다.',
@@ -602,7 +791,3 @@ def sendmail(request):
 
     return redirect('/auth/practice')
     
-
-
-
-

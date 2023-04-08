@@ -703,55 +703,11 @@ header {
   /* animation: fadeInUp 2s; */
 }
 
-.hover_temp .screen {
-  position: relative;
-  /* overflow: hidden; */
-  /* padding-bottom: 56.25%; */
-}
 
 .hover_temp .screen img {
-  /* position: absolute;
-  top: 50%;
-  left: 50%; */
-  /* transform: translate(-50%,-50%); */
-  width: 100%;
-  z-index: 1;
   transition-duration: 0.5s;
 }
 
-.hover_temp .screen span {
-  display: block;
-  position: absolute;
-  background: black;
-  z-index: 2;
-}
-
-.hover_temp .screen span:nth-child(1) {
-  top: 0;
-  height: 5px;
-  width: 0;
-}
-
-.hover_temp .screen span:nth-child(2) {
-  top: 0;
-  right: 0;
-  height: 0;
-  width: 5px;
-}
-
-.hover_temp .screen span:nth-child(3) {
-  bottom: 0;
-  right: 0;
-  height: 5px;
-  width: 0;
-}
-
-.hover_temp .screen span:nth-child(4) {
-  bottom: 0;
-  left: 0;
-  width: 5px;
-  height: 0;
-}
 
 /* .hover_temp:hover .screen span:nth-child(1) {
   width: 100%;
@@ -788,9 +744,8 @@ header {
   animation: cursor .9s infinite steps(2);
 }
 
-
-
 @keyframes cursor {
   from { border-right: 10px solid #ffffff; }
   to { border-right: 10px solid #ff0000; }
 }
+

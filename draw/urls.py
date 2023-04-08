@@ -19,12 +19,15 @@ urlpatterns = [
     path('member_login', views.member_login, name='member_login'),
     path('member_delete', views.member_delete, name='member_delete'),
     path('full/', views.full, name='full'),
+    path('full/filtering', views.filtering, name='필터링'),
+    path('full/bookmark', views.bookmark, name='북마크'),
+    path('bookmark', views.bookmark, name='북마크'),
 
     path('crawl', views.crawl, name='crawl'),
-    path('crawl2', views.crawl2, name='crawl2'),
     
     path('auth/mypage/member_update', views.member_update, name='member_update'),
     path('auth/details/', views.details, name='상세정보'),
+    path('auth/details/comment', views.comment, name='코멘트'),
 
     path('auth/practice/sendmail/', views.sendmail, name='sendmail'),
     path('auth/login/send_mail', views.send_mail, name='send_mail'),

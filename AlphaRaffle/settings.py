@@ -43,7 +43,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # DEBUG = True
 # DEBUG = False
 
-ALLOWED_HOSTS = ['alpharaffle.herokuapp.com','127.0.0.1','129.154.211.163', 'alpharaffle.ml', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1','129.154.211.163', 'alpharaffle.ml', 'localhost']
 
 
 # Application definition
@@ -63,8 +63,8 @@ INSTALLED_APPS = [
 cronPath = os.path.join(BASE_DIR, 'cron.log')
 cronPath2 = os.path.join(BASE_DIR, 'cron2.log')
 CRONJOBS = [
-    ('*/1 * * * *', 'AlphaRaffle.cron.hello', '>> ' + cronPath),
-    ('* */12 * * *', 'AlphaRaffle.cron.crawl', '>> ' + cronPath2),
+    # ('*/1 * * * *', 'AlphaRaffle.cron.hello', '>> ' + cronPath),
+    ('10 9,21 * * *', 'AlphaRaffle.cron.crawl', '>> ' + cronPath2),
 ]
 
 # The Debug Toolbar is shown only if your IP is listed in the INTERNAL_IPS setting.

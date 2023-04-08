@@ -39,6 +39,100 @@ $(document).ready(function() {
             $(this).next().attr('type', 'text');
         }
     });
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getCookie('csrftoken');
+
+    var xhr;
+
+    // 북마크 로그인 여부
+    $('input[type=checkbox][name=bookmark]').change(function() {
+        var data = {};
+        var datastr = JSON.stringify(data);
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                var data = xhr.responseText;
+    
+                var obj = JSON.parse(data);
+
+                if(obj.flag == "0"){
+                    // 로그인 X
+                    // alert(obj.result_msg);
+                    $('.bookmark-layer').removeClass('off');
+                    $('.bookmark-layer').addClass('on');
+                    $('.u-section-1').removeClass('blurOff');
+                    $('.u-section-1').addClass('blurOn');
+                    $('.u-section-2').removeClass('blurOff');
+                    $('.u-section-2').addClass('blurOn');
+                    
+                } else {
+                    // 로그인 O
+                    alert(obj.result_msg);
+                    $('.bookmark-icon-label').addClass('on');
+                }
+            }
+        };
+        xhr.open("POST", "bookmark");
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.send(datastr);
+
+        // if ($(this).is(':checked')) {
+        //   alert('북마크 체크');
+        // } else {
+        //   alert('북마크 체크해제');
+        // }
+    })
+
+    // 외부영역 클릭 시 북마크 로그인여부 닫기
+    $(document).on("click", ".u-section-1.blurOn", function (e){
+        $(".bookmark-layer").removeClass("on");
+        $('.u-section-1').removeClass("blurOn");
+        $('.u-section-2').removeClass("blurOn");
+        $(".bookmark-layer").addClass("off");
+        $('.u-section-1').addClass("blurOff");
+        $('.u-section-2').addClass("blurOff");
+    });
+
+    // 외부영역 클릭 시 북마크 로그인여부 닫기
+    $(document).on("click", ".u-section-2.blurOn", function (e){
+        $(".bookmark-layer").removeClass("on");
+        $('.u-section-1').removeClass("blurOn");
+        $('.u-section-2').removeClass("blurOn");
+        $(".bookmark-layer").addClass("off");
+        $('.u-section-1').addClass("blurOff");
+        $('.u-section-2').addClass("blurOff");
+    });
+
+    // 북마크취소버튼 클릭 시 북마크 로그인여부 닫기
+    $(document).on("click", "#cancel_btn", function (e){
+        $(".bookmark-layer").removeClass("on");
+        $('.u-section-1').removeClass("blurOn");
+        $('.u-section-2').removeClass("blurOn");
+        $(".bookmark-layer").addClass("off");
+        $('.u-section-1').addClass("blurOff");
+        $('.u-section-2').addClass("blurOff");
+    });
+
+    // 북마크확인버튼 클릭 시 로그인페이지로 이동
+    $(document).on("click", "#goLogin_btn", function (e){
+        location.href = '/auth/login/';
+  });
 });
 
 // 마우스커서

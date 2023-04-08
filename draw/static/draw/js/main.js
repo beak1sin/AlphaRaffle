@@ -89,7 +89,7 @@ const speed = 100;
 const changeLineBreak = (letter) => {
   return letter.map(text => text === "\n" ? "<br>" : text);
 }
-const letters = "클릭 한 번으로 \n 응모해보세요"
+const letters = "클릭 한 번으로 응모해보세요"
 
 // 타이핑 효과
 const typing = async () => {  

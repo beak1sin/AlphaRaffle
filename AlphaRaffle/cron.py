@@ -23,6 +23,9 @@ if __name__ == '__main__':
     else:
 
         from ..draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg
+
+from draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg
+
 # a = sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 # from ..draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg
 
@@ -53,7 +56,7 @@ import urllib.request
 from bs4 import BeautifulSoup
 import time
 import re
-
+import random
 import shutil
 import json
 import requests
@@ -75,6 +78,11 @@ drawpath = Path(__file__).resolve().parent
 #options.add_argument('--disable-gpu')
 #options.add_argument('lang=ko_KR')
 #----------------------------------
+
+
+
+
+
 def luckd_crowler(no):
     #path = 'C:/Users/mundd/chromedriver.exe'
     #driver = webdriver.Chrome(path,chrome_options=options)
@@ -168,7 +176,6 @@ def luckd_crowler(no):
 
     for i in range(len(sitecard)):
         #사이트명
-        print(i)
         sitename = soup.select('div.release_card_header > span')[i].text
         #로고
         logo_file = sitecard[i].img['src']
@@ -241,19 +248,17 @@ def luckd_crowler(no):
                     pub_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
                 
                 Shoesite.objects.filter(shoesiteunique = shoeunique).update(pub_date = pub_date_datetime)
-                
-def crawl():
-    now = datetime.datetime.now()
-    
+
+def crawl(request):
     url = 'https://www.luck-d.com/'
     html = requests.get(url).text
     soup = BeautifulSoup(html,'html.parser')
     time.sleep(0.01)
     shoenum = []
     
-    sitecard = soup.select('div.release_card')
+    sitecard = soup.select('div.product_info_layer > div.product_thumb')
 
-    for i in range(len(sitecard)):
+    for i in range(len(sitecard)):    
         link = sitecard[i].attrs['onclick']
         shoenum.append(link[39:].split('/')[0])
     
@@ -261,7 +266,10 @@ def crawl():
     print(shoenum)
 
     for num in shoenum:
+        now = datetime.datetime.now()
         print(now)
+        randomTime = random.randint(30, 60)
         luckd_crowler(int(num))
-
+        time.sleep(randomTime)
+        
     return redirect('/')

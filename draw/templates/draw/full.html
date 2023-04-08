@@ -52,9 +52,9 @@
                 <a class="u-btn-1">전체<br>
                 </a>
             </h2>
-            <div class="dropdown" style="height: 50px; float: right;">
+            <div class="filter">
                 <!-- <button class="sidebar-btn u-border-none u-btn u-btn-round u-button-style u-grey-80 u-hover-grey-60 u-radius-50" onclick="sidebar();" style="margin-right: 35px;">필터링</button> -->
-                <a class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2" style="margin-right: 35px; font-size: 13px;" onclick="sidebar();">
+                <a class="filter-btn u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
                     필터링
                 </a>
             </div>
@@ -69,7 +69,7 @@
                     <li><input type="checkbox" name="chk7" id="chk7">체크리스트7</li>
                 </ul>
             </div> -->
-            <div class="u-expanded-width u-products u-products-1">
+            <div class="u-expanded-width u-products u-products-1" id="all">
                 <div class="u-repeater u-repeater-1">
                     <!--product_item-->
                     {% csrf_token %}
@@ -80,8 +80,13 @@
                             <!-- <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" src="{% static '/' %}{{shoe.shoethumbnail}}" data-image-width="842" data-image-height="595"> -->
                             <a class="hover_temp" style="display: block; width: auto; margin: 5px 5px 10px 5px;">
                             <div class="screen u-radius-50">
-                            <span></span><span></span><span></span><span></span>
-                            <img alt="" class="lazyload u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{shoe.serialno}}0.jpeg" data-image-width="842" data-image-height="595">
+                                <div class="bookmark-icon">
+                                    <label class="bookmark-icon-label">
+                                        <input type="checkbox" name="bookmark">
+                                        <span class="icon"></span>
+                                    </label>
+                                </div>
+                                <img alt="" class="lazyload u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{shoe.serialno}}0.jpeg" data-image-width="842" data-image-height="595">
                             </div>
                             </a>
                             <!--/product_image-->
@@ -105,16 +110,317 @@
                 </div>
             </div>
             <!--/products-->
+
+            <!-- 필터링 임시 -->
+            <script>const STATIC_URL = "{% static 'draw/images/' %}";</script>
+            <div class="u-expanded-width u-products u-products-1" id="filter" style="display: none;">
+                <div class="u-repeater u-repeater-1" id="temp">
+                </div>
+            </div>
         </div>
     </section>
     <div class="filter-layer off">
         <div class="filter-layer-hide"></div>
-        <div class="filter-layer-header">
-            필터
-            <button class="exit-btn" onclick="sidebar();"></button>
+        <div class="filter-layer-area">
+            <div class="filter-layer-header">
+                필터
+                <button class="exit-btn"></button>
+            </div>
+            <div class="filter-layer-content">
+                <div id="order" class="filter-layer-content-content">
+                    <div class="filter-layer-content-content-title">정렬기준</div>
+                    <div class="filter-layer-content-content-list">
+                        <div class="filter-layer-content-content-list-radiobox">
+                            <label>
+                                <span class="radiobox-icon">
+                                    <input type="radio" name="order" checked>
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">종료순</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-radiobox">
+                            <label>
+                                <span class="radiobox-icon">
+                                    <input type="radio" name="order">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">최신순</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-radiobox">
+                            <label>
+                                <span class="radiobox-icon">
+                                    <input type="radio" name="order">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">발매일순</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div id="brand" class="filter-layer-content-content accordion-type">
+                    <div class="filter-layer-content-content-title">
+                        <a>
+                            브랜드
+                            <span id="brandCount" class="count"></span>
+                        </a>
+                    </div>
+                    <div class="filter-layer-content-content-list">
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="brand">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">NIKE</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="brand">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">NIKE SB</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="brand">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">JORDAN</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="brand">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">ADIDAS</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="brand">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">ADIDAS ORIGINALS</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="brand">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">ADIDAS YEEZY</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="brand">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">NEW BALANCE</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="brand">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">REEBOK</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="brand">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">PUMA</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="brand">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">VANS</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="brand">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">CONVERSE</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="brand">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">ASICS</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="brand">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">OTHERS</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div id="region" class="filter-layer-content-content">
+                    <div class="filter-layer-content-content-title">국가</div>
+                    <div class="filter-layer-content-content-list">
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="region">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">한국</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="region">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">해외</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div id="onoffline" class="filter-layer-content-content">
+                    <div class="filter-layer-content-content-title">온라인/오프라인</div>
+                    <div class="filter-layer-content-content-list">
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="onoffline">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">온라인</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="onoffline">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">오프라인</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div id="release" class="filter-layer-content-content">
+                    <div class="filter-layer-content-content-title">발매유형</div>
+                    <div class="filter-layer-content-content-list">
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="release">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">응모</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="release">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">선착순</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div id="delivery" class="filter-layer-content-content">
+                    <div class="filter-layer-content-content-title">배송방식</div>
+                    <div class="filter-layer-content-content-list">
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="delivery">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">국내배송</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="delivery">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">매장수령</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="delivery">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">직배</span>
+                            </label>
+                        </div>
+                        <div class="filter-layer-content-content-list-checkbox">
+                            <label>
+                                <span class="checkbox-icon">
+                                    <input type="checkbox" name="delivery">
+                                    <span class="icon"></span>
+                                </span>
+                                <span class="value">배대지</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-layer-footer">
+                <a id="reset_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2 u-reset-btn">
+                    초기화
+                    <span id="filterCount" class="count"></span>
+                </a>
+                <a class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2 u-apply-btn disabled">
+                    적용
+                </a>
+            </div>
         </div>
-        <div class="filter-layer-content" style="overflow: auto;"></div>
-        <div class="filter-layer-footer"></div>
+    </div>
+    <div class="bookmark-layer off">
+        <div class="title_area">
+            <p class="title">로그인이 필요합니다.</p>
+        </div>
+        <div class="content_area">북마크에 추가하려면 로그인이 필요합니다.<br>로그인 페이지로 이동하겠습니까?</div>
+        <div class="btn_area">
+            <a id="cancel_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
+                취소
+            </a>
+            <a id="goLogin_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
+                확인
+            </a>
+        </div>
     </div>
 
     <!-- 풋터 -->

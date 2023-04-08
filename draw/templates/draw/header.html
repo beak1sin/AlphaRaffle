@@ -21,21 +21,25 @@
             </div>
             <div class="u-custom-menu u-nav-container" style="margin-right: 32px;">
                 <ul class="u-nav u-unstyled u-nav-1">
+                    <li class="u-nav-item">
+                        <a class="u-nav-link" id="btn" href="{% url 'draw:full' %}">발매일정</a>
+                    </li>
                     {% if member.member_no == None %}
                     {% else %}
-                    <li class="u-nav-item"><a class="u-nav-link" id="mypage-btn" href="{% url 'draw:마이페이지' %}" style="padding: 10px 20px; transition-duration: 0.5s;">마이페이지</a>
+                    <li class="u-nav-item">
+                        <a class="u-nav-link" id="btn" href="{% url 'draw:마이페이지' %}">마이페이지</a>
                     </li>
                     {% endif %}
-
                     {% if member.member_no == None %} 
                     <li class="u-nav-item">
-                      <a class="u-nav-link" id="login-btn" href="{% url 'draw:로그인' %}" style="padding: 10px 20px; border: 2px solid; border-radius: 50px; transition-duration: 0.5s; ">로그인/회원가입</a>
+                      <a class="u-nav-link" id="btn" href="{% url 'draw:로그인' %}">로그인/회원가입</a>
                     </li>
                     {% else %}
                     <li class="u-nav-item">
                         {{member.member_nickname}}님 환영합니다.
                     </li>
-                    <li class="u-nav-item"><a class="u-button-style u-border-2 u-border-grey-80 u-btn-round u-radius-50 u-nav-link u-hover-grey-80 u-text-active-grey-80 u-text-grey-80 u-text-hover-white" id="logout-btn" href="{% url 'draw:로그아웃' %}" style="padding: 10px 20px; border: 2px solid; border-radius: 50px; transition-duration: 0.5s;">로그아웃</a>
+                    <li class="u-nav-item">
+                        <a class="u-nav-link" id="btn" href="{% url 'draw:로그아웃' %}">로그아웃</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -46,24 +50,24 @@
                         <div class="u-menu-close"></div>
                         <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
                             {% if member.member_no == None %}
-                            {% else %}
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" id="mypage-btn-nav" style="transition-duration: 0.5s;" href="{% url 'draw:마이페이지' %}">마이페이지</a>
-                            </li>
-                            {% endif %}
-                            <!--
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'draw:홈' %}">발매예정</a>
-                            </li>
-                            -->
-                            {% if member.member_no == None %}
                             <li class="u-nav-item">
-                              <a class="u-button-style u-nav-link" id="login-btn-nav" href="{% url 'draw:로그인' %}" style="border: 2px solid; border-radius: 50px; transition-duration: 0.5s;">로그인/회원가입</a>
+                              <a class="u-button-style u-nav-link" id="btn-nav" href="{% url 'draw:로그인' %}">로그인/회원가입</a>
                             </li>
                             {% else %}
                             <li class="u-nav-item">
                                 {{member.member_nickname}}님 환영합니다.
                             </li>
                             <li class="u-nav-item">
-                                <a class="u-button-style u-nav-link" id="logout-btn-nav" href="{% url 'draw:로그아웃' %}" style="border: 2px solid; border-radius: 50px; transition-duration: 0.5s;">로그아웃</a>
+                                <a class="u-button-style u-nav-link" id="btn-nav" href="{% url 'draw:로그아웃' %}">로그아웃</a>
+                            </li>
+                            {% endif %}
+                            <li class="u-nav-item">
+                                <a class="u-button-style u-nav-link" id="btn-nav" href="{% url 'draw:full' %}">발매일정</a>
+                            </li>
+                            {% if member.member_no == None %}
+                            {% else %}
+                            <li class="u-nav-item">
+                                <a class="u-button-style u-nav-link" id="btn-nav" href="{% url 'draw:마이페이지' %}">마이페이지</a>
                             </li>
                             {% endif %}
                         </ul>
@@ -93,14 +97,28 @@
 </script>
 
 <style type="text/css">
-    #login-btn:hover, #logout-btn:hover {
+    #btn {
+        padding: 10px 20px;
+        border: 2px solid;
+        border-radius: 50px;
+        transition-duration: 0.5s;
+    }
+
+    #btn:hover {
         transition-duration: 0.5s;
         background: black;
         border: 2px solid black;
         color: white;
     }
 
-    #login-btn-nav:hover, #logout-btn-nav:hover, #mypage-btn-nav:hover {
+    #btn-nav {
+        border: 2px solid;
+        border-radius: 50px;
+        transition-duration: 0.5s;
+        margin-top: 20px;
+    }
+
+    #btn-nav:hover {
         transition-duration: 0.5s;
     }
 
