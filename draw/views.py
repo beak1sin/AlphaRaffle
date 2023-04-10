@@ -286,7 +286,7 @@ def details(request):
     site = Shoesite.objects.filter(serialno=pk)
     notGoogleSite = site.exclude(sitelink__contains='google')
     googleSite = Shoesite.objects.filter(serialno=pk, sitelink__contains='google')
-    print(googleSite)
+    # print(googleSite)
     # print(type(googleSite))
     googleSiteOnly = {}
     # if googleSite 
@@ -317,8 +317,15 @@ def details(request):
         member_no = None
         member = None
 
+    # 댓글
+    comment = Comment.objects.filter(serialno=pk)
+    if comment.values():
+        pass
+    else:
+        comment = {'serialno': ''}
+
     context["member_no"] = member_no
-    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'googleSiteOnly': googleSiteOnly }
+    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'googleSiteOnly': googleSiteOnly, 'comment': comment }
     #print(shoe.serialno)
     return render(request, 'draw/details.html', context)
     #return JsonResponse(context, content_type="application/json")

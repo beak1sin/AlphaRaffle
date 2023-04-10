@@ -58,7 +58,7 @@ $(document).ready(function() {
         var serialno = $('#serialno').text();
         var data = {commentValueAJAX: commentValue, serialnoAJAX: serialno};
         var datastr = JSON.stringify(data);
-
+        
         xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
@@ -67,13 +67,32 @@ $(document).ready(function() {
                 if (obj.flag == "0") {
                     alert(obj.result_msg);
                 } else {
-                    alert(obj.result_msg);
+                    // 현재경로 + 공백추가 필수!!
+                    $('.u-section-3').load(location.href + " .u-section-3", function() {
+                        commentLength = $('.comment_div').length;
+                        $('#commentLength').text(`COMMENT: ${commentLength}개`);
+                    });
                 }
             }
         };
         xhr.open("POST", "comment");
         xhr.setRequestHeader("X-CSRFToken", csrftoken);
         xhr.send(datastr);
+    });
+
+    // 댓글 개수
+    let commentLength = $('.comment_div').length;
+    $('#commentLength').text(`COMMENT: ${commentLength}개`);
+
+    // 댓글 제한 수 타이핑
+    $('#commentArea').keyup(function (e) {
+        let content = $(this).val();
+        let count = content.length;
+        if (count == 0 || content == '') {
+            $('.maxLength-box-font').text('0 / 200');
+        } else {
+            $('.maxLength-box-font').text(`${count} / 200`);
+        }
     });
 
     // 응모하기 버튼 누를 시 스크롤 이동

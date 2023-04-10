@@ -293,20 +293,22 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
         <div class="u-clearfix u-sheet u-sheet-1">
             <h4 class="u-text u-text-1">
                 댓글 쓰기
-                <p style="margin: 0; padding: 0; float: right;">COMMENT: 0개</p>
+                <p id="commentLength" style="margin: 0; padding: 0; float: right;"></p>
             </h4>
             <!-- <p class="u-text u-text-2">작성된 글이 없습니다.</p> -->
             <!-- 댓글 리스트 -->
+            {% for comment in comment %}
+            {% if comment.serialno != None %}
             <div class="comment_div">
                 <div class="comment_header">
                     <div class="profile_img">
                         <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
                     </div>
-                    <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
-                    <p class="comment-created-date">2022-09-19 11:59AM</p>
+                    <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{comment.member_nickname}}님</label>
+                    <p class="comment-created-date">{{comment.created_date}}</p>
                 </div>
                 <div class="comment_content">
-                    <p class="p_comment">글이 있음.</p>
+                    <p class="p_comment">{{comment.comment}}</p>
                 </div>
                 <div class="comment_footer" style="border-bottom: 1px dashed #666666;">
                     <button class="reply-btn u-hover-grey-60 disabled">답글 쓰기</button>
@@ -323,7 +325,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                         <div class="profile_img">
                             <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
                         </div>
-                        <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
+                        <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{comment.member_nickname}}님</label>
                         <textarea placeholder="댓글을 작성하세요." rows="4" cols="50" id="message-872b" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-25" style="resize: none; margin-top: 10px;" required=""></textarea>
                     </div>
                     <!-- <input type="text" placeholder="이메일을 입력하세요." id="member_loginid" name="member_loginid" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-1" required=""> -->
@@ -335,108 +337,11 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                     </div>
                 </form>
             </div>
-            <div class="comment_div">
-                <div class="comment_header">
-                    <div class="profile_img">
-                        <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
-                    </div>
-                    <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
-                    <p class="comment-created-date">2022-09-19 11:59AM</p>
-                </div>
-                <div class="comment_content">
-                    <p class="p_comment">글이 있음.</p>
-                </div>
-                <div class="comment_footer" style="border-bottom: 1px dashed #666666;">
-                    <button class="reply-btn u-hover-grey-60 disabled">답글 쓰기</button>
-                </div>
-            </div>
-            <!-- reply -->
-            <div class="u-border-2 u-border-grey-80 u-form u-radius-25 u-form-1 reply" style="display: none;">
-                <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
-                    <div class="u-form-group u-form-message">
-                        <div class="profile_img">
-                            <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
-                        </div>
-                        <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
-                        <textarea placeholder="댓글을 작성하세요." rows="4" cols="50" id="message-872b" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-25" style="resize: none; margin-top: 10px;" required=""></textarea>
-                    </div>
-                    <!-- <input type="text" placeholder="이메일을 입력하세요." id="member_loginid" name="member_loginid" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-1" required=""> -->
-                    <div class="u-align-right u-form-group u-form-submit">
-                        <!-- <a href="#" class="u-btn u-btn-submit u-button-style">Submit</a> -->
-                        <!-- <input type="submit" value="submit" class="u-form-control-hidden"> -->
-                        <button onclick="comment();" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">작성하기<br>
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <div class="comment_div">
-                <div class="comment_header">
-                    <div class="profile_img">
-                        <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
-                    </div>
-                    <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
-                    <p class="comment-created-date">2022-09-19 11:59AM</p>
-                </div>
-                <div class="comment_content">
-                    <p class="p_comment">글이 있음.</p>
-                </div>
-                <div class="comment_footer" style="border-bottom: 1px dashed #666666;">
-                    <button class="reply-btn u-hover-grey-60">답글 쓰기</button>
-                </div>
-            </div>
-            <!-- reply -->
-            <div class="u-border-2 u-border-grey-80 u-form u-radius-25 u-form-1 reply" style="display: none;">
-                <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
-                    <div class="u-form-group u-form-message">
-                        <div class="profile_img">
-                            <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
-                        </div>
-                        <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
-                        <textarea placeholder="댓글을 작성하세요." rows="4" cols="50" id="message-872b" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-25" style="resize: none; margin-top: 10px;" required=""></textarea>
-                    </div>
-                    <!-- <input type="text" placeholder="이메일을 입력하세요." id="member_loginid" name="member_loginid" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-1" required=""> -->
-                    <div class="u-align-right u-form-group u-form-submit">
-                        <!-- <a href="#" class="u-btn u-btn-submit u-button-style">Submit</a> -->
-                        <!-- <input type="submit" value="submit" class="u-form-control-hidden"> -->
-                        <button onclick="comment();" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">작성하기<br>
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <div class="comment_div">
-                <div class="comment_header">
-                    <div class="profile_img">
-                        <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
-                    </div>
-                    <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
-                    <p class="comment-created-date">2022-09-19 11:59AM</p>
-                </div>
-                <div class="comment_content">
-                    <p class="p_comment">글이 있음.</p>
-                </div>
-                <div class="comment_footer">
-                    <button class="reply-btn u-hover-grey-60 disabled">답글 쓰기</button>
-                </div>
-            </div>
-            <!-- reply -->
-            <div class="u-border-2 u-border-grey-80 u-form u-radius-25 u-form-1 reply" style="display: none;">
-                <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
-                    <div class="u-form-group u-form-message">
-                        <div class="profile_img">
-                            <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
-                        </div>
-                        <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
-                        <textarea placeholder="댓글을 작성하세요." rows="4" cols="50" id="message-872b" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-25" style="resize: none; margin-top: 10px;" required=""></textarea>
-                    </div>
-                    <!-- <input type="text" placeholder="이메일을 입력하세요." id="member_loginid" name="member_loginid" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-1" required=""> -->
-                    <div class="u-align-right u-form-group u-form-submit">
-                        <!-- <a href="#" class="u-btn u-btn-submit u-button-style">Submit</a> -->
-                        <!-- <input type="submit" value="submit" class="u-form-control-hidden"> -->
-                        <button onclick="comment();" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">작성하기<br>
-                        </button>
-                    </div>
-                </form>
-            </div>
+            
+            {% else %}
+            <p style="text-align: center;">댓글 없음</p>
+            {% endif %}
+            {% endfor %}
             <!-- ------- 댓글 리스트  -->
 
 
@@ -471,7 +376,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                             <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
                         </div>
                         <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
-                        <textarea placeholder="댓글을 작성하세요." id="commentArea" rows="4" cols="50" id="message-872b" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-25" style="resize: none; margin-top: 10px;" required=""></textarea>
+                        <textarea placeholder="댓글을 작성하세요." id="commentArea" maxlength="200" rows="4" cols="50" id="message-872b" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-25" style="resize: none; margin-top: 10px;" required=""></textarea>
                     </div>
                     <!-- <input type="text" placeholder="이메일을 입력하세요." id="member_loginid" name="member_loginid" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-1" required=""> -->
                     <div class="u-align-right u-form-group u-form-submit">
@@ -481,6 +386,9 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                         </button>
                     </div>
                 </form>
+                <div class="maxLength-box">
+                    <p class="maxLength-box-font">0 / 200</p>
+                </div>
             </div>
             {% endif %}
             <p class="u-text u-text-3" id="comment_error_msg" style="color: red; display: none;">내용을 입력해주세요.</p>

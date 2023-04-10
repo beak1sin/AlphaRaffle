@@ -943,3 +943,21 @@ table {
   background-color: whitesmoke;
 }
 
+/* 글자수 제한 */
+.maxLength-box {
+  height:20px;
+  width: 50px;
+  position: absolute;
+  top: 40px;
+  right: 30px;
+}
+
+.maxLength-box-font {
+  font-size: 8px;
+  margin: 0 0 0 0 !important;
+  height: 20px;
+  line-height: 200%;
+  text-align: right;
+  color: #848484;
+}
+
