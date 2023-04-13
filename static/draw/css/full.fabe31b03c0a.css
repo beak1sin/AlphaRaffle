@@ -357,7 +357,7 @@ filter: brightness(90%);
     right: 16px;
     width: 24px;
     height: 24px;
-    background: url(../images/x_icon.png) 50% 50% no-repeat;
+    background: url("../images/x_icon.20de692d6e67.png") 50% 50% no-repeat;
     background-size: 70% auto;
     border: 2px solid black;
     border-radius: 50px;
@@ -366,7 +366,7 @@ filter: brightness(90%);
 
 .filter-layer-header .exit-btn:hover {
     background-color: black;
-    background-image: url(../images/x_white_icon.png);
+    background-image: url("../images/x_white_icon.9375cdceecdb.png");
     transition-duration: 0.5s;
 }
 
@@ -482,7 +482,7 @@ input[type="checkbox"] {
 }
 
 .filter-layer-content-content-list-checkbox .checkbox-icon input:checked+.icon, .filter-layer-content-content-list-checkbox .checkbox-icon input.checked+.icon {
-    background: #000 url(../images/icon_checkbox.png) 50% 50% no-repeat;
+    background: #000 url("../images/icon_checkbox.c608fa43c99f.png") 50% 50% no-repeat;
     background-size: 12px auto;
     border-color: #000;
 }

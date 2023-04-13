@@ -47,7 +47,7 @@ footer {
 .bookmark-icon-label .icon {
     display: block;
     height: 100%;
-    background: url(../images/bookmark.svg) no-repeat center center/18px auto;
+    background: url("../images/bookmark.0cb6af99b656.svg") no-repeat center center/18px auto;
     position: relative;
     z-index: 1;
 }
@@ -60,7 +60,7 @@ footer {
 }
 
 .bookmark-icon-label.on input:checked + .icon {
-    background: url(../images/bookmark_checked.svg) no-repeat center center/18px auto;
+    background: url("../images/bookmark_checked.599643b10a84.svg") no-repeat center center/18px auto;
 }
 
 .bookmark-layer, .report-layer {
