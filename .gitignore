@@ -310,3 +310,9 @@ tags
 my_settings.py
 
 # End of https://www.toptal.com/developers/gitignore/api/vim,linux,macos,django,python
+
+# static 폴더
+static/draw/images/
+static/draw/logoimg/
+draw/static/draw/images/
+draw/static/draw/logoimg/

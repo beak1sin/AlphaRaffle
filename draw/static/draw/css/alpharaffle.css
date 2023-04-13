@@ -17,11 +17,11 @@ footer {
 /* ---------푸터 하단 고정 */
 
 /* 마우스커서 */
-html { cursor: none; }
+/* html { cursor: none; }
 #drawing_line { position: relative; z-index: 1500; height: 0; }
 #drawing_line > svg { position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 100; pointer-events: none; }
 #drawing_line > svg .drawing_line_polyline { fill: none; stroke: #000000; stroke-width: 2; }
-#drawing_line > svg .drawing_line_circle { fill: #000000;}
+#drawing_line > svg .drawing_line_circle { fill: #000000;} */
 /* --------마우스커서 */
 
 /* 로고 이미지 */
@@ -63,11 +63,11 @@ html { cursor: none; }
     background: url(../images/bookmark_checked.svg) no-repeat center center/18px auto;
 }
 
-.bookmark-layer {
+.bookmark-layer, .report-layer {
     transition: all 0.1s;
 }
 
-.bookmark-layer.off {
+.bookmark-layer.off, .report-layer.off, .report-form-layer.off {
     /* display: none; */
     visibility: hidden;
     opacity: 0;
@@ -88,7 +88,7 @@ html { cursor: none; }
     height: 0px;
 } */
 
-.bookmark-layer.on {
+.bookmark-layer.on, .report-layer.on, .report-form-layer.on {
     display: flex;
     flex-direction: column;
     width: 350px;
@@ -125,7 +125,27 @@ html { cursor: none; }
     transition: all 0.5s;
 }
 
-.bookmark-layer .title_area {
+.u-section-3.blurOn {
+    filter: blur(4px);
+    transition: all 0.5s;
+}
+
+.u-section-3.blurOff {
+    filter: blur(0px);
+    transition: all 0.5s;
+}
+
+.u-section-4.blurOn {
+    filter: blur(4px);
+    transition: all 0.5s;
+}
+
+.u-section-4.blurOff {
+    filter: blur(0px);
+    transition: all 0.5s;
+}
+
+.bookmark-layer .title_area, .report-layer .title_area, .report-form-layer .title_area {
     font-size: 16px;
     line-height: 22px;
     color: #000;
@@ -133,7 +153,7 @@ html { cursor: none; }
     text-align: center;
 }
 
-.bookmark-layer .content_area {
+.bookmark-layer .content_area, .report-layer .content_area {
     overflow: auto;
     flex: 1;
     margin-top: 16px;
@@ -143,16 +163,16 @@ html { cursor: none; }
     text-align: center;
 }
 
-.bookmark-layer .btn_area {
+.bookmark-layer .btn_area, .report-layer .btn_area, .report-form-layer .btn_area {
     display: flex;
     margin-top: 24px;
 }
 
-.bookmark-layer .btn_area .u-btn-2 {
+.bookmark-layer .btn_area .u-btn-2, .report-layer .btn_area .u-btn-2, .report-form-layer .btn_area .u-btn-2 {
     flex: 1;
     margin-left: 8px;
 }
 
-.bookmark-layer .btn_area .u-btn-2:first-child {
+.bookmark-layer .btn_area .u-btn-2:first-child, .report-layer .btn_area .u-btn-2:first-child, .report-form-layer .btn_area .u-btn-2:first-child {
     margin-left: 0px;
 }

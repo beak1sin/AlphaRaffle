@@ -27,6 +27,17 @@ $(document).ready(function() {
                 }
             }
         });
+        $(".product-item-filter").each(function(i, div) {
+            let oT = $(div).offset().top;
+            if (oT > scrTop && oT < (scrTop+wH)) {
+                if ($(div).attr("loading") == undefined) {
+                    $(div).css({
+                        'animation': 'fadeInUp 2s',
+                        'opacity': 1
+                    });
+                }
+            }
+        });
     });
 
     // 필터링 버튼을 클릭하면 사이드바 열림
@@ -250,15 +261,18 @@ $(document).ready(function() {
                     // alert(obj.result_msg);
                     $('#all').hide();
                     $('#filter').show();
-                    let temp = obj.shoe;
+                    let shoe = obj.shoe;
                     let productsHTML = '';
-                    for (let i=0; i<temp.length; i++) {
-                        let temp2 = temp[i];
-                        let imgURL = STATIC_URL + temp2.shoename + temp2.serialno + "0.jpeg"
-                        // productsHTML += '<div class="u-align-center u-container-style u-products-item u-repeater-item product-item"><div class="u-container-layout u-similar-container u-valign-top u-container-layout-1"><a class="hover_temp" style="display: block; width: auto; margin: 5px 5px 10px 5px;"><div class="screen u-radius-50"><div class="bookmark-icon"><label class="bookmark-icon-label"><input type="checkbox" name="bookmark"><span class="icon"></span></label></div><img alt="" class="lazyload u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" data-src="{% static ' + 'draw/images/' + ' %}' + temp2.shoename + temp2.serialno + '0.jpeg" data-image-width="842" data-image-height="595"></div></a><h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2" style="display: table;"><a class="u-product-title-link" style="font-size: 18px; display: table-cell; vertical-align: middle;"> ' + temp2.shoename + '</a></h4><a href="{% url ' + 'draw:상세정보' + ' %}?serialnum=' + temp2.serialno + '" id = "serial" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2" data-value = ' + temp2.serialno + '>응모하기</a></div></div>'
-                        productsHTML += '<div class="u-align-center u-container-style u-products-item u-repeater-item product-item"><div class="u-container-layout u-similar-container u-valign-top u-container-layout-1"><a class="hover_temp" style="display: block; width: auto; margin: 5px 5px 10px 5px;"><div class="screen u-radius-50"><div class="bookmark-icon"><label class="bookmark-icon-label"><input type="checkbox" name="bookmark"><span class="icon"></span></label></div><img alt="" class="lazyload u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" data-src="' + imgURL + '" data-image-width="842" data-image-height="595"></div></a><h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2" style="display: table;"><a class="u-product-title-link" style="font-size: 18px; display: table-cell; vertical-align: middle;"> ' + temp2.shoename + '</a></h4><a href="{% url ' + 'draw:상세정보' + ' %}?serialnum=' + temp2.serialno + '" id = "serial" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2" data-value = ' + temp2.serialno + '>응모하기</a></div></div>'
+                    for (let i=0; i<shoe.length; i++) {
+                        let shoe2 = shoe[i];
+                        let imgURL = STATIC_IMAGES_URL + shoe2.shoename + shoe2.serialno + "0.jpeg"
+                        productsHTML += '<div class="u-align-center u-container-style u-products-item u-repeater-item product-item product-item-filter"><div class="u-container-layout u-similar-container u-valign-top u-container-layout-1"><a class="hover_temp" style="display: block; width: auto; margin: 5px 5px 10px 5px;"><div class="screen u-radius-50"><div class="bookmark-icon"><label class="bookmark-icon-label"><input type="checkbox" name="bookmark"><span class="icon"></span></label></div><img alt="" class="lazyload u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" data-src="' + imgURL + '" data-image-width="842" data-image-height="595"></div></a><h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2" style="display: table;"><a class="u-product-title-link" style="font-size: 18px; display: table-cell; vertical-align: middle;"> ' + shoe2.shoename + '</a></h4><a href="' + TEMPLATES_DETAILS_URL + '?serialnum=' + shoe2.serialno + '" id = "serial" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2" data-value = ' + shoe2.serialno + '>응모하기</a></div></div>'
                     }
-                    $('#temp').html(productsHTML);
+                    $('#filter_repeater').html(productsHTML);
+                    $(".product-item-filter").each(function(i, div) {
+                        $(this).animate({"opacity": 1});
+                        $(this).attr("loading", "1");
+                    });
                 }
             }
         };

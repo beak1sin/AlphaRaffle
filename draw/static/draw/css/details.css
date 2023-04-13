@@ -832,9 +832,9 @@ table {
 
 .comment_div {
   width: 700px;
-  height: 120px;
-  /*margin: 30px 100px 0px 100px;*/
-  margin: 30px auto;
+  height: auto;
+  margin: 10px auto;
+  display: inline-block;
 }
 
 @media (max-width: 1199px) {
@@ -854,7 +854,8 @@ table {
 
 .comment_content {
   width: 100%;
-  height: 40px;
+  height: auto;
+  text-align: left;
 }
 
 .reply-btn {
@@ -864,6 +865,7 @@ table {
   border: 1px solid;
   border-radius: 50px;
   margin: 10px 0px 0px 50px;
+  float: left;
 }
 
 .comment_footer {
@@ -877,10 +879,11 @@ table {
   padding: 0;
   float: right;
   font-size: 10px;
+  margin-right: 10px;
 }
 
 .p_comment {
-  margin: 10px 0px 0px 50px;
+  margin: 10px 50px 0px 50px;
 }
 
 .borderBottomNone {
@@ -960,4 +963,10 @@ table {
   text-align: right;
   color: #848484;
 }
+/* ---------- 글자수 제한 */
 
+#commentLength {
+  margin: 0;
+  padding: 0;
+  float: right;
+}

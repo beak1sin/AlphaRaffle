@@ -427,6 +427,38 @@ def bookmark(request):
     return JsonResponse(context, content_type="application/json")
 
 @csrf_exempt
+def reportLayer(request):
+    context = {}
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+    
+    if 'member_no' in request.session:
+        context['flag'] = '1'
+        context['result_msg'] = '로그인 되어 있는 상태'
+    else :
+        context['flag'] = '0'
+        context['result_msg'] = '로그인 안되어 있는 상태'
+
+    return JsonResponse(context, content_type="application/json")
+
+@csrf_exempt
+def report(request):
+    context = {}
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+    reportValue = bodyjson['reportValueAJAX']
+    
+    if 'member_no' in request.session:
+        context['flag'] = '1'
+        context['result_msg'] = '신고완료'
+        context['reportValue'] = reportValue
+    else :
+        context['flag'] = '0'
+        context['result_msg'] = '로그인 안되어 있는 상태'
+
+    return JsonResponse(context, content_type="application/json")
+
+@csrf_exempt
 def comment(request):
     context = {}
     bodydata = request.body.decode('utf-8')

@@ -112,9 +112,9 @@
             <!--/products-->
 
             <!-- 필터링 임시 -->
-            <script>const STATIC_URL = "{% static 'draw/images/' %}";</script>
+            <script>const STATIC_IMAGES_URL = "{% static 'draw/images/' %}"; const TEMPLATES_DETAILS_URL = "{% url 'draw:상세정보' %}"</script>
             <div class="u-expanded-width u-products u-products-1" id="filter" style="display: none;">
-                <div class="u-repeater u-repeater-1" id="temp">
+                <div class="u-repeater u-repeater-1" id="filter_repeater">
                 </div>
             </div>
         </div>
@@ -422,6 +422,7 @@
             </a>
         </div>
     </div>
+    
 
     <!-- 풋터 -->
     {% include 'draw/footer.html' %}

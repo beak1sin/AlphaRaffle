@@ -45,7 +45,7 @@
     <!-- 헤더 -->
     {% include 'draw/header.html' %}
 
-    <section class="u-clearfix u-section-1" id="sec-3f81">
+    <section class="u-clearfix u-section-1 blurOff" id="sec-3f81">
         <div class="u-clearfix u-sheet u-sheet-1">
             <div class="u-container-style u-expanded-width-sm u-expanded-width-xs u-group u-shape-rectangle u-group-1" data-animation-name="customAnimationIn" data-animation-duration="1000">
                 <div class="u-container-layout u-container-layout-1">
@@ -182,7 +182,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
             </div>
         </div>
     </section>
-    <section class="u-clearfix u-section-2" id="section2">
+    <section class="u-clearfix u-section-2 blurOff" id="section2">
         <div class="u-clearfix u-sheet u-sheet-1">
             <h3 class="u-text u-text-default u-text-1">GoogleForm</h3>
             <!--products-->
@@ -289,14 +289,15 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 
         </div>
     </section>
-    <section class="u-clearfix u-section-3" id="sec-00f7">
+    <section class="u-clearfix u-section-3 blurOff" id="sec-00f7">
         <div class="u-clearfix u-sheet u-sheet-1">
             <h4 class="u-text u-text-1">
                 댓글 쓰기
-                <p id="commentLength" style="margin: 0; padding: 0; float: right;"></p>
+                <p id="commentLength"></p>
             </h4>
             <!-- <p class="u-text u-text-2">작성된 글이 없습니다.</p> -->
             <!-- 댓글 리스트 -->
+            <div style="text-align: center;">
             {% for comment in comment %}
             {% if comment.serialno != None %}
             <div class="comment_div">
@@ -304,7 +305,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                     <div class="profile_img">
                         <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
                     </div>
-                    <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{comment.member_nickname}}님</label>
+                    <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px; float: left;">{{comment.member_nickname}}님</label>
                     <p class="comment-created-date">{{comment.created_date}}</p>
                 </div>
                 <div class="comment_content">
@@ -342,10 +343,11 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
             <p style="text-align: center;">댓글 없음</p>
             {% endif %}
             {% endfor %}
+            </div>
             <!-- ------- 댓글 리스트  -->
 
 
-            <div class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-bottom u-container-style u-group u-shape-rectangle u-group-1">
+            <div class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-bottom u-container-style u-group u-shape-rectangle u-group-1" style="margin-top: 5px;">
                 <!-- <div class="u-container-layout u-container-layout-1"></div> -->
             </div>
 
@@ -369,8 +371,6 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
             {% else %}
             <div class="u-border-2 u-border-grey-80 u-form u-radius-25 u-form-1">
                 <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
-
-
                     <div class="u-form-group u-form-message">
                         <div class="profile_img">
                             <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
@@ -394,9 +394,40 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
             <p class="u-text u-text-3" id="comment_error_msg" style="color: red; display: none;">내용을 입력해주세요.</p>
         </div>
     </section>
-    <section class="u-clearfix u-section-4" style="height:100px;">
+    <section class="u-clearfix u-section-4 blurOff" style="height:100px;">
     </section>
 
+    <div class="report-layer off">
+        <div class="title_area">
+            <p class="title">로그인이 필요합니다.</p>
+        </div>
+        <div class="content_area">신고를 하시려면 로그인이 필요합니다.<br>로그인 페이지로 이동하겠습니까?</div>
+        <div class="btn_area">
+            <a id="cancel_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
+                취소
+            </a>
+            <a id="goLogin_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
+                확인
+            </a>
+        </div>
+    </div>
+
+    <div class="report-form-layer off">
+        <div class="title_area">
+            <p class="title">신고하기</p>
+        </div>
+        <div class="content_area">
+            <textarea class="content_area_value" rows="4" cols="50" maxlength="200" style="resize: none; width: 310px; height: 80px"></textarea>
+        </div>
+        <div class="btn_area">
+            <a id="cancel_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
+                취소
+            </a>
+            <a id="report_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
+                확인
+            </a>
+        </div>
+    </div>
 
     <!-- 풋터 -->
     {% include 'draw/footer.html' %}

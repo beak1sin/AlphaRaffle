@@ -417,7 +417,8 @@
     margin-top: 0;
   }
 }.u-section-2 .u-sheet-1 {
-  min-height: 1220px;
+  /* min-height: 1220px; */
+  min-height: auto;
 }
 
 .u-section-2 .div-noDropped {
@@ -443,7 +444,8 @@
 .u-section-2 .u-repeater-1 {
   grid-template-columns: 33.3333% 33.3333% 33.3333%;
   grid-gap: 0px 0px;
-  min-height: 1068px;
+  /* min-height: 1068px; */
+  min-height: auto;
 }
 
 .u-section-2 .u-container-layout-1 {
