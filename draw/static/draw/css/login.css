@@ -121,17 +121,6 @@
   animation: fadeIn 1s;
 }
 
-header {
-  z-index: 1;
-  background-color: white;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  border-bottom-style: solid;
-  border-bottom-color: black;
-  position: fixed;
-}
-
 /* 체크박스 스타일 */
 input[type="checkbox"] {
   transition-duration: 0.5s;

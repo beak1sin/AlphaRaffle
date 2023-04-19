@@ -782,18 +782,6 @@
 }
 
 
-/* 헤더 고정 */
-header {
-  z-index: 1;
-  background-color: white;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  border-bottom-style: solid;
-  border-bottom-color: black;
-  position: fixed;
-}
-
 /* 테이블 테두리 곡선 */
 table {
   border-collapse: collapse;

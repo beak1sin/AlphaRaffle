@@ -30,6 +30,11 @@ nowtime = timezone.now()
 User = get_user_model()
 # Create your views here.
 
+@csrf_exempt
+def start(request):
+
+    return render(request, 'draw/start.html')
+
 def member_register(request):
     return render(request, 'draw/login.html')
 

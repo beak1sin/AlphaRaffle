@@ -25,9 +25,9 @@ footer {
 /* --------마우스커서 */
 
 /* 로고 이미지 */
-.u-logo.u-image-1 {
+/* .u-logo.u-image-1 {
     padding-bottom: 14px;
-}
+} */
 
 /* 북마크 아이콘 */
 .bookmark-icon {
@@ -176,3 +176,85 @@ footer {
 .bookmark-layer .btn_area .u-btn-2:first-child, .report-layer .btn_area .u-btn-2:first-child, .report-form-layer .btn_area .u-btn-2:first-child {
     margin-left: 0px;
 }
+
+/*end-variables sitestylecss*/
+header {
+  z-index: 2;
+  background-color: white;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  /* border-bottom-style: solid; */
+  /* border-bottom-color: black; */
+  position: fixed;
+  height: 84px;
+}
+
+.u-header {
+    background-image: none;
+  }
+  
+  .u-header .u-sheet-1 {
+    min-height: 100px;
+  }
+  
+  .u-header .u-image-1 {
+    width: 112px;
+    height: 70px;
+    margin: 7px auto 0 22px;
+  }
+  
+  .u-header .u-logo-image-1 {
+    width: 100%;
+    height: 100%;
+  }
+
+  .u-header .u-nav-link{
+    margin-top: 14px;
+  }
+  
+  .u-header .u-menu-1 {
+    margin: -68px 0 32px auto;
+  }
+  
+  .u-header .u-nav-1 {
+    font-size: 1rem;
+    letter-spacing: normal;
+  }
+  
+  .u-header .u-nav-2 {
+    font-size: 1rem;
+    letter-spacing: 0px;
+  }
+  @media (max-width: 1199px) {
+    .u-header .u-menu-1 {
+      width: auto;
+    }
+  }
+  
+  
+  
+   .u-footer {
+    background-image: none;
+  }
+  
+  .u-footer .u-sheet-1 {
+    min-height: 120px;
+  }
+  
+  .u-footer .u-text-1 {
+    width: 417px;
+    margin: 49px auto;
+  }
+  
+  
+  
+  @media (max-width: 575px) {
+    .u-footer .u-text-1 {
+      width: 340px;
+    }
+  }
+  
+   /*begin-variables base-font-size*/ 
+   html { font-size: 16px; }
+   /*end-variables base-font-size*/

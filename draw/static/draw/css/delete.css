@@ -104,17 +104,6 @@
   }
 }
 
-/* 헤더 고정(본문 첫번째 section margin-top: 100px) */
-header {
-  z-index: 1;
-  background-color: white;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  border-bottom-style: solid;
-  border-bottom-color: black;
-  position: fixed;
-}
 
 /* 체크박스 스타일 */
 input[type="checkbox"] {

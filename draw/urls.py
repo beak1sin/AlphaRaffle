@@ -9,6 +9,7 @@ app_name = 'draw'
 urlpatterns = [
 
     path('',views.home, name = '홈'),
+    path('start/', views.start, name='시작'),
     path('auth/login/', views.login, name='로그인'),
     path('auth/logout/', views.logout, name='로그아웃'),
     path('auth/mypage/', views.myPage, name='마이페이지'),
