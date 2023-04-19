@@ -675,17 +675,6 @@
   }
 }
 
-header {
-  z-index: 1;
-  background-color: white;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  border-bottom-style: solid;
-  border-bottom-color: black;
-  position: fixed;
-}
-
 .u-section-2 {
   animation: fadeIn 2s;
 }
