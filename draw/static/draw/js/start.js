@@ -44,4 +44,43 @@ $(document).ready(function () {
         }
     });
 
+    const shoe0 = STATIC_NECESSARY + "scott.png";
+    const shoe1 = STATIC_NECESSARY + "chicago.png";
+    const shoe2 = STATIC_NECESSARY + "scott2.png";
+    const shoe3 = STATIC_NECESSARY + "dunkpanda.png";
+    const shoe4 = STATIC_NECESSARY + "nb.png";
+    const shoe5 = STATIC_NECESSARY + "superstar.png";
+
+
+    // 신발 비
+    function createSnow () {
+        const el = document.createElement('div');
+        el.classList.add('snow');
+        el.style.position = 'absolute';
+        el.style.marginLeft = Math.floor(Math.random() * window.innerWidth - 300) + 'px';
+        el.style.marginTop = Math.floor(Math.random() * window.innerHeight - 300) + 'px';
+        const elImg = document.createElement('img');
+        elImg.src = eval('shoe' + Math.floor(Math.random() * 6));
+        el.appendChild(elImg);
+        $('.content.snowSection').prepend(el);
+    }
+    function createShoe () {
+        const el = document.createElement('div');
+        el.classList.add('shoe');
+        el.style.position = 'absolute';
+        el.style.marginLeft = Math.floor(Math.random() * window.innerWidth - 300) + 'px';
+        el.style.marginTop = Math.floor(Math.random() * window.innerHeight - 300) + 'px';
+        const elImg = document.createElement('img');
+        elImg.src = eval('shoe' + Math.floor(Math.random() * 6));
+        el.appendChild(elImg);
+        $('.content.snowSection').prepend(el);
+    }
+    for (let i = 0; i < 20; i++) {
+        if (i % 2 == 0) {
+            createSnow();
+        } else {
+            createShoe();
+        }
+        
+    }
 });

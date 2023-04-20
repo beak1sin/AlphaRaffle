@@ -4,3 +4,62 @@ html {
 .content {
     position: relative;
 }
+
+.snow {
+    width: 300px;
+    height: 300px;
+    animation: snow 10s linear infinite;
+}
+
+.shoe {
+    width: 300px;
+    height: 300px;
+    animation: shoe 10s linear infinite;
+    animation-delay: 5s;
+}
+
+.snow > img {
+    width: 300px;
+    height: 300px;
+}
+.shoe > img {
+    width: 300px;
+    height: 300px;
+}
+
+@keyframes snow {
+    0% {
+        opacity: 0.5;
+        transform: translateY(-100vh);
+    } /*
+    20% {
+        transform: translateY(20vh) ;
+    }
+    40% {
+        transform: translateY(40vh);
+    }
+    50% {
+        transform: translateY(50vh);
+    }
+    60% {
+        transform: translateY(60vh);
+    }
+    80% {
+        transform: translateY(80vh);
+    } */
+    100% {
+        opacity: 0.5;
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+@keyframes shoe {
+    0% {
+        opacity: 0.5;
+        transform: translateY(-100vh);
+    } 
+    100% {
+        opacity: 0.5;
+        transform: translateY(100vh) rotate(360deg);
+    }
+}

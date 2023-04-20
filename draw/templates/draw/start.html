@@ -28,7 +28,7 @@
 <body class="u-body u-xl-mode" style="margin: 0;">
 
     {% include 'draw/header.html' %}
-
+    
     <section class="content" style="height: 100vh; width: 100vw; background-color: #F5F5F5;">
         <!-- <div style="height: calc(100vh - 50px); width: auto; top: 50px;">
             <div style="height: calc(100vh - 50px); width: 50%; background-color: skyblue; float: left; padding: 100px 0px 100px 40px;">
@@ -66,44 +66,70 @@
                 </div>
             </div>
         </div> -->
-        <div style="height: calc(100vh - 50px); width: auto; top: 50px;">
-            <div style="height: calc(100vh - 50px); width: 50%; float: left; padding: 100px 0px 100px 40px;">
+        <div style="height: calc(100vh - 25px); width: auto; top: 25px;">
+            <div style="height: calc(100vh - 25px); width: 50%; float: left; padding: 100px 0px 100px 40px;">
                 <div style="width: 100%; height: 100%; padding: 50px;">
-                    <div style="width: 100%; height: 100%; padding: 100px 0px 100px 0px">
+                    <div class="test" style="width: 100%; height: 100%; padding: 100px 0px 200px 0px">
                         <div style="width: 100%; height: 100%;">
-                            <div style="width: 100%; height: 60%; padding: 130px 00px 0px 10px;">
-                                <h1 style="margin: 0px;">다양한 발매정보와 응모를 한 번에 간편하게!</h1>
+                            <div class="test4" style="width: 100%; height: 50%; padding: 130px 0px 0px 10px;">
+                                <h1 class="test2" style="margin: 0px; font-size: 72px;">다양한 발매정보와 응모를 한 번에 간편하게!</h1>
                             </div>
-                            <div style="width: 100%; height: 40%; padding: 25px 0px 10px 10px;">
-                                <h4 style="margin: 0px; font-weight: 100;">발매 정보를 확인하고 응모하고 싶은 신발을 응모하세요.</h4>
-                                <button style="width: 180px; height: 40px; color: white; background-color: black; border: 1px solid black; border-radius: 50px; font-size: 20px; margin-top: 20px;">발매일정 보러 가기</button>
+                            <div class="test11" style="width: 100%; height: 50%; padding: 0px 0px 10px 10px; margin-top: 20px;">
+                                <h4 class="test3" style="margin: 0px; font-weight: 100; font-size: 36px;">발매 정보를 확인하고 응모하고 싶은 신발을 응모하세요.</h4>
+                                <button style="width: 180px; height: 40px; color: white; background-color: black; border: 1px solid black; border-radius: 50px; font-size: 20px; margin-top: 40px;">발매일정 보러 가기</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div style="height: calc(100vh - 50px); width: 50%; float: left; padding: 50px 50px 50px 0px;">
+            <div style="height: calc(100vh - 25px); width: 50%; float: left; padding: 50px 50px 50px 0px;">
                 <div style="height: 100%; width: 90%; float: left; padding: 100px 75px 50px 25px;">
                     <div style="width: 100%; height: 100%;">
-                        <img style="width: 100%; height: 100%;" src="{% static 'draw/necessary/draw1.jpg' %}">
+                        <img style="width: 100%; height: 100%;" src="{% static 'draw/necessary/start1.png' %}">
                     </div>
                 </div>
                 <div style="height: 100%; width: 10%; float: left; padding: 300px 0px 300px 0;">
                     <div style="width: 100%; height: 100%;">
                         <div style="width: 100%; height: 33.33%; text-align: center; display: flex; justify-content: center; padding: 36px;">
-                            <img class="first-btn" src="{% static 'draw/necessary/VectorFill.png' %}">
+                            <img class="first-btn" src="{% static 'draw/necessary/VectorFill.png' %}" style="width: 14px; height: 14px;">
                         </div>
                         <div style="width: 100%; height: 33.33%; text-align: center; display: flex; justify-content: center; padding: 36px;">
-                            <img class="second-btn" src="{% static 'draw/necessary/NotVectorFill.png' %}">
+                            <img class="second-btn" src="{% static 'draw/necessary/NotVectorFill.png' %}" style="width: 14px; height: 14px;">
                         </div>
                         <div style="width: 100%; height: 33.33%; text-align: center; display: flex; justify-content: center; padding: 36px;">
-                            <img class="third-btn" src="{% static 'draw/necessary/NotVectorFill.png' %}">
+                            <img class="third-btn" src="{% static 'draw/necessary/NotVectorFill.png' %}" style="width: 14px; height: 14px;">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
     </section>
+    <style>
+        @media (max-height: 1080px) {
+            .test {
+                padding: 0px !important;
+            }
+            .test2 {
+                font-size: 60px !important;
+            }
+            .test3 {
+                font-size: 30px !important;
+            }
+            .test4 {
+                padding: 230px 0px 0px 10px !important;
+            }
+            .test5 {
+                padding: 250px 0px 0px 10px !important;
+            }
+            .test6 {
+                margin-top: 50px !important;
+            }
+            .test11 {
+                margin-top: 40px !important;
+            }
+        }
+    </style>
 
     <section class="content" style="height: 100vh; width: 100vw; background-color: #F5F5F5;">
         <!-- <div style="height: calc(100vh - 50px); width: auto; top: 50px;">
@@ -145,41 +171,41 @@
                 </div>
             </div>
         </div> -->
-        <div style="height: calc(100vh - 50px); width: auto; top: 50px;">
-            <div style="height: calc(100vh - 50px); width: 50%; float: left; padding: 100px 0px 100px 40px;">
+        <div style="height: calc(100vh - 25px); width: auto; top: 25px;">
+            <div style="height: calc(100vh - 25px); width: 50%; float: left; padding: 100px 0px 100px 40px;">
                 <div style="width: 100%; height: 100%; padding: 50px;">
-                    <div style="width: 100%; height: 100%; padding: 100px 0px 100px 0px">
+                    <div class="test" style="width: 100%; height: 100%; padding: 80px 0px 200px 0px">
                         <div style="width: 100%; height: 100%;">
-                            <div style="width: 100%; height: 60%; padding: 190px 00px 0px 10px;">
-                                <h1 style="margin: 0px;">클릭 한 번으로 응모하세요!</h1>
+                            <div class="test5" style="width: 100%; height: 50%; padding: 200px 0px 0px 10px;">
+                                <h1 class="test2" style="margin: 0px; font-size: 72px;">클릭 한 번으로 응모하세요!</h1>
                             </div>
-                            <div style="width: 100%; height: 40%; padding: 0px 0px 10px 10px;">
-                                <h4 style="margin: 0px; font-weight: 100;">알파라플만의 간편한 자동 응모 서비스를 경험해보세요.</h4>
-                                <button style="width: 180px; height: 40px; color: white; background-color: black; border: 1px solid black; border-radius: 50px; font-size: 18px; margin-top: 30px;">진행중인 응모 보러가기</button>
+                            <div style="width: 100%; height: 50%; padding: 0px 0px 10px 10px;">
+                                <h4 class="test3" style="margin: 0px; font-weight: 100; font-size: 36px;">알파라플만의 간편한 자동 응모 서비스를 경험해보세요.</h4>
+                                <button class="test6" style="width: 180px; height: 40px; color: white; background-color: black; border: 1px solid black; border-radius: 50px; font-size: 18px; margin-top: 70px;">진행중인 응모 보러가기</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div style="height: calc(100vh - 50px); width: 50%; float: left; padding: 50px 50px 50px 0px;">
+            <div style="height: calc(100vh - 25px); width: 50%; float: left; padding: 50px 50px 50px 0px;">
                 <div style="height: 100%; width: 90%; float: left; padding: 100px 75px 50px 25px;">
                     <div style="width: 100%; height: 100%; position: relative;">
-                        <img style="width: 80%; height: 80%; z-index: 1; position: absolute;" src="{% static 'draw/necessary/draw2.jpg' %}">
+                        <img style="width: 80%; height: 80%; z-index: 1; position: absolute;" src="{% static 'draw/necessary/start2.png' %}">
                         <div>
-                            <img style="position: absolute; width: 80%; height: 80%; bottom: 0px; right: 0px; z-index: 0;" src="{% static 'draw/necessary/draw3.jpg' %}">
+                            <img style="position: absolute; width: 80%; height: 80%; bottom: 0px; right: 0px; z-index: 0;" src="{% static 'draw/necessary/start3.png' %}">
                         </div>
                     </div>
                 </div>
                 <div style="height: 100%; width: 10%; float: left; padding: 300px 0px 300px 0;">
                     <div style="width: 100%; height: 100%;">
                         <div style="width: 100%; height: 33.33%; text-align: center; display: flex; justify-content: center; padding: 36px;">
-                            <img class="first-btn" src="{% static 'draw/necessary/NotVectorFill.png' %}">
+                            <img class="first-btn" src="{% static 'draw/necessary/NotVectorFill.png' %}" style="width: 14px; height: 14px;">
                         </div>
                         <div style="width: 100%; height: 33.33%; text-align: center; display: flex; justify-content: center; padding: 36px;">
-                            <img class="second-btn" src="{% static 'draw/necessary/VectorFill.png' %}">
+                            <img class="second-btn" src="{% static 'draw/necessary/VectorFill.png' %}" style="width: 14px; height: 14px;">
                         </div>
                         <div style="width: 100%; height: 33.33%; text-align: center; display: flex; justify-content: center; padding: 36px;">
-                            <img class="third-btn" src="{% static 'draw/necessary/NotVectorFill.png' %}">
+                            <img class="third-btn" src="{% static 'draw/necessary/NotVectorFill.png' %}" style="width: 14px; height: 14px;">
                         </div>
                     </div>
                 </div>
@@ -187,7 +213,7 @@
         </div>
     </section>
 
-    <section class="content" style="height: 100vh; width: 100vw; background-color: #F5F5F5;">
+    <section class="content snowSection" style="height: 100vh; width: 100vw; background-color: #F5F5F5;">
         <!-- <div style="height: calc(100vh - 50px); width: auto; top: 50px;">
             <div style="height: calc(100vh - 50px); width: 92.395%; background-color: skyblue; float: left; padding: 100px 0px 100px 131.4px;">
                 <div style="width: 100%; height: 100%; background-color: aliceblue; padding: 200px 300px 200px 300px;">
@@ -218,38 +244,54 @@
                 </div>
             </div>
         </div> -->
-        <div style="height: calc(100vh - 50px); width: auto; top: 50px;">
-            <div style="height: calc(100vh - 50px); width: 92.395%; float: left; padding: 100px 0px 100px 131.4px;">
+        <div style="height: calc(100vh - 25px); width: auto; top: 25px;">
+            <div style="height: calc(100vh - 25px); width: 92.395%; float: left; padding: 100px 0px 100px 131.4px;">
                 <div style="width: 100%; height: 100%; padding: 200px 300px 200px 300px;">
-                    <div style="width: 100%; height: 40%; padding-top: 50px;">
-                        <h1 style="text-align: center;">지금 바로 시작하세요!!</h1>
+                    <div class="test7" style="width: 100%; height: 40%; padding-top: 50px;">
+                        <h1 class="test8" style="text-align: center; font-size: 72px;">지금 바로 시작하세요!!</h1>
                     </div>
-                    <div style="width: 100%; height: 30%; padding-top: 10px;">
-                        <h4 style="text-align: center; margin: 0px; font-weight: 100;">비용 걱정 없이 회원 가입만으로도 이용 가능합니다.</h4>
+                    <div class="test9" style="width: 100%; height: 30%; padding-top: 10px;">
+                        <h4 class="test10" style="text-align: center; margin: 0px; font-weight: 100; font-size: 36px;">비용 걱정 없이 회원 가입만으로도 이용 가능합니다.</h4>
                     </div>
                     <div style="width: 100%; height: 30%; text-align: center;">
                         <button style="width: 180px; height: 40px; color: white; background-color: black; border: 1px solid black; border-radius: 50px; font-size: 20px;">회원가입</button>
                     </div>
                 </div>
             </div>
-            <div class="all" style="height: calc(100vh - 50px); width: 7.605%; float: left; padding: 50px 50px 50px 0px;">
+            <div class="all" style="height: calc(100vh - 25px); width: 7.605%; float: left; padding: 50px 50px 50px 0px;">
                 <div style="height: 100%; width: 100%; float: left; padding: 300px 0px 300px 0;">
                     <div style="width: 100%; height: 100%;">
                         <div style="width: 100%; height: 33.33%; text-align: center; display: flex; justify-content: center; padding: 36px;">
-                            <img class="first-btn" src="{% static 'draw/necessary/NotVectorFill.png' %}">
+                            <img class="first-btn" src="{% static 'draw/necessary/NotVectorFill.png' %}" style="width: 14px; height: 14px;">
                         </div>
                         <div style="width: 100%; height: 33.33%; text-align: center; display: flex; justify-content: center; padding: 36px;">
-                            <img class="second-btn" src="{% static 'draw/necessary/NotVectorFill.png' %}">
+                            <img class="second-btn" src="{% static 'draw/necessary/NotVectorFill.png' %}" style="width: 14px; height: 14px;">
                         </div>
                         <div style="width: 100%; height: 33.33%; text-align: center; display: flex; justify-content: center; padding: 36px;">
-                            <img class="third-btn" src="{% static 'draw/necessary/VectorFill.png' %}">
+                            <img class="third-btn" src="{% static 'draw/necessary/VectorFill.png' %}" style="width: 14px; height: 14px;">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
+    <style>
+        @media (max-height: 1080px) {
+            /* .test7 {
+                padding-top: 50px !important;
+            } */
+            .test8 {
+                font-size: 48px !important;
+            }
+            /* .test9 {
+                padding-top: 10px !important;
+            } */
+            .test10 {
+                font-size: 24px !important;
+            }
+        }
+    </style>
+    <script>const STATIC_NECESSARY = "{% static 'draw/necessary/'%}"</script>
 
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
