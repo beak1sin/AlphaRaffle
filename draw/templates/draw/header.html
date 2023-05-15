@@ -35,9 +35,9 @@
                       <a class="u-nav-link" id="btn" href="{% url 'draw:로그인' %}">로그인/회원가입</a>
                     </li>
                     {% else %}
-                    <li class="u-nav-item">
+                    <!-- <li class="u-nav-item">
                         {{member.member_nickname}}님 환영합니다.
-                    </li>
+                    </li> -->
                     <li class="u-nav-item">
                         <a class="u-nav-link" id="btn" href="{% url 'draw:로그아웃' %}">로그아웃</a>
                     </li>
@@ -54,9 +54,9 @@
                               <a class="u-button-style u-nav-link" id="btn-nav" href="{% url 'draw:로그인' %}">로그인/회원가입</a>
                             </li>
                             {% else %}
-                            <li class="u-nav-item">
+                            <!-- <li class="u-nav-item">
                                 {{member.member_nickname}}님 환영합니다.
-                            </li>
+                            </li> -->
                             <li class="u-nav-item">
                                 <a class="u-button-style u-nav-link" id="btn-nav" href="{% url 'draw:로그아웃' %}">로그아웃</a>
                             </li>
@@ -82,11 +82,38 @@
       <div class="progress-bar"></div>
     </div>
     {% endif %} -->
+    {% if request.path == '/main/' %}
+    <div style="width: 100vw; height: 42px; background-color: black;">
+        <div style="width: 33.33vw; height: 100%; float: left;"></div>
+        <div style="width: 33.33vw; height: 100%; float: left;">
+            <div style="width: 50%; height: 100%; float: left; padding: 5px 20px; text-align: center;">
+                <a style="font-size: 1.74vw; font-weight: 500; line-height: 32px; color: #FFFFFF; cursor: pointer;">발매 일정</a>
+            </div>
+            <div style="width: 50%; height: 100%; float: left; padding: 5px 20px; text-align: center;">
+                <a style="font-size: 1.74vw; font-weight: 300; line-height: 32px; color: rgba(255, 255, 255, 0.7); cursor: pointer;">진행중인 응모</a>
+            </div>
+        </div>
+        <div style="width: 33.33vw; height: 100%; float: left;">
+            <div style="width: 66.66%; height: 100%; float: left;"></div>
+            <div style="width: 33.33%; height: 100%; float: left; padding: 5px 10px 5px 10px;">
+                <div style="width: 33.33%; height: 100%; float: left; text-align: center; padding-top: 6px; padding-right: 0.35vw;">
+                    <img src="{% static 'draw/necessary/icon_magnifying_glass.png' %}" style="width: 20px; height: 20px; cursor: pointer;"></img>
+                </div>
+                <div style="width: 33.33%; height: 100%; float: left; text-align: center; padding-top: 6px; padding-right: 0.35vw;">
+                    <img src="{% static 'draw/necessary/icon_grid_two_up.png' %}" style="width: 20px; height: 20px; cursor: pointer;"></img>
+                </div>
+                <div style="width: 33.33%; height: 100%; float: left; text-align: center; padding-top: 6px; padding-right: 0.35vw;">
+                    <img src="{% static 'draw/necessary/icon_filter.png' %}" style="width: 20px; height: 20px; cursor: pointer;"></img>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </header>
 
 <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(window).load(function(){
         $(window).scroll(function() {
             var wintop = $(window).scrollTop(), docheight = $('article').height(), winheight = $(window).height();
@@ -96,21 +123,22 @@
             $(".progress-bar").css("width",totalScroll+"%");
         });
     });
-</script>
+</script> -->
 
 <style type="text/css">
     #btn {
         padding: 10px 20px;
-        border: 2px solid;
-        border-radius: 50px;
-        transition-duration: 0.5s;
+        /* border: 2px solid; */
+        /* border-radius: 50px; */
+        transition-duration: 0.2s;
+        color: #B0B0B0;
     }
 
     #btn:hover {
-        transition-duration: 0.5s;
-        background: black;
-        border: 2px solid black;
-        color: white;
+        transition-duration: 0.2s;
+        /* background: black; */
+        /* border: 2px solid black; */
+        color: black;
     }
 
     #btn-nav {

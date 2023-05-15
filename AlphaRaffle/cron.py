@@ -119,8 +119,8 @@ def luckd_crowler(no):
             serialno = detail_info_find[5:]
         if '발매일' in detail_info_find:
             shoepubdate = detail_info_find[3:]
-        if '가격' in detail_info_find:
-            shoeprice = detail_info_find[2:]
+        if '발매가' in detail_info_find or '가격' in detail_info_find:
+            shoeprice = detail_info_find[3:]
         if '제품 설명' in detail_info_find:
             product_detail = detail_info_find[5:].strip()
         else:
@@ -131,14 +131,15 @@ def luckd_crowler(no):
 
     if len(serialno) <= 2:
         print('no serial number')
-        return 
+        return
     else:
         pass
 
     try:
         Shoe.objects.create(shoename = shoename , shoeengname = subname, serialno = serialno,
                         shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, shoeprice = shoeprice)
-    except:
+    except Exception as e:
+        print(f"An error occurred: {e}")
         print(no,'already exist shoe')
         pass
     
@@ -249,27 +250,57 @@ def luckd_crowler(no):
                 
                 Shoesite.objects.filter(shoesiteunique = shoeunique).update(pub_date = pub_date_datetime)
 
-def crawl(request):
-    url = 'https://www.luck-d.com/'
-    html = requests.get(url).text
-    soup = BeautifulSoup(html,'html.parser')
-    time.sleep(0.01)
-    shoenum = []
+# def crawl():
+#     url = 'https://www.luck-d.com/'
+#     html = requests.get(url).text
+#     soup = BeautifulSoup(html,'html.parser')
+#     time.sleep(0.01)
+#     shoenum = []
     
-    sitecard = soup.select('div.product_info_layer > div.product_thumb')
+#     sitecard = soup.select('div.product_info_layer > div.product_thumb')
 
-    for i in range(len(sitecard)):    
-        link = sitecard[i].attrs['onclick']
-        shoenum.append(link[39:].split('/')[0])
+#     for i in range(len(sitecard)):    
+#         link = sitecard[i].attrs['onclick']
+#         shoenum.append(link[39:].split('/')[0])
     
-    shoenum = list(set(shoenum))
-    print(shoenum)
+#     shoenum = list(set(shoenum))
+#     print(shoenum)
 
-    for num in shoenum:
-        now = datetime.datetime.now()
-        print(now)
-        randomTime = random.randint(30, 60)
-        luckd_crowler(int(num))
-        time.sleep(randomTime)
+#     for num in shoenum:
+#         now = datetime.datetime.now()
+#         print(now)
+#         randomTime = random.randint(30, 60)
+#         luckd_crowler(int(num))
+#         time.sleep(randomTime)
         
-    return redirect('/')
+#     return redirect('/')
+
+def crawl():
+    try:
+        url = 'https://www.luck-d.com/'
+        html = requests.get(url).text
+        soup = BeautifulSoup(html,'html.parser')
+        time.sleep(0.01)
+        shoenum = []
+        
+        sitecard = soup.select('div.product_info_layer > div.product_thumb')
+
+        for i in range(len(sitecard)):    
+            link = sitecard[i].attrs['onclick']
+            shoenum.append(link[39:].split('/')[0])
+        
+        shoenum = sorted(list(set(shoenum)), reverse=True)
+        print(len(shoenum),shoenum)
+
+        for num in shoenum:
+            now = datetime.datetime.now()
+            print(now)
+            randomTime = random.randint(30, 60)
+            luckd_crowler(int(num))
+            # time.sleep(randomTime)
+            
+        return redirect('/')
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        raise
+crawl()

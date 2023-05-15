@@ -1,132 +1,114 @@
-function dropped() {
-    document.getElementById('section2').scrollIntoView({behavior: 'smooth'});
-}
-
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
-var csrftoken = getCookie('csrftoken');
-
-var xhr;
-
-function detail() {
-
-    serial = document.getElementById("serial").getAttribute('data-value');
-    
-    
-    var data = { serialnum: serial};
-    var datastr = JSON.stringify(data);
+//current position
+var pos = 0;
+//number of slides
+var totalSlides = $('#slider-wrap ul #slider_list').length;
+// var totalSlides = $('#slider_list').length;
+//get the slide width
+var sliderWidth = $('#slider-wrap').width();
+var totalWidth = 0;
 
 
-    xhr = new XMLHttpRequest();
-    xhr.open("POST", "/auth/login/");
-    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-    xhr.send(datastr);
-}
-
-$(document).ready(function() {
-    $(window).scroll(function(){
-			
-        $('.product-item').each( function(i){
-            
-            var bottom_of_element = $(this).offset().top + $(this).outerHeight() / 10;
-            var bottom_of_window = $(window).scrollTop() + $(window).height();
-            
-            if( bottom_of_window > bottom_of_element ){
-                // $(this).animate({'opacity':'1'},1000);
-                // $(this).fadeTo(1000, 1);
-                $(this).css({
-                    'animation': 'fadeInUp 2s',
-                    'opacity': 1
-                });
-            }
-            
-        }); 
-    });
-
-    // 발매정보 없으면 section 사이즈 줄이기
-    if ($('#noDropped').length > 0) {
-      $('.u-section-2 .u-sheet-1').css('min-height', '300px');
-    }
+$(window).resize(function() {
+    totalSlides = $('#slider-wrap ul #slider_list').length;
+    // totalSlides = $('#slider_list').length;
+    sliderWidth = $('#slider-wrap').width();
+    totalWidth = $('#slider').width();
+    $('#slider-wrap ul#slider').width(sliderWidth*totalSlides + 2);
+    // console.log(totalSlides + ', ' + sliderWidth + ', ' + totalWidth);
+    // console.log($('.lazyload').width());
 });
 
-$(window).load( function(){
-    $('.product-item').each(function(i){
-        
-        var bottom_of_element = $(this).offset().top + $(this).outerHeight() / 10;
-        var bottom_of_window = $(window).scrollTop() + $(window).height();
 
-        if( bottom_of_window > bottom_of_element ){
-            // $(this).animate({'opacity':'1'},1000);
-            // $(this).fadeTo(1000, 1);
-            $(this).css({
-                'animation': 'fadeInUp 2s',
-                'opacity': 1
-            });
-        }
-        
-    }); 
-});
+$(document).ready(function(){
+  // alert($('.lazyload').width());
+  /*****************
+   BUILD THE SLIDER
+  *****************/
+  //set width to be 'x' times the number of slides
+  $('#slider-wrap ul#slider').width(sliderWidth*totalSlides+2);
+  
+    //next slide  
+  $('#next').click(function(){
+    slideRight();
+  });
+  
+  //previous slide
+  $('#previous').click(function(){
+    slideLeft();
+  });
+  
+  
+  
+  /*************************
+   //*> OPTIONAL SETTINGS
+  ************************/
+  //automatic slider
+  var autoSlider = setInterval(slideRight, 15000);
+  
+  //for each slide 
+  $.each($('#slider-wrap ul li'), function() { 
 
-const $text = document.querySelector(".text");
+     //create a pagination
+     var li = document.createElement('li');
+     $('#pagination-wrap ul').append(li);    
+  });
+  
+  //counter
+  countSlides();
+  
+  //pagination
+  pagination();
+  
+  //hide/show controls/btns when hover
+  //pause automatic slide when hover
+  $('#slider-wrap').hover(
+    function(){ $(this).addClass('active'); clearInterval(autoSlider); }, 
+    function(){ $(this).removeClass('active'); autoSlider = setInterval(slideRight, 3000); }
+  );
+  
+  
 
-// 글자 입력 속도
-const speed = 100;
+});//DOCUMENT READY
 
-const changeLineBreak = (letter) => {
-  return letter.map(text => text === "\n" ? "<br>" : text);
+
+/***********
+ SLIDE LEFT
+************/
+function slideLeft(){
+  pos--;
+  if(pos==-1){ pos = totalSlides-1; }
+  $('#slider-wrap ul#slider').css('left', -(sliderWidth*pos));  
+  
+  //*> optional
+  countSlides();
+  pagination();
 }
-const letters = "클릭 한 번으로 응모해보세요"
 
-// 타이핑 효과
-const typing = async () => {  
-  const letter = changeLineBreak(letters.split(""));
+
+/************
+ SLIDE RIGHT
+*************/
+function slideRight(){
+  pos++;
+  if(pos==totalSlides){ pos = 0; }
+  $('#slider-wrap ul#slider').css('left', -(sliderWidth*pos)); 
   
-  while (letter.length) {
-    await wait(speed);
-    $text.innerHTML += letter.shift(); 
-  }
-  
-  // 잠시 대기
-  await wait(1500)
-  
-  // 지우는 효과
-  remove();
+  //*> optional 
+  countSlides();
+  pagination();
 }
 
-// 글자 지우는 효과
-const remove = async () => {
-  const letter = changeLineBreak(letters.split(""));
+
+
   
-  while (letter.length) {
-    await wait(speed);
-    
-    letter.pop();
-    $text.innerHTML = letter.join(""); 
-  }
-  
-  await wait(1000)
-  // 다음 순서의 글자로 지정, 타이핑 함수 다시 실행
-  typing();
+/************************
+ //*> OPTIONAL SETTINGS
+************************/
+function countSlides(){
+  $('#counter').html(pos+1 + ' / ' + totalSlides);
 }
 
-// 딜레이 기능 ( 마이크로초 )
-function wait(ms) {
-  return new Promise(res => setTimeout(res, ms))
+function pagination(){
+  $('#pagination-wrap ul li').removeClass('active');
+  $('#pagination-wrap ul li:eq('+pos+')').addClass('active');
 }
-
-// 초기 실행
-setTimeout(typing, 1500);

@@ -3,7 +3,7 @@ from django.contrib import auth
 from urllib.parse import quote
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
-from .models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg, Comment
+from draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg, Comment, ShoeLike
 from django.views.decorators.csrf import csrf_exempt
 from datetime import timedelta, datetime
 from django.db.models import Q
@@ -17,6 +17,8 @@ import json
 from pathlib import Path
 from django.core.mail import send_mail
 
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
@@ -32,16 +34,28 @@ User = get_user_model()
 
 @csrf_exempt
 def start(request):
+    context = {}
+    if request.session.has_key('member_no'):
+        member_no = request.session['member_no']
+        member = Member.objects.get(pk= member_no)
+        #print(member_no)
+        
+    else:
+        member_no = None
+        member = None
 
-    return render(request, 'draw/start.html')
+    context["member_no"] = member_no
+    context = {'member':member }
 
-def member_register(request):
-    return render(request, 'draw/login.html')
+    return render(request, 'draw/start.html', context)
 
 @csrf_exempt
 def member_idcheck(request):
     context = {}
-    memberid = request.GET['member_id']
+
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+    memberid = bodyjson['member_id']
 
     rs = Member.objects.filter(member_id=memberid)
 
@@ -81,20 +95,22 @@ def member_insert(request):
                                register_date=datetime.datetime.now()
                                )
     rs.save()
-    current_site = get_current_site(request)
-    message = render_to_string('draw/user_activate_email.html',                         {
-                'user': rs,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(rs.pk)).encode().decode(),
-                'token': account_activation_token.make_token(rs),
-            })
-    mail_subject = "[AlphaRaffle] 회원가입 인증 메일입니다."
-    user_email = rs.member_id
-    email = EmailMessage(mail_subject, message, to=[user_email])
-    email.send()
+
+    # current_site = get_current_site(request)
+    # message = render_to_string('draw/user_activate_email.html',                         {
+    #             'user': rs,
+    #             'domain': current_site.domain,
+    #             'uid': urlsafe_base64_encode(force_bytes(rs.pk)).encode().decode(),
+    #             'token': account_activation_token.make_token(rs),
+    #         })
+    # mail_subject = "[AlphaRaffle] 회원가입 인증 메일입니다."
+    # user_email = rs.member_id
+    # email = EmailMessage(mail_subject, message, to=[user_email])
+    # email.send()
 
     context['flag'] = '1'
-    context['result_msg'] = '회원가입 인증메일을 보냈습니다. 인증 후 로그인 바랍니다.'
+    # context['result_msg'] = '회원가입 인증메일을 보냈습니다. 인증 후 로그인 바랍니다.'
+    context['result_msg'] = '회원가입이 완료되었습니다.'
 
     return JsonResponse(context, content_type="application/json")
 
@@ -134,7 +150,7 @@ def activate(request, uid64, token):
     else:
         return HttpResponse('비정상적인 접근입니다.')
 
-def home(request):
+def home3(request):
     context = {}
     droppedSite = Shoesite.objects.filter(end_date__gte=nowtime).order_by('-end_date')
     endSite = Shoesite.objects.filter(end_date__lt=nowtime).order_by('-end_date')
@@ -160,6 +176,36 @@ def home(request):
 
     context["member_no"] = member_no
     context = {'droppedShoe':droppedShoe, 'endShoe':endShoe, 'member':member }
+    return render(request, "draw/main3.html", context)
+
+@csrf_exempt
+def home(request):
+    context = {}
+    shoe = Shoe.objects.all()
+    # for shoe in shoe:
+    #     shoecount = ShoeLike.objects.filter(serialno = shoe.serialno)
+    #     context["shoecount"] = zip(shoecount)
+
+    if request.session.has_key('member_no'):
+        member_no = request.session['member_no']
+        member = Member.objects.get(pk= member_no)
+        #print(member_no)
+
+    else:
+        member_no = None
+        member = None
+
+    context["member_no"] = member_no
+    shoe = Shoe.objects.all()
+    # shoeLike = ShoeLike.objects.all().values('member_no')
+    shoeLike = ShoeLike.objects.filter(member_no = member.member_no)
+    # sh1 = shoeLike.values('member_no')
+    sh2 = []
+    for shoeL in shoeLike:
+        sh2.append(shoeL.member_no)
+        print(sh2)
+    context = { 'shoe':shoe, 'member':member, 'sh2': sh2}
+
     return render(request, "draw/main.html", context)
 
 # 새로운 멤버로그인
@@ -218,8 +264,30 @@ def logout(request):
 
 @csrf_exempt
 def login(request):
+    context = {}
 
-    return render(request, 'draw/login.html')
+    if request.session.has_key('member_no'):
+        shoe = Shoe.objects.filter()
+        member_no = request.session['member_no']
+        member = Member.objects.get(pk= member_no)
+        context["member_no"] = member_no
+        context = {'shoe':shoe, 'member':member }
+        
+        # return render(request, 'draw/main.html', context)
+        return redirect('/main/')
+
+    else:
+        member_no = None
+        member = None
+        return render(request, 'draw/login.html', context)
+
+    
+
+    return render(request, 'draw/login.html', context)
+
+@csrf_exempt
+def join(request):
+    return render(request, 'draw/join.html')
 
 @csrf_exempt
 def myPage(request):
@@ -239,11 +307,20 @@ def myPage(request):
 
         context['flag'] = "0"
         context['result_msg'] = "Member read..."
-        context = {'member':member }
+
+        shoeLike = ShoeLike.objects.filter(member_no = member.member_no)
+        sh1 = []
+        print(shoeLike.values('serialno'))
+        for shoeL in shoeLike:
+            sh1.append(shoeL.serialno)
+        likeshoe = Shoe.objects.filter(serialno__in = sh1)
+        print(likeshoe)
+
+        context = {'member':member ,'likeshoe':likeshoe}
         return render(request, "draw/myPage.html", context)
 
     else:
-        return redirect('/')
+        return redirect('/auth/login/')
 
 # 새로운 회원정보수정 방식
 @csrf_exempt
@@ -417,17 +494,52 @@ def filtering(request):
     return JsonResponse(context, content_type="application/json")
 
 @csrf_exempt
-def bookmark(request):
+def like(request):
     context = {}
     bodydata = request.body.decode('utf-8')
     bodyjson = json.loads(bodydata)
     
+    serial_no = str(' ') + str(bodyjson['serialnoAJAX'])
+    #print('serialno =', serial_no)
+    
+    #print(shoe)
     if 'member_no' in request.session:
+        member_no = request.session['member_no']
+        print(member_no)
+        rs = ShoeLike.objects.create(serialno=serial_no, member_no = member_no)
+        #shoe = Shoe.objects.get(serialno=serialno)
+        shoe = Shoe.objects.get(serialno = serial_no)
+        shoe.update_shoelikecount()
+        rs.save()
+        # member = Member.objects.filter(member_no=member_no)
+        # shoe.shoelikeuser.add(member.member_no)
+
         context['flag'] = '1'
         context['result_msg'] = '로그인 되어 있는 상태'
     else :
         context['flag'] = '0'
-        context['result_msg'] = '로그인 안되어 있는 상태'
+        context['result_msg'] = '로그인이 필요한 서비스 입니다'
+
+    return JsonResponse(context, content_type="application/json")
+
+@csrf_exempt
+def likeCancel(request):
+    context = {}
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+    
+    serialno = bodyjson['serialnoAJAX']
+    
+    if 'member_no' in request.session:
+        member_no = request.session['member_no']
+        rs = ShoeLike.objects.filter(Q(serialno=serialno)&Q(member_no = member_no))      
+        rs.delete()
+
+        context['flag'] = '1'
+        context['result_msg'] = '로그인 되어 있는 상태'
+    else :
+        context['flag'] = '0'
+        context['result_msg'] = '로그인이 필요한 서비스 입니다'
 
     return JsonResponse(context, content_type="application/json")
 

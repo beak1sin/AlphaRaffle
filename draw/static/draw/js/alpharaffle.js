@@ -61,34 +61,65 @@ $(document).ready(function() {
     var xhr;
 
     // 북마크 로그인 여부
-    $('input[type=checkbox][name=bookmark]').change(function() {
-        var data = {};
-        var datastr = JSON.stringify(data);
-        xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4) {
-                var data = xhr.responseText;
-    
-                var obj = JSON.parse(data);
+    $('input[type=checkbox][name=bookmark]').change(function ()  {
+        // let $serialno = $(this).parent().parent().parent().parent().next().next().attr('data-value');
+        let $serialno = $(this).parent().parent().parent().parent().parent().attr('data-value');
 
-                if(obj.flag == "0"){
-                    // 로그인 X
-                    bookmarkLayerOn();
-                    // 레이어 외부 영역, 취소 버튼 클릭 시
-                    $('.u-section-1.blurOn, .u-section-2.blurOn, #cancel_btn').click(function () {
-                      bookmarkLayerOff();
-                    });
-                } else {
-                    // 로그인 O
-                    alert(obj.result_msg);
-                    $('.bookmark-icon-label').addClass('on');
+        var data = {serialnoAJAX: $serialno};
+        var datastr = JSON.stringify(data);
+        if ($('.bookmark-icon-label').hasClass('on')) {
+            xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    var data = xhr.responseText;
+        
+                    var obj = JSON.parse(data);
+    
+                    if(obj.flag == "0"){
+                        // 로그인 X
+                        bookmarkLayerOn();
+                        // 레이어 외부 영역, 취소 버튼 클릭 시
+                        $('.u-section-1.blurOn, .u-section-2.blurOn, #cancel_btn').click(function () {
+                          bookmarkLayerOff();
+                        });
+                    } else {
+                        // 로그인 O
+                        alert(obj.result_msg);
+                        $('.bookmark-icon-label').removeClass('on');
+                    }
                 }
-            }
-        };
-        xhr.open("POST", "bookmark");
-        xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        xhr.send(datastr);
+            };
+            xhr.open("POST", "likeCancel");
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            xhr.send(datastr);
+        } else {
+            xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    var data = xhr.responseText;
+        
+                    var obj = JSON.parse(data);
+
+                    if(obj.flag == "0"){
+                        // 로그인 X
+                        bookmarkLayerOn();
+                        // 레이어 외부 영역, 취소 버튼 클릭 시
+                        $('.u-section-1.blurOn, .u-section-2.blurOn, #cancel_btn').click(function () {
+                        bookmarkLayerOff();
+                        });
+                    } else {
+                        // 로그인 O
+                        alert(obj.result_msg);
+                        $('.bookmark-icon-label').addClass('on');
+                    }
+                }
+            };
+            xhr.open("POST", "like");
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            xhr.send(datastr);
+        }
     });
+    
 
     // 북마크확인버튼 클릭 시 로그인페이지로 이동
     $(document).on("click", "#goLogin_btn", function (e){
@@ -232,6 +263,17 @@ $(document).ready(function() {
     $('.u-section-4').removeClass('blurOn');
     $('.u-section-4').addClass('blurOff');
   }
+
+  // input focus
+//   $('.input-focus').focus( (e) => {
+//         const value = $(e.target).parent();
+//         value.css({'border-bottom': '2px solid black'});
+//     });
+
+//     $('.input-focus').blur( (e) => {
+//         const value = $(e.target).parent();
+//         value.css({'border-bottom': '1px solid #F5F5F5'});
+//     });
 });
 
 

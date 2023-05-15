@@ -1,18 +1,33 @@
 <!DOCTYPE html>
 <html>
+    {% load static %}
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'draw/css/nicepage.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
 	<title>Practice</title>
 </head>
-<body>
-
-		<h1>send-email</h1>
-		<a href="sendmail/"><button>SEND</button></a>
-
-		<div style="height: 50px; width: 400px; overflow: hidden;">
-			<a style="margin: 20px 0px 0px 20px;">#NIKE</a>
-		</div>
+<body class="u-body u-xl-mode">
+    
+    <!-- <section style="width: 100vw; height: 100vh; background-color: antiquewhite;">
+        <div style="width: 100vw; height: calc(100vh - 84px); top:84px; background-color: darkcyan;">
+            <div style="width: 100vw; height: 20vh; background-color: aqua;"></div>
+            <div style="width: 100vw; height: 40vh; background-color: violet;"></div>
+            <div style="width: 100vw; height: 31.6vh; background-color: salmon; position: relative;">
+                <p style="margin: 0px; position: absolute; bottom: 0px;">fklsdjflkdsajflkjasdlfjsla;kdjl;sad</p>
+            </div>
+        </div>
+    </section> -->
+    <section style="width: 100vw; height: 100vh; background-color: antiquewhite;">
+        <div style="width: 100vw; height: calc(100vh - 84px); top:84px; background-color: darkcyan;">
+            <div style="width: 100vw; height: 25%; background-color: aqua;"></div>
+            <div style="width: 100vw; height: 50%; background-color: violet;"></div>
+            <div style="width: 100vw; height: 25%; background-color: salmon; position: relative;">
+                <p style="margin: 0px; position: absolute; bottom: 0px;">fklsdjflkdsajflkjasdlfjsla;kdjl;sad</p>
+            </div>
+        </div>
+    </section>
 
 </body>
 <script>
@@ -39,4 +54,7 @@ function send_mail() {
 }
 	
 </script>
+<script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
+<script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
+<script type="text/javascript" src="{% static 'draw/js/alpharaffle.js' %}" defer=""></script>
 </html>

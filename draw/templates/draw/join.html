@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html style="font-size: 16px;" lang="ko">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="AlphaRaffle, 발매정보">
+    <meta name="description" content="">
+    <title>AlphaRaffle</title>
+    <link rel="shortcut icon" href="{% static 'draw/images/favicon.jpeg' %}">
+    <link rel="stylesheet" href="{% static 'draw/css/nicepage.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'draw/css/join.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard-dynamic-subset.css" />
+    <!-- <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i"> -->
+
+
+
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="AlphaRaffle">
+    <meta property="og:image" content="{% static 'draw/images/ar011.png' %}">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+</head>
+
+<body class="u-body u-xl-mode" style="margin: 0; font-family: 'Pretendard';">
+
+    {% include 'draw/header.html' %}
+
+    <section class="join-section">
+        <div class="wh100">
+            <div class="join-box">
+                <div class="1 join-email-box">
+                    <div class="join-email-title-box">
+                        <h1 class="join-email-title">계정 생성</h1>
+                    </div>
+                    <div class="join-email-input-box">
+                        <h3 class="join-email-input-title">이메일을 입력해주세요.</h3>
+                        <div class="join-email-input-value-box">
+                            <input class="join-email-input-value input-focus input-value" id="member_id" type="email" placeholder="AlphaRaffle@example.com">
+                            <button type="button" class="input-icon-close" id="email_close_btn"></button>
+                        </div>
+                        <div class="duplicate-btn-box">
+                            <button class="duplicate-btn disabled" id="idcheck_btn" disabled="disabled">중복확인</button>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="email-error-box" style="font-size: 12px; color: red; margin: 0px; text-align: left;"></p>
+                    </div>
+                    <div class="next-btn-box">
+                        <button class="next-btn disabled" disabled="disabled">다음</button>
+                    </div>
+                    <div class="login-link-box">
+                        <h6 class="login-title">이미 회원이신가요?<a class="login-link" href="{% url 'draw:로그인' %}">로그인하기</a></h6>
+                    </div>
+                </div>
+
+                <div class="2 join-password-box">
+                    <div class="join-password-title-box">
+                        <h1 class="join-password-title">암호 생성</h1>
+                    </div>
+                    <div class="join-password-input-box">
+                        <h3 class="join-password-input-title">계정에 사용할 암호를 입력해주세요.</h3>
+                        <div class="join-password-input-value-box">
+                            <button type="button" class="password-icon-hide"></button>
+                            <input class="join-password-input-value input-focus input-value" id="member_pwd" type="password" placeholder="password" tabindex="1">
+                            <button type="button" class="password-icon-close" id="password_close_btn"></button>
+                        </div>
+                    </div>
+                    <div >
+                        <p class="password-error-box" style="font-size: 12px; color: red; margin: 0px; text-align: left;"></p>
+                    </div>
+                    <div class="join-password2-input-box">
+                        <h3 class="join-password2-input-title">암호를 다시 입력해주세요.</h3>
+                        <div class="join-password2-input-value-box">
+                            <button type="button" class="password-icon-hide"></button>
+                            <input class="join-password2-input-value input-focus input-value" id="member_pwd2" type="password" placeholder="password" tabindex="2">
+                            <button type="button" class="password-icon-close" id="password2_close_btn"></button>
+                        </div>
+                    </div>
+                    <div >
+                        <p class="password2-error-box" style="font-size: 12px; color: red; margin: 0px; text-align: left;"></p>
+                    </div>
+                    <div class="next-btn-2-box">
+                        <button class="next-btn-2 disabled" disabled="disabled" tabindex="3">다음</button>
+                    </div>
+                    <div class="back-btn-box">
+                        <a class="back-btn">뒤로가기</a>
+                    </div>
+                </div>
+
+
+                <div class="3 join-profile-box">
+                    <div class="join-profile-title-box">
+                        <h1 class="join-profile-title">프로필 생성</h1>
+                    </div>
+                    <div class="join-name-input-box">
+                        <h3 class="join-name-input-title">이름을 입력해주세요</h3>
+                        <div class="join-name-input-value-box">
+                            <input class="join-name-input-value input-focus input-value" id="member_realname" type="text" placeholder="ex ) 홍길동" tabindex="1" maxlength="10">
+                            <button type="button" class="input-icon-close" id="name_close_btn"></button>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="name-error-box" style="font-size: 12px; color: red; margin: 0px; text-align: left;"></p>
+                    </div>
+                    <div class="join-nickname-input-box">
+                        <h3 class="join-nickname-input-title">닉네임을 입력해주세요</h3>
+                        <div class="join-nickname-input-value-box">
+                            <input class="join-nickname-input-value input-focus input-value" id="member_nickname" type="text" placeholder="ex ) 홍길동짱짱맨" tabindex="2" maxlength="20">
+                            <button type="button" class="input-icon-close" id="nickname_close_btn"></button>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="nickname-error-box" style="font-size: 12px; color: red; margin: 0px; text-align: left;"></p>
+                    </div>
+                    <div class="join-birth-input-box">
+                        <h3 class="join-birth-input-title">생년월일을 입력해주세요</h3>
+                        <div class="join-birth-input-value-box">
+                            <input class="join-birth-input-value input-focus input-value" id="member_birth" type="text" placeholder="ex ) 990101" tabindex="3" maxlength="6">
+                            <button type="button" class="input-icon-close" id="birth_close_btn"></button>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="birth-error-box" style="font-size: 12px; color: red; margin: 0px; text-align: left;"></p>
+                    </div>
+                    <div class="join-phonenumber-input-box">
+                        <h3 class="join-phonenumber-input-title">핸드폰 번호를 입력해주세요</h3>
+                        <div class="join-phonenumber-input-value-box">
+                            <input class="join-phonenumber-input-value input-focus input-value" id="member_phonenumber" type="text" placeholder="ex ) 01012345678" tabindex="4" maxlength="11">
+                            <button type="button" class="input-icon-close" id="phonenumber_close_btn"></button>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="phonenumber-error-box" style="font-size: 12px; color: red; margin: 0px; text-align: left;"></p>
+                    </div>
+                    <div class="join-nikeid-input-box">
+                        <h3 class="join-nikeid-input-title">나이키 아이디를 입력해주세요</h3>
+                        <div class="join-nikeid-input-value-box">
+                            <input class="join-nikeid-input-value input-focus input-value" id="member_nikeid" type="email" placeholder="ex ) alpharaffle@naver.com" tabindex="5">
+                            <button type="button" class="input-icon-close" id="nikeid_close_btn"></button>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="nikeid-error-box" style="font-size: 12px; color: red; margin: 0px; text-align: left;"></p>
+                    </div>
+                    <div class="next-btn-3-box">
+                        <button id="join_btn" class="next-btn-3 disabled" disabled="disabled" tabindex="6">계정 생성하기</button>
+                    </div>
+                    <div class="back-btn-2-box">
+                        <a class="back-btn-2">뒤로가기</a>
+                    </div>
+                </div>
+
+                <div class="4 join-complete-box">
+                    <div class="logo-box">
+                        <img class="logo-img" src="{% static 'draw/necessary/logo(grey).png' %}">
+                        <svg class="check" width="100" height="70" xmlns="http://w3.org/2000/svg" version="1.1" viewbox="0 0 80 40">
+                            <polyline class="check-line" points="9.06 20.89 25.85 35.74 50.46 9.35"/>
+                        </svg>
+                    </div>
+                    <div class="complete-title-box">
+                        <p class="complete-title">계정 생성이 완료되었습니다.</p>
+                    </div>
+                    <div class="congratulation-title-box" >
+                        <p class="congratulation-title">이재백짱짱님의 회원가입을 축하드립니다.</p>
+                    </div>
+                    <div class="draw-btn-box">
+                        <button class="draw-btn">지금 바로 응모하러 가기</button>
+                    </div>
+                    <!-- <div style="text-align: center; padding: 40px 0px">
+                        <a class="back-btn-3" style="font-size: 16px; padding-left: 10px; color: #626262;">뒤로가기</a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
+    <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="{% static 'draw/js/join.js' %}"></script>
+    <script src="{% static 'draw/js/alpharaffle.js' %}"></script>
+    <script src="{% static 'draw/js/sha1.js' %}"></script>
+</body>
+
+</html>

@@ -8,10 +8,14 @@ app_name = 'draw'
 
 urlpatterns = [
 
-    path('',views.home, name = '홈'),
-    path('start/', views.start, name='시작'),
+    # path('',views.home, name = '홈'),
+    path('main3/',views.home3, name = '홈3'),
+    path('main/',views.home, name = '홈'),
+    # path('start/', views.start, name='시작'),
+    path('', views.start, name='시작'),
     path('auth/login/', views.login, name='로그인'),
     path('auth/logout/', views.logout, name='로그아웃'),
+    path('auth/join/', views.join, name='회원가입'),
     path('auth/mypage/', views.myPage, name='마이페이지'),
     path('auth/delete/', views.delete, name='회원탈퇴'),
     path('auth/practice/', views.practice, name='연습모드'),
@@ -21,8 +25,11 @@ urlpatterns = [
     path('member_delete', views.member_delete, name='member_delete'),
     path('full/', views.full, name='full'),
     path('full/filtering', views.filtering, name='필터링'),
-    path('full/bookmark', views.bookmark, name='북마크'),
-    path('bookmark', views.bookmark, name='북마크'),
+    path('full/like', views.like, name='좋아요'),
+    path('full/likeCancel', views.likeCancel, name='좋아요취소'),
+    # path('main3/bookmark', views.bookmark, name='북마크'),
+    path('main/like', views.like, name='좋아요'),
+    path('main/likeCancel', views.likeCancel, name='좋아요취소'),
 
     path('crawl', views.crawl, name='crawl'),
     

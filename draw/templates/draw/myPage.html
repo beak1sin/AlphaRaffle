@@ -32,128 +32,209 @@
 </head>
 
 <body class="u-body u-xl-mode">
-    <article>
     <!-- 헤더 -->
     {% include 'draw/header.html' %}
 
-    <!-- 본문 -->
-    <section class="u-align-left u-clearfix u-section-1" id="sec-818f">
-        <div class="u-clearfix u-sheet u-sheet-1">
-            <div class="u-expanded-width u-tab-links-align-justify u-tabs u-tabs-1">
-                <ul class="u-spacing-30 u-tab-list u-unstyled" role="tablist">
-                    <li class="u-tab-item" role="presentation">
-                        <a class="active u-active-grey-80 u-button-style u-tab-link u-tab-link-1" id="link-tab-081f" href="#tab-081f" role="tab" aria-controls="tab-081f" aria-selected="true">프로필</a>
-                    </li>
-                    <li class="u-tab-item" role="presentation">
-                        <a class="u-active-grey-80 u-button-style u-tab-link u-tab-link-2" id="link-tab-4d57" href="#tab-4d57" role="tab" aria-controls="tab-4d57" aria-selected="false">응모내역</a>
-                    </li>
-                    <li class="u-tab-item" role="presentation">
-                        <a class="u-active-grey-80 u-button-style u-tab-link u-tab-link-3" id="link-tab-3a42" href="#tab-3a42" role="tab" aria-controls="tab-3a42" aria-selected="false">즐겨찾기</a>
-                    </li>
-                    <li class="u-tab-item u-tab-item-4" role="presentation">
-                        <a class="u-active-grey-80 u-button-style u-tab-link u-tab-link-4" id="tab-d7e7" href="#link-tab-d7e7" role="tab" aria-controls="link-tab-d7e7" aria-selected="false">문의내역</a>
-                    </li>
-                    <li class="u-tab-item u-tab-item-5" role="presentation">
-                        <a class="u-active-grey-80 u-button-style u-tab-link u-tab-link-5" href="{% url 'draw:로그아웃' %}">로그아웃</a>
-                    </li>
-                </ul>
-                <div class="u-tab-content">
-                    <div class="u-container-style u-tab-active u-tab-pane" id="tab-081f" role="tabpanel" aria-labelledby="link-tab-081f">
-                        <div class="u-container-layout u-container-layout-1">
-                            <div class="u-border-3 u-border-grey-dark-1 u-expanded-width u-line u-line-horizontal u-line-1"></div>
-                            <div class="u-container-style u-group u-shape-rectangle u-group-1">
-                                <div class="u-container-layout u-container-layout-2" id="title_box">
-                                    <h6 class="u-text u-text-default u-text-1">이메일</h6>
-                                    <h6 class="u-text u-text-default u-text-2">이름</h6>
-                                    <h6 class="u-text u-text-default u-text-3">닉네임</h6>
-                                    <h6 class="u-text u-text-default u-text-4">핸드폰번호</h6>
-                                    <h6 class="u-text u-text-default u-text-6">나이키 ID</h6>
-                                    <h6 class="u-text u-text-default u-text-7">생년월일</h6>
+    <section style="width: 100vw; height: 100vh;">
+        <div style="width: 100vw; height: calc(100vh - 84px); top: 84px;">
+            <div style="width: 300px; float: left; height: calc(100vh - 84px); position: fixed; box-shadow: 4px 0px 5px 2px rgba(135, 135, 135, 0.12);">
+                <div style="width: 100%; height: 22%; padding-bottom: 2vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                    <div style="width: 50px; height: 50px;">
+                        <img style="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%;" src="{% static 'draw/images/jordan1OFF.jpeg' %}">
+                    </div>
+                    <p style="margin: 0px; padding-top: 10px; font-size: 28px; font-weight: 500; line-height: 30px; border-bottom: 2px solid black;">닉네임</p>
+                </div>
+                <div style="width: 100%; height: 43%;">
+                    <div class="tab checked" id="bookmark_tab">
+                        <div class="icon-box">
+                            <span class="icon"></span>
+                        </div>
+                        <div class="title-box">
+                            <p class="title">찜한 신발</p>
+                        </div>
+                    </div>
+                    <div class="tab" id="checked_tab">
+                        <div class="icon-box">
+                            <span class="icon2"></span>
+                        </div>
+                        <div class="title-box">
+                            <p class="title">응모한 신발</p>
+                        </div>
+                    </div>
+                    <div class="tab" id="comment_tab">
+                        <div class="icon-box">
+                            <span class="icon3"></span>
+                        </div>
+                        <div class="title-box">
+                            <p class="title">작성한 댓글</p>
+                        </div>
+                    </div>
+                    <div class="tab" id="setting_tab">
+                        <div class="icon-box">
+                            <span class="icon4"></span>
+                        </div>
+                        <div class="title-box">
+                            <p class="title">설정</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div style="width: 100%; height: 35%; padding-top: 216px;" id="3">
+                    <div style="" class="tab" id="">
+                        <div class="icon-box">
+                            <span class="icon4"></span>
+                        </div>
+                        <div class="title-box">
+                            <p class="title">설정</p>
+                        </div>
+                    </div>
+                </div> -->
+                <div style="width: 100%; height: 35%; position: relative;">
+                    <div style="position: absolute; bottom: 0px; left: 0px; display: none;" class="delete-tab" id="delete_tab">
+                        <div class="icon-box">
+                            <span class="icon5"></span>
+                        </div>
+                        <div class="title-box">
+                            <p class="title">탈퇴하기</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bookmark-content" style="width: calc(100vw - 300px); left: 300px; height: 100%; float: left; position: relative; padding: 50px 100px 0px 100px;">
+                <div style="width: 100%;">
+                    <p style="margin: 0px; font-size: 40px; font-weight: 700;">찜한 신발</p>
+                    <div class="grid-wrapper">
+                        {% for shoe in likeshoe %}
+                        <div class="grid-box">
+                            <div class="grid-box" data-value = {{shoe.serialno}}>
+                                <div style="width: 100%; height: 100%; border: 0.5px solid #C8C8C8; border-radius: 10px; padding: 10px 5px;">
+                                    <div style="width: 100%; height: 70%; position: relative; padding: 0px 40px; float: left;">
+                                        <div class="bookmark-icon">
+                                            {% if member.member_no == shoeLike.member_no %}
+                                            <label class="bookmark-icon-label on">
+                                                <input type="checkbox" name="bookmark">
+                                                <span class="icon"></span>
+                                            </label>
+                                            {% else %}
+                                            <label class="bookmark-icon-label">
+                                                <input type="checkbox" name="bookmark">
+                                                <span class="icon"></span>
+                                            </label>
+                                            {% endif %}
+                                        </div>
+                                        <div style="position: absolute; top: 50px; right: 0px;">
+                                            {{shoe.shoelikecount}}
+                                        </div>
+                                        <div style="width: 100%; height: 100%;  text-align: center;"onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}'">
+                                            <img class="lazyload" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{shoe.serialno}}0.jpeg" style="width: 231px; height: 100%; border: 0.5px solid #C8C8C8; border-radius: 10px;">
+                                        </div>
+                                        <!-- <div style="width: 100%; height: 100%;"></div> -->
+                                    </div>
+                                    <div style="width: 100%; height: 13%; float: left; padding: 2px 5px; display: table; text-align: center;">
+                                        <p style="font-size: 18px; font-weight: 500; margin: 0px; display: table-cell; vertical-align: middle;">{{shoe.shoename}}</p>
+                                    </div>
+                                    <div style="width: 100%; height: 7%; float: left; text-align: center;">
+                                        <p style="font-size: 14px; font-weight: 200; margin: 0px;">{{shoe.pubdate}}</p>
+                                    </div>
+                                    <div style="width: 100%; height: 10%; float: left; text-align: center; padding-top: 2px;">
+                                        <button style="background-color: white;font-size: 14px; font-weight: 500; width: 90px; border: 0.5px solid rgba(200, 200, 200, 1); border-radius: 10px;">바로가기</button>
+                                    </div>
                                 </div>
                             </div>
+                            
+                        </div>
+                        {% endfor %}
 
-                            <div class="u-form u-form-1">
-                                <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" id="update_box" source="custom" name="form" style="padding: 10px; display: none;">
-                                    <div class="u-form-group u-label-none" id="label-email">
-                                      <label for="name-5490" class="u-label">이메일</label>
-                                      <input type="text" id="name-5490" name="name" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-1" required="required" value="{{member.member_id}}" readonly>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="checked-content" style="width: calc(100vw - 300px); left: 300px; height: 100%; float: left; position: relative; padding: 50px 100px 0px 100px; display: none;">
+                <div style="width: 100%;">
+                    <p style="margin: 0px; font-size: 40px; font-weight: 700;">응모한 신발</p>
+                    <div class="grid-wrapper">
+                        <div class="grid-box">
+                            <div style="width: 100%; height: 100%; border: 0.5px solid #C8C8C8; border-radius: 10px; padding: 10px 5px;">
+                                <div style="width: 100%; height: 70%; position: relative; padding: 0px 40px; float: left;">
+                                    <div class="bookmark-icon">
+                                        <label class="bookmark-icon-label">
+                                            <input type="checkbox" name="bookmark">
+                                            <span class="icon"></span>
+                                        </label>
                                     </div>
-                                    <div class="u-form-group u-label-none" id="label-name">
-                                      <label for="email-5490" class="u-label">이름</label>
-                                      <input type="text" id="email-5490" name="name-1" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-2" required="required" value="{{member.member_realname}}" readonly>
+                                    <div style="width: 100%; height: 100%; border: 0.5px solid #C8C8C8; border-radius: 10px;">
+                                        <img class="lazyload" data-src="{% static 'draw/images/' %}꼼데가르송 옴므 플러스 x 나이키 에어 맥스 썬더 SP 화이트 블랙 DO8095-1010.jpeg" style="width: 100%; height: 100%; border: 0.5px solid #C8C8C8; border-radius: 10px;">
                                     </div>
-                                    <div class="u-form-group u-label-none" id="label-nickname">
-                                      <label for="message-5490" class="u-label">닉네임</label>
-                                      <input rows="4" cols="50" id="member_nickname" name="member_nickname" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-3" required="required" type="text" value="{{member.member_nickname}}">
-                                    </div>
-                                    <div class="u-form-group u-form-group-4 u-label-none" id="label-phonenumber">
-                                      <label for="text-5306" class="u-label">핸드폰번호</label>
-                                      <input type="text" placeholder="" id="member_phonenumber" name="member_phonenumber" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-4" value="{{member.member_phonenumber}}">
-                                    </div>
-                                    <div class="u-form-group u-form-group-6 u-label-none" id="label-nikeid">
-                                      <label for="text-7ac3" class="u-label">나이키 ID</label>
-                                      <input type="text" placeholder="" id="member_nikeid" name="member_nikeid" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-6" value="{{member.member_nikeid}}">
-                                    </div>
-                                    <div class="u-form-group u-form-group-7 u-label-none" id="label-birth">
-                                      <label for="text-f144" class="u-label">생년월일</label>
-                                      <input type="text" placeholder="" id="member_birth" name="member_birth" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-text-grey-80 u-white u-input-7" value="{{member.member_birth}}">
-                                    </div>
-                                    <div class="u-align-left u-form-group u-form-submit u-label-none">
-                                      <a onclick="updateMember();" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">수정완료<br>
-                                      </a>
-                                      <a id="cancel_btn" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">취소하기<br>
-                                      </a>
-                                      <input type="submit" value="submit" class="u-form-control-hidden">
-                                    </div>
-                                </form>   
-                            </div>
-                            <div class="u-container-style u-group u-shape-rectangle u-group-2" id="information_box">
-                                <div class="u-container-layout u-valign-top u-container-layout-3">
-                                    <p class="u-text u-text-default u-text-8">{{member.member_id}}</p>
-                                    <p class="u-text u-text-default u-text-9">{{member.member_realname}}</p>
-                                    <p class="u-text u-text-default u-text-10">{{member.member_nickname}}</p>
-                                    <p class="u-text u-text-default u-text-11">{{member.member_phonenumber}}</p>
-                                    <p class="u-text u-text-default u-text-13">{{member.member_nikeid}}</p>
-                                    <p class="u-text u-text-default u-text-14">{{member.member_birth}}</p>
+                                    <!-- <div style="width: 100%; height: 100%;"></div> -->
+                                </div>
+                                <div style="width: 100%; height: 13%; float: left; padding: 2px 5px; display: table; text-align: center;">
+                                    <p style="font-size: 18px; font-weight: 500; margin: 0px; display: table-cell; vertical-align: middle;">꼼데가르송 옴므 플러스 x 나이키 에어 맥스 썬더 SP 화이트 블랙</p>
+                                </div>
+                                <div style="width: 100%; height: 7%; float: left; text-align: center;">
+                                    <p style="font-size: 14px; font-weight: 200; margin: 0px;">2023.05.15 발매</p>
+                                </div>
+                                <div style="width: 100%; height: 10%; float: left; text-align: center; padding-top: 2px;">
+                                    <button style="background-color: white;font-size: 14px; font-weight: 500; width: 90px; border: 0.5px solid rgba(200, 200, 200, 1); border-radius: 10px;">바로가기</button>
                                 </div>
                             </div>
-                            <a id="update_btn" class="u-border-2 u-border-black u-btn u-btn-round u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-text-hover-white u-btn-1">정보수정</a>
-                            <a href="{% url 'draw:회원탈퇴' %}" id="delete_btn" class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-radius-50 u-text-hover-white u-text-palette-2-base u-white u-btn-2" style="display: none;">회원탈퇴<br>
-                            </a>
                         </div>
+
                     </div>
-                    <div class="u-container-style u-tab-pane" id="tab-4d57" role="tabpanel" aria-labelledby="link-tab-4d57">
-                        <div class="u-container-layout u-container-layout-4">
-                            <div class="u-border-3 u-border-grey-dark-1 u-expanded-width u-line u-line-horizontal u-line-2"></div>
-                            <h2 class="u-text u-text-default u-text-15"> COMING SOON</h2>
-                            <p class="u-large-text u-text u-text-variant u-text-16">구현중..</p>
-                        </div>
+                </div>
+            </div>
+
+            <div class="comment-content" style="width: calc(100vw - 300px); left: 300px; height: 100%; float: left; position: relative; padding: 50px 100px 0px 100px; display: none;">
+                <div style="width: 100%;">
+                    <p style="margin: 0px; font-size: 40px; font-weight: 700;">작성한 댓글</p>
+                </div>
+            </div>
+
+            <div class="setting-content" style="width: calc(100vw - 300px); left: 300px; height: 100%; float: left; position: relative; padding: 50px 100px 0px 100px; display: none;">
+                <div style="width: 100%;">
+                    <p style="margin: 0px; font-size: 40px; font-weight: 700;">가입한 정보</p>
+                </div>
+            </div>
+
+            <div class="delete-content" style="width: calc(100vw - 300px); left: 300px; height: 100%; float: left; position: relative; display: none;  background-color: #C8C8C8;">
+                <div class="delete-box" style="width: 560px; margin: 10vh auto; background-color: white; border-radius: 20px; box-shadow: 4px 4px 8px rgba(150, 150, 150, 0.25); padding: 45px;">
+                    <div class="delete-box-logo">
+                        <!-- <img class="login-box-logo-image" src="{% static 'draw/necessary/ar011(nukki).png' %}"> -->
+                        <img class="delete-box-logo-image" src="{% static 'draw/necessary/logo(grey).png' %}">
                     </div>
-                    <div class="u-container-style u-tab-pane" id="tab-3a42" role="tabpanel" aria-labelledby="link-tab-3a42">
-                        <div class="u-container-layout u-container-layout-5">
-                            <div class="u-border-3 u-border-grey-dark-1 u-expanded-width u-line u-line-horizontal u-line-3"></div>
-                            <h2 class="u-text u-text-default u-text-17"> COMING SOON</h2>
-                            <p class="u-large-text u-text u-text-variant u-text-18">구현중..</p>
-                        </div>
+                    <div style="text-align: center; font-size: 24px; font-weight: 400;">
+                            <span style="margin: 0px; font-weight: 800; border-bottom: 2px solid black;">닉네임</span>
+                            님의 계정이 삭제됩니다.
                     </div>
-                    <div class="u-container-style u-tab-pane" id="link-tab-d7e7" role="tabpanel" aria-labelledby="tab-d7e7">
-                        <div class="u-container-layout u-container-layout-6">
-                            <div class="u-border-3 u-border-grey-dark-1 u-expanded-width u-line u-line-horizontal u-line-4"></div>
-                            <h2 class="u-text u-text-default u-text-19"> COMING SOON</h2>
-                            <p class="u-large-text u-text u-text-variant u-text-20">구현중..</p>
-                        </div>
+                    <div style="padding-top: 30px; text-align: center;">
+                        <span style="font-weight: 400; font-size: 16px;">탈퇴 시 개인정보 및 이용정보를 삭제하며 복구할 수 없습니다.</br>탈퇴는 비밀번호를 입력 후 유의사항의 동의 후 이루어집니다.</span>
                     </div>
-                    <div class="u-container-style u-tab-pane" id="link-tab-6219" role="tabpanel" aria-labelledby="tab-6219">
-                        <div class="u-container-layout u-container-layout-7"></div>
+                    <div style="padding: 50px 70px 0px 70px; text-align: center;">
+                        <span style="font-size: 16px; padding-right: 4px;">비밀번호</span>
+                        <span style="position: relative; border-bottom: 1px solid black; display: inline-block;">
+                            <button type="button" class="password-icon-hide"></button>
+                            <input type="password" class="password-value" style="width:200px; border: none;  line-height: 20px;">
+                            <button type="button" class="password-icon-close"></button>
+                        </span>
+                    </div>
+                    <div style="padding-top: 30px; position: relative; text-align: center;">
+                        <label>
+                            <span class="checkbox-icon">
+                                <input type="checkbox">
+                                <span class="icon"></span>
+                            </span>
+                            <span style="vertical-align: top; font-size: 14px; font-weight: 300;">탈퇴 시 유의사항에 동의합니다.</span>
+                        </label>
+                    </div>
+                    <div style="padding-top: 20px;">
+                        <button class="delete-btn">탈퇴하기</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 풋터 -->
-    {% include 'draw/footer.html' %}
-    </article>
+    
+
     
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>

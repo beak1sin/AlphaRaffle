@@ -1,8 +1,9 @@
-/*begin-commonstyles library*//*!
+/*begin-commonstyles library*//*!tle
  * froala_editor v4.0.6 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2021 Froala Labs
  */
+ @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard-dynamic-subset.css");
 
 .fr-clearfix::after {
   clear: both;
@@ -363,7 +364,7 @@ span.fr-img-caption.fr-view {
 /*end-commonstyles library*/@charset "UTF-8";
 /*! normalize.css v4.1.1 | MIT License | github.com/necolas/normalize.css */
 html {
-  font-family: sans-serif;
+  font-family: 'Pretendard' !important;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
@@ -21466,7 +21467,7 @@ a.u-button-style.u-border-20 {
 }
 /*begin-variables font-family*/
 .u-body {
-  font-family: 'Open Sans',sans-serif;
+  font-family: 'Pretendard';
 }
 h1,
 h2,
@@ -21474,7 +21475,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Roboto,sans-serif;
+  font-family: 'Pretendard';
 }
 /*end-variables font-family*/
 /*begin-variables color*/

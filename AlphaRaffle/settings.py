@@ -60,10 +60,21 @@ INSTALLED_APPS = [
     'django_crontab',
 ]
 
+# import sys
+# import django
+
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# sys.path.insert(0, os.path.join(BASE_DIR, 'AlphaRaffle'))
+# django.setup()
+# from cron import crawl
+# from AlphaRaffle.cron import crawl
+
 cronPath = os.path.join(BASE_DIR, 'cron.log')
 cronPath2 = os.path.join(BASE_DIR, 'cron2.log')
 CRONJOBS = [
-    # ('*/1 * * * *', 'AlphaRaffle.cron.hello', '>> ' + cronPath),
+    # ('10 9,21 * * *', 'crawl', '>> ' + cronPath2),
+    ('*/1 * * * *', 'AlphaRaffle.cron.hello', '>> ' + cronPath),
     ('10 9,21 * * *', 'AlphaRaffle.cron.crawl', '>> ' + cronPath2),
 ]
 
@@ -84,6 +95,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'AlphaRaffle.urls'
+
+# BASE_DIR = Path(__file__).resolve().parent.parent
 
 TEMPLATES = [
     {

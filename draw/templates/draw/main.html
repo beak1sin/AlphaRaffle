@@ -13,20 +13,11 @@
     <link rel="stylesheet" href="{% static 'draw/css/nicepage.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'draw/css/main.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'draw/css/font.css' %}" media="screen">
+    <!-- <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i"> -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard-dynamic-subset.css" />
 
-    <meta name="generator" content="Nicepage 4.11.3, nicepage.com">
-    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
 
-
-
-    <script type="application/ld+json">
-        {
-            "@context": "http://schema.org",
-            "@type": "Organization",
-            "name": "AlphaRaffle",
-            "logo": "images/logo3.jpeg"
-        }
-    </script>
     <meta name="theme-color" content="#478ac9">
     <meta property="og:title" content="AlphaRaffle">
     <meta property="og:image" content="{% static 'draw/images/ar011.png' %}">
@@ -34,231 +25,141 @@
     <meta property="og:type" content="website">
 </head>
 
-<body class="u-body u-xl-mode" id="drawing_line">
-    <!-- 마우스커서 영역 -->
-    <!-- <svg class="drawing_line_svg">
-        <circle class="drawing_line_circle" cx="0" cy="0" r="8"></circle>
-        <polyline class="drawing_line_polyline" points=""></polyline>
-    </svg> -->
-    <!-- -----마우스커서 영역 -->
-    <article>
+<body class="u-body u-xl-mode" style="margin: 0; background-color: #f5f5f5;">
 
-    <!-- 헤더 -->
     {% include 'draw/header.html' %}
 
-    <!-- 본문 -->
-    <section class="u-align-center u-clearfix u-white u-section-1 blurOff" id="section1">
-        <div class="u-clearfix u-sheet u-sheet-1">
-            <h2 class="u-text u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-direction="" data-animation-delay="0">AlphaRaffle</h2>
-            <!-- <p class="u-text u-text-2" data-animation-name="flipIn" data-animation-duration="1000" data-animation-delay="1000" data-animation-direction="X">편리한 응모를 통해 시간을 절약하세요!</p> -->
-            <h4 class="text"></h1>
-            <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
-                <div class="u-layout">
-                    <div class="u-layout-row">
-                        <div class="u-align-center u-container-style u-layout-cell u-size-13-lg u-size-13-xl u-size-14-md u-size-14-sm u-size-14-xs u-layout-cell-1" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="0">
-                            <div class="u-container-layout u-container-layout-1"><span class="u-align-center u-icon u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 60 60">
-                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-978c"></use>
-                                    </svg><svg class="u-svg-content" viewBox="0 0 60 60" x="0px" y="0px" id="svg-978c" style="enable-background:new 0 0 60 60;">
-                                        <g>
-                                            <path d="M34.74,36.53l9.363-12.944c0.287-0.397,0.244-0.945-0.104-1.293c-0.348-0.346-0.896-0.39-1.293-0.104L29.76,31.555
-    c-0.844,0.614-1.375,1.563-1.456,2.604s0.296,2.06,1.033,2.797C30.01,37.629,30.904,38,31.854,38
-    C32.992,38,34.07,37.451,34.74,36.53z"></path>
-                                            <path d="M54.534,19.564c-0.01-0.021-0.01-0.043-0.021-0.064c-0.012-0.02-0.031-0.031-0.044-0.05
-    c-1.011-1.734-2.207-3.347-3.565-4.809l2.147-2.147l1.414,1.414l4.242-4.242l-4.242-4.243l-4.243,4.243l1.415,1.414l-2.147,2.147
-    c-1.462-1.358-3.074-2.555-4.809-3.566c-0.019-0.013-0.03-0.032-0.05-0.044c-0.021-0.012-0.043-0.011-0.064-0.022
-    c-3.093-1.782-6.568-2.969-10.272-3.404V5h1.5c1.379,0,2.5-1.121,2.5-2.5S37.172,0,35.793,0h-9c-1.379,0-2.5,1.121-2.5,2.5
-    s1.121,2.5,2.5,2.5h1.5v1.156c-1.08,0.115-2.158,0.291-3.224,0.535c-0.538,0.123-0.875,0.66-0.751,1.198
-    c0.123,0.538,0.66,0.874,1.198,0.751c0.946-0.217,1.902-0.378,2.86-0.485l0.991-0.075c0.335-0.025,0.635-0.043,0.925-0.057h0V10
-    c0,0.553,0.447,1,1,1s1-0.447,1-1V8.03c3.761,0.173,7.305,1.183,10.456,2.845l-0.986,1.708c-0.276,0.479-0.112,1.09,0.366,1.366
-    c0.157,0.091,0.329,0.134,0.499,0.134c0.346,0,0.682-0.18,0.867-0.5l0.983-1.704c3.129,1.985,5.787,4.643,7.772,7.772l-1.703,0.983
-    C50.07,20.91,49.906,21.521,50.183,22c0.186,0.321,0.521,0.5,0.867,0.5c0.17,0,0.342-0.043,0.499-0.134l1.707-0.986
-    c1.685,3.196,2.698,6.798,2.849,10.619H54.13c-0.553,0-1,0.447-1,1s0.447,1,1,1h1.975c-0.151,3.821-1.164,7.423-2.849,10.619
-    l-1.707-0.986c-0.478-0.277-1.09-0.114-1.366,0.366c-0.276,0.479-0.112,1.09,0.366,1.366l1.703,0.983
-    c-1.985,3.129-4.643,5.787-7.772,7.772l-0.983-1.703c-0.277-0.48-0.89-0.644-1.366-0.366c-0.479,0.276-0.643,0.888-0.366,1.366
-    l0.986,1.707c-3.151,1.662-6.695,2.672-10.456,2.845V56c0-0.553-0.447-1-1-1s-1,0.447-1,1v1.976
-    c-1.597-0.055-3.199-0.255-4.776-0.617c-0.538-0.125-1.075,0.213-1.198,0.751c-0.124,0.538,0.213,1.075,0.751,1.198
-    C27.068,59.768,29.107,60,31.13,60c0.049,0,0.096-0.003,0.145-0.004c0.007,0,0.012,0.004,0.018,0.004
-    c0.008,0,0.015-0.005,0.023-0.005c4.807-0.033,9.317-1.331,13.219-3.573c0.031-0.014,0.064-0.021,0.094-0.039
-    c0.02-0.012,0.031-0.031,0.05-0.044c4.039-2.354,7.414-5.725,9.773-9.761c0.019-0.027,0.043-0.048,0.06-0.078
-    c0.012-0.021,0.011-0.043,0.021-0.064C56.817,42.476,58.13,37.89,58.13,33S56.817,23.524,54.534,19.564z"></path>
-                                            <path d="M22.293,13h-5c-1.104,0-2,0.896-2,2s0.896,2,2,2h5c1.104,0,2-0.896,2-2S23.397,13,22.293,13z"></path>
-                                            <path d="M22.293,20h-10c-1.104,0-2,0.896-2,2s0.896,2,2,2h10c1.104,0,2-0.896,2-2S23.397,20,22.293,20z"></path>
-                                            <path d="M22.293,27h-15c-1.104,0-2,0.896-2,2s0.896,2,2,2h15c1.104,0,2-0.896,2-2S23.397,27,22.293,27z"></path>
-                                            <path d="M22.293,34h-19c-1.104,0-2,0.896-2,2s0.896,2,2,2h19c1.104,0,2-0.896,2-2S23.397,34,22.293,34z"></path>
-                                            <path d="M22.293,41h-13c-1.104,0-2,0.896-2,2s0.896,2,2,2h13c1.104,0,2-0.896,2-2S23.397,41,22.293,41z"></path>
-                                            <path d="M22.293,48h-7c-1.104,0-2,0.896-2,2s0.896,2,2,2h7c1.104,0,2-0.896,2-2S23.397,48,22.293,48z"></path>
-                                        </g>
-                                    </svg></span>
-                                <h5 class="u-text u-text-default u-text-3">step 1</h5>
-                                <p class="u-text u-text-4">발매정보를 확인하세요.<br>
-                                </p>
+    <section class="u-section-1" style="width: 100vw; height: 100vh; ">
+        <div style="width: 100vw; height: calc(100vh - 126px); top: 126px;">
+            <!-- <div class="ad-box"></div> -->
+            <div class="banner-box">
+                <div class="btns-box">
+                    <div class="btns" id="previous"></div>
+                </div>
+                <div class="banner">
+                    <!-- <ul class="slides">
+                        <li class="slides-list">
+                            <img src="{% static 'draw/necessary/banner-1.png' %}">
+                        </li>
+                        <li class="slides-list">
+                            <img src="{% static 'draw/necessary/banner-1.png' %}">
+                        </li>
+                    </ul> -->
+                    <div class="wrapper">
+                        <div id="slider-wrap">
+                            <ul id="slider">
+                               <li id="slider_list">
+                                  <div>
+                                      <!-- <h3>STUSSY X MARTIN ROSE</h3>
+                                      <span>2023.04.15 10AM</span> -->
+                                      <button>바로가기</button>
+                                  </div>                
+                  <img src="{% static 'draw/necessary/banner-1.png' %}">
+                               </li>
+                               
+                               <!-- <li id="slider_list">
+                                  <div>
+                                      <h3>Slide #2</h3>
+                                      <span>Sub-title #2</span>
+                                  </div>
+                  <img src="https://fakeimg.pl/350x200/D27328/000?text=22222">
+                               </li> -->
+                               
+                               <!-- <li id="slider_list">
+                                  <div>
+                                      <h3>Slide #3</h3>
+                                      <span>Sub-title #3</span>
+                                  </div>
+                  <img src="https://fakeimg.pl/350x200/FF607F/000?text=33333">
+                               </li> -->
+                               
+                               <!-- <li id="slider_list">
+                                  <div>
+                                      <h3>Slide #4</h3>
+                                      <span>Sub-title #4</span>
+                                  </div>
+                  <img src="https://fakeimg.pl/350x200/0A6E0A/000?text=44444">
+                               </li> -->
+                               
+                               <!-- <li id="slider_list">
+                                  <div>
+                                      <h3>Slide #5</h3>
+                                      <span>Sub-title #5</span>
+                                  </div>
+                  <img src="https://fakeimg.pl/350x200/0064CD/000?text=55555">
+                               </li>
+                                -->
+                               
+                            </ul>
+                            
+                             <!--controls-->
+                            <div id="counter"></div>
+                            
+                            <div id="pagination-wrap">
+                              <ul>
+                              </ul>
                             </div>
+                            <!--controls-->  
+                                   
                         </div>
-                        <div class="u-container-style u-layout-cell u-size-10-lg u-size-10-xl u-size-8-md u-size-8-sm u-size-8-xs u-layout-cell-2">
-                            <div class="u-container-layout u-container-layout-2"><span class="u-align-center u-file-icon u-icon u-icon-2" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="400"><img class="lazyload" data-src="{% static 'draw/images/545682.png' %}" alt=""></span>
-                            </div>
-                        </div>
-                        <div class="u-align-center u-container-style u-layout-cell u-size-14-lg u-size-14-xl u-size-16-md u-size-16-sm u-size-16-xs u-layout-cell-3" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-direction="" data-animation-delay="800">
-                            <div class="u-container-layout u-container-layout-3"><span class="u-align-center u-file-icon u-icon u-icon-3"><img class="lazyload" data-src="{% static 'draw/images/2742817.png' %}" alt=""></span>
-                                <h5 class="u-text u-text-default u-text-5">step 2</h5>
-                                <p class="u-text u-text-6">발매정보 중 응모하고 싶으신&nbsp;<br>신발을 선택하세요.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="u-container-style u-layout-cell u-size-10-lg u-size-10-xl u-size-8-md u-size-8-sm u-size-8-xs u-layout-cell-4">
-                            <div class="u-container-layout u-container-layout-4"><span class="u-align-center u-file-icon u-icon u-icon-4" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="1200"><img class="lazyload" data-src="{% static 'draw/images/545682.png' %}" alt=""></span>
-                            </div>
-                        </div>
-                        <div class="u-align-center u-container-style u-layout-cell u-size-13-lg u-size-13-xl u-size-14-md u-size-14-sm u-size-14-xs u-layout-cell-5" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-direction="" data-animation-delay="1600">
-                            <div class="u-container-layout u-container-layout-5"><span class="u-align-center u-icon u-icon-5"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 49.94 49.94" style="">
-                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-d4b4"></use>
-                                    </svg><svg class="u-svg-content" viewBox="0 0 49.94 49.94" x="0px" y="0px" id="svg-d4b4" style="enable-background:new 0 0 49.94 49.94;">
-                                        <path d="M48.856,22.73c0.983-0.958,1.33-2.364,0.906-3.671c-0.425-1.307-1.532-2.24-2.892-2.438l-12.092-1.757
-  c-0.515-0.075-0.96-0.398-1.19-0.865L28.182,3.043c-0.607-1.231-1.839-1.996-3.212-1.996c-1.372,0-2.604,0.765-3.211,1.996
-  L16.352,14c-0.23,0.467-0.676,0.79-1.191,0.865L3.069,16.622c-1.359,0.197-2.467,1.131-2.892,2.438
-  c-0.424,1.307-0.077,2.713,0.906,3.671l8.749,8.528c0.373,0.364,0.544,0.888,0.456,1.4L8.224,44.701
-  c-0.183,1.06,0.095,2.091,0.781,2.904c1.066,1.267,2.927,1.653,4.415,0.871l10.814-5.686c0.452-0.237,1.021-0.235,1.472,0
-  l10.815,5.686c0.526,0.277,1.087,0.417,1.666,0.417c1.057,0,2.059-0.47,2.748-1.288c0.687-0.813,0.964-1.846,0.781-2.904
-  l-2.065-12.042c-0.088-0.513,0.083-1.036,0.456-1.4L48.856,22.73z"></path>
-                                    </svg></span>
-                                <h5 class="u-text u-text-default u-text-7">step 3</h5>
-                                <p class="u-text u-text-8">AlphaRaffle만의 자동응모서비스를 이용하세요!</p>
-                            </div>
-                        </div>
+                    
+                     </div>
+                </div>
+                <div class="btns-box">
+                    <div class="btns" id="next">
                     </div>
                 </div>
             </div>
-            <a onclick="dropped();" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-radius-50 u-text-hover-white u-btn-1" data-animation-name="flipIn" data-animation-duration="1000" data-animation-direction="X" data-animation-delay="2000">응모하기</a>
-        </div>
-    </section>
-    <section class="u-align-center u-clearfix u-section-2 blurOff" id="section2">
-        <div class="u-clearfix u-sheet u-sheet-1" data-animation-name="customAnimationIn" data-animation-duration="0" data-animation-direction="" data-animation-delay="0">
-            <h2 class="u-align-center u-text u-text-1">
-                <a class="u-btn-1">진행중인 발매<br>
-                </a>
-            </h2>
-            {% csrf_token %}
-            {% if droppedShoe == None %}
-            <div class="div-noDropped">
-                <h5 id="noDropped">진행중인 발매정보가 없습니다.</h2>
-            </div>
-            {% else %}
-            <!--products-->
-            <!--products_options_json-->
-            <!--{"type":"Recent","source":"","tags":"","count":""}-->
-            <!--/products_options_json-->
-            <div class="u-expanded-width u-products u-products-1">
-                <div class="u-repeater u-repeater-1">
-                    <!--product_item-->
+            <div class="grid-wrapper-box">
+                <div class="ad-box"></div>
+                <div class="grid-wrapper">
                     {% csrf_token %}
-                    {% for shoe in droppedShoe %}
-                    <div class="u-align-center u-container-style u-products-item u-repeater-item product-item">
-                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
-                            <!--product_image-->
-                            <!-- <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" src="{% static '/' %}{{shoe.shoethumbnail}}" data-image-width="842" data-image-height="595"> -->
-                            <a class="hover_temp" style="display: block; width: auto; margin: 5px 5px 10px 5px;">
-                            <div class="screen u-radius-50">
+                    {% for shoe in shoe %}
+                    <div class="grid-box" data-value = {{shoe.serialno}}>
+                        <div style="width: 100%; height: 100%; border: 0.5px solid #C8C8C8; border-radius: 10px; padding: 10px 5px;">
+                            <div style="width: 100%; height: 70%; position: relative; padding: 0px 40px; float: left;">
                                 <div class="bookmark-icon">
+                                    {% if member.member_no == shoeLike.member_no %}
+                                    <label class="bookmark-icon-label on">
+                                        <input type="checkbox" name="bookmark">
+                                        <span class="icon"></span>
+                                    </label>
+                                    {% else %}
                                     <label class="bookmark-icon-label">
                                         <input type="checkbox" name="bookmark">
                                         <span class="icon"></span>
                                     </label>
+                                    {% endif %}
                                 </div>
-                                <img alt="" class="lazyload u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{shoe.serialno}}0.jpeg" data-image-width="842" data-image-height="595">
+                                <div style="position: absolute; top: 50px; right: 0px;">
+                                    {{shoe.shoelikecount}}
+                                </div>
+                                <div style="width: 100%; height: 100%;  text-align: center;"onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}'">
+                                    <img class="lazyload" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{shoe.serialno}}0.jpeg" style="width: 231px; height: 100%; border: 0.5px solid #C8C8C8; border-radius: 10px;">
+                                </div>
+                                <!-- <div style="width: 100%; height: 100%;"></div> -->
                             </div>
-                            </a>
-                            <!--/product_image-->
-                            <!--product_title-->
-                            <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2" style="display: table;">
-                                <a class="u-product-title-link" style="font-size: 18px; display: table-cell; vertical-align: middle;">
-                                    <!--product_title_content-->
-                                    {{shoe.shoename}}
-                                    <!--/product_title_content-->
-                                </a>
-                            </h4>
-                            <!--/product_title-->
-                            <!--product_button-->
-                            <!--options_json-->
-                            <!--{"clickType":"add-to-cart","content":"응모하기"}-->
-                            <!--/options_json-->
-                            <!--<a onclick = "window.open('{{shoe.Link}}'+'{{shoe.nameentry}}'+'{{member.member_realname}}'+'&'+'{{shoe.birthentry}}'+'{{member.member_birth}}'+'&'+'{{shoe.phoneentry}}'+'{{member.member_phonenumber}}'+'&'+'{{shoe.nikeidentry}}'+'{{member.member_nikeid}}'+'&')" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">-->
-                                <!--product_button_content-->
-
-                            <a href="{% url 'draw:상세정보' %}?serialnum={{shoe.serialno}}" id = "serial" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2" data-value = {{shoe.serialno}}>
-                                <!--product_button_content-->
-                                응모하기
-                                <!--/product_button_content-->
-                            </a>
+                            <div style="width: 100%; height: 13%; float: left; padding: 2px 5px; display: table; text-align: center;">
+                                <p style="font-size: 18px; font-weight: 500; margin: 0px; display: table-cell; vertical-align: middle;">{{shoe.shoename}}</p>
+                            </div>
+                            <div style="width: 100%; height: 7%; float: left; text-align: center;">
+                                <p style="font-size: 14px; font-weight: 200; margin: 0px;">{{shoe.pubdate}}</p>
+                            </div>
+                            <div style="width: 100%; height: 10%; float: left; text-align: center; padding-top: 2px;">
+                                <button style="background-color: white;font-size: 14px; font-weight: 500; width: 90px; border: 0.5px solid rgba(200, 200, 200, 1); border-radius: 10px;">바로가기</button>
+                            </div>
                         </div>
                     </div>
+                    
                     {% endfor %}
                 </div>
+                <div class="ad-box"></div>
             </div>
-            {% endif %}
-            <!--/products-->
         </div>
+        <script>const STATIC_FULL_URL = "{% url 'draw:상세정보' %}?serialnum=";</script>
+        
     </section>
 
-    <section class="u-align-center u-clearfix u-section-2 blurOff" id="section2">
-        <div class="u-clearfix u-sheet u-sheet-1" data-animation-name="customAnimationIn" data-animation-duration="0" data-animation-direction="" data-animation-delay="0">
-            <h2 class="u-align-center u-text u-text-1">
-                <a class="u-btn-1">발매종료<br>
-                </a>
-            </h2>
-            <!--products-->
-            <!--products_options_json-->
-            <!--{"type":"Recent","source":"","tags":"","count":""}-->
-            <!--/products_options_json-->
-            <div class="u-expanded-width u-products u-products-1">
-                <div class="u-repeater u-repeater-1">
-                    <!--product_item-->
-                    {% csrf_token %}
-                    {% for shoe in endShoe %}
-                    <div class="u-align-center u-container-style u-products-item u-repeater-item product-item">
-                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
-                            <!--product_image-->
-                            <!-- <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" src="{% static '/' %}{{shoe.shoethumbnail}}" data-image-width="842" data-image-height="595"> -->
-                            <a class="hover_temp" style="display: block; width: auto; margin: 5px 5px 10px 5px;">
-                            <div class="screen u-radius-50">
-                                <div class="bookmark-icon">
-                                    <label class="bookmark-icon-label">
-                                        <input type="checkbox" name="bookmark">
-                                        <span class="icon"></span>
-                                    </label>
-                                </div>
-                                <img alt="" class="lazyload u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{shoe.serialno}}0.jpeg" data-image-width="842" data-image-height="595">
-                            </div>
-                            </a>
-                            <!--/product_image-->
-                            <!--product_title-->
-                            <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2" style="display: table;">
-                                <a class="u-product-title-link" style="font-size: 18px; display: table-cell; vertical-align: middle;">
-                                    <!--product_title_content-->{{shoe.shoename}}
-                                    <!--/product_title_content--></a>
-                            </h4>
-                            <!--/product_title-->
-                            <!--product_button-->
-                            <!--options_json-->
-                            <!--{"clickType":"add-to-cart","content":"응모하기"}-->
-                            <!--/options_json-->
-                            <!--<a onclick = "window.open('{{shoe.Link}}'+'{{shoe.nameentry}}'+'{{member.member_realname}}'+'&'+'{{shoe.birthentry}}'+'{{member.member_birth}}'+'&'+'{{shoe.phoneentry}}'+'{{member.member_phonenumber}}'+'&'+'{{shoe.nikeidentry}}'+'{{member.member_nikeid}}'+'&')" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">-->
-                                <!--product_button_content-->
-
-                            <a href="{% url 'draw:상세정보' %}?serialnum={{shoe.serialno}}" id = "serial" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2" data-value = {{shoe.serialno}}>
-                                <!--product_button_content-->응모하기
-                                <!--/product_button_content--></a>
-
-                            <!--a onclick="detail();" id = "serial" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2" data-value = {{shoe.serialno}}-->
-                                <!--product_button_content-->
-                            <!--/product_button-->
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <!--/products-->
-        </div>
-    </section>
     <div class="bookmark-layer off">
         <div class="title_area">
             <p class="title">로그인이 필요합니다.</p>
@@ -273,17 +174,15 @@
             </a>
         </div>
     </div>
-
-    <!-- 풋터 -->
-    {% include 'draw/footer.html' %}
-    </article>
-
+    
+    
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
     <script src="{% static 'draw/js/main.js' %}"></script>
     <script src="{% static 'draw/js/alpharaffle.js' %}"></script>
+    <script src="{% static 'draw/js/sha1.js' %}"></script>
 </body>
 
 </html>

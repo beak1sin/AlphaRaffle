@@ -1,38 +1,86 @@
 $(document).ready(function() {
-    $('#update_btn').on('click', function() {
-        $('#update_box').show();
-        $('#information_box').hide();
-        $('#update_btn').hide();
-        $('#delete_btn').show();
-        $('#title_box').addClass('title_box');
-        if ($(window).width() <= 767) {
-            $('#label-email').removeClass('u-label-none');
-            $('#label-name').removeClass('u-label-none');
-            $('#label-nickname').removeClass('u-label-none');
-            $('#label-phonenumber').removeClass('u-label-none');
-            $('#label-nikeid').removeClass('u-label-none');
-            $('#label-birth').removeClass('u-label-none');
-        } else {
-            if ($('#label-email').hasClass('u-label-none')) {
-                // alert('good');
+    $('#bookmark_tab, #checked_tab, #comment_tab, #setting_tab').click(function() {
+        var targetID = $(this).attr('id');
+        // console.log($(this).attr('id'));
+        if (targetID == 'bookmark_tab') {
+            if ($(this).hasClass('checked')) {
+                return
             } else {
-                $('#label-email').addClass('u-label-none');
-                $('#label-name').addClass('u-label-none');
-                $('#label-nickname').addClass('u-label-none');
-                $('#label-phonenumber').addClass('u-label-none');
-                $('#label-nikeid').addClass('u-label-none');
-                $('#label-birth').addClass('u-label-none');
+                $(this).addClass('checked');
+                $('.bookmark-content').show();
+                $('.checked-content').hide();
+                $('.comment-content').hide();
+                $('.setting-content').hide();
+                $('.delete-content').hide();
+                $('#delete_tab').hide();
+                $('#checked_tab').removeClass('checked');
+                $('#comment_tab').removeClass('checked');
+                $('#setting_tab').removeClass('checked');
+                $('#delete_tab').removeClass('checked');
+            }
+        } else if (targetID == 'checked_tab') {
+            if ($(this).hasClass('checked')) {
+                return
+            } else {
+                $(this).addClass('checked');
+                $('.bookmark-content').hide();
+                $('.checked-content').show();
+                $('.comment-content').hide();
+                $('.setting-content').hide();
+                $('.delete-content').hide();
+                $('#delete_tab').hide();
+                $('#bookmark_tab').removeClass('checked');
+                $('#comment_tab').removeClass('checked');
+                $('#setting_tab').removeClass('checked');
+                $('#delete_tab').removeClass('checked');
+            }
+        } else if (targetID == 'comment_tab') {
+            if ($(this).hasClass('checked')) {
+                return
+            } else {
+                $(this).addClass('checked');
+                $('.bookmark-content').hide();
+                $('.checked-content').hide();
+                $('.comment-content').show();
+                $('.setting-content').hide();
+                $('.delete-content').hide();
+                $('#delete_tab').hide();
+                $('#bookmark_tab').removeClass('checked');
+                $('#checked_tab').removeClass('checked');
+                $('#setting_tab').removeClass('checked');
+                $('#delete_tab').removeClass('checked');
+            }
+        } else if (targetID == 'setting_tab') {
+            if ($(this).hasClass('checked')) {
+                return
+            } else {
+                $(this).addClass('checked');
+                $('.bookmark-content').hide();
+                $('.checked-content').hide();
+                $('.comment-content').hide();
+                $('.setting-content').show();
+                $('.delete-content').hide();
+                $('#delete_tab').show();
+                $('#bookmark_tab').removeClass('checked');
+                $('#checked_tab').removeClass('checked');
+                $('#comment_tab').removeClass('checked');
+                $('#delete_tab').removeClass('checked');
             }
         }
     });
-    $('#cancel_btn').on('click', function() {
-        $('#update_box').hide();
-        $('#information_box').show();
-        $('#update_btn').show();
-        $('#delete_btn').hide();
-        $('#title_box').removeClass('title_box');
-    });
 
+    $('#delete_tab').click(function() {
+        $(this).addClass('checked');
+        $('.bookmark-content').hide();
+        $('.checked-content').hide();
+        $('.comment-content').hide();
+        $('.setting-content').hide();
+        $('.delete-content').show();
+        $('#bookmark_tab').removeClass('checked');
+        $('#checked_tab').removeClass('checked');
+        $('#comment_tab').removeClass('checked');
+        $('#setting_tab').removeClass('checked');
+    });
 });
 
 function getCookie(name) {

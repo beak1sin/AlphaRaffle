@@ -2,38 +2,8 @@ from django.db import models
 import datetime
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
-
-class Shoe(models.Model):
-	shoename = models.CharField(max_length=200) 		# 신발명
-	shoeengname = models.CharField(max_length=200) 		# 신발영어명	
-	shoebrand = models.CharField(max_length=200)		# 신발브랜드
-	serialno = models.CharField(max_length=50,unique=True, default= None)			# 발매사이트
-	pubdate = models.CharField(max_length=200)			# 발매일
-	shoeprice = models.CharField(max_length=200)		# 발매가
-	shoedetail = models.TextField(default = '-')		# 신발 설명
-
-	def __str__(self):
-		return self.shoename
-		
-class Shoeimg(models.Model):
-	serialno = models.CharField(max_length=50, default= None)
-	shoeimg = models.CharField(max_length=200, unique=True)	
-
-class Shoesiteimg(models.Model):
-	sitename = models.CharField(max_length=200,unique=True)   
-
-class Shoesite(models.Model):
-	serialno = models.CharField(max_length=50, default= None)
-	sitename = models.CharField(max_length=200)   
-	nameentry = models.CharField(max_length=200, null=True, blank=True)         
-	birthentry = models.CharField(max_length=200, null=True, blank=True)         
-	phoneentry = models.CharField(max_length=200, null=True, blank=True)   
-	nikeidentry = models.CharField(max_length=200, null=True, blank=True)
-	pub_date = models.DateTimeField('date published', null=True, blank=True)   # 발매기간
-	end_date = models.DateTimeField('date end', null=True, blank=True)
-	sitelink = models.CharField(max_length=200)
-	shoesiteunique = models.CharField(max_length=255,unique=True)
-
+from django.conf import settings
+from django.contrib.auth.models import User
 
 class Member(models.Model):
 	member_no = models.AutoField(db_column='member_no', primary_key=True)
@@ -56,10 +26,48 @@ class Member(models.Model):
 	def __str__(self):
 		return "아이디: " + self.member_id + ", 이메일 : " + self.member_email
 	
+class Shoe(models.Model):
+	shoename = models.CharField(max_length=200) 		# 신발명
+	shoeengname = models.CharField(max_length=200) 		# 신발영어명	
+	shoebrand = models.CharField(max_length=200)		# 신발브랜드
+	serialno = models.CharField(max_length=50)			# 발매사이트
+	pubdate = models.CharField(max_length=200)			# 발매일
+	shoeprice = models.CharField(max_length=200)		# 발매가
+	shoedetail = models.TextField(default = '-')		# 신발 설명
+	shoelikecount = models.IntegerField(default=0)  # 좋아요 개수
+
+	def update_shoelikecount(self):
+		self.shoelikecount = ShoeLike.objects.filter(serialno=self.serialno).count()
+		self.save()
+
+class Shoeimg(models.Model):
+	serialno = models.CharField(max_length=50, default= None)
+	shoeimg = models.CharField(max_length=200, unique=True)	
+
+class Shoesiteimg(models.Model):
+	sitename = models.CharField(max_length=200,unique=True)   
+
+class Shoesite(models.Model):
+	serialno = models.CharField(max_length=50, default= None)
+	sitename = models.CharField(max_length=200)   
+	nameentry = models.CharField(max_length=200, null=True, blank=True)         
+	birthentry = models.CharField(max_length=200, null=True, blank=True)         
+	phoneentry = models.CharField(max_length=200, null=True, blank=True)   
+	nikeidentry = models.CharField(max_length=200, null=True, blank=True)
+	pub_date = models.DateTimeField('date published', null=True, blank=True)   # 발매기간
+	end_date = models.DateTimeField('date end', null=True, blank=True)
+	sitelink = models.CharField(max_length=200)
+	shoesiteunique = models.CharField(max_length=255,unique=True)
+
+
 class Comment(models.Model):
 	serialno = models.CharField(max_length=200, db_column='serialno')
 	member_nickname = models.CharField(max_length=20, db_column='member_nickname')
 	comment = models.CharField(max_length=200, db_column='comment')
 	created_date = models.DateTimeField(db_column='created_date')
 	approved_comment = models.BooleanField(db_column='approved_comment', default=False)
+
+class ShoeLike(models.Model):	
+	serialno = models.CharField(max_length=200, db_column='serialno')
+	member_no = models.CharField(max_length=20, db_column='member_no')
 
