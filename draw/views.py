@@ -185,25 +185,26 @@ def home(request):
     # for shoe in shoe:
     #     shoecount = ShoeLike.objects.filter(serialno = shoe.serialno)
     #     context["shoecount"] = zip(shoecount)
-
+    sh2 = []
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
         member = Member.objects.get(pk= member_no)
         #print(member_no)
-
+        shoeLike = ShoeLike.objects.filter(member_no = member.member_no)
+        
+        for shoeL in shoeLike:
+            sh2.append(shoeL.member_no)
+            print(sh2)
     else:
         member_no = None
         member = None
 
     context["member_no"] = member_no
-    shoe = Shoe.objects.all()
+    
     # shoeLike = ShoeLike.objects.all().values('member_no')
-    shoeLike = ShoeLike.objects.filter(member_no = member.member_no)
+    
     # sh1 = shoeLike.values('member_no')
-    sh2 = []
-    for shoeL in shoeLike:
-        sh2.append(shoeL.member_no)
-        print(sh2)
+    
     context = { 'shoe':shoe, 'member':member, 'sh2': sh2}
 
     return render(request, "draw/main.html", context)

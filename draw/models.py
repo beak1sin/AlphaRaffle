@@ -30,7 +30,7 @@ class Shoe(models.Model):
 	shoename = models.CharField(max_length=200) 		# 신발명
 	shoeengname = models.CharField(max_length=200) 		# 신발영어명	
 	shoebrand = models.CharField(max_length=200)		# 신발브랜드
-	serialno = models.CharField(max_length=50)			# 발매사이트
+	serialno = models.CharField(max_length=50,unique=True, default= None)			# 발매사이트
 	pubdate = models.CharField(max_length=200)			# 발매일
 	shoeprice = models.CharField(max_length=200)		# 발매가
 	shoedetail = models.TextField(default = '-')		# 신발 설명
