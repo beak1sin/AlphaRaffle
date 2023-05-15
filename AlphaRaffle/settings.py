@@ -74,7 +74,7 @@ cronPath = os.path.join(BASE_DIR, 'cron.log')
 cronPath2 = os.path.join(BASE_DIR, 'cron2.log')
 CRONJOBS = [
     # ('10 9,21 * * *', 'crawl', '>> ' + cronPath2),
-    ('*/1 * * * *', 'AlphaRaffle.cron.hello', '>> ' + cronPath),
+    # ('*/1 * * * *', 'AlphaRaffle.cron.hello', '>> ' + cronPath),
     ('10 9,21 * * *', 'AlphaRaffle.cron.crawl', '>> ' + cronPath2),
 ]
 
