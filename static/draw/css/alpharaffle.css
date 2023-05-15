@@ -32,15 +32,15 @@ footer {
 /* 북마크 아이콘 */
 .bookmark-icon {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 36px;
-    height: 36px;
+    top: 5px;
+    right: 10px;
+    width: 18px;
+    height: 24px;
 }
 
 .bookmark-icon-label {
-    width: 36px;
-    height: 36px;
+    width: 18px;
+    height: 24px;
     display: inline-block;
 }
 
@@ -195,7 +195,7 @@ header {
   }
   
   .u-header .u-sheet-1 {
-    min-height: 100px;
+    min-height: 84rpx;
   }
   
   .u-header .u-image-1 {
@@ -214,7 +214,7 @@ header {
   }
   
   .u-header .u-menu-1 {
-    margin: -68px 0 32px auto;
+    margin: -68px 0 25px auto;
   }
   
   .u-header .u-nav-1 {
