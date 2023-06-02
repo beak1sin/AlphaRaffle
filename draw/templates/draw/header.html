@@ -84,16 +84,19 @@
     {% endif %} -->
     {% if request.path == '/main/' %}
     <div style="width: 100vw; height: 42px; background-color: black;">
-        <div style="width: 33.33vw; height: 100%; float: left;"></div>
-        <div style="width: 33.33vw; height: 100%; float: left;">
-            <div style="width: 50%; height: 100%; float: left; padding: 5px 20px; text-align: center;">
-                <a style="font-size: 1.74vw; font-weight: 500; line-height: 32px; color: #FFFFFF; cursor: pointer;">발매 일정</a>
+        <div style="width: 30vw; height: 100%; float: left;"></div>
+        <div style="width: 40vw; height: 100%; float: left;">
+            <div style="width: 33.33%; height: 100%; float: left; padding: 5px 20px; text-align: center;">
+                <a class="full-tab" style="font-size: 1.74vw; font-weight: 500; line-height: 32px; color: #FFFFFF; cursor: pointer;">발매 일정</a>
             </div>
-            <div style="width: 50%; height: 100%; float: left; padding: 5px 20px; text-align: center;">
-                <a style="font-size: 1.74vw; font-weight: 300; line-height: 32px; color: rgba(255, 255, 255, 0.7); cursor: pointer;">진행중인 응모</a>
+            <div style="width: 33.33%; height: 100%; float: left; padding: 5px 20px; text-align: center;">
+                <a class="dropped-tab" style="font-size: 1.74vw; font-weight: 300; line-height: 32px; color: rgba(255, 255, 255, 0.7); cursor: pointer;">진행중인 응모</a>
+            </div>
+            <div style="width: 33.33%; height: 100%; float: left; padding: 5px 20px; text-align: center;">
+                <a class="end-tab" style="font-size: 1.74vw; font-weight: 300; line-height: 32px; color: rgba(255, 255, 255, 0.7); cursor: pointer;">종료된 응모</a>
             </div>
         </div>
-        <div style="width: 33.33vw; height: 100%; float: left;">
+        <div style="width: 30vw; height: 100%; float: left;">
             <div style="width: 66.66%; height: 100%; float: left;"></div>
             <div style="width: 33.33%; height: 100%; float: left; padding: 5px 10px 5px 10px;">
                 <div style="width: 33.33%; height: 100%; float: left; text-align: center; padding-top: 6px; padding-right: 0.35vw;">
@@ -184,5 +187,9 @@
         -webkit-transition: width .4s ease;
         -o-transition: width .4s ease;
         transition: width .4s ease;
+    }
+
+    .full-tab, .dropped-tab, .end-tab {
+        
     }
 </style>

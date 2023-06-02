@@ -35,10 +35,7 @@ class Shoe(models.Model):
 	shoeprice = models.CharField(max_length=200)		# 발매가
 	shoedetail = models.TextField(default = '-')		# 신발 설명
 	shoelikecount = models.IntegerField(default=0)  # 좋아요 개수
-
-	def update_shoelikecount(self):
-		self.shoelikecount = ShoeLike.objects.filter(serialno=self.serialno).count()
-		self.save()
+	likes = models.ManyToManyField(Member, related_name='liked_posts')
 
 class Shoeimg(models.Model):
 	serialno = models.CharField(max_length=50, default= None)
@@ -67,7 +64,4 @@ class Comment(models.Model):
 	created_date = models.DateTimeField(db_column='created_date')
 	approved_comment = models.BooleanField(db_column='approved_comment', default=False)
 
-class ShoeLike(models.Model):	
-	serialno = models.CharField(max_length=200, db_column='serialno')
-	member_no = models.CharField(max_length=20, db_column='member_no')
 

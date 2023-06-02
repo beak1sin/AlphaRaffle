@@ -3,8 +3,9 @@ from django.contrib import auth
 from urllib.parse import quote
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
-from draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg, Comment, ShoeLike
+from draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg, Comment
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_protect
 from datetime import timedelta, datetime
 from django.db.models import Q
 import time
@@ -32,7 +33,7 @@ nowtime = timezone.now()
 User = get_user_model()
 # Create your views here.
 
-@csrf_exempt
+@csrf_protect
 def start(request):
     context = {}
     if request.session.has_key('member_no'):
@@ -49,7 +50,7 @@ def start(request):
 
     return render(request, 'draw/start.html', context)
 
-@csrf_exempt
+@csrf_protect
 def member_idcheck(request):
     context = {}
 
@@ -69,7 +70,7 @@ def member_idcheck(request):
     return JsonResponse(context, content_type="application/json")
 
 # 새로운 회원가입 방식
-@csrf_exempt
+@csrf_protect
 def member_insert(request):
     context = {}
 
@@ -115,7 +116,7 @@ def member_insert(request):
     return JsonResponse(context, content_type="application/json")
 
 # 메일 인증
-@csrf_exempt
+@csrf_protect
 def send_mail(request):
     bodydata = request.body.decode('utf-8')
     context = {}
@@ -178,39 +179,82 @@ def home3(request):
     context = {'droppedShoe':droppedShoe, 'endShoe':endShoe, 'member':member }
     return render(request, "draw/main3.html", context)
 
-@csrf_exempt
+# @csrf_protect
+# def home(request):
+#     context = {}
+#     shoe = Shoe.objects.all()
+#     # for shoe in shoe:
+#     #     shoecount = ShoeLike.objects.filter(serialno = shoe.serialno)
+#     #     context["shoecount"] = zip(shoecount)
+#     if request.session.has_key('member_no'):
+#         member_no = request.session['member_no']
+#         member = Member.objects.get(pk= member_no)
+        
+#     else:
+#         member_no = None
+#         member = None
+
+    
+#     # shoeLike = ShoeLike.objects.all().values('member_no')
+    
+#     # sh1 = shoeLike.values('member_no')
+    
+#     context = { 'shoe':shoe, 'member':member}
+
+#     return render(request, "draw/main.html", context)
+
+@csrf_protect
 def home(request):
-    context = {}
-    shoe = Shoe.objects.all()
-    # for shoe in shoe:
-    #     shoecount = ShoeLike.objects.filter(serialno = shoe.serialno)
-    #     context["shoecount"] = zip(shoecount)
-    sh2 = []
+    # shoe = Shoe.objects.all()[0:12]
+    shoe = Shoe.objects.all().order_by('-id')[0:12]
+    member = None
+    member_no = None
+
+    droppedSite = Shoesite.objects.filter(end_date__gte=nowtime).order_by('-end_date')
+    endSite = Shoesite.objects.filter(end_date__lt=nowtime).order_by('-end_date')
+    droppedSerial = []
+    endSerial = []
+
+    for site in droppedSite:
+        droppedSerial.append(site.serialno)
+    for site in endSite:
+        endSerial.append(site.serialno)
+
+    droppedShoe = Shoe.objects.filter(serialno__in = droppedSerial)
+    endShoe = Shoe.objects.filter(serialno__in = endSerial).order_by('-id')[0:12]
+
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
-        member = Member.objects.get(pk= member_no)
-        #print(member_no)
-        shoeLike = ShoeLike.objects.filter(member_no = member.member_no)
-        
-        for shoeL in shoeLike:
-            sh2.append(shoeL.member_no)
-            print(sh2)
-    else:
-        member_no = None
-        member = None
+        member = Member.objects.get(pk=member_no)
 
-    context["member_no"] = member_no
-    
-    # shoeLike = ShoeLike.objects.all().values('member_no')
-    
-    # sh1 = shoeLike.values('member_no')
-    
-    context = { 'shoe':shoe, 'member':member, 'sh2': sh2}
+    context = {'shoe': shoe, 'member': member, 'droppedShoe': droppedShoe, 'endShoe': endShoe}  # member 객체를 context에 추가
+
+    if request.method == 'POST':
+        context2 = {}
+        bodydata = request.body.decode('utf-8')
+        bodyjson = json.loads(bodydata)
+        page = bodyjson['page']
+        print(bodyjson['page'])
+        per_page = 12
+        start_index = (page - 1) * per_page
+        end_index = start_index + per_page
+        # shoe = Shoe.objects.all()[start_index:end_index]
+        shoe = Shoe.objects.all().order_by('-id')[start_index:end_index]
+        shoes = serializers.serialize('json', shoe)
+        likes = []  # 멤버별 신발 좋아요 여부를 저장할 리스트
+
+        if request.session.has_key('member_no'):
+            member_no = request.session['member_no']
+            member = Member.objects.get(pk=member_no)
+            for shoe in shoe:
+                likes.append(member in shoe.likes.all())
+        context2 = {'shoes': shoes, 'likes': likes}
+        return JsonResponse(context2, content_type="application/json")
 
     return render(request, "draw/main.html", context)
 
 # 새로운 멤버로그인
-@csrf_exempt
+@csrf_protect
 def member_login(request):
     context = {}
 
@@ -256,14 +300,14 @@ def member_login(request):
             context['result_msg'] = 'Login error... 아이디와 비번을 확인하세요.'
     return JsonResponse(context, content_type="application/json")
 
-@csrf_exempt
+@csrf_protect
 def logout(request):
     context = {}
 
     request.session.flush()
     return redirect('/')
 
-@csrf_exempt
+@csrf_protect
 def login(request):
     context = {}
 
@@ -286,11 +330,11 @@ def login(request):
 
     return render(request, 'draw/login.html', context)
 
-@csrf_exempt
+@csrf_protect
 def join(request):
     return render(request, 'draw/join.html')
 
-@csrf_exempt
+@csrf_protect
 def myPage(request):
 
     context = {}
@@ -309,22 +353,16 @@ def myPage(request):
         context['flag'] = "0"
         context['result_msg'] = "Member read..."
 
-        shoeLike = ShoeLike.objects.filter(member_no = member.member_no)
-        sh1 = []
-        print(shoeLike.values('serialno'))
-        for shoeL in shoeLike:
-            sh1.append(shoeL.serialno)
-        likeshoe = Shoe.objects.filter(serialno__in = sh1)
-        print(likeshoe)
+        liked_shoes = member.liked_posts.all()
 
-        context = {'member':member ,'likeshoe':likeshoe}
+        context = {'member':member ,'liked_shoes':liked_shoes}
         return render(request, "draw/myPage.html", context)
 
     else:
         return redirect('/auth/login/')
 
 # 새로운 회원정보수정 방식
-@csrf_exempt
+@csrf_protect
 def member_update(request):
     context = {}
 
@@ -358,7 +396,7 @@ def member_update(request):
 
         return JsonResponse(context, content_type="application/json")
 
-@csrf_exempt
+@csrf_protect
 def details(request):
     pk = request.GET['serialnum']
 
@@ -413,7 +451,7 @@ def details(request):
     return render(request, 'draw/details.html', context)
     #return JsonResponse(context, content_type="application/json")
 
-@csrf_exempt
+@csrf_protect
 def delete(request):
     context = {}
     shoe = Shoe.objects.all()
@@ -431,7 +469,7 @@ def delete(request):
     context = {'shoe':shoe, 'member':member }
     return render(request, "draw/delete.html", context)
 
-@csrf_exempt
+@csrf_protect
 def member_delete(request):
     context = {}
 
@@ -454,24 +492,136 @@ def member_delete(request):
 
     return JsonResponse(context, content_type="application/json")
 
-@csrf_exempt
+# @csrf_protect
+# def full(request):
+#     context = {}
+#     shoes = Shoe.objects.all()
+#     if request.session.has_key('member_no'):
+#         member_no = request.session['member_no']
+#         member_no_obj = Member.objects.get(member_no=member_no)
+#         member = Member.objects.get(pk= member_no)
+#         #print(member_no)
+
+#     else:
+#         member_no = None
+#         member = None
+#         member_no_obj = None
+
+    
+#     # context["member_no"] = member_no
+#     # context = {'shoes':shoes, 'member':member }
+#     # context["member_no"] = member_no_obj.member_no
+#     context = {'shoes': shoes, 'member': member, 'member_no': member_no_obj.member_no}
+#     return render(request, "draw/full.html", context)
+
+# @csrf_protect
+# def full(request):
+#     shoes = Shoe.objects.all()
+#     member_no_obj = None
+#     member = None
+
+#     if request.session.has_key('member_no'):
+#         member_no = request.session['member_no']
+#         member_no_obj = Member.objects.get(member_no=member_no)
+#         member = Member.objects.get(pk=member_no)
+
+#     # context = {'shoes': shoes, 'member': member, 'member_no': member_no_obj.member_no}
+#     context = {'shoes': shoes, 'member': member, 'member_no': member_no}
+#     return render(request, "draw/full.html", context)
+
+# @csrf_protect
+# def full(request):
+#     shoe = Shoe.objects.all()
+#     member_no_obj = None
+#     member = None
+
+#     if request.session.has_key('member_no'):
+#         member_no = request.session['member_no']
+#         member_no_obj = Member.objects.get(member_no=member_no)
+#         member = Member.objects.get(pk=member_no)
+
+#     context = {'shoe': shoe, 'member': member}  # member 객체를 context에 추가
+
+#     return render(request, "draw/full.html", context)
+    
+@csrf_protect
 def full(request):
-    context = {}
-    shoe = Shoe.objects.filter()
+    shoe = Shoe.objects.all()[0:12]
+    member_no_obj = None
+    member = None
+
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
-        member = Member.objects.get(pk= member_no)
-        #print(member_no)
+        member_no_obj = Member.objects.get(member_no=member_no)
+        member = Member.objects.get(pk=member_no)
 
-    else:
-        member_no = None
-        member = None
+    context = {'shoe': shoe, 'member': member}  # member 객체를 context에 추가
 
-    context["member_no"] = member_no
-    context = {'shoe':shoe, 'member':member }
+    if request.method == 'POST':
+        context2 = {}
+        bodydata = request.body.decode('utf-8')
+        bodyjson = json.loads(bodydata)
+        page = bodyjson['page']
+        per_page = 12
+        start_index = (page - 1) * per_page
+        end_index = start_index + per_page
+        shoe = Shoe.objects.all()[start_index:end_index]
+        shoes = serializers.serialize('json', shoe)
+
+        member_no = request.session['member_no']
+        member = Member.objects.get(pk=member_no)
+        likes = []  # 멤버별 신발 좋아요 여부를 저장할 리스트
+        for shoe in shoe:
+            likes.append(member in shoe.likes.all())
+        context2 = {'shoes': shoes, 'likes': likes}
+        return JsonResponse(context2, content_type="application/json")
+
     return render(request, "draw/full.html", context)
 
-@csrf_exempt
+
+@csrf_protect
+def like_shoe(request):
+    context = {}
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+    serialno = bodyjson['serialnoAJAX']
+    
+    shoe = get_object_or_404(Shoe, serialno=serialno)
+
+    if 'member_no' in request.session:
+        member_no = request.session['member_no']
+        member_no_obj = Member.objects.get(member_no=member_no)
+        context['flag'] = '1'
+        context['result_msg'] = '로그인 되어 있는 상태'
+        # if member_no in shoe.likes.all():
+        #     shoe.likes.remove(member_no)
+        #     liked = False
+        # else:
+        #     shoe.likes.add(member_no)
+        #     liked = True
+        if Member.objects.filter(member_no=member_no, liked_posts=shoe).exists():
+            # 이미 좋아요한 경우
+            shoe.likes.remove(member_no)
+            shoe.shoelikecount -= 1
+            liked = False
+        else:
+            # 좋아요하지 않은 경우
+            shoe.likes.add(member_no)
+            shoe.shoelikecount += 1
+            liked = True
+        shoe.save()
+        context['liked'] = liked
+        context['count'] = shoe.shoelikecount
+        context["member_no"] = member_no_obj.member_no
+    else:
+        context['flag'] = '0'
+        context['result_msg'] = '로그인이 필요한 서비스 입니다'
+        member_no_obj = None
+        member_no = None
+    
+    return JsonResponse(context, content_type="application/json")
+
+@csrf_protect
 def filtering(request):
     context = {}
     bodydata = request.body.decode('utf-8')
@@ -494,7 +644,7 @@ def filtering(request):
     context['shoe'] = shoe
     return JsonResponse(context, content_type="application/json")
 
-@csrf_exempt
+@csrf_protect
 def like(request):
     context = {}
     bodydata = request.body.decode('utf-8')
@@ -506,12 +656,8 @@ def like(request):
     #print(shoe)
     if 'member_no' in request.session:
         member_no = request.session['member_no']
-        print(member_no)
-        rs = ShoeLike.objects.create(serialno=serial_no, member_no = member_no)
         #shoe = Shoe.objects.get(serialno=serialno)
         shoe = Shoe.objects.get(serialno = serial_no)
-        shoe.update_shoelikecount()
-        rs.save()
         # member = Member.objects.filter(member_no=member_no)
         # shoe.shoelikeuser.add(member.member_no)
 
@@ -523,7 +669,7 @@ def like(request):
 
     return JsonResponse(context, content_type="application/json")
 
-@csrf_exempt
+@csrf_protect
 def likeCancel(request):
     context = {}
     bodydata = request.body.decode('utf-8')
@@ -544,7 +690,7 @@ def likeCancel(request):
 
     return JsonResponse(context, content_type="application/json")
 
-@csrf_exempt
+@csrf_protect
 def reportLayer(request):
     context = {}
     bodydata = request.body.decode('utf-8')
@@ -559,7 +705,7 @@ def reportLayer(request):
 
     return JsonResponse(context, content_type="application/json")
 
-@csrf_exempt
+@csrf_protect
 def report(request):
     context = {}
     bodydata = request.body.decode('utf-8')
@@ -576,7 +722,7 @@ def report(request):
 
     return JsonResponse(context, content_type="application/json")
 
-@csrf_exempt
+@csrf_protect
 def comment(request):
     context = {}
     bodydata = request.body.decode('utf-8')
@@ -608,7 +754,6 @@ def comment(request):
 
 def practice(request):
     return render(request, 'draw/practice.html')
-
 
 
 from selenium import webdriver

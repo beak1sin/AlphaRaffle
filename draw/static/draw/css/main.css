@@ -19,7 +19,7 @@
   width: 100%;
   height: 100%;
   position:relative;
-  color:#fff;
+  color:#fbfbfb;
   text-shadow:rgba(0,0,0,0.1) 2px 2px 0px;  
 }
 
@@ -200,7 +200,7 @@
   width:5px;
   height:5px;
   border-radius:50%;
-  background:#fff;
+  background:#fbfbfb;
   opacity:0.5;
   position:relative;
   top:0;
@@ -238,24 +238,4 @@
     height: 33vh;
     float: left;
 }
-
-.grid-wrapper {
-    float: left;
-    width: 65vw;
-    /* height: 33vh; */
-    display: grid;
-    /* grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); */
-    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-    /* grid-template-columns: repeat(3, 19.76vw); */
-    /* overflow-x: auto; */
-    grid-auto-rows: 410px;
-    column-gap: 30px;
-    row-gap: 0px;
-}
-
-.grid-box {
-    padding: 15px 5px;
-    cursor: pointer;
-}
-
 

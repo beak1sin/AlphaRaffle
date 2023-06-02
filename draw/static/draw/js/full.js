@@ -1,4 +1,64 @@
 $(document).ready(function() {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getCookie('csrftoken');
+
+    var xhr;
+
+    $('.like').click(function() {
+        var serialno = $(this).attr('data-value');
+        var $clickedBtn = $(this).next();
+        var $this = $(this);
+
+        var data = {serialnoAJAX: serialno};
+        var datastr = JSON.stringify(data);
+        
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                var data = xhr.responseText;
+    
+                var obj = JSON.parse(data);
+
+                if (obj.flag == '0') {
+                    alert(obj.result_msg);
+                    location.href = '/auth/login/'
+                } else {
+                    // alert(obj.liked);
+                    if(obj.liked) {
+                        alert(obj.liked);
+                        $this.text('좋아요 취소');
+                    } else {
+                        alert(obj.liked);
+                        $this.text('좋아요');
+                    }
+                    $clickedBtn.text(obj.count);
+                }
+            }
+        };
+        xhr.open("POST", 'like2');
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.send(datastr);
+
+    });
+
+
+    
+
     // 현재 제품은 opacity만 1
     $(window).on("load", function() {
         let scrTop = $(this).scrollTop();
@@ -225,25 +285,7 @@ $(document).ready(function() {
         });
     });
 
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
-    var csrftoken = getCookie('csrftoken');
-
-    var xhr;
+    
 
     // 필터링 적용 버튼
     $(document).on("click", ".u-apply-btn", function() {
@@ -280,6 +322,97 @@ $(document).ready(function() {
         xhr.setRequestHeader("X-CSRFToken", csrftoken);
         xhr.send(datastr);
     });
+
+    
+    // var waypoint = new Waypoint({
+    //     element: document.getElementById('scroll-container'),
+    //     handler: function(direction) {
+    //         if (direction === 'down') {
+    //             // 추가 데이터를 불러오는 API 엔드포인트 호출
+    //             alert('Bottom of element hit top of viewport');
+    //             loadData();
+    //             // alert('밑이야');
+    //             // console.log('밑이야');
+    //         }
+    //     },
+    //     // offset: '100%'
+    //     // offset: 'bottom-in-view'
+    //     offset: function() {
+    //         return this.element.clientHeight - window.innerHeight;
+    //     }
+    // });
+
+    var isLoading = false;
+
+    window.addEventListener('scroll', function() {
+        var scrollContainer = document.getElementById('scroll-container');
+        var scrollHeight = scrollContainer.scrollHeight;
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        var windowHeight = window.innerHeight;
+        
+        if (!isLoading && scrollTop + windowHeight >= scrollHeight) {
+            // 추가 데이터를 불러오는 작업 수행
+            isLoading = true;
+            loadData(function() {
+                isLoading = false;
+            });
+        }
+    });
+
+    var nextPage = 2;  // 초기 페이지 번호
+
+    function loadData(callback) {
+        // AJAX 요청을 통해 추가 데이터를 백엔드에 요청합니다.
+        // 백엔드에서는 페이지 번호 등을 기반으로 필요한 데이터를 반환해야 합니다.
+
+        // AJAX 요청 예시 (jQuery 사용):
+        var data = {page: nextPage};
+        var datastr = JSON.stringify(data);
+        
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                var data = xhr.responseText;
+    
+                var obj = JSON.parse(data);
+                var shoe = JSON.parse(obj.shoes);
+                var likes = obj.likes;  // 멤버별 신발 좋아요 여부
+                nextPage += 1;
+                // alert();
+                var html = '';
+                for (var i = 0; i < shoe.length; i++) {
+                    var shoe1 = shoe[i].fields;
+                    var liked = likes[i];
+                    html += '<div class="u-align-center u-container-style u-products-item u-repeater-item product-item">';
+                    html += '<div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">';
+                    html += '<a class="hover_temp" style="display: block; width: auto; margin: 5px 5px 10px 5px;">';
+                    html += '<div class="screen u-radius-50">';
+                    html += '<div class="bookmark-icon">';
+                    html += '<label class="bookmark-icon-label ' + (liked ? 'on' : '') + '">';
+                    html += '<span class="icon"></span>';
+                    html += '</label>';
+                    html += '</div>';
+                    html += '<img alt="" class="lazyload u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" data-src="/static/draw/images/' + shoe1.shoename + shoe1.serialno + '0.jpeg" data-image-width="842" data-image-height="595">';
+                    html += '</div></a>';
+                    html += '<h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2" style="display: table;">';
+                    html += '<a class="u-product-title-link" style="font-size: 18px; display: table-cell; vertical-align: middle;">';
+                    html += shoe1.shoename;
+                    html += '</a></h4>';
+                    html += '<a href="/draw/상세정보/?serialnum=' + shoe1.serialno + '" id="serial" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2" data-value="' + shoe1.serialno + '">응모하기</a>';
+                    html += '<button class="like" data-value="' + shoe1.serialno + '"></button>';
+                    html += '<button class="likeCount">' + shoe1.shoelikecount + '</button>';
+                    html += '</div></div>';
+                }
+                $('.u-repeater-1').append(html);
+                if (typeof callback === 'function') {
+                    callback();
+                }
+            }
+        };
+        xhr.open("POST", "");
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.send(datastr);
+    }
 
 });
 

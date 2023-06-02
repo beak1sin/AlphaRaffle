@@ -11,7 +11,7 @@ html {
     position: relative;
     height: 100vh;
     width: 100vw;
-    background-color: #C8C8C8;
+    background-color: #EEEEEE;
 }
 
 .content .box {
@@ -342,7 +342,7 @@ html {
   }
   
   @keyframes cursor {
-    from { border-right: 20px solid #C8C8C8; }
+    from { border-right: 20px solid #EEEEEE; }
     to { border-right: 20px solid black; }
   }
 

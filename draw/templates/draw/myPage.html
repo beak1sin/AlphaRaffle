@@ -42,7 +42,7 @@
                     <div style="width: 50px; height: 50px;">
                         <img style="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%;" src="{% static 'draw/images/jordan1OFF.jpeg' %}">
                     </div>
-                    <p style="margin: 0px; padding-top: 10px; font-size: 28px; font-weight: 500; line-height: 30px; border-bottom: 2px solid black;">닉네임</p>
+                    <p style="margin: 0px; padding-top: 10px; font-size: 28px; font-weight: 500; line-height: 30px; border-bottom: 2px solid black;">{{member.member_nickname}}</p>
                 </div>
                 <div style="width: 100%; height: 43%;">
                     <div class="tab checked" id="bookmark_tab">
@@ -103,44 +103,46 @@
                 <div style="width: 100%;">
                     <p style="margin: 0px; font-size: 40px; font-weight: 700;">찜한 신발</p>
                     <div class="grid-wrapper">
-                        {% for shoe in likeshoe %}
-                        <div class="grid-box">
-                            <div class="grid-box" data-value = {{shoe.serialno}}>
-                                <div style="width: 100%; height: 100%; border: 0.5px solid #C8C8C8; border-radius: 10px; padding: 10px 5px;">
-                                    <div style="width: 100%; height: 70%; position: relative; padding: 0px 40px; float: left;">
-                                        <div class="bookmark-icon">
-                                            {% if member.member_no == shoeLike.member_no %}
-                                            <label class="bookmark-icon-label on">
-                                                <input type="checkbox" name="bookmark">
-                                                <span class="icon"></span>
-                                            </label>
-                                            {% else %}
-                                            <label class="bookmark-icon-label">
-                                                <input type="checkbox" name="bookmark">
-                                                <span class="icon"></span>
-                                            </label>
-                                            {% endif %}
-                                        </div>
-                                        <div style="position: absolute; top: 50px; right: 0px;">
-                                            {{shoe.shoelikecount}}
-                                        </div>
-                                        <div style="width: 100%; height: 100%;  text-align: center;"onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}'">
-                                            <img class="lazyload" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{shoe.serialno}}0.jpeg" style="width: 231px; height: 100%; border: 0.5px solid #C8C8C8; border-radius: 10px;">
-                                        </div>
-                                        <!-- <div style="width: 100%; height: 100%;"></div> -->
+                        {% for shoe in liked_shoes %}
+                        <div class="grid-box" data-value="{{shoe.serialno}}">
+                            <div class="grid-container">
+                                <div class="grid-img-box">
+                                    <div class="comment-icon">
+                                        <label class="comment-icon-label">
+                                            <span class="icon"></span>
+                                        </label>
                                     </div>
-                                    <div style="width: 100%; height: 13%; float: left; padding: 2px 5px; display: table; text-align: center;">
-                                        <p style="font-size: 18px; font-weight: 500; margin: 0px; display: table-cell; vertical-align: middle;">{{shoe.shoename}}</p>
+                                    <div class="commentCount-box">
+                                        <p class="commentCount">0</p>
                                     </div>
-                                    <div style="width: 100%; height: 7%; float: left; text-align: center;">
-                                        <p style="font-size: 14px; font-weight: 200; margin: 0px;">{{shoe.pubdate}}</p>
+                                    <div class="img-box" onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}'">
+                                        <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{shoe.serialno}}0.jpeg">
                                     </div>
-                                    <div style="width: 100%; height: 10%; float: left; text-align: center; padding-top: 2px;">
-                                        <button style="background-color: white;font-size: 14px; font-weight: 500; width: 90px; border: 0.5px solid rgba(200, 200, 200, 1); border-radius: 10px;">바로가기</button>
+                                    <div class="bookmark-icon">
+                                        {% if member in shoe.likes.all %}
+                                        <label class="bookmark-icon-label on">
+                                            <span class="icon"></span>
+                                        </label>
+                                        {% else %}
+                                        <label class="bookmark-icon-label">
+                                            <span class="icon"></span>
+                                        </label>
+                                        {% endif %}
+                                    </div>
+                                    <div class="shoelikecount-box">
+                                        <p class="shoelikecount">{{shoe.shoelikecount}}</p>
                                     </div>
                                 </div>
+                                <div class="grid-shoename-box">
+                                    <p class="shoename">{{shoe.shoename}}</p>
+                                </div>
+                                <div class="grid-pubdate-box">
+                                    <p class="pubdate">{{shoe.pubdate}}</p>
+                                </div>
+                                <div class="grid-goBtn-box">
+                                    <button class="goBtn">바로가기</button>
+                                </div>
                             </div>
-                            
                         </div>
                         {% endfor %}
 

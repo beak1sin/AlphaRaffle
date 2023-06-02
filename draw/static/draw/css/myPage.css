@@ -3,7 +3,7 @@ input:focus {
 }
 
 .u-header {
-  border-bottom: 1px solid #C8C8C8;
+  border-bottom: 1px solid #EEEEEE;
 }
 
 .tab {
@@ -17,7 +17,7 @@ input:focus {
 
 .tab.checked, .tab:hover {
   background-color: #F4F4F4;
-  border-left: 10px solid #c8c8c8;
+  border-left: 10px solid #EEEEEE;
 }
 
 .tab .icon-box {

@@ -60,65 +60,99 @@ $(document).ready(function() {
 
     var xhr;
 
-    // 북마크 로그인 여부
-    $('input[type=checkbox][name=bookmark]').change(function ()  {
-        // let $serialno = $(this).parent().parent().parent().parent().next().next().attr('data-value');
-        let $serialno = $(this).parent().parent().parent().parent().parent().attr('data-value');
-
+    $('.bookmark-icon-label').click(function() {
+        let $serialno = $(this).parent().parent().parent().parent().attr('data-value');
+  
+        var $this = $(this);
+        var $count = $(this).parent().next().children();
+  
         var data = {serialnoAJAX: $serialno};
         var datastr = JSON.stringify(data);
-        if ($('.bookmark-icon-label').hasClass('on')) {
-            xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4) {
-                    var data = xhr.responseText;
-        
-                    var obj = JSON.parse(data);
-    
-                    if(obj.flag == "0"){
-                        // 로그인 X
-                        bookmarkLayerOn();
-                        // 레이어 외부 영역, 취소 버튼 클릭 시
-                        $('.u-section-1.blurOn, .u-section-2.blurOn, #cancel_btn').click(function () {
-                          bookmarkLayerOff();
-                        });
+  
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                var data = xhr.responseText;
+  
+                var obj = JSON.parse(data);
+  
+                if (obj.flag == '0') {
+                    alert(obj.result_msg);
+                    location.href = '/auth/login/';
+                } else {
+                    if(obj.liked) {
+                        $this.addClass('on');
                     } else {
-                        // 로그인 O
-                        alert(obj.result_msg);
-                        $('.bookmark-icon-label').removeClass('on');
+                        $this.removeClass('on');
                     }
+                    $count.text(obj.count);
                 }
-            };
-            xhr.open("POST", "likeCancel");
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            xhr.send(datastr);
-        } else {
-            xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4) {
-                    var data = xhr.responseText;
-        
-                    var obj = JSON.parse(data);
-
-                    if(obj.flag == "0"){
-                        // 로그인 X
-                        bookmarkLayerOn();
-                        // 레이어 외부 영역, 취소 버튼 클릭 시
-                        $('.u-section-1.blurOn, .u-section-2.blurOn, #cancel_btn').click(function () {
-                        bookmarkLayerOff();
-                        });
-                    } else {
-                        // 로그인 O
-                        alert(obj.result_msg);
-                        $('.bookmark-icon-label').addClass('on');
-                    }
-                }
-            };
-            xhr.open("POST", "like");
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            xhr.send(datastr);
-        }
+            }
+        };
+        xhr.open("POST", "likeShoe");
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.send(datastr);
     });
+
+    // 북마크 로그인 여부
+    // $('input[type=checkbox][name=bookmark]').change(function ()  {
+    //     // let $serialno = $(this).parent().parent().parent().parent().next().next().attr('data-value');
+    //     let $serialno = $(this).parent().parent().parent().parent().parent().attr('data-value');
+
+    //     var data = {serialnoAJAX: $serialno};
+    //     var datastr = JSON.stringify(data);
+    //     if ($('.bookmark-icon-label').hasClass('on')) {
+    //         xhr = new XMLHttpRequest();
+    //         xhr.onreadystatechange = function() {
+    //             if (xhr.readyState == 4) {
+    //                 var data = xhr.responseText;
+        
+    //                 var obj = JSON.parse(data);
+    
+    //                 if(obj.flag == "0"){
+    //                     // 로그인 X
+    //                     bookmarkLayerOn();
+    //                     // 레이어 외부 영역, 취소 버튼 클릭 시
+    //                     $('.u-section-1.blurOn, .u-section-2.blurOn, #cancel_btn').click(function () {
+    //                       bookmarkLayerOff();
+    //                     });
+    //                 } else {
+    //                     // 로그인 O
+    //                     alert(obj.result_msg);
+    //                     $('.bookmark-icon-label').removeClass('on');
+    //                 }
+    //             }
+    //         };
+    //         xhr.open("POST", "likeCancel");
+    //         xhr.setRequestHeader("X-CSRFToken", csrftoken);
+    //         xhr.send(datastr);
+    //     } else {
+    //         xhr = new XMLHttpRequest();
+    //         xhr.onreadystatechange = function() {
+    //             if (xhr.readyState == 4) {
+    //                 var data = xhr.responseText;
+        
+    //                 var obj = JSON.parse(data);
+
+    //                 if(obj.flag == "0"){
+    //                     // 로그인 X
+    //                     bookmarkLayerOn();
+    //                     // 레이어 외부 영역, 취소 버튼 클릭 시
+    //                     $('.u-section-1.blurOn, .u-section-2.blurOn, #cancel_btn').click(function () {
+    //                     bookmarkLayerOff();
+    //                     });
+    //                 } else {
+    //                     // 로그인 O
+    //                     alert(obj.result_msg);
+    //                     $('.bookmark-icon-label').addClass('on');
+    //                 }
+    //             }
+    //         };
+    //         xhr.open("POST", "like");
+    //         xhr.setRequestHeader("X-CSRFToken", csrftoken);
+    //         xhr.send(datastr);
+    //     }
+    // });
     
 
     // 북마크확인버튼 클릭 시 로그인페이지로 이동
