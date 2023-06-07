@@ -559,13 +559,12 @@ def member_delete(request):
     
 @csrf_protect
 def full(request):
-    shoe = Shoe.objects.all()[0:12]
-    member_no_obj = None
+    shoe = Shoe.objects.all().order_by('-id')[0:12]
     member = None
+    member_no = None
 
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
-        member_no_obj = Member.objects.get(member_no=member_no)
         member = Member.objects.get(pk=member_no)
 
     context = {'shoe': shoe, 'member': member}  # member 객체를 context에 추가
@@ -575,17 +574,20 @@ def full(request):
         bodydata = request.body.decode('utf-8')
         bodyjson = json.loads(bodydata)
         page = bodyjson['page']
+        
         per_page = 12
         start_index = (page - 1) * per_page
         end_index = start_index + per_page
-        shoe = Shoe.objects.all()[start_index:end_index]
+        # shoe = Shoe.objects.all()[start_index:end_index]
+        shoe = Shoe.objects.all().order_by('-id')[start_index:end_index]
         shoes = serializers.serialize('json', shoe)
-
-        member_no = request.session['member_no']
-        member = Member.objects.get(pk=member_no)
         likes = []  # 멤버별 신발 좋아요 여부를 저장할 리스트
-        for shoe in shoe:
-            likes.append(member in shoe.likes.all())
+
+        if request.session.has_key('member_no'):
+            member_no = request.session['member_no']
+            member = Member.objects.get(pk=member_no)
+            for shoe in shoe:
+                likes.append(member in shoe.likes.all())
         context2 = {'shoes': shoes, 'likes': likes}
         return JsonResponse(context2, content_type="application/json")
 

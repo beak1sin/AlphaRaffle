@@ -29,7 +29,7 @@
 
     {% include 'draw/header.html' %}
 
-    <section id="scroll-container" class="u-section-1 full-section" style="width: 100vw; height: 100vh;">
+    <section id="scroll-container" class="u-section-1" style="width: 100vw; height: 100vh;">
         <div style="width: 100vw; height: calc(100vh - 126px); top: 126px;">
             <!-- <div class="ad-box"></div> -->
             <div class="banner-box">
@@ -112,9 +112,102 @@
             </div>
             <div class="grid-wrapper-box">
                 <div class="ad-box"></div>
-                <div class="grid-wrapper infinite-container">
+
+                <div class="grid-wrapper droppedShoe-section">
+                    {% csrf_token %}
+                    {% for shoe in droppedShoe %}
+                    <div class="grid-box" data-value="{{shoe.serialno}}">
+                        <div class="grid-container">
+                            <div class="grid-img-box">
+                                <div class="comment-icon">
+                                    <label class="comment-icon-label">
+                                        <span class="icon"></span>
+                                    </label>
+                                </div>
+                                <div class="commentCount-box">
+                                    <p class="commentCount">0</p>
+                                </div>
+                                <div class="img-box" onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}'">
+                                    <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{shoe.serialno}}0.jpeg">
+                                </div>
+                                <div class="bookmark-icon">
+                                    {% if member in shoe.likes.all %}
+                                    <label class="bookmark-icon-label on">
+                                        <span class="icon"></span>
+                                    </label>
+                                    {% else %}
+                                    <label class="bookmark-icon-label">
+                                        <span class="icon"></span>
+                                    </label>
+                                    {% endif %}
+                                </div>
+                                <div class="shoelikecount-box">
+                                    <p class="shoelikecount">{{shoe.shoelikecount}}</p>
+                                </div>
+                            </div>
+                            <div class="grid-shoename-box">
+                                <p class="shoename">{{shoe.shoename}}</p>
+                            </div>
+                            <div class="grid-pubdate-box">
+                                <p class="pubdate">{{shoe.pubdate}}</p>
+                            </div>
+                            <div class="grid-goBtn-box">
+                                <button class="goBtn">바로가기</button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="grid-wrapper infinite-container full-section" style="display: none;">
                     {% csrf_token %}
                     {% for shoe in shoe %}
+                    <div class="grid-box" data-value="{{shoe.serialno}}">
+                        <div class="grid-container">
+                            <div class="grid-img-box">
+                                <div class="comment-icon">
+                                    <label class="comment-icon-label">
+                                        <span class="icon"></span>
+                                    </label>
+                                </div>
+                                <div class="commentCount-box">
+                                    <p class="commentCount">0</p>
+                                </div>
+                                <div class="img-box" onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}'">
+                                    <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{shoe.serialno}}0.jpeg">
+                                </div>
+                                <div class="bookmark-icon">
+                                    {% if member in shoe.likes.all %}
+                                    <label class="bookmark-icon-label on">
+                                        <span class="icon"></span>
+                                    </label>
+                                    {% else %}
+                                    <label class="bookmark-icon-label">
+                                        <span class="icon"></span>
+                                    </label>
+                                    {% endif %}
+                                </div>
+                                <div class="shoelikecount-box">
+                                    <p class="shoelikecount">{{shoe.shoelikecount}}</p>
+                                </div>
+                            </div>
+                            <div class="grid-shoename-box">
+                                <p class="shoename">{{shoe.shoename}}</p>
+                            </div>
+                            <div class="grid-pubdate-box">
+                                <p class="pubdate">{{shoe.pubdate}}</p>
+                            </div>
+                            <div class="grid-goBtn-box">
+                                <button class="goBtn">바로가기</button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="grid-wrapper endShoe-section" style="display: none;">
+                    {% csrf_token %}
+                    {% for shoe in endShoe %}
                     <div class="grid-box" data-value="{{shoe.serialno}}">
                         <div class="grid-container">
                             <div class="grid-img-box">
@@ -163,116 +256,6 @@
         </div>
         <script>const STATIC_FULL_URL = "{% url 'draw:상세정보' %}?serialnum=";const STATIC_IMAGES_URL = "{% static 'draw/images/' %}";</script>
         
-    </section>
-
-    <section class="droppedShoe-section" style="width: 100vw; height: 100vh; display: none;">
-        <div style="width: 100vw; height: calc(100vh - 126px); top: 126px;">
-            <div style="width: 17.5vw; height: 100%; float: left;"></div>
-            <div style="width: 65vw; height: 100%; float: left;">
-                <div class="grid-wrapper">
-                    {% csrf_token %}
-                    {% for shoe in droppedShoe %}
-                    <div class="grid-box" data-value="{{shoe.serialno}}">
-                        <div class="grid-container">
-                            <div class="grid-img-box">
-                                <div class="comment-icon">
-                                    <label class="comment-icon-label">
-                                        <span class="icon"></span>
-                                    </label>
-                                </div>
-                                <div class="commentCount-box">
-                                    <p class="commentCount">0</p>
-                                </div>
-                                <div class="img-box" onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}'">
-                                    <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{shoe.serialno}}0.jpeg">
-                                </div>
-                                <div class="bookmark-icon">
-                                    {% if member in shoe.likes.all %}
-                                    <label class="bookmark-icon-label on">
-                                        <span class="icon"></span>
-                                    </label>
-                                    {% else %}
-                                    <label class="bookmark-icon-label">
-                                        <span class="icon"></span>
-                                    </label>
-                                    {% endif %}
-                                </div>
-                                <div class="shoelikecount-box">
-                                    <p class="shoelikecount">{{shoe.shoelikecount}}</p>
-                                </div>
-                            </div>
-                            <div class="grid-shoename-box">
-                                <p class="shoename">{{shoe.shoename}}</p>
-                            </div>
-                            <div class="grid-pubdate-box">
-                                <p class="pubdate">{{shoe.pubdate}}</p>
-                            </div>
-                            <div class="grid-goBtn-box">
-                                <button class="goBtn">바로가기</button>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                    
-                </div>
-            </div>
-            <div style="width: 17.5vw; height: 100%; float: left;"></div>
-        </div>
-    </section>
-
-    <section class="endShoe-section" style="width: 100vw; height: 100vh; display: none;">
-        <div style="width: 100vw; height: calc(100vh - 126px); top: 126px;">
-            <div style="width: 17.5vw; height: 100%; float: left;"></div>
-            <div style="width: 65vw; height: 100%; float: left;">
-                <div class="grid-wrapper">
-                    {% csrf_token %}
-                    {% for shoe in endShoe %}
-                    <div class="grid-box" data-value="{{shoe.serialno}}">
-                        <div class="grid-container">
-                            <div class="grid-img-box">
-                                <div class="comment-icon">
-                                    <label class="comment-icon-label">
-                                        <span class="icon"></span>
-                                    </label>
-                                </div>
-                                <div class="commentCount-box">
-                                    <p class="commentCount">0</p>
-                                </div>
-                                <div class="img-box" onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}'">
-                                    <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{shoe.serialno}}0.jpeg">
-                                </div>
-                                <div class="bookmark-icon">
-                                    {% if member in shoe.likes.all %}
-                                    <label class="bookmark-icon-label on">
-                                        <span class="icon"></span>
-                                    </label>
-                                    {% else %}
-                                    <label class="bookmark-icon-label">
-                                        <span class="icon"></span>
-                                    </label>
-                                    {% endif %}
-                                </div>
-                                <div class="shoelikecount-box">
-                                    <p class="shoelikecount">{{shoe.shoelikecount}}</p>
-                                </div>
-                            </div>
-                            <div class="grid-shoename-box">
-                                <p class="shoename">{{shoe.shoename}}</p>
-                            </div>
-                            <div class="grid-pubdate-box">
-                                <p class="pubdate">{{shoe.pubdate}}</p>
-                            </div>
-                            <div class="grid-goBtn-box">
-                                <button class="goBtn">바로가기</button>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                    
-                </div>
-            </div>
-            <div style="width: 17.5vw; height: 100%; float: left;"></div>
-        </div>
     </section>
 
     <div class="bookmark-layer off">

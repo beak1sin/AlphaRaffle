@@ -224,18 +224,3 @@
 }
 
 
-.grid-wrapper-box {
-    width: 100vw;
-    /* height: 33vh; */
-    /* height: 30%; */
-    float: left;
-    /* display: flex;
-    flex-direction: column; */
-}
-
-.ad-box {
-    width: 17.5vw;
-    height: 33vh;
-    float: left;
-}
-

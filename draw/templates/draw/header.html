@@ -1,5 +1,5 @@
 {% load static %}
-<header class="u-clearfix u-header u-header">
+<header class="u-clearfix u-header u-header" style="border-bottom: 1px solid #C8C8C8;">
     <div class="u-clearfix u-sheet u-sheet-1">
         <a href="{% url 'draw:홈' %}" id="logo" data-page-id="1211428442" class="u-image u-logo u-image-1" data-image-width="1280" data-image-height="960">
             <img data-src="{% static 'draw/images/ar011.png' %}" class="lazyload u-logo-image u-logo-image-1">
@@ -87,10 +87,10 @@
         <div style="width: 30vw; height: 100%; float: left;"></div>
         <div style="width: 40vw; height: 100%; float: left;">
             <div style="width: 33.33%; height: 100%; float: left; padding: 5px 20px; text-align: center;">
-                <a class="full-tab" style="font-size: 1.74vw; font-weight: 500; line-height: 32px; color: #FFFFFF; cursor: pointer;">진행 중</a>
+                <a class="dropped-tab" style="font-size: 1.74vw; font-weight: 500; line-height: 32px; color: #FFFFFF; cursor: pointer;">진행 중</a>
             </div>
             <div style="width: 33.33%; height: 100%; float: left; padding: 5px 20px; text-align: center;">
-                <a class="dropped-tab" style="font-size: 1.74vw; font-weight: 300; line-height: 32px; color: rgba(255, 255, 255, 0.7); cursor: pointer;">예정</a>
+                <a class="full-tab" style="font-size: 1.74vw; font-weight: 300; line-height: 32px; color: rgba(255, 255, 255, 0.7); cursor: pointer;">예정</a>
             </div>
             <div style="width: 33.33%; height: 100%; float: left; padding: 5px 20px; text-align: center;">
                 <a class="end-tab" style="font-size: 1.74vw; font-weight: 300; line-height: 32px; color: rgba(255, 255, 255, 0.7); cursor: pointer;">종료</a>
@@ -98,16 +98,16 @@
         </div>
         <div style="width: 30vw; height: 100%; float: left;">
             <div style="width: 66.66%; height: 100%; float: left;"></div>
-            <div style="width: 33.33%; height: 100%; float: left; padding: 5px 10px 5px 10px;">
-                <div style="width: 33.33%; height: 100%; float: left; text-align: center; padding-top: 6px; padding-right: 0.35vw;">
+            <div style="width: 33.33%; height: 100%; float: left; padding: 5px 10px 5px 10px; float: right;">
+                <!-- <div style="width: 33.33%; height: 100%; float: left; text-align: center; padding-top: 6px; padding-right: 0.35vw;">
                     <img src="{% static 'draw/necessary/icon_magnifying_glass.png' %}" style="width: 20px; height: 20px; cursor: pointer;"></img>
-                </div>
-                <div style="width: 33.33%; height: 100%; float: left; text-align: center; padding-top: 6px; padding-right: 0.35vw;">
+                </div> -->
+                <div style="height: 100%; float: left; text-align: center; padding-top: 6px; padding-right: 0.35vw; float: right;">
                     <img src="{% static 'draw/necessary/icon_grid_two_up.png' %}" style="width: 20px; height: 20px; cursor: pointer;"></img>
                 </div>
-                <div style="width: 33.33%; height: 100%; float: left; text-align: center; padding-top: 6px; padding-right: 0.35vw;">
+                <!-- <div style="width: 33.33%; height: 100%; float: left; text-align: center; padding-top: 6px; padding-right: 0.35vw;">
                     <img src="{% static 'draw/necessary/icon_filter.png' %}" style="width: 20px; height: 20px; cursor: pointer;"></img>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

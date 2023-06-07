@@ -196,9 +196,10 @@ def luckd_crowler(no):
         sitelink = sitecard[i].a['href']
         if 'luck-d' in sitelink:
             response = requests.get(sitelink)
-            response.text
+            html = response.text
             soup = BeautifulSoup(html,'html.parser')
-            matched = re.search(r'var FB_PUBLIC_LOAD_DATA_ = (.*);', html, re.S)
+            matched = re.search(r'let link = decodeURIComponent\(\'(.*?)\'\);', html, re.S)
+            sitelink = matched.group(1)
 
         shoeunique = serialno+sitename+sitelink
 
