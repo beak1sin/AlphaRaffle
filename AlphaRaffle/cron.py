@@ -194,6 +194,11 @@ def luckd_crowler(no):
         urllib.request.urlretrieve('https://static.luck-d.com/agent_site/'+quote(logo_file[leng:]), logo_name)
         
         sitelink = sitecard[i].a['href']
+        if 'luck-d' in sitelink:
+            response = requests.get(sitelink)
+            response.text
+            soup = BeautifulSoup(html,'html.parser')
+            matched = re.search(r'var FB_PUBLIC_LOAD_DATA_ = (.*);', html, re.S)
 
         shoeunique = serialno+sitename+sitelink
 

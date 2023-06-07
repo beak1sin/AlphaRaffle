@@ -36,6 +36,11 @@ class Shoe(models.Model):
 	shoedetail = models.TextField(default = '-')		# 신발 설명
 	shoelikecount = models.IntegerField(default=0)  # 좋아요 개수
 	likes = models.ManyToManyField(Member, related_name='liked_posts')
+	views = models.PositiveBigIntegerField(default = 0)
+	
+	def increase_views(self):
+		self.views += 1
+		self.save()
 
 class Shoeimg(models.Model):
 	serialno = models.CharField(max_length=50, default= None)

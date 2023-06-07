@@ -35,6 +35,7 @@ urlpatterns = [
     
     path('auth/mypage/member_update', views.member_update, name='member_update'),
     path('auth/details/', views.details, name='상세정보'),
+    path('auth/details/update_views', views.update_views, name='조회수 증가'),
     path('auth/details/comment', views.comment, name='코멘트'),
     path('auth/details/reportLayer', views.reportLayer, name='신고'),
     path('auth/details/report', views.report, name='신고전송'),

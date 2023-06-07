@@ -86,39 +86,6 @@ $(document).ready(function(){
 
   var xhr;
 
-  $('.bookmark-icon-label').click(function() {
-      let $serialno = $(this).parent().parent().parent().parent().attr('data-value');
-
-      var $this = $(this);
-      var $count = $(this).parent().next().children();
-
-      var data = {serialnoAJAX: $serialno};
-      var datastr = JSON.stringify(data);
-
-      xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
-          if (xhr.readyState == 4) {
-              var data = xhr.responseText;
-
-              var obj = JSON.parse(data);
-
-              if (obj.flag == '0') {
-                  alert(obj.result_msg);
-                  location.href = '/auth/login/';
-              } else {
-                  if(obj.liked) {
-                      $this.addClass('on');
-                  } else {
-                      $this.removeClass('on');
-                  }
-                  $count.text(obj.count);
-              }
-          }
-      };
-      xhr.open("POST", "likeShoe");
-      xhr.setRequestHeader("X-CSRFToken", csrftoken);
-      xhr.send(datastr);
-  });
 
   var isLoading = false;
 

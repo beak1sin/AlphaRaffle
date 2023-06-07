@@ -99,6 +99,25 @@ $(document).ready(function() {
     function dropped() {
         document.getElementById('section2').scrollIntoView({behavior: 'smooth'});
     }
+
+    var timer = setTimeout(updateViews, 10000); // 10초 타이머 (10000ms)
+
+    function updateViews() {
+        var serialno = $('#serialno').text();
+        var data = {serialnoAJAX: serialno};
+        var datastr = JSON.stringify(data);
+        
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                var data = xhr.responseText;
+                var obj = JSON.parse(data);
+            }
+        };
+        xhr.open("POST", "update_views");
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.send(datastr);
+    }
 }); 
 
 //heart 좋아요 클릭시! 하트 뿅

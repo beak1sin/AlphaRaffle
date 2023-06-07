@@ -234,7 +234,7 @@ def home(request):
         bodydata = request.body.decode('utf-8')
         bodyjson = json.loads(bodydata)
         page = bodyjson['page']
-        print(bodyjson['page'])
+        
         per_page = 12
         start_index = (page - 1) * per_page
         end_index = start_index + per_page
@@ -451,6 +451,19 @@ def details(request):
     return render(request, 'draw/details.html', context)
     #return JsonResponse(context, content_type="application/json")
 
+@csrf_protect
+def update_views(request):
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+
+    pk = bodyjson['serialnoAJAX']
+
+    context = {}
+
+    shoe = get_object_or_404(Shoe, serialno=pk) 
+    shoe.increase_views()
+    return JsonResponse(context, content_type="application/json")
+    
 @csrf_protect
 def delete(request):
     context = {}
