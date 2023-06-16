@@ -206,28 +206,33 @@ def home3(request):
 @csrf_protect
 def home(request):
     # shoe = Shoe.objects.all()[0:12]
-    shoe = Shoe.objects.all().order_by('-id')[0:12]
+    # shoe = Shoe.objects.all().order_by('-id')[0:12]
     member = None
     member_no = None
 
-    droppedSite = Shoesite.objects.filter(end_date__gte=nowtime).order_by('-end_date')
+    droppedSite = Shoesite.objects.filter(end_date__gte=nowtime).order_by('end_date')
     endSite = Shoesite.objects.filter(end_date__lt=nowtime).order_by('-end_date')
+    upcomingSite = Shoesite.objects.filter(pub_date__gt=nowtime).order_by('pub_date')
     droppedSerial = []
     endSerial = []
+    upcomingSerial = []
 
     for site in droppedSite:
         droppedSerial.append(site.serialno)
     for site in endSite:
         endSerial.append(site.serialno)
+    for site in upcomingSite:
+        upcomingSerial.append(site.serialno)
 
     droppedShoe = Shoe.objects.filter(serialno__in = droppedSerial)
     endShoe = Shoe.objects.filter(serialno__in = endSerial).order_by('-id')[0:12]
+    upcomingShoe = Shoe.objects.filter(serialno__in = upcomingSerial)
 
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
         member = Member.objects.get(pk=member_no)
 
-    context = {'shoe': shoe, 'member': member, 'droppedShoe': droppedShoe, 'endShoe': endShoe}  # member 객체를 context에 추가
+    context = {'member': member, 'droppedShoe': droppedShoe, 'endShoe': endShoe, 'upcomingShoe': upcomingShoe}  # member 객체를 context에 추가
 
     if request.method == 'POST':
         context2 = {}
@@ -239,14 +244,18 @@ def home(request):
         start_index = (page - 1) * per_page
         end_index = start_index + per_page
         # shoe = Shoe.objects.all()[start_index:end_index]
-        shoe = Shoe.objects.all().order_by('-id')[start_index:end_index]
-        shoes = serializers.serialize('json', shoe)
+        # shoe = Shoe.objects.all().order_by('-id')[start_index:end_index]
+        endShoe = Shoe.objects.filter(serialno__in = endSerial).order_by('-id')[start_index:end_index]
+        # shoes = serializers.serialize('json', shoe)
+        shoes = serializers.serialize('json', endShoe)
         likes = []  # 멤버별 신발 좋아요 여부를 저장할 리스트
 
         if request.session.has_key('member_no'):
             member_no = request.session['member_no']
             member = Member.objects.get(pk=member_no)
-            for shoe in shoe:
+            # for shoe in shoe:
+            #     likes.append(member in shoe.likes.all())
+            for shoe in endShoe:
                 likes.append(member in shoe.likes.all())
         context2 = {'shoes': shoes, 'likes': likes}
         return JsonResponse(context2, content_type="application/json")
@@ -769,6 +778,19 @@ def comment(request):
 
 def practice(request):
     return render(request, 'draw/practice.html')
+
+from django.views.generic import View
+
+class customHandler404(View):
+    def get(self, request):
+        context = {}
+        return render(request, "draw/errors/404.html",context)
+    
+class customHandler500(View):
+    def get(self, request):
+        context = {}
+        return render(request, "draw/errors/500.html",context)
+
 
 
 from selenium import webdriver

@@ -7,6 +7,11 @@ html {
     height: 100%;
 }
 
+.wh80 {
+    width: 80%;
+    height: 80%;
+}
+
 .content {
     position: relative;
     height: 100vh;
@@ -77,7 +82,7 @@ html {
 .box1 .leftbox .leftboxPadding .leftboxPadding-box {
     width: 100%;
     height: 100%;
-    padding: 10vh 0vw 20vh 0vw
+    padding: 10vh 0vw 20vh 0vw;
 }
 
 .box1 .leftbox .leftboxPadding .leftboxPadding-box .leftboxPadding-box-1 {
@@ -118,59 +123,97 @@ html {
     padding: 10vh 4.35vw 5vh 1.45vw;
 }
 
-.box2 .leftbox {
+/* .box2 .leftbox {
     height: calc(100vh - 25px);
     width: 50%;
     float: left;
     padding: 10vh 0px 10vh 2.32vw;
+} */
+
+.box2 .leftbox {
+    height: calc(100vh - 25px);
+    width: 92.395%;
+    float: left;
+    padding: 10vh 0vw 10vh 7.61vw;
 }
 
 .box2 .leftbox .leftboxPadding {
     width: 100%;
     height: 100%;
-    padding: 5vh 2.9vw;
+    padding: 100px 200px;
 }
 
-.box2 .leftbox .leftboxPadding .leftboxPadding-box {
+.box2 .leftbox .leftboxPadding .leftboxPadding-box-1 {
     width: 100%;
+    height: 70%;
+    position: relative;
+}
+
+.leftboxPadding-box-1 .image {
+    position: absolute;
+    
+}
+
+.image.i1 {
     height: 100%;
-    padding: 8vh 0vw 20vh 0vw;
 }
 
-.box2 .leftbox .leftboxPadding .leftboxPadding-box .leftboxPadding-box-1 {
+.image.i2 {
+    left: 0px;
+    bottom: 0px;
+    height: 80px;
+}
+
+.image.i3 {
+    top: 0px;
+    right: 0px;
+    height: 100px;
+}
+
+.image.i4 {
+    height: 100px;
+}
+
+.box2 .leftbox .leftboxPadding .leftboxPadding-box-2 {
     width: 100%;
-    height: 50%;
-    padding: 10vh 0vw 0vh 0.58vw;
+    height: 20%;
+    text-align: center;
 }
 
-.box2 .leftbox .leftboxPadding .leftboxPadding-box .leftboxPadding-box-2 {
+.box2 .leftbox .leftboxPadding .leftboxPadding-box-3 {
     width: 100%;
-    height: 50%;
-    padding: 5vh 0vw 1vh 0.58vw;
+    height: 10%;
+    text-align: center;
 }
 
-.box2 .black-btn {
-    width: 10.43vw;
-    height: 4vh;
-    font-size: 1.04vw;
-    margin-top: 7vh;
-}
 
-.box2 .rightbox {
+/* .box2 .rightbox {
     height: calc(100vh - 25px);
     width: 50%;
     float: left;
     padding: 5vh 2.9vw 5vh 0vw;
+} */
+
+.box2 .rightbox {
+    height: calc(100vh - 25px);
+    width: 7.605%;
+    float: left;
+    padding: 5vh 2.9vw 5vh 0vw;
 }
 
-.box2 .rightbox .rightboxPadding {
+/* .box2 .rightbox .rightboxPadding {
     height: 100%;
     width: 90%;
     float: left;
     padding: 10vh 4.35vw 5vh 1.45vw;
+} */
+
+.box2 .rightboxPadding {
+    float: left;
+    padding: 30vh 0vw 30vh 0vw;
 }
 
-.box2 .rightbox .rightboxPadding .rightboxPadding-box {
+/* .box2 .rightbox .rightboxPadding .rightboxPadding-box {
     position: relative;
 }
 
@@ -188,7 +231,7 @@ html {
     bottom: 0px;
     right: 0px;
     z-index: 0;
-}
+} */
 
 .box3 .leftbox {
     height: calc(100vh - 25px);
@@ -253,12 +296,6 @@ html {
     }
     .box1 .leftboxPadding-box-1 {
         padding: 23vh 0px 0px 0.58vw !important;
-    }
-    .box2 .leftboxPadding-box-1 {
-        padding: 25vh 0px 0px 0.58vw !important;
-    }
-    .box2 .black-btn {
-        margin-top: 5vh !important;
     }
     /* .leftboxPadding-box-2 {
         margin-top: 4vh !important;

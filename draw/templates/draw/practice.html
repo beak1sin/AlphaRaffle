@@ -21,40 +21,62 @@
     </section> -->
     <section style="width: 100vw; height: 100vh; background-color: antiquewhite;">
         <div style="width: 100vw; height: calc(100vh - 84px); top:84px; background-color: darkcyan;">
-            <div style="width: 100vw; height: 25%; background-color: aqua;"></div>
-            <div style="width: 100vw; height: 50%; background-color: violet;"></div>
-            <div style="width: 100vw; height: 25%; background-color: salmon; position: relative;">
-                <p style="margin: 0px; position: absolute; bottom: 0px;">fklsdjflkdsajflkjasdlfjsla;kdjl;sad</p>
+            <div style="width: 50%; height: 100%; background-color: aqua; float: left; padding: 50px 50px;">
+                <div style="display: flex; flex-direction: row; flex-wrap: wrap; padding: 10px;">
+                    <img style="width: 250px; height: 250px; padding: 10px;" src="{% static 'draw/images/톰 삭스 x 나이키 크래프트 제너럴 퍼포즈 슈 필드 브라운 DA6672-2010.jpeg' %}">
+                    <img style="width: 250px; height: 250px; padding: 10px;" src="{% static 'draw/images/톰 삭스 x 나이키 크래프트 제너럴 퍼포즈 슈 필드 브라운 DA6672-2011.jpeg' %}">
+                    <img style="width: 250px; height: 250px; padding: 10px;" src="{% static 'draw/images/톰 삭스 x 나이키 크래프트 제너럴 퍼포즈 슈 필드 브라운 DA6672-2012.jpeg' %}">
+                    <img style="width: 250px; height: 250px; padding: 10px;" src="{% static 'draw/images/톰 삭스 x 나이키 크래프트 제너럴 퍼포즈 슈 필드 브라운 DA6672-2013.jpeg' %}">
+                    <img style="width: 250px; height: 250px; padding: 10px;" src="{% static 'draw/images/톰 삭스 x 나이키 크래프트 제너럴 퍼포즈 슈 필드 브라운 DA6672-2014.jpeg' %}">
+                    <img style="width: 250px; height: 250px; padding: 10px;" src="{% static 'draw/images/톰 삭스 x 나이키 크래프트 제너럴 퍼포즈 슈 필드 브라운 DA6672-2015.jpeg' %}">
+                    <img style="width: 250px; height: 250px; padding: 10px;" src="{% static 'draw/images/톰 삭스 x 나이키 크래프트 제너럴 퍼포즈 슈 필드 브라운 DA6672-2016.jpeg' %}">
+                    <img style="width: 250px; height: 250px; padding: 10px;" src="{% static 'draw/images/톰 삭스 x 나이키 크래프트 제너럴 퍼포즈 슈 필드 브라운 DA6672-2017.jpeg' %}">
+                    <img style="width: 250px; height: 250px; padding: 10px;" src="{% static 'draw/images/톰 삭스 x 나이키 크래프트 제너럴 퍼포즈 슈 필드 브라운 DA6672-2018.jpeg' %}">
+
+                </div>
+                <div class="line">
+                    fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>
+                </div>
+            </div>
+            <div style="width: 50%; height: 100%; background-color: violet; float: left; padding: 50px 50px;">
+                <div class="textbox" style="position: fixed; padding: 50px 50px;  height: 100%;">
+                    <p class="text" style="margin: 0px; font-size: 40px; font-weight: 500; white-space: normal; line-height: 40px;">레트로 무드와 모던한 편안함의 만남. Sporty & Rich와 협업으로 오늘을 위해 새롭게 돌아온 빈티지 스타일을 선보이는 아디다스 쇼츠를 만나보세요. 측면의 밑단 트임이 모든 방향에서 자유로운 움직임을 이끌고, 앞면의 포켓 포켓이 편리한 수납공간을 더해줍니다. 측면의 관통하는 3-스트라이프가 대담하고 스포티한 룩을 선사합니다. 탄력적인 허리밴드를 늘리거나 조여 꼭 맞게 핏을 조절할 수 있습니다.</p>
+                </div>
             </div>
         </div>
     </section>
 
 </body>
-<script>
 
-function send_mail() {
-    var data = {member_loginid: member_loginid_temp};
-    var datastr = JSON.stringify(data);
-    
-    xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4) {
-            var data = xhr.responseText;
-
-            var obj = JSON.parse(data);
-            if(obj.flag == "0"){
-                alert(obj.result_msg);
-                member_loginid_temp = '';
-            }
-        }
-    };
-    xhr.open("POST", "/auth/login/send_mail");
-    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-    xhr.send(datastr);
-}
-	
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
 <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
-<script type="text/javascript" src="{% static 'draw/js/alpharaffle.js' %}" defer=""></script>
+<script>
+
+    $(document).ready(function() {
+
+        // alert($('.line').height());
+        // alert($('.line').offset().top);
+
+    });
+
+    var isLoading = false;
+
+    $(window).scroll(function() {
+        var $line = $('.line').offset().top;
+        var $text = $('.text').offset().top;
+        console.log('fixed 해제 라인 위치: ' + $line, 'text 위치: ' + $text, 'isLoading: ' + isLoading);
+        if (!isLoading && $line <= $text) {
+            isLoading = true;
+            loadData(function() {
+                isLoading = false;
+            })
+        }
+    });
+
+	function loadData(callback) {
+        alert('겹침 ');
+        $('.textbox').css({'position': 'static'});
+    }
+</script>
 </html>

@@ -85,8 +85,9 @@
             </div>
             <div class="rightbox">
                 <div class="rightboxPadding">
-                    <div class="wh100">
-                        <img class="wh100" src="{% static 'draw/necessary/start1.png' %}">
+                    <div class="wh100" style="position: relative;">
+                        <img class="wh100" src="{% static 'draw/necessary/start1-1.png' %}" style="position: absolute;">
+                        <img class="wh80" src="{% static 'draw/necessary/start1.png' %}" style="position: absolute; left: 50px; top: 50px;">
                     </div>
                 </div>
                 <div class="dotPadding">
@@ -147,7 +148,7 @@
                 </div>
             </div>
         </div> -->
-        <div class="box box2">
+        <!-- <div class="box box2">
             <div class="leftbox">
                 <div class="leftboxPadding">
                     <div class="leftboxPadding-box">
@@ -182,6 +183,40 @@
                         </div>
                         <div class="dot">
                             <img class="third-btn dot-btn" src="{% static 'draw/necessary/NotVectorFill.png' %}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="box box2">
+            <div class="leftbox">
+                <div class="leftboxPadding wh100">
+                    <div class="leftboxPadding-box-1">
+                        <img class="image i4" src="{% static 'draw/necessary/start2-3.png' %}">
+                        <img class="image i1" src="{% static 'draw/necessary/start2.png' %}">
+                        <img class="image i2" src="{% static 'draw/necessary/start2-1.png' %}">
+                        <img class="image i3" src="{% static 'draw/necessary/start2-2.png' %}">
+                        
+                    </div>
+                    <div class="leftboxPadding-box-2">
+                        <h1 class="bigText text3"></h1>
+                    </div>
+                    <div class="leftboxPadding-box-3">
+                        <h4 class="smallText text4"></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="rightbox">
+                <div class="rightboxPadding wh100">
+                    <div class="wh100">
+                        <div class="dot">
+                            <img class="first-btn dot-btn" src="{% static 'draw/necessary/NotVectorFill.png' %}">
+                        </div>
+                        <div class="dot">
+                            <img class="second-btn dot-btn" src="{% static 'draw/necessary/NotVectorFill.png' %}">
+                        </div>
+                        <div class="dot">
+                            <img class="third-btn dot-btn" src="{% static 'draw/necessary/VectorFill.png' %}">
                         </div>
                     </div>
                 </div>
@@ -259,7 +294,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
     <script src="{% static 'draw/js/start.js' %}"></script>
-    <script src="{% static 'draw/js/alpharaffle.js' %}"></script>
 </body>
 
 </html>

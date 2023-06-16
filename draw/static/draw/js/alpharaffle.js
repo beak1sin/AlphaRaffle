@@ -305,6 +305,8 @@ $(document).ready(function() {
       var scrollHeight = scrollContainer.scrollHeight;
       var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       var windowHeight = window.innerHeight;
+
+    //   console.log('scrollContainer의 scrollHeight: ' + scrollHeight, 'scrollTop: ' + scrollTop, 'windowHeight: ' + windowHeight);
       
       if (!isLoading && scrollTop + windowHeight >= scrollHeight) {
           // 추가 데이터를 불러오는 작업 수행
@@ -351,7 +353,7 @@ $(document).ready(function() {
                   html += '<div class="shoelikecount-box"><p class="shoelikecount">' + shoe1.shoelikecount + '</p></div></div>';
                   html += '<div class="grid-shoename-box"><p class="shoename">' + shoe1.shoename + '</p></div>';
                   html += '<div class="grid-pubdate-box"><p class="pubdate">' + shoe1.pubdate + '</p></div>';
-                  html += '<div class="grid-goBtn-box"><button class="goBtn">바로가기</button></div>';
+                  html += '<div class="grid-goBtn-box"><button class="goBtn" onclick="location.href = \'' + STATIC_FULL_URL + shoe1.serialno + '\'">바로가기</button></div>';
                   html += '</div></div>';
               }
               $('.infinite-container').append(html);

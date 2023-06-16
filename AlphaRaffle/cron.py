@@ -213,6 +213,12 @@ def luckd_crowler(no):
         # #종료일
         end_date = soup.select('li.release_time > label > span')[i].text.strip()
 
+        # 종료일이 미정일 경우
+        if '미정' in end_date:
+            end_date = '2023-12-31 12:59:59'
+            end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
+            Shoesite.objects.filter(shoesiteunique = shoeunique).update(end_date = end_date_datetime)
+
         # #시간이 종료일 경우
         if '종료' in end_date:
             end_date = '2022-09-01 00:00:00'
