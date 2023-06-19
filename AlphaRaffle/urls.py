@@ -34,10 +34,10 @@ if settings.DEBUG:
         ] + urlpatterns
 
 # 404 error
-from draw.views import customHandler404
-handler404 = customHandler404.as_view()
+# from draw.views import customHandler404
+# handler404 = customHandler404.as_view()
 
-from draw.views import customHandler500
-handler500 = customHandler500.as_view()
+# from draw.views import customHandler500
+# handler500 = customHandler500.as_view()
 # from django.conf.urls import handler404
 # handler404 = 'draw.views.custom_404'
