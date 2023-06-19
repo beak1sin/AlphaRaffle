@@ -24,13 +24,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # reading .env file 
 # 로컬에서는 주석처리해제, 서버로는 주석처리
 
-DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 # DEBUG = False
+# DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
-if DEBUG == True:
-    import environ
-    environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
 
+# if DEBUG == True:
+#     import environ
+#     environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
+
+# DEBUG = True
+import environ
+environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
+
+DEBUG = bool(1 if os.environ.get('DJANGO_DEBUG') == 'True' else 0)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -237,4 +243,3 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
 }
-print(DEBUG)
