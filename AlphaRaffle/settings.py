@@ -202,7 +202,7 @@ LOGIN_REDIRECT_URL = '/'
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 STATIC_URL = 'static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # 로컬에서 진행할거면 주석처리하고 서버로 배포하는거면 주석해제 후 collectstatic 진행 후 배포
 # STATICFILES_DIRS = [
@@ -210,13 +210,29 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 #     # os.path.join(BASE_DIR, "staticfiles"),
 #     os.path.join(BASE_DIR, 'static2'),
 # ]
-if DEBUG == False:
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static')
-   ]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# if DEBUG == False:
+#     STATICFILES_DIRS = [
+#         os.path.join(BASE_DIR, 'static')
+#    ]
+# else:
+#     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#     STATICFILES_DIRS = []
+if DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'draw', 'static')
+    # STATICFILES_DIRS = [
+    #     os.path.join(BASE_DIR, 'draw', 'static')
+    # ]
     STATICFILES_DIRS = []
+    
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # collectstatic할때의 경로 설정
+    STATICFILES_DIRS = []
+
+
+
+# print('STATIC_ROOT: ' + STATIC_ROOT)
+# print('STATICFILES_DIRS: ' + STATICFILES_DIRS[0])
 
 # STATICFILES_DIRS = []
 
