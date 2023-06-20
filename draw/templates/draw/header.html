@@ -22,6 +22,15 @@
             <div class="u-custom-menu u-nav-container" style="margin-right: 32px;">
                 <ul class="u-nav u-unstyled u-nav-1">
                     <li class="u-nav-item">
+                        <a class="u-nav-link search-link" id="btn" href="{% url 'draw:검색' %}">
+                            <div class="search-icon">
+                                <label class="search-icon-label">
+                                    <span class="icon"></span>
+                                </label>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="u-nav-item">
                         <a class="u-nav-link" id="btn" href="{% url 'draw:full' %}">발매일정</a>
                     </li>
                     {% if member.member_no == None %}
@@ -63,6 +72,9 @@
                             {% endif %}
                             <li class="u-nav-item">
                                 <a class="u-button-style u-nav-link" id="btn-nav" href="{% url 'draw:full' %}">발매일정</a>
+                            </li>
+                            <li class="u-nav-item">
+                                <a class="u-button-style u-nav-link" id="btn-nav" href="{% url 'draw:full' %}">검색</a>
                             </li>
                             {% if member.member_no == None %}
                             {% else %}
@@ -189,7 +201,4 @@
         transition: width .4s ease;
     }
 
-    .full-tab, .dropped-tab, .end-tab {
-        
-    }
 </style>

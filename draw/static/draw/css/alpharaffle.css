@@ -131,6 +131,87 @@ footer {
     border-radius: 50px;
 }
 
+/* 메뉴 아이콘 */
+.menu-icon {
+  position: absolute;
+  bottom: 0px;
+  left: 10px;
+  width: 24px;
+  height: 24px;
+}
+
+.menu-icon-label {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+}
+
+.menu-icon-label .icon {
+  display: block;
+  height: 100%;
+  background: url(../necessary/menu-line.svg) no-repeat center center/24px auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* 위아래 화살표 아이콘 */
+.viewSort-icon {
+  position: absolute;
+  bottom: 0px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+}
+
+.viewSort-icon-label {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+}
+
+.viewSort-icon-label .icon {
+  display: block;
+  height: 100%;
+  background: url(../necessary/Group.svg) no-repeat center center/24px auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* 검색 아이콘 */
+.search-icon {
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translate(-50%, 0);
+  
+}
+
+.search-icon-label {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+}
+
+.search-icon-label .icon {
+  display: block;
+  height: 100%;
+  background: url(../necessary/search.svg) no-repeat center center/17px auto;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.search-icon-label .icon:hover, .search-link:hover .search-icon-label .icon {
+  background: url(../necessary/search_hover.svg) no-repeat center center/17px auto;
+}
+
+.search-link {
+  transition: all 0.1s;
+}
+
 .u-section-1.blurOn {
     filter: blur(4px);
     transition: all 0.5s;
@@ -290,6 +371,7 @@ header {
     /* height: 33vh; */
     /* height: 30%; */
     float: left;
+    background-color: #FBFBFB;
     /* display: flex;
     flex-direction: column; */
 }
@@ -341,8 +423,35 @@ header {
   }
 }
 
+.shoebar {
+  width: 100%;
+  height: 40px;
+  position: relative;
+}
+
+.shoebar .shoeLength {
+  position: absolute;
+  left: 40px;
+  bottom: 0px;
+  line-height: 24px;
+}
+
+.shoebar .viewSort {
+  position: absolute;
+  right: 40px;
+  bottom: 0px;
+  line-height: 24px;
+}
+
+.shoebar .shoebar-text {
+  margin: 0px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #777777;
+}
+
 .grid-box {
-    padding: 15px 10px;
+    padding: 5px 10px 15px 10px;
 }
 
 .grid-container {

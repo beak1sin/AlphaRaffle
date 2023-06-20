@@ -303,10 +303,10 @@ $(document).ready(function() {
   window.addEventListener('scroll', function() {
       var scrollContainer = document.getElementById('scroll-container');
       var scrollHeight = scrollContainer.scrollHeight;
-      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      var scrollTop = Math.ceil(window.pageYOffset || document.documentElement.scrollTop);
       var windowHeight = window.innerHeight;
 
-    //   console.log('scrollContainer의 scrollHeight: ' + scrollHeight, 'scrollTop: ' + scrollTop, 'windowHeight: ' + windowHeight);
+      console.log('scrollContainer의 scrollHeight: ' + scrollHeight, 'scrollTop: ' + scrollTop, 'windowHeight: ' + windowHeight);
       
       if (!isLoading && scrollTop + windowHeight >= scrollHeight) {
           // 추가 데이터를 불러오는 작업 수행

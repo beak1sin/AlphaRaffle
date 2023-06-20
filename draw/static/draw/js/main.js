@@ -93,6 +93,9 @@ $(document).ready(function(){
             $('.full-section').hide();
             $('.droppedShoe-section').show();
             $('.endShoe-section').hide();
+            $('.droppedShoeLength').show();
+            $('.upcomingShoeLength').hide();
+            $('.endShoeLength').hide();
             $(this).css({'color': '#FFFFFF', 'font-weight': '500'});
             $('.full-tab').css({'color': 'rgba(255, 255, 255, 0.7)', 'font-weight': '300'});
             $('.end-tab').css({'color': 'rgba(255, 255, 255, 0.7)', 'font-weight': '300'});
@@ -101,6 +104,9 @@ $(document).ready(function(){
             $('.full-section').show();
             $('.droppedShoe-section').hide();
             $('.endShoe-section').hide();
+            $('.droppedShoeLength').hide();
+            $('.upcomingShoeLength').show();
+            $('.endShoeLength').hide();
             $(this).css({'color': '#FFFFFF', 'font-weight': '500'});
             $('.dropped-tab').css({'color': 'rgba(255, 255, 255, 0.7)', 'font-weight': '300'});
             $('.end-tab').css({'color': 'rgba(255, 255, 255, 0.7)', 'font-weight': '300'});
@@ -109,6 +115,9 @@ $(document).ready(function(){
             $('.full-section').hide();
             $('.droppedShoe-section').hide();
             $('.endShoe-section').show();
+            $('.droppedShoeLength').hide();
+            $('.upcomingShoeLength').hide();
+            $('.endShoeLength').show();
             $(this).css({'color': '#FFFFFF', 'font-weight': '500'});
             $('.dropped-tab').css({'color': 'rgba(255, 255, 255, 0.7)', 'font-weight': '300'});
             $('.full-tab').css({'color': 'rgba(255, 255, 255, 0.7)', 'font-weight': '300'});

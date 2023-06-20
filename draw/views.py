@@ -228,11 +228,13 @@ def home(request):
     endShoe = Shoe.objects.filter(serialno__in = endSerial).order_by('-id')[0:12]
     upcomingShoe = Shoe.objects.filter(serialno__in = upcomingSerial)
 
+    endShoe_count = Shoe.objects.filter(serialno__in = endSerial).count()
+
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
         member = Member.objects.get(pk=member_no)
 
-    context = {'member': member, 'droppedShoe': droppedShoe, 'endShoe': endShoe, 'upcomingShoe': upcomingShoe}  # member 객체를 context에 추가
+    context = {'member': member, 'droppedShoe': droppedShoe, 'endShoe': endShoe, 'upcomingShoe': upcomingShoe ,'endShoe_count': endShoe_count}  # member 객체를 context에 추가
 
     if request.method == 'POST':
         context2 = {}
@@ -575,8 +577,10 @@ def full(request):
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
         member = Member.objects.get(pk=member_no)
+    
+    shoe_count = Shoe.objects.all().count()
 
-    context = {'shoe': shoe, 'member': member}  # member 객체를 context에 추가
+    context = {'shoe': shoe, 'member': member, 'shoe_count': shoe_count}  # member 객체를 context에 추가
 
     if request.method == 'POST':
         context2 = {}
@@ -775,6 +779,24 @@ def comment(request):
         context['result_msg'] = '로그인 안되어 있는 상태'
 
     return JsonResponse(context, content_type="application/json")
+
+@csrf_protect
+def search(request):
+    context = {}
+
+    if request.session.has_key('member_no'):
+        member_no = request.session['member_no']
+        member = Member.objects.get(pk= member_no)
+        #print(member_no)
+        
+    else:
+        member_no = None
+        member = None
+
+    context["member_no"] = member_no
+    context = {'member':member }
+    
+    return render(request, 'draw/search.html', context)
 
 def practice(request):
     return render(request, 'draw/practice.html')
