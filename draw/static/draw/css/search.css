@@ -1,0 +1,34 @@
+input:focus {
+    outline: none;
+}
+
+input::placeholder {
+    color: #ABABAB;
+    padding-left: 5px;
+}
+
+/* input x버튼 기능 */
+.input-icon-close {
+    display: none; 
+}
+
+.input-icon-close.active {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 96%;
+    width: 24.96px;
+    height: 24.96px;
+    background-color: #FBFBFB;
+    border: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle data-name='타원 113' cx='8' cy='8' r='8' transform='translate(4 4)' style='fill:%23ababab'/%3E%3Cg data-name='Group 1124'%3E%3Cpath data-name='Path 1138' d='m16.04 15.031-3.03-3.03 3.03-3.03-1.01-1.01-3.03 3.03-3.03-3.03-1.01 1.01 3.03 3.03-3.03 3.03 1.01 1.01 3.03-3.03 3.031 3.03z'/%3E%3C/g%3E%3Cpath data-name='Rectangle 2097' style='fill:none' d='M0 0h24v24H0z'/%3E%3C/svg%3E%0A");
+    transform: translate(0, -50%);
+}
+/* ------------input x버튼 기능 */
+
+ol > li {
+    font-size: 30px;
+    margin-left: 12px;
+    font-weight: 500;
+}
