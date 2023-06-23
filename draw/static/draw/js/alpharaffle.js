@@ -306,7 +306,7 @@ $(document).ready(function() {
       var scrollTop = Math.ceil(window.pageYOffset || document.documentElement.scrollTop);
       var windowHeight = window.innerHeight;
 
-      console.log('scrollContainer의 scrollHeight: ' + scrollHeight, 'scrollTop: ' + scrollTop, 'windowHeight: ' + windowHeight);
+    //   console.log('scrollContainer의 scrollHeight: ' + scrollHeight, 'scrollTop: ' + scrollTop, 'windowHeight: ' + windowHeight);
       
       if (!isLoading && scrollTop + windowHeight >= scrollHeight) {
           // 추가 데이터를 불러오는 작업 수행
@@ -401,6 +401,16 @@ $(document).ready(function() {
       xhr.setRequestHeader("X-CSRFToken", csrftoken);
       xhr.send(datastr);
   }
+
+  $('.search-link').click(function() {
+    $('.search-section').show();
+    $('#scroll-container').css({'overflow': 'hidden'});
+  });
+
+  $('.search-close-btn').click(function() {
+    $('.search-section').hide();
+    $('#scroll-container').css({'overflow': 'scroll'});
+  })
 
 });
 
