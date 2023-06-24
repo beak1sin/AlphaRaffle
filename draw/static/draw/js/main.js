@@ -124,11 +124,6 @@ $(document).ready(function(){
             break;
     }
   });
-  
-  $('.search-link').click(function() {
-    $('.search-section').show();
-    $('#scroll-container').css({'overflow': 'hidden'});
-  });
 
 });//DOCUMENT READY
 

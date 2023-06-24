@@ -221,7 +221,7 @@ def luckd_crowler(no):
 
         # #시간이 종료일 경우
         if '종료' in end_date:
-            end_date = '2022-09-01 00:00:00'
+            end_date = datetime.datetime.now().replace(microsecond=0)
             end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
             Shoesite.objects.filter(shoesiteunique = shoeunique).update(end_date = end_date_datetime)
         else :

@@ -407,7 +407,7 @@ $(document).ready(function() {
     $('#scroll-container').css({'overflow': 'hidden'});
   });
 
-  $('.search-close-btn').click(function() {
+  $('.cancel-icon').click(function() {
     $('.search-section').hide();
     $('#scroll-container').css({'overflow': 'scroll'});
   })

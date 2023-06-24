@@ -69,4 +69,7 @@ class Comment(models.Model):
 	created_date = models.DateTimeField(db_column='created_date')
 	approved_comment = models.BooleanField(db_column='approved_comment', default=False)
 
-
+class SearchTerm(models.Model):
+    member_no = models.CharField(max_length=255)
+    term = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)

@@ -31,7 +31,7 @@ urlpatterns = [
     path('main/like', views.like, name='좋아요'),
     path('main/likeCancel', views.likeCancel, name='좋아요취소'),
 
-    path('search/', views.search, name='검색'),
+    path('full/search/', views.search, name='검색'),
     
     path('crawl', views.crawl, name='crawl'),
     

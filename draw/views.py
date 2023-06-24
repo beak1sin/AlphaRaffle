@@ -3,7 +3,7 @@ from django.contrib import auth
 from urllib.parse import quote
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
-from draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg, Comment
+from draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg, Comment, SearchTerm
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_protect
 from datetime import timedelta, datetime
@@ -210,9 +210,9 @@ def home(request):
     member = None
     member_no = None
 
-    droppedSite = Shoesite.objects.filter(end_date__gte=nowtime).order_by('end_date')
-    endSite = Shoesite.objects.filter(end_date__lt=nowtime).order_by('-end_date')
-    upcomingSite = Shoesite.objects.filter(pub_date__gt=nowtime).order_by('pub_date')
+    droppedSite = Shoesite.objects.filter(end_date__gte=nowtime).order_by('end_date')   #진행중
+    endSite = Shoesite.objects.filter(end_date__lt=nowtime).order_by('-end_date')       #종료
+    upcomingSite = Shoesite.objects.filter(pub_date__gt=nowtime).order_by('pub_date')   #발매예정
     droppedSerial = []
     endSerial = []
     upcomingSerial = []
@@ -515,84 +515,62 @@ def member_delete(request):
         context['result_msg'] = '비밀번호가 일치하지 않습니다.'
 
     return JsonResponse(context, content_type="application/json")
-
-# @csrf_protect
-# def full(request):
-#     context = {}
-#     shoes = Shoe.objects.all()
-#     if request.session.has_key('member_no'):
-#         member_no = request.session['member_no']
-#         member_no_obj = Member.objects.get(member_no=member_no)
-#         member = Member.objects.get(pk= member_no)
-#         #print(member_no)
-
-#     else:
-#         member_no = None
-#         member = None
-#         member_no_obj = None
-
+@csrf_exempt
+def search(request):
     
-#     # context["member_no"] = member_no
-#     # context = {'shoes':shoes, 'member':member }
-#     # context["member_no"] = member_no_obj.member_no
-#     context = {'shoes': shoes, 'member': member, 'member_no': member_no_obj.member_no}
-#     return render(request, "draw/full.html", context)
-
-# @csrf_protect
-# def full(request):
-#     shoes = Shoe.objects.all()
-#     member_no_obj = None
-#     member = None
-
-#     if request.session.has_key('member_no'):
-#         member_no = request.session['member_no']
-#         member_no_obj = Member.objects.get(member_no=member_no)
-#         member = Member.objects.get(pk=member_no)
-
-#     # context = {'shoes': shoes, 'member': member, 'member_no': member_no_obj.member_no}
-#     context = {'shoes': shoes, 'member': member, 'member_no': member_no}
-#     return render(request, "draw/full.html", context)
-
-# @csrf_protect
-# def full(request):
-#     shoe = Shoe.objects.all()
-#     member_no_obj = None
-#     member = None
-
-#     if request.session.has_key('member_no'):
-#         member_no = request.session['member_no']
-#         member_no_obj = Member.objects.get(member_no=member_no)
-#         member = Member.objects.get(pk=member_no)
-
-#     context = {'shoe': shoe, 'member': member}  # member 객체를 context에 추가
-
-#     return render(request, "draw/full.html", context)
+        #?serialno=recent_searches
+    return render(request, "draw/full?serialno=.html", context)
     
 @csrf_protect
 def full(request):
     shoe = Shoe.objects.all().order_by('-id')[0:12]
     member = None
     member_no = None
+    recent_searches = None
+    term = None
+    shoe_count = Shoe.objects.all().count()
 
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
         member = Member.objects.get(pk=member_no)
-    
-    shoe_count = Shoe.objects.all().count()
+        recent_searches = SearchTerm.objects.filter(member_no=member_no).order_by('-created_at')[:10]
 
-    context = {'shoe': shoe, 'member': member, 'shoe_count': shoe_count}  # member 객체를 context에 추가
+    if request.method == 'GET':
+        term = request.GET.get("search_term")
+        if term != None:
+            recent = SearchTerm.objects.filter(term=term,member_no=member_no)
+            if recent !=None:
+                recent.delete()
+            try: 
+                SearchTerm.objects.create(term=term,member_no=member_no)
+            except:
+                pass
+            shoe = Shoe.objects.filter(shoename__contains = term).order_by('-id')[0:12]
+            shoe_count = Shoe.objects.filter(shoename__contains = term).count()
+        else:
+            shoe = Shoe.objects.all().order_by('-id')[0:12]
+            shoe_count = Shoe.objects.all().count()
+        context = {'shoe': shoe, 'member': member, 'shoe_count': shoe_count ,'recent_searches': recent_searches}
+
+    context = {'shoe': shoe, 'member': member, 'shoe_count': shoe_count ,'recent_searches': recent_searches}  # member 객체를 context에 추가
 
     if request.method == 'POST':
         context2 = {}
         bodydata = request.body.decode('utf-8')
         bodyjson = json.loads(bodydata)
         page = bodyjson['page']
-        
         per_page = 12
         start_index = (page - 1) * per_page
         end_index = start_index + per_page
         # shoe = Shoe.objects.all()[start_index:end_index]
-        shoe = Shoe.objects.all().order_by('-id')[start_index:end_index]
+        # shoe = Shoe.objects.all().order_by('-id')[start_index:end_index]
+        term = request.GET.get("search_term")
+        if term != None:
+            shoe = Shoe.objects.filter(shoename__contains = term).order_by('-id')[start_index:end_index]
+            shoe_count = Shoe.objects.filter(shoename__contains = term).count()
+        else:
+            shoe = Shoe.objects.all().order_by('-id')[start_index:end_index] 
+            shoe_count = Shoe.objects.all().count()           
         shoes = serializers.serialize('json', shoe)
         likes = []  # 멤버별 신발 좋아요 여부를 저장할 리스트
 
@@ -779,7 +757,7 @@ def comment(request):
         context['result_msg'] = '로그인 안되어 있는 상태'
 
     return JsonResponse(context, content_type="application/json")
-
+'''
 @csrf_protect
 def search(request):
     context = {}
@@ -797,7 +775,7 @@ def search(request):
     context = {'member':member }
     
     return render(request, 'draw/search.html', context)
-
+'''
 def practice(request):
     return render(request, 'draw/practice.html')
 

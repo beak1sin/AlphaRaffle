@@ -1,20 +1,43 @@
+{% load static %}
 <section class="search-section" style="width: 100vw; height: 100vh; background-color: #FBFBFB; position: fixed; top: 0; z-index: 1000; display: none;">
-    <div style="width: 100vw; height: calc(100vh - 84px); top: 84px;">
+    <div style="width: 100vw; height: calc(100vh - 84px); top: 84px; position: relative;">
+        <div class="cancel-icon">
+            <label class="cancel-icon-label">
+                <span class="icon"></span>
+            </label>
+        </div>
         <div style="width: 17.5vw; height: 100%; float: left;"></div>
         <div style="width: 65vw; height: 100%; float: left;">
             <div style="width: 100%; height: 20%; padding: 50px; position: relative;">
-                <button class="search-close-btn" style="position: absolute; top: 0px; right: 0px;">닫기</button>
-                <div style="width: 100%; height: 100%; padding: 20px 0px; position: relative;">
-                    <input class="input-value" id="search_value" style="width: 100%; height: 100%; font-size: 30px; background-color: #FBFBFB; border: none; border-bottom: 2px solid rgb(245, 245, 245);" placeholder="검색어를 입력하세요.">
-                    <button type="button" id="search_close_btn" class="input-icon-close"></button>
-                </div>
+                <form method="get" action="{% url 'draw:full' %}?search_term=">
+                    <div style="width: 100%; height: 100%; padding: 20px 0px; position: relative;">
+                        <input class="input-value" id="search_value" style="width: 100%; height: 100%; font-size: 30px; background-color: #FBFBFB; border: none; border-bottom: 2px solid rgb(245, 245, 245);" placeholder="검색어를 입력하세요.">
+                        <button type="button" id="search_close_btn" class="input-icon-close"></button>
+                    </div>
+                </form>
+                <script>
+                    // JavaScript 코드
+                    var inputValue = document.getElementById('search_value').value;
+                    var form = document.querySelector('form');
+                    form.action += inputValue;
+                </script>
             </div>
             <div style="width: 100%; height: 20%; padding: 0px 50px 50px 50px;">
                 <div style="width: 100%; height: 100%;">
                     <p style="margin: 0px; font-size: 32px; font-weight: 900;">최근 검색어</p>
+                    {% if member.member_no == None %}
                     <div>
-                        <p style="margin: 0px; font-size: 20px; font-weight: 400;">최근 검색어가 존재하지 않습니다.</p>
+                        <p style="margin: 0px; font-size: 20px; font-weight: 400;">최근 검색어가 없습니다.</p>
                     </div>
+                    {% else %}
+                    <div>
+                    {% for recent_searches in recent_searches %}
+                    
+                        <p style="margin: 0px; font-size: 20px; font-weight: 400;">{{recent_searches.term}}</p>
+                    
+                    {% endfor %}
+                    </div>
+                    {% endif %}
                 </div>
             </div>
             <div style="width: 100%; height: 60%; padding: 0px 50px 50px 50px;">
@@ -40,43 +63,7 @@
         <div style="width: 17.5vw; height: 100%; float: left;"></div>
     </div>
 </section>
-
-<style>
-    input:focus {
-    outline: none;
-}
-
-input::placeholder {
-    color: #ABABAB;
-    padding-left: 5px;
-}
-
-/* input x버튼 기능 */
-.input-icon-close {
-    display: none; 
-}
-
-.input-icon-close.active {
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 96%;
-    width: 24.96px;
-    height: 24.96px;
-    background-color: #FBFBFB;
-    border: none;
-    cursor: pointer;
-    background-image: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle data-name='타원 113' cx='8' cy='8' r='8' transform='translate(4 4)' style='fill:%23ababab'/%3E%3Cg data-name='Group 1124'%3E%3Cpath data-name='Path 1138' d='m16.04 15.031-3.03-3.03 3.03-3.03-1.01-1.01-3.03 3.03-3.03-3.03-1.01 1.01 3.03 3.03-3.03 3.03 1.01 1.01 3.03-3.03 3.031 3.03z'/%3E%3C/g%3E%3Cpath data-name='Rectangle 2097' style='fill:none' d='M0 0h24v24H0z'/%3E%3C/svg%3E%0A");
-    transform: translate(0, -50%);
-}
-/* ------------input x버튼 기능 */
-
-ol > li {
-    font-size: 30px;
-    margin-left: 12px;
-    font-weight: 500;
-}
-</style>
+<link rel="stylesheet" href="{% static 'draw/css/search.css' %}" media="screen">
 
 <script>
     $(document).ready(function () {

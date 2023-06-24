@@ -32,3 +32,27 @@ ol > li {
     margin-left: 12px;
     font-weight: 500;
 }
+
+/* 취소 아이콘 */
+.cancel-icon {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+}
+
+.cancel-icon-label {
+    width: 36px;
+    height: 36px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.cancel-icon-label .icon {
+    display: block;
+    height: 100%;
+    background: url(../necessary/close_btn.svg) no-repeat center center/36px auto;
+    position: relative;
+    z-index: 1;
+}
