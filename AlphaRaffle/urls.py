@@ -33,6 +33,7 @@ if settings.DEBUG:
             # url(r'^__debug__/', include(debug_toolbar.urls)),
         ] + urlpatterns
 
+
 # 404 error
 # from draw.views import customHandler404
 # handler404 = customHandler404.as_view()

@@ -64,6 +64,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'django_crontab',
+    'django.contrib.sitemaps',
+    'django.contrib.syndication',
 ]
 
 # import sys
@@ -250,4 +252,14 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
+}
+
+# rss
+FEEDS = {
+    'latest': {
+        'title': 'Latest Shoes',
+        'link': '/rss/',
+        'description': 'Updates on the latest shoes.',
+        'feed_url': '/rss/',
+    },
 }

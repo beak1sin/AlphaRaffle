@@ -4,6 +4,20 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.views.static import serve
 
+# 색인
+from django.contrib.sitemaps.views import sitemap
+from django.contrib.sitemaps import GenericSitemap
+from .models import Shoe
+
+info_dict = {
+    'queryset': Shoe.objects.all(),
+}
+# --색인
+
+# rss
+from .feeds import LatestShoesFeed
+# --rss
+
 app_name = 'draw'
 
 urlpatterns = [
@@ -50,6 +64,15 @@ urlpatterns = [
     path('main/likeShoe', views.like_shoe, name='신발좋아요'),
     path('full/likeShoe', views.like_shoe, name='신발좋아요'),
     # path('full/like2', views.like_shoe, name='신발좋아요2'),
+
+    # 색인
+    # 기본 Sitemap 경로
+    path('sitemap.xml', sitemap,
+         {'sitemaps': {'sitemaps': GenericSitemap(info_dict, priority=0.6)}},
+         name='django.contrib.sitemaps.views.sitemap'),
+
+    # rss
+    path('rss/', LatestShoesFeed(), name='rss'),
 
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),

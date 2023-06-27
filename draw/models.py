@@ -42,6 +42,11 @@ class Shoe(models.Model):
 		self.views += 1
 		self.save()
 
+	# 색인
+	def get_absolute_url(self):
+		serialno = self.serialno
+		return f'/auth/details/?serialnum={serialno}'
+
 class Shoeimg(models.Model):
 	serialno = models.CharField(max_length=50, default= None)
 	shoeimg = models.CharField(max_length=200, unique=True)	
@@ -73,3 +78,14 @@ class SearchTerm(models.Model):
     member_no = models.CharField(max_length=255)
     term = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
+
+# 색인
+from django.contrib.sitemaps import Sitemap
+
+class ShoeSitemap(Sitemap):
+    def items(self):
+        return Shoe.objects.all()
+
+sitemaps = {
+    'shoes': ShoeSitemap,
+}
