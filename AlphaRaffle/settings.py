@@ -49,7 +49,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # DEBUG = True
 # DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','129.154.211.163', 'alpharaffle.ml', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1','129.154.211.163', 'alpharaffle.ml', 'alpharaffle.com', 'www.alpharaffle.ml', 'www.alpharaffle.com', 'localhost']
 
 
 # Application definition
