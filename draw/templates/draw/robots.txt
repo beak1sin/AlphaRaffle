@@ -1,5 +1,4 @@
 User-agent: *
-Allow:/
-Disallow: /admin
+Disallow: /admin/
 
 Sitemap: https://alpharaffle.com/sitemap.xml
