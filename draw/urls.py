@@ -80,7 +80,9 @@ urlpatterns = [
     path('robots.txt', TemplateView.as_view(template_name="draw/robots.txt", 
      content_type='text/plain')),
 
+    # 네이버 서치어드바이저
     path('naver07438b501f2bcdb23c19460dc9cca09d.html', views.naverSearch , name='naverSearch'),
+    path('naver73749ca69b9eff6e2574852408ea3ecf.html', views.naverSearchwww , name='naverSearchwww'),
 
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),

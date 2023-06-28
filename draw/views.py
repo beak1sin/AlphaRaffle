@@ -780,6 +780,9 @@ def search(request):
 def naverSearch(request):
     return render(request, 'draw/naver07438b501f2bcdb23c19460dc9cca09d.html')
 
+def naverSearchwww(request):
+    return render(request, 'draw/naver73749ca69b9eff6e2574852408ea3ecf.html')
+
 def practice(request):
     return render(request, 'draw/practice.html')
 
