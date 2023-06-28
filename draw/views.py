@@ -97,17 +97,17 @@ def member_insert(request):
                                )
     rs.save()
 
-    # current_site = get_current_site(request)
-    # message = render_to_string('draw/user_activate_email.html',                         {
-    #             'user': rs,
-    #             'domain': current_site.domain,
-    #             'uid': urlsafe_base64_encode(force_bytes(rs.pk)).encode().decode(),
-    #             'token': account_activation_token.make_token(rs),
-    #         })
-    # mail_subject = "[AlphaRaffle] 회원가입 인증 메일입니다."
-    # user_email = rs.member_id
-    # email = EmailMessage(mail_subject, message, to=[user_email])
-    # email.send()
+    current_site = get_current_site(request)
+    message = render_to_string('draw/user_activate_email.html',                         {
+                'user': rs,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(rs.pk)).encode().decode(),
+                'token': account_activation_token.make_token(rs),
+            })
+    mail_subject = "[AlphaRaffle] 회원가입 인증 메일입니다."
+    user_email = rs.member_id
+    email = EmailMessage(mail_subject, message, to=[user_email])
+    email.send()
 
     context['flag'] = '1'
     # context['result_msg'] = '회원가입 인증메일을 보냈습니다. 인증 후 로그인 바랍니다.'
@@ -147,7 +147,16 @@ def activate(request, uid64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        return HttpResponse('메일인증 성공')
+        
+        # return HttpResponse('메일인증 성공')
+        current_domain = request.META['HTTP_HOST']
+
+        # 도메인 이동 버튼을 포함한 HTML 페이지 반환
+        return HttpResponse('''
+            <h1>메일 인증 성공!</h1>
+            <p>메일 인증이 성공적으로 완료되었습니다.</p>
+            <a href="https://{}/">이동하기</a>
+        '''.format(current_domain))
     else:
         return HttpResponse('비정상적인 접근입니다.')
 
