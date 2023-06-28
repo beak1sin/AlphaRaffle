@@ -776,6 +776,7 @@ def search(request):
     
     return render(request, 'draw/search.html', context)
 '''
+
 def practice(request):
     return render(request, 'draw/practice.html')
 
