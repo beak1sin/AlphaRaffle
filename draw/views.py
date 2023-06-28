@@ -777,6 +777,9 @@ def search(request):
     return render(request, 'draw/search.html', context)
 '''
 
+def naverSearch(request):
+    return render(request, 'draw/naver07438b501f2bcdb23c19460dc9cca09d.html')
+
 def practice(request):
     return render(request, 'draw/practice.html')
 
