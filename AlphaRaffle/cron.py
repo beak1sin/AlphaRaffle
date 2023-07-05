@@ -312,3 +312,26 @@ def crawl():
         print(f"An error occurred: {e}")
         print('에러로 인한 크롤링 중단')
         raise
+
+import telegram
+import asyncio
+
+token = os.environ.get('telegram_token')
+bot = telegram.Bot(token=token)
+chat_id = os.environ.get('telegram_chat_id')
+
+def crawl_complete_msg():
+    try:
+        asyncio.run(bot.send_message(chat_id=chat_id, text='크롤링 성공'))
+    except Exception as e:
+        print('텔레그램 오류')
+        print(f"An error occurred: {e}")
+    return
+
+def crawl_error_msg():
+    try:
+        asyncio.run(bot.send_message(chat_id=chat_id, text='크롤링 실패'))
+    except Exception as e:
+        print('텔레그램 오류')
+        print(f"An error occurred: {e}")
+    return
