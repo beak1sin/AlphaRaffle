@@ -80,9 +80,6 @@ drawpath = Path(__file__).resolve().parent
 #----------------------------------
 
 
-
-
-
 def luckd_crowler(no):
     #path = 'C:/Users/mundd/chromedriver.exe'
     #driver = webdriver.Chrome(path,chrome_options=options)
@@ -221,7 +218,7 @@ def luckd_crowler(no):
 
         # #시간이 종료일 경우
         if '종료' in end_date:
-            end_date = datetime.datetime.now().replace(microsecond=0)
+            end_date = str(datetime.datetime.now().replace(microsecond=0))
             end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
             Shoesite.objects.filter(shoesiteunique = shoeunique).update(end_date = end_date_datetime)
         else :
@@ -310,8 +307,8 @@ def crawl():
             randomTime = random.randint(30, 60)
             luckd_crowler(int(num))
             # time.sleep(randomTime)
-            
         return redirect('/')
     except Exception as e:
         print(f"An error occurred: {e}")
+        print('에러로 인한 크롤링 중단')
         raise

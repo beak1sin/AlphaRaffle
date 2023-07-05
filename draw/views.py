@@ -546,6 +546,7 @@ def full(request):
 
     if request.method == 'GET':
         term = request.GET.get("search_term")
+        print(term)
         if term != None:
             recent = SearchTerm.objects.filter(term=term,member_no=member_no)
             if recent !=None:
