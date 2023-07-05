@@ -307,10 +307,12 @@ def crawl():
             randomTime = random.randint(30, 60)
             luckd_crowler(int(num))
             # time.sleep(randomTime)
+        crawl_complete_msg()
         return redirect('/')
     except Exception as e:
         print(f"An error occurred: {e}")
         print('에러로 인한 크롤링 중단')
+        crawl_error_msg()
         raise
 
 import telegram
