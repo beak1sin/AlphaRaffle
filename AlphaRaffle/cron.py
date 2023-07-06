@@ -314,7 +314,7 @@ def crawl():
         print('에러로 인한 크롤링 중단')
         crawl_error_msg()
         raise
-crawl()
+
 import telegram
 import asyncio
 
