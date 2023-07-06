@@ -79,7 +79,6 @@ drawpath = Path(__file__).resolve().parent
 #options.add_argument('lang=ko_KR')
 #----------------------------------
 
-
 def luckd_crowler(no):
     #path = 'C:/Users/mundd/chromedriver.exe'
     #driver = webdriver.Chrome(path,chrome_options=options)
@@ -215,6 +214,7 @@ def luckd_crowler(no):
             end_date = '2023-12-31 12:59:59'
             end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
             Shoesite.objects.filter(shoesiteunique = shoeunique).update(end_date = end_date_datetime)
+            return
 
         # #시간이 종료일 경우
         if '종료' in end_date:
@@ -256,8 +256,8 @@ def luckd_crowler(no):
                 elif len(end_date) == 16:
                     end_date = end_date + ":59"
                     pub_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
-                
                 Shoesite.objects.filter(shoesiteunique = shoeunique).update(pub_date = pub_date_datetime)
+
 
 # def crawl():
 #     url = 'https://www.luck-d.com/'
@@ -314,7 +314,7 @@ def crawl():
         print('에러로 인한 크롤링 중단')
         crawl_error_msg()
         raise
-
+crawl()
 import telegram
 import asyncio
 
