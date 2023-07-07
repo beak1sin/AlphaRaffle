@@ -891,7 +891,7 @@ table {
 
 
 /* 좋아요 버튼 */
-.icon{
+.icon.heart{
   display: flex;
   float: right;
   margin: 10px 10px 0px 0px;

@@ -1,3 +1,4 @@
+#!/bin/sh
 . /root/.virtualenvs/AlphaRaffle_env/bin/activate
 echo "############# virtualenvs ON #############"
 python /usr/local/share/AlphaRaffle/manage.py makemigrations

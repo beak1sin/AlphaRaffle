@@ -258,33 +258,10 @@ def luckd_crowler(no):
                     pub_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
                 Shoesite.objects.filter(shoesiteunique = shoeunique).update(pub_date = pub_date_datetime)
 
-
-# def crawl():
-#     url = 'https://www.luck-d.com/'
-#     html = requests.get(url).text
-#     soup = BeautifulSoup(html,'html.parser')
-#     time.sleep(0.01)
-#     shoenum = []
-    
-#     sitecard = soup.select('div.product_info_layer > div.product_thumb')
-
-#     for i in range(len(sitecard)):    
-#         link = sitecard[i].attrs['onclick']
-#         shoenum.append(link[39:].split('/')[0])
-    
-#     shoenum = list(set(shoenum))
-#     print(shoenum)
-
-#     for num in shoenum:
-#         now = datetime.datetime.now()
-#         print(now)
-#         randomTime = random.randint(30, 60)
-#         luckd_crowler(int(num))
-#         time.sleep(randomTime)
-        
-#     return redirect('/')
+import subprocess
 
 def crawl():
+    telegram_crawl = Telegram_crawl()
     try:
         url = 'https://www.luck-d.com/'
         html = requests.get(url).text
@@ -307,33 +284,60 @@ def crawl():
             randomTime = random.randint(30, 60)
             luckd_crowler(int(num))
             # time.sleep(randomTime)
-        crawl_complete_msg()
+
+        # 크롤링 성공 메세지(텔레그램)
+        telegram_crawl.crawl_complete_msg()
+        # uwsgi 재실행 등.. 서버 재배포
+        subprocess.call(['../bin/start.sh'])
+        try:
+            # 서버 재배포 성공 메세지(텔레그램)
+            telegram_crawl.serverRestart_complete_msg()
+        except:
+            # 서버 재배포 실패 메세지(텔레그램)
+            telegram_crawl.serverRestart_error_msg()
         return redirect('/')
     except Exception as e:
         print(f"An error occurred: {e}")
         print('에러로 인한 크롤링 중단')
-        crawl_error_msg()
+        telegram_crawl.crawl_error_msg()
         raise
 
 import telegram
 import asyncio
 
-token = os.environ.get('telegram_token')
-bot = telegram.Bot(token=token)
-chat_id = os.environ.get('telegram_chat_id')
+class Telegram_crawl:
+    token = os.environ.get('telegram_token')
+    bot = telegram.Bot(token=token)
+    chat_id = os.environ.get('telegram_chat_id')
 
-def crawl_complete_msg():
-    try:
-        asyncio.run(bot.send_message(chat_id=chat_id, text='크롤링 성공'))
-    except Exception as e:
-        print('텔레그램 오류')
-        print(f"An error occurred: {e}")
-    return
+    def crawl_complete_msg(self):
+        try:
+            asyncio.run(self.bot.send_message(self.chat_id, '크롤링 성공'))
+        except Exception as e:
+            print('텔레그램 오류')
+            print(f"An error occurred: {e}")
+        return
+    
+    def crawl_error_msg(self):
+        try:
+            asyncio.run(self.bot.send_message(self.chat_id, '크롤링 실패'))
+        except Exception as e:
+            print('텔레그램 오류')
+            print(f"An error occurred: {e}")
+        return
 
-def crawl_error_msg():
-    try:
-        asyncio.run(bot.send_message(chat_id=chat_id, text='크롤링 실패'))
-    except Exception as e:
-        print('텔레그램 오류')
-        print(f"An error occurred: {e}")
-    return
+    def serverRestart_complete_msg(self):
+        try:
+            asyncio.run(self.bot.send_message(self.chat_id, '서버 재배포 성공'))
+        except Exception as e:
+            print('서버 재배포 오류')
+            print(f"An error occurred: {e}")
+        return
+
+    def serverRestart_error_msg(self):
+        try:
+            asyncio.run(self.bot.send_message(self.chat_id, '서버 재배포 실패'))
+        except Exception as e:
+            print('서버 재배포 실패 오류')
+            print(f"An error occurred: {e}")
+        return
