@@ -3,6 +3,7 @@ from draw import views
 from django.conf.urls.static import static
 from django.conf import settings
 from django.views.static import serve
+from AlphaRaffle import cron
 
 # 색인
 from django.contrib.sitemaps.views import sitemap
@@ -49,7 +50,7 @@ urlpatterns = [
 
     path('full/search/', views.search, name='검색'),
     
-    path('crawl', views.crawl, name='crawl'),
+    # path('crawl', views.crawl, name='crawl'),
     
     path('auth/mypage/member_update', views.member_update, name='member_update'),
     path('auth/details/', views.details, name='상세정보'),
@@ -66,6 +67,8 @@ urlpatterns = [
     path('main/likeShoe', views.like_shoe, name='신발좋아요'),
     path('full/likeShoe', views.like_shoe, name='신발좋아요'),
     # path('full/like2', views.like_shoe, name='신발좋아요2'),
+
+    path('crawl', cron.crawl2, name='crawl'),
 
     # 색인
     # 기본 Sitemap 경로

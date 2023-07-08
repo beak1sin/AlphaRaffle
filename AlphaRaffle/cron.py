@@ -341,3 +341,256 @@ class Telegram_crawl:
             print('서버 재배포 실패 오류')
             print(f"An error occurred: {e}")
         return
+
+def crawl_test(request):
+    try:
+        url = 'https://www.luck-d.com/'
+        html = requests.get(url).text
+        soup = BeautifulSoup(html,'html.parser')
+        time.sleep(0.01)
+        shoenum = []
+        
+        sitecard = soup.select('div.product_info_layer > div.product_thumb')
+
+        for i in range(len(sitecard)):    
+            link = sitecard[i].attrs['onclick']
+            shoenum.append(link[39:].split('/')[0])
+        
+        shoenum = sorted(list(set(shoenum)), reverse=True)
+        print(len(shoenum),shoenum)
+
+        for num in shoenum:
+            now = datetime.datetime.now()
+            print(now)
+            randomTime = random.randint(30, 60)
+            # luckd_crowler(int(num))
+            luckd_crowler_test(6508)
+            # time.sleep(randomTime)
+        return redirect('/')
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        print('에러로 인한 크롤링 중단')
+        raise
+
+
+def luckd_crowler_test(no):
+    #path = 'C:/Users/mundd/chromedriver.exe'
+    #driver = webdriver.Chrome(path,chrome_options=options)
+    url = 'https://www.luck-d.com/release/product/%d/'%no
+    #print(no)
+    html = requests.get(url).text
+    soup = BeautifulSoup(html,'html.parser')
+    time.sleep(0.01)
+    #신발 한글이름
+    shoename = soup.select("h1.page_title")[0].text
+    #신발 영어이름
+    try:
+        subname  = soup.select("h2.sub_title")[0].text
+    except:
+        subname = shoename
+
+    #신발 브랜드
+    try:
+        shoebrandlist = soup.select('h3.brand')[0].text.split()
+        shoebrand = ' '.join(shoebrandlist)
+    except:
+        shoebrand = '-'
+
+    #신발 이미지 링크들
+    imglist = []
+    imglen  = soup.select("div.carousel-inner>div.item")
+
+
+    detail_info = soup.select('ul.detail_info>li')
+
+    for i in range(len(detail_info)):
+        detail_info_find = soup.select('ul.detail_info>li')[i].text
+        if '제품 코드' in detail_info_find:
+            serialno = detail_info_find[5:]
+        if '발매일' in detail_info_find:
+            shoepubdate = detail_info_find[3:]
+        if '발매가' in detail_info_find or '가격' in detail_info_find:
+            shoeprice = detail_info_find[3:]
+        if '제품 설명' in detail_info_find:
+            product_detail = detail_info_find[5:].strip()
+        else:
+            product_detail = '-'
+    
+    
+    # print(serialno, shoepubdate, shoeprice, product_detail)
+
+    if len(serialno) <= 2:
+        print('no serial number')
+        return
+    else:
+        pass
+
+    # try:
+    #     Shoe.objects.create(shoename = shoename , shoeengname = subname, serialno = serialno,
+    #                     shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, shoeprice = shoeprice)
+    # except Exception as e:
+    #     print(f"An error occurred: {e}")
+    #     print(no,'already exist shoe')
+    #     pass
+    
+    # shoeDB = Shoe.objects.filter(serialno = serialno)
+    # shoeDB.update(shoename = shoename , shoeengname = subname,
+    #                 shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, shoeprice = shoeprice)
+    
+    if len(imglen)>=1:            
+        for i in range(len(imglen)):
+            img_file = imglen[i].img['src']
+            img_name = os.path.join(str(Path(__file__).resolve().parent.parent)+"/draw/static/draw/images/"+shoename+serialno+str(i)+'.jpeg')
+            
+            # try:
+            #     Shoeimg.objects.create(serialno= serialno, shoeimg = shoename+serialno+str(i))
+            # except:
+            #     pass
+            
+            # urllib.request.urlretrieve(img_file, img_name)
+    else:
+        
+        img2 = soup.select("div.img_div")
+        img_file = img2[0].img['src']
+        img_name = os.path.join(str(Path(__file__).resolve().parent.parent)+"/draw/static/draw/images/"+shoename+serialno+str(0)+'.jpeg')
+        
+        # try:
+        #     Shoeimg.objects.create(serialno= serialno, shoeimg = shoename+serialno+str(0))
+        # except:
+        #     pass
+        
+        # urllib.request.urlretrieve(img_file, img_name)
+    
+    
+    #사이트별 
+    sitecard = soup.select('div.release_card')    
+
+    for i in range(len(sitecard)):
+        #사이트명
+        sitename = soup.select('div.release_card_header > span')[i].text
+        #로고
+        logo_file = sitecard[i].img['src']
+        logo_name = str(Path(__file__).resolve().parent.parent)+"/draw/static/draw/logoimg/"+sitename+'.jpeg'
+        #print(logo_file,logo_name)
+
+        # try:
+        #     Shoesiteimg.objects.create(sitename = sitename)
+        # except:
+        #     print('Shoesiteimg already exist or error')
+        #     pass
+        leng = len('https://static.luck-d.com/agent_site/')
+
+        #print(quote(logo_file[leng:]), logo_name)
+        # urllib.request.urlretrieve('https://static.luck-d.com/agent_site/'+quote(logo_file[leng:]), logo_name)
+        
+        sitelink = sitecard[i].a['href']
+        if 'luck-d' in sitelink:
+            response = requests.get(sitelink)
+            html = response.text
+            soup = BeautifulSoup(html,'html.parser')
+            matched = re.search(r'let link = decodeURIComponent\(\'(.*?)\'\);', html, re.S)
+            sitelink = matched.group(1)
+
+        shoeunique = serialno+sitename+sitelink
+
+        # try:
+        #     Shoesite.objects.create(serialno = serialno , sitename = sitename, sitelink = sitelink, shoesiteunique = shoeunique)
+        #     # Shoesite.objects.create()
+        # except:
+        #     pass
+        # print(sitename, logo_file, sitelink)
+
+        # #종료일
+        end_date = soup.select('li.release_time > label > span')[i].text.strip()
+
+        # 종료일이 미정일 경우
+        if '미정' in end_date:
+            end_date = '2023-12-31 12:59:59'
+            end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
+            # Shoesite.objects.filter(shoesiteunique = shoeunique).update(end_date = end_date_datetime)
+            return
+
+        # #시간이 종료일 경우
+        if '종료' in end_date:
+            end_date = str(datetime.datetime.now().replace(microsecond=0))
+            end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
+            # Shoesite.objects.filter(shoesiteunique = shoeunique).update(end_date = end_date_datetime)
+        else :
+            # 시간이 까지일 경우
+            if '까지' in end_date:
+                end_date = end_date.replace("월",'-')
+                end_date = end_date.replace(" ",'')
+                end_date = end_date.replace("일",' ')
+                end_date = end_date.replace("까",'')
+                end_date = end_date.replace("지",'')
+                # end_date = end_date + ":59"
+                end_date = "".join(end_date)
+                end_date = year +'-'+ end_date
+                if len(end_date) == 11:
+                    end_date = end_date.replace(" ",'')
+                    end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+                elif len(end_date) == 16:
+                    end_date = end_date + ":59"
+                    end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
+                    
+                # Shoesite.objects.filter(shoesiteunique = shoeunique).update(end_date = end_date_datetime)
+            # 시간이 발매 시작일 경우
+            else:
+                end_date = end_date.replace("월",'-')
+                end_date = end_date.replace(" ",'')
+                end_date = end_date.replace("일",' ')
+                end_date = end_date.replace("발",'')
+                end_date = end_date.replace("매",'')      
+                # end_date = end_date + ":59"
+                end_date = "".join(end_date)
+                end_date = year +'-'+ end_date
+                if len(end_date) == 11:
+                    end_date = end_date.replace(" ",'')
+                    pub_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+                elif len(end_date) == 16:
+                    end_date = end_date + ":59"
+                    pub_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
+                # Shoesite.objects.filter(shoesiteunique = shoeunique).update(pub_date = pub_date_datetime)
+
+def crawl2(request):
+    telegram_crawl = Telegram_crawl()
+    try:
+        url = 'https://www.luck-d.com/'
+        html = requests.get(url).text
+        soup = BeautifulSoup(html,'html.parser')
+        time.sleep(0.01)
+        shoenum = []
+        
+        sitecard = soup.select('div.product_info_layer > div.product_thumb')
+
+        for i in range(len(sitecard)):    
+            link = sitecard[i].attrs['onclick']
+            shoenum.append(link[39:].split('/')[0])
+        
+        shoenum = sorted(list(set(shoenum)), reverse=True)
+        print(len(shoenum),shoenum)
+
+        for num in shoenum:
+            now = datetime.datetime.now()
+            print(now)
+            randomTime = random.randint(30, 60)
+            luckd_crowler(int(num))
+            # time.sleep(randomTime)
+
+        # 크롤링 성공 메세지(텔레그램)
+        telegram_crawl.crawl_complete_msg()
+        # uwsgi 재실행 등.. 서버 재배포
+        subprocess.call(['../bin/start.sh'])
+        try:
+            # 서버 재배포 성공 메세지(텔레그램)
+            telegram_crawl.serverRestart_complete_msg()
+        except:
+            # 서버 재배포 실패 메세지(텔레그램)
+            telegram_crawl.serverRestart_error_msg()
+        return redirect('/')
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        print('에러로 인한 크롤링 중단')
+        telegram_crawl.crawl_error_msg()
+        raise
+
