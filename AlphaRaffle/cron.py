@@ -112,7 +112,7 @@ def luckd_crowler(no):
     for i in range(len(detail_info)):
         detail_info_find = soup.select('ul.detail_info>li')[i].text
         if '제품 코드' in detail_info_find:
-            serialno = detail_info_find[5:]
+            serialno = detail_info_find[5:].replace('/', '_')
         if '발매일' in detail_info_find:
             shoepubdate = detail_info_find[3:]
         if '발매가' in detail_info_find or '가격' in detail_info_find:
