@@ -288,7 +288,7 @@ def crawl():
         # 크롤링 성공 메세지(텔레그램)
         telegram_crawl.crawl_complete_msg()
         # uwsgi 재실행 등.. 서버 재배포
-        subprocess.call(['../bin/start.sh'])
+        subprocess.call(['/usr/local/share/AlphaRaffle/bin/start.sh'])
         try:
             # 서버 재배포 성공 메세지(텔레그램)
             telegram_crawl.serverRestart_complete_msg()
@@ -580,7 +580,7 @@ def crawl2(request):
         # 크롤링 성공 메세지(텔레그램)
         telegram_crawl.crawl_complete_msg()
         # uwsgi 재실행 등.. 서버 재배포
-        subprocess.call(['../bin/start.sh'])
+        subprocess.call(['/usr/local/share/AlphaRaffle/bin/start.sh'])
         try:
             # 서버 재배포 성공 메세지(텔레그램)
             telegram_crawl.serverRestart_complete_msg()
