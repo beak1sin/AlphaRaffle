@@ -646,6 +646,8 @@ $(document).ready( () => {
                 if(obj.flag == "1"){
                     $('.3').hide();
                     $('.4').show();
+                } else {
+                    alert(obj.result_msg);
                 }
             }
         };

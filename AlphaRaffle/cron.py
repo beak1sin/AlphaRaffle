@@ -300,7 +300,7 @@ def crawl():
     except Exception as e:
         print(f"An error occurred: {e}")
         print('에러로 인한 크롤링 중단')
-        telegram_crawl.crawl_error_msg()
+        telegram_crawl.crawl_error_msg(e)
         raise
 
 import telegram
@@ -319,9 +319,9 @@ class Telegram_crawl:
             print(f"An error occurred: {e}")
         return
     
-    def crawl_error_msg(self):
+    def crawl_error_msg(self, error):
         try:
-            asyncio.run(self.bot.send_message(self.chat_id, '크롤링 실패'))
+            asyncio.run(self.bot.send_message(self.chat_id, f'크롤링 실패:  {error}'))
         except Exception as e:
             print('텔레그램 오류')
             print(f"An error occurred: {e}")
@@ -595,4 +595,3 @@ def crawl2(request):
         print('에러로 인한 크롤링 중단')
         telegram_crawl.crawl_error_msg()
         raise
-

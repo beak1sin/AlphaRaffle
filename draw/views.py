@@ -84,34 +84,38 @@ def member_insert(request):
     memberbirth = bodyjson['member_birth']
     membernikeid = bodyjson['member_nikeid']
     memberphonenumber = bodyjson['member_phonenumber']
+    try:
+        existing_member = Member.objects.get(member_id=memberid)
+        context['flag'] = '0'
+        context['result_msg'] = '이미 존재하는 회원입니다.'
+    except Member.DoesNotExist:
+        rs = Member.objects.create(member_id=memberid,
+                                member_pwd=memberpwd,
+                                member_realname=memberrealname,
+                                member_nickname=membernickname,
+                                member_birth=memberbirth,
+                                member_nikeid=membernikeid,
+                                member_phonenumber=memberphonenumber,
+                                usage_flag='1',
+                                register_date=datetime.datetime.now()
+                                )
+        rs.save()
 
-    rs = Member.objects.create(member_id=memberid,
-                               member_pwd=memberpwd,
-                               member_realname=memberrealname,
-                               member_nickname=membernickname,
-                               member_birth=memberbirth,
-                               member_nikeid=membernikeid,
-                               member_phonenumber=memberphonenumber,
-                               usage_flag='1',
-                               register_date=datetime.datetime.now()
-                               )
-    rs.save()
+        current_site = get_current_site(request)
+        message = render_to_string('draw/user_activate_email.html',                         {
+                    'user': rs,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(rs.pk)).encode().decode(),
+                    'token': account_activation_token.make_token(rs),
+                })
+        mail_subject = "[AlphaRaffle] 회원가입 인증 메일입니다."
+        user_email = rs.member_id
+        email = EmailMessage(mail_subject, message, to=[user_email])
+        email.send()
 
-    current_site = get_current_site(request)
-    message = render_to_string('draw/user_activate_email.html',                         {
-                'user': rs,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(rs.pk)).encode().decode(),
-                'token': account_activation_token.make_token(rs),
-            })
-    mail_subject = "[AlphaRaffle] 회원가입 인증 메일입니다."
-    user_email = rs.member_id
-    email = EmailMessage(mail_subject, message, to=[user_email])
-    email.send()
-
-    context['flag'] = '1'
-    # context['result_msg'] = '회원가입 인증메일을 보냈습니다. 인증 후 로그인 바랍니다.'
-    context['result_msg'] = '회원가입이 완료되었습니다.'
+        context['flag'] = '1'
+        # context['result_msg'] = '회원가입 인증메일을 보냈습니다. 인증 후 로그인 바랍니다.'
+        context['result_msg'] = '회원가입이 완료되었습니다.'
 
     return JsonResponse(context, content_type="application/json")
 
@@ -287,7 +291,7 @@ def member_login(request):
     if 'member_no' in request.session:
         context['flag'] = '1'
         context['result_msg'] = 'Already Login 되어 있습니다.'
-
+        return redirect('/main/')
     else:
 
         rsTmp = Member.objects.filter(member_id=memberid, member_pwd=memberpwd)
@@ -314,7 +318,7 @@ def member_login(request):
                 context['member_loginid'] = memberid
                 context['flag'] = '1'
                 context['inactive'] = '1'
-                context['result_msg'] = '비활성화 되어 있습니다. 인증 후 로그인 바랍니다.'
+                context['result_msg'] = '비활성화 되어 있습니다. 이메일 인증 후 로그인 바랍니다.'
         else:
             context['flag'] = '1'
             context['result_msg'] = 'Login error... 아이디와 비번을 확인하세요.'
@@ -345,10 +349,6 @@ def login(request):
         member_no = None
         member = None
         return render(request, 'draw/login.html', context)
-
-    
-
-    return render(request, 'draw/login.html', context)
 
 @csrf_protect
 def join(request):
@@ -432,7 +432,6 @@ def details(request):
     googleSiteOnly = {}
     # if googleSite 
     for googleSiteGet in googleSite.values():
-        print('00000000')
         # print(type(googleSiteGet))
         # print(googleSiteGet['sitelink'])
         url = googleSiteGet['sitelink']
@@ -464,9 +463,14 @@ def details(request):
         pass
     else:
         comment = {'serialno': ''}
+    
+    if '_' in pk:
+        serialnoSlash = pk.replace('_', '/')
+    else:
+        serialnoSlash = None
 
     context["member_no"] = member_no
-    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'googleSiteOnly': googleSiteOnly, 'comment': comment }
+    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'googleSiteOnly': googleSiteOnly, 'comment': comment, 'serialnoSlash': serialnoSlash }
     #print(shoe.serialno)
     return render(request, 'draw/details.html', context)
     #return JsonResponse(context, content_type="application/json")
