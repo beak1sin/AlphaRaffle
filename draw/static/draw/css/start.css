@@ -380,12 +380,19 @@ html {
     }
 }
 
-.text::after, .text3::after, .text5::after{
+.text::after{
     content: '';
     margin-left: .4rem;
     border-right: 10px solid black;
     animation: cursor .9s infinite steps(2);
   }
+
+  /* .text::after, .text3::after, .text5::after{
+    content: '';
+    margin-left: .4rem;
+    border-right: 10px solid black;
+    animation: cursor .9s infinite steps(2);
+  } */
   
   @keyframes cursor {
     from { border-right: 20px solid #EEEEEE; }

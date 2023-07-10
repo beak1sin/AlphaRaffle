@@ -347,8 +347,10 @@ $(document).ready(function() {
     window.addEventListener('scroll', function() {
         var scrollContainer = document.getElementById('scroll-container');
         var scrollHeight = scrollContainer.scrollHeight;
-        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        var scrollTop = Math.ceil(window.pageYOffset || document.documentElement.scrollTop);
         var windowHeight = window.innerHeight;
+
+        //   console.log('scrollContainer의 scrollHeight: ' + scrollHeight, 'scrollTop: ' + scrollTop, 'windowHeight: ' + windowHeight);
         
         if (!isLoading && scrollTop + windowHeight >= scrollHeight) {
             // 추가 데이터를 불러오는 작업 수행
@@ -383,27 +385,57 @@ $(document).ready(function() {
                 for (var i = 0; i < shoe.length; i++) {
                     var shoe1 = shoe[i].fields;
                     var liked = likes[i];
-                    html += '<div class="u-align-center u-container-style u-products-item u-repeater-item product-item">';
-                    html += '<div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">';
-                    html += '<a class="hover_temp" style="display: block; width: auto; margin: 5px 5px 10px 5px;">';
-                    html += '<div class="screen u-radius-50">';
+                    html += '<div class="grid-box" data-value="' + shoe1.serialno + '">';
+                    html += '<div class="grid-container"><div class="grid-img-box">';
+                    html += '<div class="comment-icon"><label class="comment-icon-label"><span class="icon"></span></label></div>';
+                    html += '<div class="commentCount-box"><p class="commentCount">0</p></div>';
+                    html += '<div class="img-box" onclick="location.href = \'' + STATIC_FULL_URL + shoe1.serialno + '\'">';
+                    html += '<img class="lazyload shoeimg" data-src="' + STATIC_IMAGES_URL + shoe1.shoename + shoe1.serialno + '0.jpeg"></div>';
                     html += '<div class="bookmark-icon">';
-                    html += '<label class="bookmark-icon-label ' + (liked ? 'on' : '') + '">';
-                    html += '<span class="icon"></span>';
-                    html += '</label>';
-                    html += '</div>';
-                    html += '<img alt="" class="lazyload u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" data-src="/static/draw/images/' + shoe1.shoename + shoe1.serialno + '0.jpeg" data-image-width="842" data-image-height="595">';
-                    html += '</div></a>';
-                    html += '<h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2" style="display: table;">';
-                    html += '<a class="u-product-title-link" style="font-size: 18px; display: table-cell; vertical-align: middle;">';
-                    html += shoe1.shoename;
-                    html += '</a></h4>';
-                    html += '<a href="/draw/상세정보/?serialnum=' + shoe1.serialno + '" id="serial" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2" data-value="' + shoe1.serialno + '">응모하기</a>';
-                    html += '<button class="like" data-value="' + shoe1.serialno + '"></button>';
-                    html += '<button class="likeCount">' + shoe1.shoelikecount + '</button>';
+                    html += '<label class="bookmark-icon-label' + (liked ? ' on' : '') + '">';
+                    html += '<span class="icon"></span></label></div>';
+                    html += '<div class="shoelikecount-box"><p class="shoelikecount">' + shoe1.shoelikecount + '</p></div></div>';
+                    html += '<div class="grid-shoename-box"><p class="shoename">' + shoe1.shoename + '</p></div>';
+                    html += '<div class="grid-pubdate-box"><p class="pubdate">' + shoe1.pubdate + '</p></div>';
+                    html += '<div class="grid-goBtn-box"><button class="goBtn" onclick="location.href = \'' + STATIC_FULL_URL + shoe1.serialno + '\'">바로가기</button></div>';
                     html += '</div></div>';
                 }
-                $('.u-repeater-1').append(html);
+                $('.infinite-container').append(html);
+
+                $('.bookmark-icon-label').click(function() {
+                    let $serialno = $(this).parent().parent().parent().parent().attr('data-value');
+                
+                    var $this = $(this);
+                    var $count = $(this).parent().next().children();
+                
+                    var data = {serialnoAJAX: $serialno};
+                    var datastr = JSON.stringify(data);
+                
+                    xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState == 4) {
+                            var data = xhr.responseText;
+                
+                            var obj = JSON.parse(data);
+                
+                            if (obj.flag == '0') {
+                                alert(obj.result_msg);
+                                location.href = '/auth/login/';
+                            } else {
+                                if(obj.liked) {
+                                    $this.addClass('on');
+                                } else {
+                                    $this.removeClass('on');
+                                }
+                                $count.text(obj.count);
+                            }
+                        }
+                    };
+                    xhr.open("POST", "likeShoe");
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    xhr.send(datastr);
+                });
+
                 if (typeof callback === 'function') {
                     callback();
                 }

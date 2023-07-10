@@ -56,6 +56,10 @@
                     <div class="login-link-box">
                         <h6 class="login-title">이미 회원이신가요?<a class="login-link" href="{% url 'draw:로그인' %}">로그인하기</a></h6>
                     </div>
+                    <div style="width: 300px; height: 5px; position: relative; margin: 0 auto;">
+                        <div style="width: 300px; height: 5px; left: 0px; top: 0px; position: absolute; background: #C8C8C8; border-radius: 10px;"></div>
+                        <div style="width: 100px; height: 5px; left: 0px; top: 0px; position: absolute; background: #777777; border-radius: 10px;"></div>
+                    </div>
                 </div>
 
                 <div class="2 join-password-box">
@@ -90,6 +94,10 @@
                     <div class="back-btn-box">
                         <a class="back-btn">뒤로가기</a>
                     </div>
+                    <div style="width: 300px; height: 5px; position: relative; margin: 0 auto;">
+                        <div style="width: 300px; height: 5px; left: 0px; top: 0px; position: absolute; background: #C8C8C8; border-radius: 10px;"></div>
+                        <div style="width: 100px; height: 5px; left: 100px; top: 0px; position: absolute; background: #777777; border-radius: 10px;"></div>
+                    </div>
                 </div>
 
 
@@ -97,30 +105,30 @@
                     <div class="join-profile-title-box">
                         <h1 class="join-profile-title">프로필 생성</h1>
                     </div>
-                    <div class="join-name-input-box">
-                        <h3 class="join-name-input-title">이름을 입력해주세요</h3>
-                        <div class="join-name-input-value-box">
-                            <input class="join-name-input-value input-focus input-value" id="member_realname" type="text" placeholder="ex ) 홍길동" tabindex="1" maxlength="10">
-                            <button type="button" class="input-icon-close" id="name_close_btn"></button>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="name-error-box" style="font-size: 12px; color: red; margin: 0px; text-align: left;"></p>
-                    </div>
                     <div class="join-nickname-input-box">
                         <h3 class="join-nickname-input-title">닉네임을 입력해주세요</h3>
                         <div class="join-nickname-input-value-box">
-                            <input class="join-nickname-input-value input-focus input-value" id="member_nickname" type="text" placeholder="ex ) 홍길동짱짱맨" tabindex="2" maxlength="20">
+                            <input class="join-nickname-input-value input-focus input-value" id="member_nickname" type="text" placeholder="ex ) 홍길동짱짱맨" tabindex="1" maxlength="20">
                             <button type="button" class="input-icon-close" id="nickname_close_btn"></button>
                         </div>
                     </div>
                     <div>
                         <p class="nickname-error-box" style="font-size: 12px; color: red; margin: 0px; text-align: left;"></p>
                     </div>
+                    <div class="join-name-input-box">
+                        <h3 class="join-name-input-title" style="position: relative;">이름을 입력해주세요<p class="alpharaffle-ment">*자동응모서비스 이용을 원하시는 분 한정</p></h3>
+                        <div class="join-name-input-value-box">
+                            <input class="join-name-input-value input-focus input-value" id="member_realname" type="text" placeholder="ex ) 홍길동 (선택사항)" tabindex="2" maxlength="10">
+                            <button type="button" class="input-icon-close" id="name_close_btn"></button>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="name-error-box" style="font-size: 12px; color: red; margin: 0px; text-align: left;"></p>
+                    </div>
                     <div class="join-birth-input-box">
-                        <h3 class="join-birth-input-title">생년월일을 입력해주세요</h3>
+                        <h3 class="join-birth-input-title" style="position: relative;">생년월일을 입력해주세요<p class="alpharaffle-ment">*자동응모서비스 이용을 원하시는 분 한정</p></h3>
                         <div class="join-birth-input-value-box">
-                            <input class="join-birth-input-value input-focus input-value" id="member_birth" type="text" placeholder="ex ) 990101" tabindex="3" maxlength="6">
+                            <input class="join-birth-input-value input-focus input-value" id="member_birth" type="text" placeholder="ex ) 990101 (선택사항)" tabindex="3" maxlength="6">
                             <button type="button" class="input-icon-close" id="birth_close_btn"></button>
                         </div>
                     </div>
@@ -128,9 +136,9 @@
                         <p class="birth-error-box" style="font-size: 12px; color: red; margin: 0px; text-align: left;"></p>
                     </div>
                     <div class="join-phonenumber-input-box">
-                        <h3 class="join-phonenumber-input-title">핸드폰 번호를 입력해주세요</h3>
+                        <h3 class="join-phonenumber-input-title" style="position: relative;">핸드폰 번호를 입력해주세요<p class="alpharaffle-ment">*자동응모서비스 이용을 원하시는 분 한정</p></h3>
                         <div class="join-phonenumber-input-value-box">
-                            <input class="join-phonenumber-input-value input-focus input-value" id="member_phonenumber" type="text" placeholder="ex ) 01012345678" tabindex="4" maxlength="11">
+                            <input class="join-phonenumber-input-value input-focus input-value" id="member_phonenumber" type="text" placeholder="ex ) 01012345678 (선택사항)" tabindex="4" maxlength="11">
                             <button type="button" class="input-icon-close" id="phonenumber_close_btn"></button>
                         </div>
                     </div>
@@ -138,9 +146,9 @@
                         <p class="phonenumber-error-box" style="font-size: 12px; color: red; margin: 0px; text-align: left;"></p>
                     </div>
                     <div class="join-nikeid-input-box">
-                        <h3 class="join-nikeid-input-title">나이키 아이디를 입력해주세요</h3>
+                        <h3 class="join-nikeid-input-title" style="position: relative;">나이키 아이디를 입력해주세요<p class="alpharaffle-ment">*자동응모서비스 이용을 원하시는 분 한정</p></h3>
                         <div class="join-nikeid-input-value-box">
-                            <input class="join-nikeid-input-value input-focus input-value" id="member_nikeid" type="email" placeholder="ex ) alpharaffle@naver.com" tabindex="5">
+                            <input class="join-nikeid-input-value input-focus input-value" id="member_nikeid" type="email" placeholder="ex ) alpharaffle@naver.com (선택사항)" tabindex="5">
                             <button type="button" class="input-icon-close" id="nikeid_close_btn"></button>
                         </div>
                     </div>
@@ -152,6 +160,10 @@
                     </div>
                     <div class="back-btn-2-box">
                         <a class="back-btn-2">뒤로가기</a>
+                    </div>
+                    <div style="width: 300px; height: 5px; position: relative; margin: 0 auto;">
+                        <div style="width: 300px; height: 5px; left: 0px; top: 0px; position: absolute; background: #C8C8C8; border-radius: 10px;"></div>
+                        <div style="width: 100px; height: 5px; left: 200px; top: 0px; position: absolute; background: #777777; border-radius: 10px;"></div>
                     </div>
                 </div>
 
@@ -166,7 +178,7 @@
                         <p class="complete-title">계정 생성이 완료되었습니다.</p>
                     </div>
                     <div class="congratulation-title-box" >
-                        <p class="congratulation-title">이재백짱짱님의 회원가입을 축하드립니다.</p>
+                        <p class="congratulation-title">회원가입을 축하드립니다.</p>
                     </div>
                     <div class="draw-btn-box">
                         <button class="draw-btn">지금 바로 응모하러 가기</button>

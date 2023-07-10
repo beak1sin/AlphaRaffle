@@ -288,6 +288,15 @@ input::placeholder {
     cursor: pointer;
 }
 
+.alpharaffle-ment {
+    margin: 0px !important;
+    color: red;
+    font-size: 12px;
+    position: absolute;
+    right: 0px;
+    top:0px;
+}
+
 .join-complete-box .logo-box {
     text-align: center;
     padding-top: 160px;

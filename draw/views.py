@@ -164,58 +164,6 @@ def activate(request, uid64, token):
     else:
         return HttpResponse('비정상적인 접근입니다.')
 
-def home3(request):
-    context = {}
-    droppedSite = Shoesite.objects.filter(end_date__gte=nowtime).order_by('-end_date')
-    endSite = Shoesite.objects.filter(end_date__lt=nowtime).order_by('-end_date')
-    droppedSerial = []
-    endSerial = []
-    for site in droppedSite:
-        droppedSerial.append(site.serialno)
-    for site in endSite:
-        endSerial.append(site.serialno)
-    # print(serial)
-    droppedShoe = Shoe.objects.filter(serialno__in = droppedSerial)
-    print(droppedShoe)
-    endShoe = Shoe.objects.filter(serialno__in = endSerial)
-    # print(shoe)
-    if request.session.has_key('member_no'):
-        member_no = request.session['member_no']
-        member = Member.objects.get(pk= member_no)
-        #print(member_no)
-
-    else:
-        member_no = None
-        member = None
-
-    context["member_no"] = member_no
-    context = {'droppedShoe':droppedShoe, 'endShoe':endShoe, 'member':member }
-    return render(request, "draw/main3.html", context)
-
-# @csrf_protect
-# def home(request):
-#     context = {}
-#     shoe = Shoe.objects.all()
-#     # for shoe in shoe:
-#     #     shoecount = ShoeLike.objects.filter(serialno = shoe.serialno)
-#     #     context["shoecount"] = zip(shoecount)
-#     if request.session.has_key('member_no'):
-#         member_no = request.session['member_no']
-#         member = Member.objects.get(pk= member_no)
-        
-#     else:
-#         member_no = None
-#         member = None
-
-    
-#     # shoeLike = ShoeLike.objects.all().values('member_no')
-    
-#     # sh1 = shoeLike.values('member_no')
-    
-#     context = { 'shoe':shoe, 'member':member}
-
-#     return render(request, "draw/main.html", context)
-
 @csrf_protect
 def home(request):
     # shoe = Shoe.objects.all()[0:12]
@@ -565,7 +513,7 @@ def full(request):
             shoe = Shoe.objects.all().order_by('-id')[0:12]
             shoe_count = Shoe.objects.all().count()
         context = {'shoe': shoe, 'member': member, 'shoe_count': shoe_count ,'recent_searches': recent_searches}
-
+    print(recent_searches)
     context = {'shoe': shoe, 'member': member, 'shoe_count': shoe_count ,'recent_searches': recent_searches}  # member 객체를 context에 추가
 
     if request.method == 'POST':

@@ -68,9 +68,9 @@ $(document).ready( () => {
             interVal = setInterval(startSnow, 10000);
             if (page3) {
                 setTimeout(zindexSnow0, 1000);
-                typing("지금 바로 시작하세요!!", document.querySelector('.text5'));
-                document.querySelector('.text6').classList.add('delay');
-                setTimeout(typing, 1000, "비용 걱정 없이 회원 가입만으로도 이용 가능합니다.", document.querySelector('.text6'));
+                // typing("지금 바로 시작하세요!!", document.querySelector('.text5'));
+                // document.querySelector('.text6').classList.add('delay');
+                // setTimeout(typing, 1000, "비용 걱정 없이 회원 가입만으로도 이용 가능합니다.", document.querySelector('.text6'));
                 page3 = false;
             }
         } else if (page == 2) {
@@ -81,9 +81,9 @@ $(document).ready( () => {
             // document.querySelector('.text').innerText = "";
             // document.querySelector('.text2').innerText = "";
             if (page2) {
-                typing("클릭 한 번으로 응모해보세요!", document.querySelector('.text3'));
-                document.querySelector('.text4').classList.add('delay');
-                setTimeout(typing, 1500, "알파라플만의 간편한 응모 서비스를 경험해보세요.\n가지고 싶은 만큼 국내부터 해외 발매처까지 골고루 응모하세요!", document.querySelector('.text4'));
+                // typing("클릭 한 번으로 응모해보세요!", document.querySelector('.text3'));
+                // document.querySelector('.text4').classList.add('delay');
+                // setTimeout(typing, 1500, "알파라플만의 간편한 응모 서비스를 경험해보세요.\n가지고 싶은 만큼 국내부터 해외 발매처까지 골고루 응모하세요!", document.querySelector('.text4'));
                 page2 = false;
             }
         } else if (page == 1) {
@@ -159,7 +159,7 @@ $(document).ready( () => {
             if ($('.snow')) removeSnow();
             if ($('.shoe')) removeShoe();
             clearInterval(interVal);
-            if (page1) {r
+            if (page1) {
                 typing("다양한 발매정보와 응모를 한 번에 간편하게!", document.querySelector('.text'));
                 setTimeout(typing, 2500, "발매 정보를 확인하고 응모하고 싶은 신발을 응모하세요.", document.querySelector('.text2'));
                 page1 = false;
@@ -172,9 +172,9 @@ $(document).ready( () => {
             if ($('.shoe')) removeShoe();
             clearInterval(interVal);
             if (page2) {
-                typing("클릭 한 번으로 응모해보세요!", document.querySelector('.text3'));
-                document.querySelector('.text4').classList.add('delay');
-                setTimeout(typing, 1500, "알파라플만의 간편한 응모 서비스를 경험해보세요.\n가지고 싶은 만큼 국내부터 해외 발매처까지 골고루 응모하세요!", document.querySelector('.text4'));
+                // typing("클릭 한 번으로 응모해보세요!", document.querySelector('.text3'));
+                // document.querySelector('.text4').classList.add('delay');
+                // setTimeout(typing, 1500, "알파라플만의 간편한 응모 서비스를 경험해보세요.\n가지고 싶은 만큼 국내부터 해외 발매처까지 골고루 응모하세요!", document.querySelector('.text4'));
                 page2 = false;
             }
         } else if($clicked.is('.third-btn')) {
@@ -188,9 +188,9 @@ $(document).ready( () => {
             interVal = setInterval(startSnow, 10000);
             if (page3) {
                 setTimeout(zindexSnow0, 1000);
-                typing("지금 바로 시작하세요!!", document.querySelector('.text5'));
-                document.querySelector('.text6').classList.add('delay');
-                setTimeout(typing, 1000, "비용 걱정 없이 회원 가입만으로도 이용 가능합니다.", document.querySelector('.text6'));
+                // typing("지금 바로 시작하세요!!", document.querySelector('.text5'));
+                // document.querySelector('.text6').classList.add('delay');
+                // setTimeout(typing, 1000, "비용 걱정 없이 회원 가입만으로도 이용 가능합니다.", document.querySelector('.text6'));
                 page3 = false;
             }
         }

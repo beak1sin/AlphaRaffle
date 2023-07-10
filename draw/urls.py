@@ -26,7 +26,6 @@ app_name = 'draw'
 urlpatterns = [
 
     # path('',views.home, name = '홈'),
-    path('main3/',views.home3, name = '홈3'),
     path('main/',views.home, name = '홈'),
     # path('start/', views.start, name='시작'),
     path('', views.start, name='시작'),

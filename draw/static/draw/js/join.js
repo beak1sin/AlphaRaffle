@@ -261,15 +261,24 @@ $(document).ready( () => {
             targetParent.nextElementSibling.childNodes[1].innerText = '2 ~ 10자로 입력해주세요.';
             targetParent.childNodes[3].style.borderBottom = '2px solid red';
             targetParent.childNodes[1].style.color = 'red';
+            $('.next-btn-3').removeClass('abled');
+            $('.next-btn-3').addClass('disabled');
+            $('.next-btn-3').attr('disabled', true);
         } else {
             targetParent.nextElementSibling.childNodes[1].innerText = '';
             targetParent.childNodes[3].style.borderBottom = '2px solid black';
             targetParent.childNodes[1].style.color = 'black';
+            $('.next-btn-3').removeClass('disabled');
+            $('.next-btn-3').addClass('abled');
+            $('.next-btn-3').attr('disabled', false);
         }
         if ($name.length == 0) {
             targetParent.nextElementSibling.childNodes[1].innerText = '';
             targetParent.childNodes[3].style.borderBottom = '2px solid black';
             targetParent.childNodes[1].style.color = 'black';
+            $('.next-btn-3').removeClass('disabled');
+            $('.next-btn-3').addClass('abled');
+            $('.next-btn-3').attr('disabled', false);
         }
 
     });
@@ -310,6 +319,9 @@ $(document).ready( () => {
         targetParent.nextElementSibling.childNodes[1].innerText = '';
         targetParent.childNodes[3].style.borderBottom = '2px solid black';
         targetParent.childNodes[1].style.color = 'black';
+        $('.next-btn-3').removeClass('disabled');
+        $('.next-btn-3').addClass('abled');
+        $('.next-btn-3').attr('disabled', false);
     })
 
     // 닉네임 정규식
@@ -372,6 +384,9 @@ $(document).ready( () => {
         targetParent.nextElementSibling.childNodes[1].innerText = '';
         targetParent.childNodes[3].style.borderBottom = '2px solid black';
         targetParent.childNodes[1].style.color = 'black';
+        $('.next-btn-3').removeClass('abled');
+        $('.next-btn-3').addClass('disabled');
+        $('.next-btn-3').attr('disabled', true);
     })
 
     // 생일 정규식
@@ -385,15 +400,24 @@ $(document).ready( () => {
             targetParent.nextElementSibling.childNodes[1].innerText = '생년월일 6자리를 입력해주세요.';
             targetParent.childNodes[3].style.borderBottom = '2px solid red';
             targetParent.childNodes[1].style.color = 'red';
+            $('.next-btn-3').removeClass('abled');
+            $('.next-btn-3').addClass('disabled');
+            $('.next-btn-3').attr('disabled', true);
         } else {
             targetParent.nextElementSibling.childNodes[1].innerText = '';
             targetParent.childNodes[3].style.borderBottom = '2px solid black';
             targetParent.childNodes[1].style.color = 'black';
+            $('.next-btn-3').removeClass('disabled');
+            $('.next-btn-3').addClass('abled');
+            $('.next-btn-3').attr('disabled', false);
         }
         if ($birth.length == 0) {
             targetParent.nextElementSibling.childNodes[1].innerText = '';
             targetParent.childNodes[3].style.borderBottom = '2px solid black';
             targetParent.childNodes[1].style.color = 'black';
+            $('.next-btn-3').removeClass('disabled');
+            $('.next-btn-3').addClass('abled');
+            $('.next-btn-3').attr('disabled', false);
         }
 
     });
@@ -434,6 +458,9 @@ $(document).ready( () => {
         targetParent.nextElementSibling.childNodes[1].innerText = '';
         targetParent.childNodes[3].style.borderBottom = '2px solid black';
         targetParent.childNodes[1].style.color = 'black';
+        $('.next-btn-3').removeClass('disabled');
+        $('.next-btn-3').addClass('abled');
+        $('.next-btn-3').attr('disabled', false);
     })
 
 
@@ -449,15 +476,24 @@ $(document).ready( () => {
             targetParent.nextElementSibling.childNodes[1].innerText = '전화번호 11자리를 입력해주세요. ( - 하이픈 제외)';
             targetParent.childNodes[3].style.borderBottom = '2px solid red';
             targetParent.childNodes[1].style.color = 'red';
+            $('.next-btn-3').removeClass('abled');
+            $('.next-btn-3').addClass('disabled');
+            $('.next-btn-3').attr('disabled', true);
         } else {
             targetParent.nextElementSibling.childNodes[1].innerText = '';
             targetParent.childNodes[3].style.borderBottom = '2px solid black';
             targetParent.childNodes[1].style.color = 'black';
+            $('.next-btn-3').removeClass('disabled');
+            $('.next-btn-3').addClass('abled');
+            $('.next-btn-3').attr('disabled', false);
         }
         if ($phonenumber.length == 0) {
             targetParent.nextElementSibling.childNodes[1].innerText = '';
             targetParent.childNodes[3].style.borderBottom = '2px solid black';
             targetParent.childNodes[1].style.color = 'black';
+            $('.next-btn-3').removeClass('disabled');
+            $('.next-btn-3').addClass('abled');
+            $('.next-btn-3').attr('disabled', false);
         }
 
     });
@@ -498,6 +534,9 @@ $(document).ready( () => {
         targetParent.nextElementSibling.childNodes[1].innerText = '';
         targetParent.childNodes[3].style.borderBottom = '2px solid black';
         targetParent.childNodes[1].style.color = 'black';
+        $('.next-btn-3').removeClass('disabled');
+        $('.next-btn-3').addClass('abled');
+        $('.next-btn-3').attr('disabled', false);
     })
 
     // 나이키id 정규식
@@ -511,15 +550,24 @@ $(document).ready( () => {
             targetParent.nextElementSibling.childNodes[1].innerText = '이메일 형식이 아닙니다.';
             targetParent.childNodes[3].style.borderBottom = '2px solid red';
             targetParent.childNodes[1].style.color = 'red';
+            $('.next-btn-3').removeClass('abled');
+            $('.next-btn-3').addClass('disabled');
+            $('.next-btn-3').attr('disabled', true);
         } else {
             targetParent.nextElementSibling.childNodes[1].innerText = '';
             targetParent.childNodes[3].style.borderBottom = '2px solid black';
             targetParent.childNodes[1].style.color = 'black';
+            $('.next-btn-3').removeClass('disabled');
+            $('.next-btn-3').addClass('abled');
+            $('.next-btn-3').attr('disabled', false);
         }
         if ($nikeid.length == 0) {
             targetParent.nextElementSibling.childNodes[1].innerText = '';
             targetParent.childNodes[3].style.borderBottom = '2px solid black';
             targetParent.childNodes[1].style.color = 'black';
+            $('.next-btn-3').removeClass('disabled');
+            $('.next-btn-3').addClass('abled');
+            $('.next-btn-3').attr('disabled', false);
         }
 
     });
@@ -560,20 +608,19 @@ $(document).ready( () => {
         targetParent.nextElementSibling.childNodes[1].innerText = '';
         targetParent.childNodes[3].style.borderBottom = '2px solid black';
         targetParent.childNodes[1].style.color = 'black';
-    })
+        $('.next-btn-3').removeClass('disabled');
+        $('.next-btn-3').addClass('abled');
+        $('.next-btn-3').attr('disabled', false);
+    });
 
-
-    $('#member_id, #member_pwd, #member_realname, #member_nickname, #member_birth, #member_nikeid, #member_phonenumber').keyup( () => {
+    // 필수항목
+    $('#member_id, #member_pwd, #member_nickname').keyup( () => {
         memberid = document.getElementById("member_id").value;
         memberpwd = document.getElementById("member_pwd").value;
 
-        memberrealname = document.getElementById("member_realname").value;
         membernickname = document.getElementById("member_nickname").value;
-        memberbirth = document.getElementById("member_birth").value;
-        membernikeid = document.getElementById("member_nikeid").value;
-        memberphonenumber = document.getElementById("member_phonenumber").value;
 
-        if (emailRegEx.test(memberid) && passwordRegEx.test(memberpwd) && nameRegEx.test(memberrealname) && nicknameRegEx.test(membernickname) && birthRegEx.test(memberbirth) && nikeidRegEx.test(membernikeid) && phonenumberRegEx.test(memberphonenumber)) {
+        if (emailRegEx.test(memberid) && passwordRegEx.test(memberpwd) && nicknameRegEx.test(membernickname)) {
             $('.next-btn-3').removeClass('disabled');
             $('.next-btn-3').addClass('abled');
             $('.next-btn-3').attr('disabled', false);
@@ -583,7 +630,6 @@ $(document).ready( () => {
             $('.next-btn-3').attr('disabled', true);
         }
     });
-
 
     function getCookie(name) {
         var cookieValue = null;

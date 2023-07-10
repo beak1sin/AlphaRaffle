@@ -24,12 +24,20 @@
                         <p style="margin: 0px; font-size: 20px; font-weight: 400;">최근 검색어가 없습니다.</p>
                     </div>
                     {% else %}
-                    <div>
-                    {% for recent_searches in recent_searches %}
-                    
-                        <p style="margin: 0px; font-size: 20px; font-weight: 400;">{{recent_searches.term}}</p>
-                    
-                    {% endfor %}
+                    <div style="display:flex; width: 100%;">
+                        {% if recent_searches|length == 0 %}
+                        <p style="margin: 0px; font-size: 20px; font-weight: 400;">최근 검색어가 없습니다.</p>
+                        {% else %}
+                        {% for recent_searches in recent_searches %}
+                        <div style="height: 44px; position: relative; background: #EEEEEE; border-radius: 20px; border: 0.30px #777777 solid;">
+                            <p style="margin: 0px; font-size: 24px; font-weight: 500; float: left;">{{recent_searches.term}}</p>
+                            <!-- <div style="width: 240px; height: 30px; left: 19px; top: 7px; position: absolute; color: black; font-size: 24px; font-family: Pretendard; font-weight: 500; word-wrap: break-word">{{recent_searches.term}}</div> -->
+                            <div style="width: 25px; height: 25px; right: 0px; float: left;">
+                                <img style="width: 20px; height: 20px; " src="https://via.placeholder.com/20x20" />
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
                     </div>
                     {% endif %}
                 </div>
