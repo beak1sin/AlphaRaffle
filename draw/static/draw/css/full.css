@@ -4,10 +4,10 @@
     background: white;
     position: fixed;
     top: 0;
-    right: -300px;
+    left: -300px;
     z-index: 1;
     transition: all 0.5s;
-    border-left: 2px solid black;
+    box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.25);
 }
 
 .filter-layer.on {
@@ -16,10 +16,10 @@
     background: white;
     position: fixed;
     top: 0;
-    right: 0px;
+    left: 0px;
     z-index: 1;
     transition: all 0.5s;
-    border-left: 2px solid black;
+    box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.25);
 }
 
 .u-section-1.blurOn {
@@ -32,8 +32,7 @@
 
 .filter-layer-hide {
     width: auto;
-    height: 112px;
-    border-bottom: 2px solid black;
+    height: 84px;
 }
 
 .filter-layer-area {

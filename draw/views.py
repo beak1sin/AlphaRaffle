@@ -729,13 +729,40 @@ def delete_recent_searches(request):
     recent_search = bodyjson['recent_searchAJAX']
     member_no = request.session['member_no']
     recent = SearchTerm.objects.filter(term=recent_search,member_no=member_no)
-    if recent !=None:
+    if recent:
         recent.delete()
+        context['result_msg'] = '삭제 완료'
+    else:
+        context['result_msg'] = '삭제할 검색어가 없습니다.'
 
     context['flag'] = '1'
-    context['result_msg'] = '삭제 완료'
+    
     print(recent_search)
     return JsonResponse(context, content_type="application/json")
+
+@csrf_protect
+def all_recent_delete(request):
+    context = {}
+    if 'member_no' in request.session:
+        member_no = request.session['member_no']
+        recent = SearchTerm.objects.filter(member_no=member_no)
+        
+        if recent:
+            recent.delete()
+            context['recent'] = '존재유'
+            context['result_msg'] = '전체 삭제 완료'
+        else:
+            context['recent'] = '존재무'
+            context['result_msg'] = '삭제할 검색어가 없습니다.'
+
+        context['flag'] = '1'
+        
+    else :
+        context['flag'] = '0'
+        context['result_msg'] = '로그인 안되어 있는 상태'
+
+    return JsonResponse(context, content_type="application/json")
+
 '''
 @csrf_protect
 def search(request):

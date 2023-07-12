@@ -308,7 +308,7 @@ $(document).ready(function() {
     $('#scroll-container').css({'overflow': 'scroll'});
   })
 
-  $('.xbutton-icon-label').click(function() {
+    $('.xbutton-icon-label').click(function() {
         let $recent_search = $(this).parent().parent().prev().text();
         let $recent_search_value = $(this).parent().parent().parent();
 
@@ -336,6 +336,36 @@ $(document).ready(function() {
         xhr.setRequestHeader("X-CSRFToken", csrftoken);
         xhr.send(datastr);
     });
+
+    $('#all_recent_delete').click(function() {
+        var data = {};
+        var datastr = JSON.stringify(data);
+
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                var data = xhr.responseText;
+
+                var obj = JSON.parse(data);
+
+                if (obj.flag == '1') {
+                    alert(obj.result_msg);
+                    if (obj.recent == '존재유') {
+                        $('.recent-flex > div').remove();
+                        var html = '<p style="margin: 0px; font-size: 20px; font-weight: 400;">최근 검색어가 없습니다.</p>';
+                        $('.recent-flex').append(html);
+                    }
+                } else {
+                    alert(obj.result_msg);
+                }
+            }
+        };
+        xhr.open("POST", "all_recent_delete");
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.send(datastr);
+    });
+    
+
 
 });
 

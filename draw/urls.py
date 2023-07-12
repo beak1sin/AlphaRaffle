@@ -67,6 +67,8 @@ urlpatterns = [
     path('full/likeShoe', views.like_shoe, name='신발좋아요'),
 
     path('full/delete_recent_searches', views.delete_recent_searches, name="최근검색어삭제"),
+    path('full/all_recent_delete', views.all_recent_delete, name="최근검색어전체삭제"),
+    
 
     path('crawl', cron.crawl2, name='crawl'),
 

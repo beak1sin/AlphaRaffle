@@ -101,7 +101,7 @@ $(document).ready(function() {
     });
 
     // 필터링 버튼을 클릭하면 사이드바 열림
-    $(document).on("click", ".filter-btn", function (e){
+    $(document).on("click", ".menu-icon-label", function (e){
         $(".filter-layer").removeClass("off");
         $('.u-section-1').removeClass("blurOff");
         $(".filter-layer").addClass("on");

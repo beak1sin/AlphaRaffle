@@ -144,6 +144,7 @@ footer {
   width: 24px;
   height: 24px;
   display: inline-block;
+  cursor: pointer;
 }
 
 .menu-icon-label .icon {
@@ -167,6 +168,7 @@ footer {
   width: 24px;
   height: 24px;
   display: inline-block;
+  cursor: pointer;
 }
 
 .viewSort-icon-label .icon {
