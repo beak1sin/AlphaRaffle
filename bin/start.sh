@@ -13,4 +13,4 @@ uwsgi --ini /usr/local/share/AlphaRaffle/AlphaRaffle_uwsgi.ini
 echo "############# START OK ############"
 deactivate
 echo "############# virtualenvs OFF #############"
-tail -111f /usr/local/share/AlphaRaffle/logs/uwsgi.log
+#tail -111f /usr/local/share/AlphaRaffle/logs/uwsgi.log
