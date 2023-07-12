@@ -564,3 +564,26 @@ header {
 }
    
 /* ------------ grid */
+
+.xbutton-icon {
+  position: absolute;
+  bottom: 16px;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+}
+
+.xbutton-icon-label {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+
+.xbutton-icon-label .icon {
+  display: block;
+  height: 100%;
+  background: url(../necessary/X_button.svg) no-repeat center center/16px auto;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}

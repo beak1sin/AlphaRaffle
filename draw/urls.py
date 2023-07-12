@@ -65,7 +65,8 @@ urlpatterns = [
 
     path('main/likeShoe', views.like_shoe, name='신발좋아요'),
     path('full/likeShoe', views.like_shoe, name='신발좋아요'),
-    # path('full/like2', views.like_shoe, name='신발좋아요2'),
+
+    path('full/delete_recent_searches', views.delete_recent_searches, name="최근검색어삭제"),
 
     path('crawl', cron.crawl2, name='crawl'),
 
@@ -85,6 +86,10 @@ urlpatterns = [
     # 네이버 서치어드바이저
     path('naver07438b501f2bcdb23c19460dc9cca09d.html', views.naverSearch , name='naverSearch'),
     path('naver73749ca69b9eff6e2574852408ea3ecf.html', views.naverSearchwww , name='naverSearchwww'),
+
+    # 구글 애드센스(ads.txt)
+    path('ads.txt', TemplateView.as_view(template_name="draw/ads.txt", 
+     content_type='text/plain')),
 
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),

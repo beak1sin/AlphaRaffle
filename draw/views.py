@@ -513,7 +513,7 @@ def full(request):
             shoe = Shoe.objects.all().order_by('-id')[0:12]
             shoe_count = Shoe.objects.all().count()
         context = {'shoe': shoe, 'member': member, 'shoe_count': shoe_count ,'recent_searches': recent_searches}
-    print(recent_searches)
+
     context = {'shoe': shoe, 'member': member, 'shoe_count': shoe_count ,'recent_searches': recent_searches}  # member 객체를 context에 추가
 
     if request.method == 'POST':
@@ -718,6 +718,23 @@ def comment(request):
         context['flag'] = '0'
         context['result_msg'] = '로그인 안되어 있는 상태'
 
+    return JsonResponse(context, content_type="application/json")
+
+@csrf_protect
+def delete_recent_searches(request):
+    context = {}
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+    
+    recent_search = bodyjson['recent_searchAJAX']
+    member_no = request.session['member_no']
+    recent = SearchTerm.objects.filter(term=recent_search,member_no=member_no)
+    if recent !=None:
+        recent.delete()
+
+    context['flag'] = '1'
+    context['result_msg'] = '삭제 완료'
+    print(recent_search)
     return JsonResponse(context, content_type="application/json")
 '''
 @csrf_protect

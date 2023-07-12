@@ -18,22 +18,27 @@
             </div>
             <div style="width: 100%; height: 20%; padding: 0px 50px 50px 50px;">
                 <div style="width: 100%; height: 100%;">
-                    <p style="margin: 0px; font-size: 32px; font-weight: 900;">최근 검색어</p>
+                    <p style="margin: 0px; font-size: 32px; font-weight: 900; float: left;">최근 검색어</p>
+                    <p style="margin: 0 0 0 20px; font-size: 20px; font-weight: 500; float: left; color: #777777; text-decoration: underline; text-underline-position: under; line-height: 51.2px; cursor: pointer;">전체 삭제</p>
                     {% if member.member_no == None %}
                     <div>
                         <p style="margin: 0px; font-size: 20px; font-weight: 400;">최근 검색어가 없습니다.</p>
                     </div>
                     {% else %}
-                    <div style="display:flex; width: 100%;">
+                    <div class="recent-flex" style="display:flex; width: 100%; flex-wrap: wrap">
                         {% if recent_searches|length == 0 %}
                         <p style="margin: 0px; font-size: 20px; font-weight: 400;">최근 검색어가 없습니다.</p>
                         {% else %}
                         {% for recent_searches in recent_searches %}
-                        <div style="height: 44px; position: relative; background: #EEEEEE; border-radius: 20px; border: 0.30px #777777 solid;">
-                            <p style="margin: 0px; font-size: 24px; font-weight: 500; float: left;">{{recent_searches.term}}</p>
+                        <div class="recent-items" style="height: 44px; position: relative; background: #EEEEEE; border-radius: 20px; border: 0.30px #777777 solid; padding-left: 10px; margin-right: 10px; margin-top: 10px;">
+                            <p style="margin: 0px; font-size: 18px; font-weight: 500; float: left; line-height: 44px;">{{recent_searches.term}}</p>
                             <!-- <div style="width: 240px; height: 30px; left: 19px; top: 7px; position: absolute; color: black; font-size: 24px; font-family: Pretendard; font-weight: 500; word-wrap: break-word">{{recent_searches.term}}</div> -->
-                            <div style="width: 25px; height: 25px; right: 0px; float: left;">
-                                <img style="width: 20px; height: 20px; " src="https://via.placeholder.com/20x20" />
+                            <div style="width: 25px; height: 25px; right: 0px; float: left; margin-left: 10px;">
+                                <div class="xbutton-icon">
+                                    <label class="xbutton-icon-label">
+                                        <span class="icon"></span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         {% endfor %}

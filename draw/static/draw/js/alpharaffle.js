@@ -308,6 +308,35 @@ $(document).ready(function() {
     $('#scroll-container').css({'overflow': 'scroll'});
   })
 
+  $('.xbutton-icon-label').click(function() {
+        let $recent_search = $(this).parent().parent().prev().text();
+        let $recent_search_value = $(this).parent().parent().parent();
+
+        var data = {recent_searchAJAX: $recent_search};
+        var datastr = JSON.stringify(data);
+
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                var data = xhr.responseText;
+
+                var obj = JSON.parse(data);
+
+                if (obj.flag == '1') {
+                    alert(obj.result_msg);
+                    $recent_search_value.remove();
+                    if ($('.recent-items').length == 0) {
+                        var html = '<p style="margin: 0px; font-size: 20px; font-weight: 400;">최근 검색어가 없습니다.</p>';
+                        $('.recent-flex').append(html);
+                    }
+                }
+            }
+        };
+        xhr.open("POST", "delete_recent_searches");
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.send(datastr);
+    });
+
 });
 
 
