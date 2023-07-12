@@ -582,7 +582,7 @@ header {
 .xbutton-icon-label .icon {
   display: block;
   height: 100%;
-  background: url(../necessary/X_button.svg) no-repeat center center/16px auto;
+  background: url(../necessary/x_button.svg) no-repeat center center/16px auto;
   position: relative;
   z-index: 1;
   cursor: pointer;
