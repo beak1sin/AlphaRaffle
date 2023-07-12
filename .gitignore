@@ -313,6 +313,7 @@ my_settings.py
 
 # static 폴더
 static/
+!draw/static/
 static/staticfiles.json
 static/draw/images/
 static/draw/logoimg/
