@@ -59,6 +59,9 @@
                                 <span class="icon"></span>
                             </label>
                         </div>
+                        <!-- <div style="position: absolute; width: 250px; height: 350px; background-color: white; z-index: 2; top: 40; right: 10px;">
+
+                        </div> -->
                     </div>
                     <div class="grid-wrapper infinite-container full-section">
                         {% csrf_token %}
@@ -117,12 +120,18 @@
     <div class="filter-layer off">
         <div class="filter-layer-hide"></div>
         <div class="filter-layer-area">
-            <div class="filter-layer-header">
-                필터
-                <button class="exit-btn"></button>
+            <div class="exit-icon">
+                <label class="exit-icon-label exit-btn">
+                    <span class="icon"></span>
+                </label>
             </div>
+            <div class="filter-layer-header">
+                <!-- 필터
+                <button class="exit-btn"></button> -->
+            </div>
+            
             <div class="filter-layer-content">
-                <div id="order" class="filter-layer-content-content">
+                <!-- <div id="order" class="filter-layer-content-content">
                     <div class="filter-layer-content-content-title">정렬기준</div>
                     <div class="filter-layer-content-content-list">
                         <div class="filter-layer-content-content-list-radiobox">
@@ -153,15 +162,16 @@
                             </label>
                         </div>
                     </div>
-                </div>
-                <div id="brand" class="filter-layer-content-content accordion-type">
+                </div> -->
+                <!-- <div id="brand" class="filter-layer-content-content accordion-type"> -->
+                <div id="brand" class="filter-layer-content-content accordion-type on">
                     <div class="filter-layer-content-content-title">
                         <a>
                             브랜드
                             <span id="brandCount" class="count"></span>
                         </a>
                     </div>
-                    <div class="filter-layer-content-content-list">
+                    <div class="filter-layer-content-content-list" style="padding: 10px; border-radius: 10px; border: 0.20px #C8C8C8 solid">
                         <div class="filter-layer-content-content-list-checkbox">
                             <label>
                                 <span class="checkbox-icon">
@@ -282,18 +292,18 @@
                     </div>
                 </div>
                 <div id="region" class="filter-layer-content-content">
-                    <div class="filter-layer-content-content-title">국가</div>
-                    <div class="filter-layer-content-content-list">
-                        <div class="filter-layer-content-content-list-checkbox">
+                    <div class="filter-layer-content-content-title">국내 해외</div>
+                    <div class="filter-layer-content-content-list filter-flex">
+                        <div class="filter-layer-content-content-list-checkbox filter-flex-items">
                             <label>
                                 <span class="checkbox-icon">
                                     <input type="checkbox" name="region">
                                     <span class="icon"></span>
                                 </span>
-                                <span class="value">한국</span>
+                                <span class="value">국내</span>
                             </label>
                         </div>
-                        <div class="filter-layer-content-content-list-checkbox">
+                        <div class="filter-layer-content-content-list-checkbox filter-flex-items">
                             <label>
                                 <span class="checkbox-icon">
                                     <input type="checkbox" name="region">
@@ -305,9 +315,9 @@
                     </div>
                 </div>
                 <div id="onoffline" class="filter-layer-content-content">
-                    <div class="filter-layer-content-content-title">온라인/오프라인</div>
-                    <div class="filter-layer-content-content-list">
-                        <div class="filter-layer-content-content-list-checkbox">
+                    <div class="filter-layer-content-content-title">발매 장소</div>
+                    <div class="filter-layer-content-content-list filter-flex">
+                        <div class="filter-layer-content-content-list-checkbox filter-flex-items">
                             <label>
                                 <span class="checkbox-icon">
                                     <input type="checkbox" name="onoffline">
@@ -316,7 +326,7 @@
                                 <span class="value">온라인</span>
                             </label>
                         </div>
-                        <div class="filter-layer-content-content-list-checkbox">
+                        <div class="filter-layer-content-content-list-checkbox filter-flex-items">
                             <label>
                                 <span class="checkbox-icon">
                                     <input type="checkbox" name="onoffline">
@@ -328,32 +338,32 @@
                     </div>
                 </div>
                 <div id="release" class="filter-layer-content-content">
-                    <div class="filter-layer-content-content-title">발매유형</div>
-                    <div class="filter-layer-content-content-list">
-                        <div class="filter-layer-content-content-list-checkbox">
+                    <div class="filter-layer-content-content-title">발매 유형</div>
+                    <div class="filter-layer-content-content-list filter-flex">
+                        <div class="filter-layer-content-content-list-checkbox filter-flex-items">
                             <label>
                                 <span class="checkbox-icon">
                                     <input type="checkbox" name="release">
                                     <span class="icon"></span>
                                 </span>
-                                <span class="value">응모</span>
+                                <span class="value">추첨</span>
                             </label>
                         </div>
-                        <div class="filter-layer-content-content-list-checkbox">
+                        <div class="filter-layer-content-content-list-checkbox filter-flex-items">
                             <label>
                                 <span class="checkbox-icon">
                                     <input type="checkbox" name="release">
                                     <span class="icon"></span>
                                 </span>
-                                <span class="value">선착순</span>
+                                <span class="value">선착</span>
                             </label>
                         </div>
                     </div>
                 </div>
                 <div id="delivery" class="filter-layer-content-content">
                     <div class="filter-layer-content-content-title">배송방식</div>
-                    <div class="filter-layer-content-content-list">
-                        <div class="filter-layer-content-content-list-checkbox">
+                    <div class="filter-layer-content-content-list filter-flex">
+                        <div class="filter-layer-content-content-list-checkbox filter-flex-items">
                             <label>
                                 <span class="checkbox-icon">
                                     <input type="checkbox" name="delivery">
@@ -362,7 +372,7 @@
                                 <span class="value">국내배송</span>
                             </label>
                         </div>
-                        <div class="filter-layer-content-content-list-checkbox">
+                        <div class="filter-layer-content-content-list-checkbox filter-flex-items">
                             <label>
                                 <span class="checkbox-icon">
                                     <input type="checkbox" name="delivery">
@@ -371,7 +381,7 @@
                                 <span class="value">매장수령</span>
                             </label>
                         </div>
-                        <div class="filter-layer-content-content-list-checkbox">
+                        <div class="filter-layer-content-content-list-checkbox filter-flex-items">
                             <label>
                                 <span class="checkbox-icon">
                                     <input type="checkbox" name="delivery">
@@ -380,7 +390,7 @@
                                 <span class="value">직배</span>
                             </label>
                         </div>
-                        <div class="filter-layer-content-content-list-checkbox">
+                        <div class="filter-layer-content-content-list-checkbox filter-flex-items">
                             <label>
                                 <span class="checkbox-icon">
                                     <input type="checkbox" name="delivery">
@@ -393,13 +403,25 @@
                 </div>
             </div>
             <div class="filter-layer-footer">
-                <a id="reset_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2 u-reset-btn">
+                <!-- <a id="reset_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2 u-reset-btn">
                     초기화
                     <span id="filterCount" class="count"></span>
                 </a>
                 <a class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2 u-apply-btn disabled">
                     적용
-                </a>
+                </a> -->
+                <div style="width: 100%; height: 80px; position: relative;">
+                    <div class="apply-icon">
+                        <label class="apply-icon-label">
+                            <span class="icon"></span>
+                        </label>
+                    </div>
+                    <div class="reset-icon">
+                        <label class="reset-icon-label">
+                            <span class="icon"></span>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

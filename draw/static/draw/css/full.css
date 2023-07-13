@@ -24,6 +24,7 @@
 
 .u-section-1.blurOn {
     filter: blur(4px);
+    /* pointer-events: none; */
 }
 
 .u-section-1.blurOff {
@@ -44,8 +45,8 @@
 
 .filter-layer-header {
     width: 300px;
-    height: 38px;
-    /* background-color: aqua; */
+    /* height: 38px; */
+    height: 0px;
     position: relative;
     font-size: 17px;
     line-height: 38px;
@@ -53,7 +54,7 @@
     text-align: center;
 }
 
-.filter-layer-header .exit-btn {
+/* .filter-layer-header .exit-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -71,7 +72,7 @@
     background-color: black;
     background-image: url(../images/x_white_icon.png);
     transition-duration: 0.5s;
-}
+} */
 
 .filter-layer-content {
     width: auto;
@@ -103,7 +104,8 @@
 .filter-layer-content-content-list {
     overflow: auto;
     overflow-x: hidden;
-    max-height: 320px;
+    /* max-height: 320px; */
+    max-height: 220px;
 }
 
 .filter-layer-content-content.accordion-type .filter-layer-content-content-list {
@@ -196,7 +198,7 @@ input[type="checkbox"] {
     color: #000;
 }
 
-.filter-layer-content-content.accordion-type .filter-layer-content-content-title>a::after {
+/* .filter-layer-content-content.accordion-type .filter-layer-content-content-title>a::after {
     position: absolute;
     right: 0;
     top: 50%;
@@ -208,11 +210,11 @@ input[type="checkbox"] {
     background-position: 50% 50%;
     background-size: 100% auto;
     content: "";
-}
+} */
 
-.filter-layer-content-content.accordion-type.on .filter-layer-content-content-title>a::after {
+/* .filter-layer-content-content.accordion-type.on .filter-layer-content-content-title>a::after {
     transform: rotate(-180deg);
-}
+} */
 
 .filter-layer-footer {
     width: auto;
@@ -237,4 +239,88 @@ input[type="checkbox"] {
     cursor: default;
     opacity: 0.5;
     pointer-events: none;
+}
+
+/* 필터링 적용 버튼 */
+.apply-icon {
+    position: absolute;
+    top: 50%;
+    left: 33.3%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+}
+
+.apply-icon-label {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.apply-icon-label .icon {
+    display: block;
+    height: 100%;
+    background: url(../necessary/apply_btn.svg) no-repeat center center/50px auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* 필터링 초기화 버튼 */
+.reset-icon {
+    position: absolute;
+    top: 50%;
+    left: 66.6%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+}
+
+.reset-icon-label {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.reset-icon-label .icon {
+    display: block;
+    height: 100%;
+    background: url(../necessary/reset_btn.svg) no-repeat center center/50px auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* 필터링 닫기 버튼 */
+.exit-icon {
+    position: absolute;
+    top: 11px;
+    right: 11px;
+    width: 16px;
+    height: 16px;
+    transition-duration: 0.5s;
+}
+
+.exit-icon-label {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.exit-icon-label .icon {
+    display: block;
+    height: 100%;
+    background: url(../necessary/exit_btn.svg) no-repeat center center/16px auto;
+    position: relative;
+    z-index: 1;
+}
+
+.filter-flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.filter-flex-items {
+    width: 50%;
 }
