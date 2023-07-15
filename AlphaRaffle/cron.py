@@ -292,10 +292,12 @@ def crawl():
             # uwsgi 재실행 등.. 서버 재배포
             subprocess.call(['/usr/local/share/AlphaRaffle/bin/start.sh'])
             # 서버 재배포 성공 메세지(텔레그램)
-            telegram_crawl.serverRestart_complete_msg()
+            # telegram_crawl.serverRestart_complete_msg()
+            print('서버 재배포 성공')
         except:
             # 서버 재배포 실패 메세지(텔레그램)
-            telegram_crawl.serverRestart_error_msg()
+            # telegram_crawl.serverRestart_error_msg()
+            print('서버 재배포 실패')
         return redirect('/')
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -585,10 +587,12 @@ def crawl2(request):
             # uwsgi 재실행 등.. 서버 재배포
             subprocess.call(['/usr/local/share/AlphaRaffle/bin/start.sh'])
             # 서버 재배포 성공 메세지(텔레그램)
-            telegram_crawl.serverRestart_complete_msg()
+            print('서버 재배포 성공')
+            # telegram_crawl.serverRestart_complete_msg()
         except:
             # 서버 재배포 실패 메세지(텔레그램)
-            telegram_crawl.serverRestart_error_msg()
+            # telegram_crawl.serverRestart_error_msg()
+            print('서버 재배포 실패')
         return redirect('/')
     except Exception as e:
         print(f"An error occurred: {e}")

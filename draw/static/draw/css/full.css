@@ -324,3 +324,68 @@ input[type="checkbox"] {
 .filter-flex-items {
     width: 50%;
 }
+
+.viewsort-filter-flex {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 250px;
+    padding: 10px 20px;
+    background-color: white;
+    z-index: 2;
+    top: 5px;
+    right: 10px;
+    border-radius: 5px;
+    box-shadow: -1px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.viewsort-filter-flex.off {
+    display: none;
+}
+
+.viewsort-fliter-items {
+    height: 70px;
+}
+
+.viewsort-fliter-items .viewsort-items-box {
+    position: relative;
+    height: 50px;
+}
+
+.viewsort-fliter-items .viewsort-items-comment {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.viewsort-items-box .viewsort-items-text {
+    margin: 0;
+    position: absolute;
+    left: 40px;
+    line-height: 50px;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.circle-icon {
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    transform: translate(0, -50%);
+    width: 24px;
+    height: 24px;
+}
+
+.circle-icon-label {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+}
+
+.circle-icon-label .icon {
+    display: block;
+    height: 100%;
+    background: url(../necessary/circle_btn.svg) no-repeat center center/24px auto;
+    position: relative;
+    z-index: 1;
+}

@@ -59,11 +59,55 @@
                                 <span class="icon"></span>
                             </label>
                         </div>
-                        <!-- <div style="position: absolute; width: 250px; height: 350px; background-color: white; z-index: 2; top: 40; right: 10px;">
-
-                        </div> -->
+                        
                     </div>
                     <div class="grid-wrapper infinite-container full-section">
+                        <div class="viewsort-filter-flex off">
+                            <div class="viewsort-fliter-items">
+                                <div class="viewsort-items-box">
+                                    <div class="circle-icon">
+                                        <label class="circle-icon-label">
+                                            <span class="icon"></span>
+                                        </label>
+                                    </div>
+                                    <p class="viewsort-items-text">최신 순</p>
+                                </div>
+                                <p class="viewsort-items-comment">가장 최근에 올라온 게시글 순서대로 정렬합니다.</p>
+                            </div>
+                            <div class="viewsort-fliter-items">
+                                <div class="viewsort-items-box">
+                                    <div class="circle-icon">
+                                        <label class="circle-icon-label">
+                                            <span class="icon"></span>
+                                        </label>
+                                    </div>
+                                    <p class="viewsort-items-text">찜한 순</p>
+                                </div>
+                                <p class="viewsort-items-comment">가장 많은 북마크를 보유한 순서대로 정렬합니다.</p>
+                            </div>
+                            <div class="viewsort-fliter-items">
+                                <div class="viewsort-items-box">
+                                    <div class="circle-icon">
+                                        <label class="circle-icon-label">
+                                            <span class="icon"></span>
+                                        </label>
+                                    </div>
+                                    <p class="viewsort-items-text">조회 순</p>
+                                </div>
+                                <p class="viewsort-items-comment">가장 많이 조회한 순서대로 정렬합니다.</p>
+                            </div>
+                            <div class="viewsort-fliter-items">
+                                <div class="viewsort-items-box">
+                                    <div class="circle-icon">
+                                        <label class="circle-icon-label">
+                                            <span class="icon"></span>
+                                        </label>
+                                    </div>
+                                    <p class="viewsort-items-text">댓글 순</p>
+                                </div>
+                                <p class="viewsort-items-comment">댓글이 가장 많은 순서대로 정렬합니다.</p>
+                            </div>
+                        </div>
                         {% csrf_token %}
                         {% for shoe in shoe %}
                         <div class="grid-box" data-value="{{shoe.serialno}}">

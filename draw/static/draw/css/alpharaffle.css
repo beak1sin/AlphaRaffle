@@ -399,6 +399,7 @@ header {
   grid-auto-rows: 410px;
   column-gap: 0px;
   row-gap: 0px;
+  position: relative;
 }
 
 @media (max-width:1919px) {

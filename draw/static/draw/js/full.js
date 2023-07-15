@@ -446,5 +446,13 @@ $(document).ready(function() {
         xhr.send(datastr);
     }
 
+    $('.viewSort-icon-label').click(function () {
+        if ($('.viewsort-filter-flex').hasClass('off')) {
+            $('.viewsort-filter-flex').removeClass('off');
+        } else {
+            $('.viewsort-filter-flex').addClass('off');
+        }
+    });
+
 });
 
