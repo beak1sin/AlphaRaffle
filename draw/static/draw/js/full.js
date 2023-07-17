@@ -126,6 +126,13 @@ $(document).ready(function() {
         $('.u-section-1').addClass("blurOff");
     });
 
+    function exitBtn() {
+        $(".filter-layer").removeClass("on");
+        $('.u-section-1').removeClass("blurOn");
+        $(".filter-layer").addClass("off");
+        $('.u-section-1').addClass("blurOff");
+    }
+
     // 필터링 브랜드 아코디언
     $(document).on("click", "#brand .filter-layer-content-content-title", function (e){
         if ($('#brand').hasClass("on")) {
@@ -170,9 +177,14 @@ $(document).ready(function() {
     let deliveryList = [];
     $("input[type=checkbox][name=brand], input[type=checkbox][name=region], input[type=checkbox][name=onoffline], input[type=checkbox][name=release], input[type=checkbox][name=delivery]").change(function() {
         // 필터링 checkbox 값
-        let text = $(this).parent(".checkbox-icon").next().text();
+        let text = $(this).parent().parent(".circle-icon").next().text();
         // 필터링 타이틀
-        let title = $(this).parents(".filter-layer-content-content").children(".filter-layer-content-content-title").text().trim().split(' ')[0];
+        let title = '';
+        if($(this).attr('name') == 'brand'){
+            title = $(this).parents(".filter-layer-content-content").children(".filter-layer-content-content-title").text().trim().split(' ')[0];
+        } else {
+            title = $(this).parents(".filter-layer-content-content").children(".filter-layer-content-content-title").text().trim();
+        }
         let valueName = $(this).val(text);
         if ($(this).is(':checked')) {
             // 브랜드만 비교시 false로 나와 임의설정
@@ -184,13 +196,13 @@ $(document).ready(function() {
                 case '브랜드':
                     brandList.push(valueName.val());
                     break;
-                case '국가':
+                case '국내 해외':
                     regionList.push(valueName.val());
                     break;
-                case '온라인/오프라인':
+                case '발매 장소':
                     onofflineList.push(valueName.val());
                     break;
-                case '발매유형':
+                case '발매 유형':
                     releaseList.push(valueName.val());
                     break;
                 case '배송방식':
@@ -200,6 +212,7 @@ $(document).ready(function() {
                     alert('아무것도 선택 안됨');
                     break;
             }
+            console.log(brandList);
             // 체크박스 체크 시 필터링 개수 증가
             filterCount++;
             $('span#filterCount').text('('+filterCount+')');
@@ -219,7 +232,7 @@ $(document).ready(function() {
                         }
                     }
                     break;
-                case '국가':
+                case '국내 해외':
                     for(var i = 0; i < regionList.length; i++){ 
                         if (regionList[i] === valueName.val()) { 
                             regionList.splice(i, 1);
@@ -227,7 +240,7 @@ $(document).ready(function() {
                         }
                     }
                     break;
-                case '온라인/오프라인':
+                case '발매 장소':
                     for(var i = 0; i < onofflineList.length; i++){ 
                         if (onofflineList[i] === valueName.val()) { 
                             onofflineList.splice(i, 1);
@@ -235,7 +248,7 @@ $(document).ready(function() {
                         }
                     }
                     break;
-                case '발매유형':
+                case '발매 유형':
                     for(var i = 0; i < releaseList.length; i++){ 
                         if (releaseList[i] === valueName.val()) { 
                             releaseList.splice(i, 1);
@@ -288,7 +301,41 @@ $(document).ready(function() {
     
 
     // 필터링 적용 버튼
-    $(document).on("click", ".u-apply-btn", function() {
+    // $(document).on("click", "#apply_btn", function() {
+
+    //     var data = {brandListAJAX: brandList, regionListAJAX: regionList, onofflineListAJAX: onofflineList, releaseListAJAX: releaseList, deliveryListAJAX: deliveryList};
+    //     var datastr = JSON.stringify(data);
+        
+    //     xhr = new XMLHttpRequest();
+    //     xhr.onreadystatechange = function() {
+    //         if (xhr.readyState == 4) {
+    //             var data = xhr.responseText;
+    
+    //             var obj = JSON.parse(data);
+    //             if(obj.flag == "0"){
+    //                 // alert(obj.result_msg);
+    //                 $('#all').hide();
+    //                 $('#filter').show();
+    //                 let shoe = obj.shoe;
+    //                 let productsHTML = '';
+    //                 for (let i=0; i<shoe.length; i++) {
+    //                     let shoe2 = shoe[i];
+    //                     let imgURL = STATIC_IMAGES_URL + shoe2.shoename + shoe2.serialno + "0.jpeg"
+    //                     productsHTML += '<div class="u-align-center u-container-style u-products-item u-repeater-item product-item product-item-filter"><div class="u-container-layout u-similar-container u-valign-top u-container-layout-1"><a class="hover_temp" style="display: block; width: auto; margin: 5px 5px 10px 5px;"><div class="screen u-radius-50"><div class="bookmark-icon"><label class="bookmark-icon-label"><input type="checkbox" name="bookmark"><span class="icon"></span></label></div><img alt="" class="lazyload u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" data-src="' + imgURL + '" data-image-width="842" data-image-height="595"></div></a><h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2" style="display: table;"><a class="u-product-title-link" style="font-size: 18px; display: table-cell; vertical-align: middle;"> ' + shoe2.shoename + '</a></h4><a href="' + TEMPLATES_DETAILS_URL + '?serialnum=' + shoe2.serialno + '" id = "serial" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2" data-value = ' + shoe2.serialno + '>응모하기</a></div></div>'
+    //                 }
+    //                 $('#filter_repeater').html(productsHTML);
+    //                 $(".product-item-filter").each(function(i, div) {
+    //                     $(this).animate({"opacity": 1});
+    //                     $(this).attr("loading", "1");
+    //                 });
+    //             }
+    //         }
+    //     };
+    //     xhr.open("POST", "filtering");
+    //     xhr.setRequestHeader("X-CSRFToken", csrftoken);
+    //     xhr.send(datastr);
+    // });
+    $(document).on("click", "#apply_btn", function() {
 
         var data = {brandListAJAX: brandList, regionListAJAX: regionList, onofflineListAJAX: onofflineList, releaseListAJAX: releaseList, deliveryListAJAX: deliveryList};
         var datastr = JSON.stringify(data);
@@ -299,21 +346,69 @@ $(document).ready(function() {
                 var data = xhr.responseText;
     
                 var obj = JSON.parse(data);
+                
                 if(obj.flag == "0"){
                     // alert(obj.result_msg);
                     $('#all').hide();
                     $('#filter').show();
-                    let shoe = obj.shoe;
-                    let productsHTML = '';
+                    var shoe = JSON.parse(obj.shoes);
+                    var likes = obj.likes;  // 멤버별 신발 좋아요 여부
+                    let html = '';
                     for (let i=0; i<shoe.length; i++) {
-                        let shoe2 = shoe[i];
-                        let imgURL = STATIC_IMAGES_URL + shoe2.shoename + shoe2.serialno + "0.jpeg"
-                        productsHTML += '<div class="u-align-center u-container-style u-products-item u-repeater-item product-item product-item-filter"><div class="u-container-layout u-similar-container u-valign-top u-container-layout-1"><a class="hover_temp" style="display: block; width: auto; margin: 5px 5px 10px 5px;"><div class="screen u-radius-50"><div class="bookmark-icon"><label class="bookmark-icon-label"><input type="checkbox" name="bookmark"><span class="icon"></span></label></div><img alt="" class="lazyload u-expanded-width u-image u-image-default u-product-control u-image-1 u-radius-50" data-src="' + imgURL + '" data-image-width="842" data-image-height="595"></div></a><h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2" style="display: table;"><a class="u-product-title-link" style="font-size: 18px; display: table-cell; vertical-align: middle;"> ' + shoe2.shoename + '</a></h4><a href="' + TEMPLATES_DETAILS_URL + '?serialnum=' + shoe2.serialno + '" id = "serial" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2" data-value = ' + shoe2.serialno + '>응모하기</a></div></div>'
+                        let shoe1 = shoe[i].fields;
+                        let liked = likes[i];
+                        html += '<div class="grid-box" data-value="' + shoe1.serialno + '">';
+                        html += '<div class="grid-container"><div class="grid-img-box">';
+                        html += '<div class="comment-icon"><label class="comment-icon-label"><span class="icon"></span></label></div>';
+                        html += '<div class="commentCount-box"><p class="commentCount">0</p></div>';
+                        html += '<div class="img-box" onclick="location.href = \'' + STATIC_FULL_URL + shoe1.serialno + '\'">';
+                        html += '<img class="lazyload shoeimg" data-src="' + STATIC_IMAGES_URL + shoe1.shoename + shoe1.serialno + '0.jpeg"></div>';
+                        html += '<div class="bookmark-icon">';
+                        html += '<label class="bookmark-icon-label' + (liked ? ' on' : '') + '">';
+                        html += '<span class="icon"></span></label></div>';
+                        html += '<div class="shoelikecount-box"><p class="shoelikecount">' + shoe1.shoelikecount + '</p></div></div>';
+                        html += '<div class="grid-shoename-box"><p class="shoename">' + shoe1.shoename + '</p></div>';
+                        html += '<div class="grid-pubdate-box"><p class="pubdate">' + shoe1.pubdate + '</p></div>';
+                        html += '<div class="grid-goBtn-box"><button class="goBtn" onclick="location.href = \'' + STATIC_FULL_URL + shoe1.serialno + '\'">바로가기</button></div>';
+                        html += '</div></div>';
                     }
-                    $('#filter_repeater').html(productsHTML);
-                    $(".product-item-filter").each(function(i, div) {
-                        $(this).animate({"opacity": 1});
-                        $(this).attr("loading", "1");
+                    $('.infinite-container').html('');
+                    $('.infinite-container').append(html);
+                    $('#shoe_count').text(obj.shoe_count + '개');
+                    exitBtn();
+
+                    $('.bookmark-icon-label').click(function() {
+                        let $serialno = $(this).parent().parent().parent().parent().attr('data-value');
+                    
+                        var $this = $(this);
+                        var $count = $(this).parent().next().children();
+                    
+                        var data = {serialnoAJAX: $serialno};
+                        var datastr = JSON.stringify(data);
+                    
+                        xhr = new XMLHttpRequest();
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState == 4) {
+                                var data = xhr.responseText;
+                    
+                                var obj = JSON.parse(data);
+                    
+                                if (obj.flag == '0') {
+                                    alert(obj.result_msg);
+                                    location.href = '/auth/login/';
+                                } else {
+                                    if(obj.liked) {
+                                        $this.addClass('on');
+                                    } else {
+                                        $this.removeClass('on');
+                                    }
+                                    $count.text(obj.count);
+                                }
+                            }
+                        };
+                        xhr.open("POST", "likeShoe");
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        xhr.send(datastr);
                     });
                 }
             }

@@ -90,7 +90,7 @@
 
 .filter-layer-content-content {
     padding: 12px 0;
-    /* border-top: 1px solid #000; */
+    border-top: 1px solid #000;
 }
 
 .filter-layer-content-content-title {
@@ -103,7 +103,7 @@
 
 .filter-layer-content-content-list {
     overflow: auto;
-    /* overflow-x: hidden; */
+    overflow-x: hidden;
     /* max-height: 320px; */
     max-height: 220px;
 }
@@ -317,7 +317,6 @@ input[type="checkbox"] {
 }
 
 .filter-flex {
-    overflow: visible;
     display: flex;
     flex-wrap: wrap;
 }

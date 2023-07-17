@@ -600,16 +600,26 @@ def filtering(request):
     onofflineList = bodyjson['onofflineListAJAX']
     releaseList = bodyjson['releaseListAJAX']
     deliveryList = bodyjson['deliveryListAJAX']
-    print('------------------------')
-    print(brandList, regionList, onofflineList, releaseList, deliveryList)
+    # print('------------------------')
+    # print(brandList, regionList, onofflineList, releaseList, deliveryList)
     # for i in range(len(brandList)):
     #     shoe = list(Shoe.objects.filter(shoebrand = brandList[i]).values())
     # print(shoe)
-    shoe = list(Shoe.objects.filter(shoebrand__in=brandList).values())
-    print(shoe)
+    shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')
+    shoe_count = Shoe.objects.filter(shoebrand__in = brandList).count()
+    shoes = serializers.serialize('json', shoe)
+    # print(shoes)
+    likes = []  # 멤버별 신발 좋아요 여부를 저장할 리스트
+    if request.session.has_key('member_no'):
+        member_no = request.session['member_no']
+        member = Member.objects.get(pk=member_no)
+        for shoe in shoe:
+            likes.append(member in shoe.likes.all())
     context['flag'] = '0'
     context['result_msg'] = '필터링 작업'
-    context['shoe'] = shoe
+    context['shoes'] = shoes
+    context['likes'] = likes
+    context['shoe_count'] = shoe_count
     return JsonResponse(context, content_type="application/json")
 
 @csrf_protect
