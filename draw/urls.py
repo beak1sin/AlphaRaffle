@@ -41,6 +41,7 @@ urlpatterns = [
     path('member_delete', views.member_delete, name='member_delete'),
     path('full/', views.full, name='full'),
     path('full/filtering', views.filtering, name='필터링'),
+    path('full/filtering_order', views.filtering_order, name='필터링오더'),
     path('full/like', views.like, name='좋아요'),
     path('full/likeCancel', views.likeCancel, name='좋아요취소'),
     # path('main3/bookmark', views.bookmark, name='북마크'),

@@ -57,49 +57,6 @@ $(document).ready(function() {
     });
 
 
-    
-
-    // 현재 제품은 opacity만 1
-    $(window).on("load", function() {
-        let scrTop = $(this).scrollTop();
-        let wH = $(this).height();
-        $(".product-item").each(function(i, div) {
-            let oT = $(div).offset().top;
-            if (oT > scrTop && oT < (scrTop+wH)) {
-                $(div).animate({"opacity": 1});
-                $(div).attr("loading", "1");
-            }
-        });
-    });
-
-    // 스크롤할때 제품들 fadeInUp 2s
-    $(window).on("scroll", function() {
-        let scrTop = $(this).scrollTop();
-        let wH = $(this).height();
-        $(".product-item").each(function(i, div) {
-            let oT = $(div).offset().top;
-            if (oT > scrTop && oT < (scrTop+wH)) {
-                if ($(div).attr("loading") == undefined) {
-                    $(div).css({
-                        'animation': 'fadeInUp 2s',
-                        'opacity': 1
-                    });
-                }
-            }
-        });
-        $(".product-item-filter").each(function(i, div) {
-            let oT = $(div).offset().top;
-            if (oT > scrTop && oT < (scrTop+wH)) {
-                if ($(div).attr("loading") == undefined) {
-                    $(div).css({
-                        'animation': 'fadeInUp 2s',
-                        'opacity': 1
-                    });
-                }
-            }
-        });
-    });
-
     // 필터링 버튼을 클릭하면 사이드바 열림
     $(document).on("click", ".menu-icon-label", function (e){
         $(".filter-layer").removeClass("off");
@@ -134,13 +91,13 @@ $(document).ready(function() {
     }
 
     // 필터링 브랜드 아코디언
-    $(document).on("click", "#brand .filter-layer-content-content-title", function (e){
-        if ($('#brand').hasClass("on")) {
-            $('#brand').removeClass("on");
-        } else {
-            $('#brand').addClass("on");
-        }
-    });
+    // $(document).on("click", "#brand .filter-layer-content-content-title", function (e){
+    //     if ($('#brand').hasClass("on")) {
+    //         $('#brand').removeClass("on");
+    //     } else {
+    //         $('#brand').addClass("on");
+    //     }
+    // });
 
     // 필터링 brand count
     let filterCount = 0;
@@ -335,25 +292,128 @@ $(document).ready(function() {
     //     xhr.setRequestHeader("X-CSRFToken", csrftoken);
     //     xhr.send(datastr);
     // });
-    $(document).on("click", "#apply_btn", function() {
 
-        var data = {brandListAJAX: brandList, regionListAJAX: regionList, onofflineListAJAX: onofflineList, releaseListAJAX: releaseList, deliveryListAJAX: deliveryList};
-        var datastr = JSON.stringify(data);
+
+    // $(document).on("click", "#apply_btn", function() {
+    //     $(".backL").css("display", "");
+    //     var data = {brandListAJAX: brandList, regionListAJAX: regionList, onofflineListAJAX: onofflineList, releaseListAJAX: releaseList, deliveryListAJAX: deliveryList};
+    //     var datastr = JSON.stringify(data);
         
+    //     xhr = new XMLHttpRequest();
+    //     xhr.onreadystatechange = function() {
+    //         if (xhr.readyState == 4) {
+    //             var data = xhr.responseText;
+    
+    //             var obj = JSON.parse(data);
+                
+    //             if(obj.flag == "0"){
+    //                 // alert(obj.result_msg);
+    //                 $('#all').hide();
+    //                 $('#filter').show();
+    //                 var shoe = JSON.parse(obj.shoes);
+    //                 var likes = obj.likes;  // 멤버별 신발 좋아요 여부
+    //                 let html = '';
+    //                 html += '<div class="viewsort-filter-flex off"><div class="viewsort-fliter-items"><div class="viewsort-items-box"><div class="circle-icon"><label class="circle-icon-label"><input type="radio"id="circle-checkbox"name="order"checked><span class="icon"></span></label></div><label class="viewsort-items-text"for="circle-checkbox">최신순</label></div><p class="viewsort-items-comment">가장 최근에 올라온 게시글 순서대로 정렬합니다.</p></div><div class="viewsort-fliter-items"><div class="viewsort-items-box"><div class="circle-icon"><label class="circle-icon-label"><input type="radio"id="circle-checkbox2"name="order"><span class="icon"></span></label></div><label class="viewsort-items-text"for="circle-checkbox2">찜한순</label></div><p class="viewsort-items-comment">가장 많은 북마크를 보유한 순서대로 정렬합니다.</p></div><div class="viewsort-fliter-items"><div class="viewsort-items-box"><div class="circle-icon"><label class="circle-icon-label"><input type="radio"id="circle-checkbox3"name="order"><span class="icon"></span></label></div><label class="viewsort-items-text"for="circle-checkbox3">조회순</label></div><p class="viewsort-items-comment">가장 많이 조회한 순서대로 정렬합니다.</p></div><div class="viewsort-fliter-items"><div class="viewsort-items-box"><div class="circle-icon"><label class="circle-icon-label"><input type="radio"id="circle-checkbox4"name="order"><span class="icon"></span></label></div><label class="viewsort-items-text"for="circle-checkbox4">댓글순</label></div><p class="viewsort-items-comment">댓글이 가장 많은 순서대로 정렬합니다.</p></div></div>';
+    //                 for (let i=0; i<shoe.length; i++) {
+    //                     let shoe1 = shoe[i].fields;
+    //                     let liked = likes[i];
+    //                     html += '<div class="grid-box" data-value="' + shoe1.serialno + '">';
+    //                     html += '<div class="grid-container"><div class="grid-img-box">';
+    //                     html += '<div class="comment-icon"><label class="comment-icon-label"><span class="icon"></span></label></div>';
+    //                     html += '<div class="commentCount-box"><p class="commentCount">0</p></div>';
+    //                     html += '<div class="img-box" onclick="location.href = \'' + STATIC_FULL_URL + shoe1.serialno + '\'">';
+    //                     html += '<img class="lazyload shoeimg" data-src="' + STATIC_IMAGES_URL + shoe1.shoename + shoe1.serialno + '0.jpeg"></div>';
+    //                     html += '<div class="bookmark-icon">';
+    //                     html += '<label class="bookmark-icon-label' + (liked ? ' on' : '') + '">';
+    //                     html += '<span class="icon"></span></label></div>';
+    //                     html += '<div class="shoelikecount-box"><p class="shoelikecount">' + shoe1.shoelikecount + '</p></div></div>';
+    //                     html += '<div class="grid-shoename-box"><p class="shoename">' + shoe1.shoename + '</p></div>';
+    //                     html += '<div class="grid-pubdate-box"><p class="pubdate">' + shoe1.pubdate + '</p></div>';
+    //                     html += '<div class="grid-goBtn-box"><button class="goBtn" onclick="location.href = \'' + STATIC_FULL_URL + shoe1.serialno + '\'">바로가기</button></div>';
+    //                     html += '</div></div>';
+    //                 }
+    //                 $('.infinite-container').html('');
+    //                 $('.infinite-container').append(html);
+    //                 $('#shoe_count').text(obj.shoe_count + '개');
+    //                 exitBtn();
+    //                 $(".backL").css("display", "none");
+    //                 $('.bookmark-icon-label').click(function() {
+    //                     let $serialno = $(this).parent().parent().parent().parent().attr('data-value');
+                    
+    //                     var $this = $(this);
+    //                     var $count = $(this).parent().next().children();
+                    
+    //                     var data = {serialnoAJAX: $serialno};
+    //                     var datastr = JSON.stringify(data);
+                    
+    //                     xhr = new XMLHttpRequest();
+    //                     xhr.onreadystatechange = function() {
+    //                         if (xhr.readyState == 4) {
+    //                             var data = xhr.responseText;
+                    
+    //                             var obj = JSON.parse(data);
+                    
+    //                             if (obj.flag == '0') {
+    //                                 alert(obj.result_msg);
+    //                                 location.href = '/auth/login/';
+    //                             } else {
+    //                                 if(obj.liked) {
+    //                                     $this.addClass('on');
+    //                                 } else {
+    //                                     $this.removeClass('on');
+    //                                 }
+    //                                 $count.text(obj.count);
+    //                             }
+    //                         }
+    //                     };
+    //                     xhr.open("POST", "likeShoe");
+    //                     xhr.setRequestHeader("X-CSRFToken", csrftoken);
+    //                     xhr.send(datastr);
+    //                 });
+    //             }
+    //         }
+    //     };
+    //     xhr.open("POST", "filtering");
+    //     xhr.setRequestHeader("X-CSRFToken", csrftoken);
+    //     xhr.send(datastr);
+    // });
+
+    $('#apply_btn').click(function() {
+        
+        // 현재 페이지 URL을 가져옵니다.
+        const currentURL = window.location.search;
+
+        // 새로운 URL 파라미터를 만듭니다. 여러 값을 쉼표로 연결합니다.
+        const newURLParams = new URLSearchParams(currentURL);
+        newURLParams.set("brand", brandList.join(","));
+
+
+        // 기존 URL의 경로와 파라미터를 유지하면서 업데이트된 파라미터를 반영
+        const newURL = currentURL.split("?")[0] + "?" + newURLParams;
+
+        // 새로운 URL로 페이지를 이동합니다.
+        window.location.href = newURL;
+    });
+
+
+    $("input[type=radio][name=order]").change(function() {
+        return
+        $(".backL").css("display", "");
+        let $order = $(this).attr('id');
+
+        var data = {orderAJAX: $order};
+        var datastr = JSON.stringify(data);
+
         xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {
                 var data = xhr.responseText;
-    
                 var obj = JSON.parse(data);
-                
-                if(obj.flag == "0"){
-                    // alert(obj.result_msg);
-                    $('#all').hide();
-                    $('#filter').show();
+                if (obj.flag == '1') {
                     var shoe = JSON.parse(obj.shoes);
                     var likes = obj.likes;  // 멤버별 신발 좋아요 여부
                     let html = '';
+                    html += '<div class="viewsort-filter-flex off"><div class="viewsort-fliter-items"><div class="viewsort-items-box"><div class="circle-icon"><label class="circle-icon-label"><input type="radio"id="circle-checkbox"name="order"checked><span class="icon"></span></label></div><label class="viewsort-items-text"for="circle-checkbox">최신순</label></div><p class="viewsort-items-comment">가장 최근에 올라온 게시글 순서대로 정렬합니다.</p></div><div class="viewsort-fliter-items"><div class="viewsort-items-box"><div class="circle-icon"><label class="circle-icon-label"><input type="radio"id="circle-checkbox2"name="order"><span class="icon"></span></label></div><label class="viewsort-items-text"for="circle-checkbox2">찜한순</label></div><p class="viewsort-items-comment">가장 많은 북마크를 보유한 순서대로 정렬합니다.</p></div><div class="viewsort-fliter-items"><div class="viewsort-items-box"><div class="circle-icon"><label class="circle-icon-label"><input type="radio"id="circle-checkbox3"name="order"><span class="icon"></span></label></div><label class="viewsort-items-text"for="circle-checkbox3">조회순</label></div><p class="viewsort-items-comment">가장 많이 조회한 순서대로 정렬합니다.</p></div><div class="viewsort-fliter-items"><div class="viewsort-items-box"><div class="circle-icon"><label class="circle-icon-label"><input type="radio"id="circle-checkbox4"name="order"><span class="icon"></span></label></div><label class="viewsort-items-text"for="circle-checkbox4">댓글순</label></div><p class="viewsort-items-comment">댓글이 가장 많은 순서대로 정렬합니다.</p></div></div>';
                     for (let i=0; i<shoe.length; i++) {
                         let shoe1 = shoe[i].fields;
                         let liked = likes[i];
@@ -374,9 +434,7 @@ $(document).ready(function() {
                     }
                     $('.infinite-container').html('');
                     $('.infinite-container').append(html);
-                    $('#shoe_count').text(obj.shoe_count + '개');
-                    exitBtn();
-
+                    $(".backL").css("display", "none");
                     $('.bookmark-icon-label').click(function() {
                         let $serialno = $(this).parent().parent().parent().parent().attr('data-value');
                     
@@ -413,11 +471,49 @@ $(document).ready(function() {
                 }
             }
         };
-        xhr.open("POST", "filtering");
+        xhr.open("POST", "filtering_order");
         xhr.setRequestHeader("X-CSRFToken", csrftoken);
         xhr.send(datastr);
     });
 
+    $('#search_form').submit(function(e) {
+        e.preventDefault();
+        const url = window.location.href;
+        const paramName = $('#search_value').attr('name');
+        const paramValue = $('#search_value').val();
+        const newURL = addParamToURL(url, paramName, paramValue);
+        window.location.href = newURL;
+    })
+
+    $("input[type=radio][name=sort]").change(function() {
+        const url = window.location.href;
+        const paramName = $(this).attr('name');
+        const paramValue = $(this).val();
+        const newURL = addParamToURL(url, paramName, paramValue);
+        window.location.href = newURL;
+        // $('#viewsort_form').submit();
+    });
+
+    function getParam(sname) {
+        var params = location.search.substr(location.search.indexOf("?") + 1);
+        var sval = "";
+        params = params.split("&");
+        for (var i = 0; i < params.length; i++) {
+            temp = params[i].split("=");
+            if ([temp[0]] == sname) { sval = temp[1]; }
+        }
+        return sval;
+    }
+
+    if (getParam('sort') == 'latest') {
+        $("input[type=radio][name=sort][value=latest]").prop("checked", true);
+    } else if (getParam('sort') == 'bookmark') {
+        $("input[type=radio][name=sort][value=bookmark]").prop("checked", true);
+    } else if (getParam('sort') == 'views') {
+        $("input[type=radio][name=sort][value=views]").prop("checked", true);
+    } else if (getParam('sort') == 'comments') {
+        $("input[type=radio][name=sort][value=comments]").prop("checked", true);
+    }
     
     // var waypoint = new Waypoint({
     //     element: document.getElementById('scroll-container'),
@@ -436,6 +532,16 @@ $(document).ready(function() {
     //         return this.element.clientHeight - window.innerHeight;
     //     }
     // });
+
+    function addParamToURL(url, paramName, paramValue) {
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set(paramName, paramValue);
+      
+        // 기존 URL의 경로와 파라미터를 유지하면서 새로운 파라미터를 덧붙임
+        const newURL = `${url.split('?')[0]}?${urlParams}`;
+      
+        return newURL;
+      }
 
     var isLoading = false;
 
@@ -550,4 +656,6 @@ $(document).ready(function() {
     });
 
 });
+
+
 

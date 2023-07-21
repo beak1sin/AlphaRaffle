@@ -496,9 +496,29 @@ def full(request):
         member = Member.objects.get(pk=member_no)
         recent_searches = SearchTerm.objects.filter(member_no=member_no).order_by('-created_at')[:10]
 
-    if request.method == 'GET':
+    # 필터링
+    if request.method == 'GET' and 'brand' in request.GET:
+        brandList = request.GET.get("brand").split(",")
+        shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[0:12]
+        shoe_count = Shoe.objects.filter(shoebrand__in = brandList).count()
+
+    # 정렬
+    if request.method == 'GET' and 'sort' in request.GET:
+        sort = request.GET.get("sort")
+        if 'latest' in sort:
+            shoe = Shoe.objects.filter().order_by('-id')[0:12]
+        elif 'bookmark' in sort:
+            shoe = Shoe.objects.filter().order_by('-shoelikecount')[0:12]
+        elif 'views' in sort:
+            shoe = Shoe.objects.filter().order_by('-views')[0:12]
+        elif 'comments' in sort:
+            shoe = Shoe.objects.filter().order_by('-id')[0:12]
+        context = {'shoe': shoe}
+
+    # 검색
+    if request.method == 'GET' and 'search_term' in request.GET:
         term = request.GET.get("search_term")
-        print(term)
+
         if term != None:
             recent = SearchTerm.objects.filter(term=term,member_no=member_no)
             if recent !=None:
@@ -514,6 +534,34 @@ def full(request):
             shoe_count = Shoe.objects.all().count()
         context = {'shoe': shoe, 'member': member, 'shoe_count': shoe_count ,'recent_searches': recent_searches}
 
+    # 검색, 정렬 기준
+    if request.method == 'GET' and 'search_term' in request.GET and 'sort' in request.GET:
+        sort = request.GET.get("sort")
+        term = request.GET.get("search_term")
+        if 'latest' in sort:
+            shoe = Shoe.objects.filter(shoename__contains = term).order_by('-id')[0:12]
+        elif 'bookmark' in sort:
+            shoe = Shoe.objects.filter(shoename__contains = term).order_by('-shoelikecount')[0:12]
+        elif 'views' in sort:
+            shoe = Shoe.objects.filter(shoename__contains = term).order_by('-views')[0:12]
+        elif 'comments' in sort:
+            shoe = Shoe.objects.filter(shoename__contains = term).order_by('-id')[0:12]
+        shoe_count = Shoe.objects.filter(shoename__contains = term).count()
+    
+    # 필터링, 정렬 기준
+    if request.method == 'GET' and 'brand' in request.GET and 'sort' in request.GET:
+        brandList = request.GET.get("brand").split(',')
+        sort = request.GET.get("sort")
+        if 'latest' in sort:
+            shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[0:12]
+        elif 'bookmark' in sort:
+            shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-shoelikecount')[0:12]
+        elif 'views' in sort:
+            shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-views')[0:12]
+        elif 'comments' in sort:
+            shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[0:12]
+        shoe_count = Shoe.objects.filter(shoebrand__in=brandList).count()
+
     context = {'shoe': shoe, 'member': member, 'shoe_count': shoe_count ,'recent_searches': recent_searches}  # member 객체를 context에 추가
 
     if request.method == 'POST':
@@ -524,15 +572,57 @@ def full(request):
         per_page = 12
         start_index = (page - 1) * per_page
         end_index = start_index + per_page
-        # shoe = Shoe.objects.all()[start_index:end_index]
-        # shoe = Shoe.objects.all().order_by('-id')[start_index:end_index]
+
+        shoe = Shoe.objects.all().order_by('-id')[start_index:end_index] 
+        shoe_count = Shoe.objects.all().count()
+
+        # 필터링
+        brandList = request.GET.get("brand").split(',')
+        if len(brandList) != 0:
+            shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[start_index:end_index]
+            shoe_count = Shoe.objects.filter(shoebrand__in=brandList).count()
+
+        # 검색
         term = request.GET.get("search_term")
         if term != None:
             shoe = Shoe.objects.filter(shoename__contains = term).order_by('-id')[start_index:end_index]
             shoe_count = Shoe.objects.filter(shoename__contains = term).count()
-        else:
-            shoe = Shoe.objects.all().order_by('-id')[start_index:end_index] 
-            shoe_count = Shoe.objects.all().count()           
+
+        # 정렬 기준
+        sort = request.GET.get("sort")
+        if sort != None:
+            if 'latest' in sort:
+                shoe = Shoe.objects.filter().order_by('-id')[start_index:end_index]
+            elif 'bookmark' in sort:
+                shoe = Shoe.objects.filter().order_by('-shoelikecount')[start_index:end_index]
+            elif 'views' in sort:
+                shoe = Shoe.objects.filter().order_by('-views')[start_index:end_index]
+            elif 'comments' in sort:
+                shoe = Shoe.objects.filter().order_by('-id')[start_index:end_index]
+
+        # 검색, 정렬 기준
+        if term != None and sort != None:
+            if 'latest' in sort:
+                shoe = Shoe.objects.filter(shoename__contains = term).order_by('-id')[start_index:end_index]
+            elif 'bookmark' in sort:
+                shoe = Shoe.objects.filter(shoename__contains = term).order_by('-shoelikecount')[start_index:end_index]
+            elif 'views' in sort:
+                shoe = Shoe.objects.filter(shoename__contains = term).order_by('-views')[start_index:end_index]
+            elif 'comments' in sort:
+                shoe = Shoe.objects.filter(shoename__contains = term).order_by('-id')[start_index:end_index]
+        
+        # 필터링, 정렬 기준
+        if len(brandList) != 0 and sort != None:
+            if 'latest' in sort:
+                shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[start_index:end_index]
+            elif 'bookmark' in sort:
+                shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-shoelikecount')[start_index:end_index]
+            elif 'views' in sort:
+                shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-views')[start_index:end_index]
+            elif 'comments' in sort:
+                shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[start_index:end_index]
+            
+
         shoes = serializers.serialize('json', shoe)
         likes = []  # 멤버별 신발 좋아요 여부를 저장할 리스트
 
@@ -543,7 +633,6 @@ def full(request):
                 likes.append(member in shoe.likes.all())
         context2 = {'shoes': shoes, 'likes': likes}
         return JsonResponse(context2, content_type="application/json")
-
     return render(request, "draw/full.html", context)
 
 
@@ -620,6 +709,34 @@ def filtering(request):
     context['shoes'] = shoes
     context['likes'] = likes
     context['shoe_count'] = shoe_count
+    return JsonResponse(context, content_type="application/json")
+
+@csrf_protect
+def filtering_order(request):
+    context = {}
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+    
+    order = bodyjson['orderAJAX']
+    print(order)
+
+    if 'latest' in order:
+        shoe = Shoe.objects.filter().order_by('-id')[0:12]
+    elif 'bookmark' in order:
+        shoe = Shoe.objects.filter().order_by('-shoelikecount')[0:12]
+    elif 'views' in order:
+        shoe = Shoe.objects.filter().order_by('-views')[0:12]
+    elif 'comments' in order:
+        shoe = Shoe.objects.filter().order_by('-id')[0:12]
+    shoes = serializers.serialize('json', shoe)
+    likes = []
+    if request.session.has_key('member_no'):
+        member_no = request.session['member_no']
+        member = Member.objects.get(pk=member_no)
+        for shoe in shoe:
+            likes.append(member in shoe.likes.all())
+
+    context = {'flag': '1', 'shoes': shoes, 'likes': likes}
     return JsonResponse(context, content_type="application/json")
 
 @csrf_protect

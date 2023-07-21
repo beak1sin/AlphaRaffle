@@ -590,3 +590,32 @@ header {
   z-index: 1;
   cursor: pointer;
 }
+
+/* 로딩화면표시 */
+.backL { position: fixed; width: 100%; height: 100%; top: 0; left: 0; background: rgba(0, 0, 0, 0.3); z-index: 503; }
+.loading_box {position:fixed; left:50%; top:50%; margin-left:-50px; margin-top:-70px; z-index:1000; width:100px; height:100px; background:rgba(0,0,0,0.7);border-radius:50%; box-shadow: 0 0 8px rgba(0,0,0,0.2);}
+.loading_box > div  {position:absolute; left:50%; top:50%; margin-top:-25px; margin-left:-25px; width: 50px; height: 50px; border-radius: 50%; border: 8px solid rgba(255,255,255, 0.6); border-top-color: #52a9ff; -webkit-animation: 1.5s spin infinite linear ; animation: 1.5s spin infinite linear; box-sizing:border-box;}
+
+/* 맨위로 버튼 */
+.goup-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+}
+
+.goup-icon-label {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+}
+
+.goup-icon-label .icon {
+  display: block;
+  height: 100%;
+  background: url(../necessary/go_up.svg) no-repeat center center/40px auto;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}

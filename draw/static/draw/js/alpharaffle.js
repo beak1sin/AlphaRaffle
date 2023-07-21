@@ -365,8 +365,23 @@ $(document).ready(function() {
         xhr.send(datastr);
     });
     
+    // 맨위로 가는 버튼
+    $('.goup-icon-label').click(function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // 부드러운 스크롤을 위해 'smooth' 옵션 사용
+        });
+    });
 
+});
 
+$(document).ready(function() {
+	// 로딩화면 출력
+	$(".backL").css("display", "");
+});
+$(window).load(function() {
+	// 로딩 완료되었을때
+	$(".backL").css("display", "none");
 });
 
 

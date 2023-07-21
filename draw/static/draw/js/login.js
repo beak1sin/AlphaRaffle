@@ -24,7 +24,7 @@ $(document).ready( () => {
 
     // 로그인
     $('.login-btn').click( () => {
-
+        $(".backL").css("display", "");
         memberid = document.getElementById("member_loginid").value;
         if(!emailRegEx.test(memberid)) {
             $('.email-error-box').html('이메일을 입력하세요.');
@@ -50,6 +50,7 @@ $(document).ready( () => {
     
                 var obj = JSON.parse(data);
                 if(obj.flag == "0"){
+                    $(".backL").css("display", "none");
                     location.href = "/main/";
                 }
                 else {

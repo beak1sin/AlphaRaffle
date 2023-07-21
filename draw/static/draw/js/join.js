@@ -653,7 +653,7 @@ $(document).ready( () => {
     
     // 새로운 회원가입
     $('#join_btn').click( () => {
-    
+        $(".backL").css("display", "");
         memberid = document.getElementById("member_id").value;
     
         memberpwd = document.getElementById("member_pwd").value;
@@ -690,6 +690,7 @@ $(document).ready( () => {
     
                 var obj = JSON.parse(data);
                 if(obj.flag == "1"){
+                    $(".backL").css("display", "none");
                     $('.3').hide();
                     $('.4').show();
                 } else {
