@@ -373,6 +373,33 @@ $(document).ready(function() {
         });
     });
 
+    $('#search_form').submit(function(event) {
+        event.preventDefault();
+        const url = window.location.href;
+        const paramName = $('#search_value').attr('name');
+        const paramValue = $('#search_value').val().trim();
+        const newURL = addParamToURL(url, paramName, paramValue);
+        window.location.href = newURL;
+    });
+
+    function addParamToURL(url, paramName, paramValue) {
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set(paramName, paramValue);
+      
+        // 기존 URL의 경로와 파라미터를 유지하면서 새로운 파라미터를 덧붙임
+        const newURL = `${url.split('?')[0]}?${urlParams}`;
+      
+        return newURL;
+    }
+
+    $('.recent-searches-value').click(function() {
+        const url = window.location.href;
+        const paramName = 'search_term';
+        const paramValue = $(this).text();
+        const newURL = addParamToURL(url, paramName, paramValue);
+        window.location.href = newURL;
+    });
+
 });
 
 $(document).ready(function() {

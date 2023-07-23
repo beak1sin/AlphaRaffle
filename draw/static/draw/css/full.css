@@ -405,3 +405,10 @@ input[type="checkbox"] {
     height: 0;
 }
 
+@media (max-width: 991px){
+    .search-result {
+        padding: 20px 50px 5px 50px !important;
+        font-size: 20px !important;
+    }
+}
+

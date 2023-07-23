@@ -476,14 +476,6 @@ $(document).ready(function() {
         xhr.send(datastr);
     });
 
-    $('#search_form').submit(function(e) {
-        e.preventDefault();
-        const url = window.location.href;
-        const paramName = $('#search_value').attr('name');
-        const paramValue = $('#search_value').val();
-        const newURL = addParamToURL(url, paramName, paramValue);
-        window.location.href = newURL;
-    })
 
     $("input[type=radio][name=sort]").change(function() {
         const url = window.location.href;
@@ -500,19 +492,44 @@ $(document).ready(function() {
         params = params.split("&");
         for (var i = 0; i < params.length; i++) {
             temp = params[i].split("=");
-            if ([temp[0]] == sname) { sval = temp[1]; }
+            if ([temp[0]] == sname) { sval = decodeURIComponent(temp[1]); }
         }
         return sval;
     }
 
     if (getParam('sort') == 'latest') {
         $("input[type=radio][name=sort][value=latest]").prop("checked", true);
+        $('#sort_name').text("최신 순");
     } else if (getParam('sort') == 'bookmark') {
         $("input[type=radio][name=sort][value=bookmark]").prop("checked", true);
+        $('#sort_name').text("찜한 순");
     } else if (getParam('sort') == 'views') {
         $("input[type=radio][name=sort][value=views]").prop("checked", true);
+        $('#sort_name').text("조회 순");
     } else if (getParam('sort') == 'comments') {
         $("input[type=radio][name=sort][value=comments]").prop("checked", true);
+        $('#sort_name').text("댓글 순");
+    }
+
+    function getParamNameBool(sname) {
+        var params = location.search.substr(location.search.indexOf("?") + 1);
+        params = params.split("&");
+        for (var i = 0; i < params.length; i++) {
+            temp = params[i].split("=");
+            if ([temp[0]] == sname) { return true }
+        }
+    }
+
+    if (getParamNameBool('search_term')) {
+        if (getParam('search_term') == ''){
+            $('.search-result').hide();
+        } else {
+            $('.search-result-value').text('‘' + getParam('search_term') +  '’ ');
+            $('.search-result').show();
+        }
+        
+    } else {
+        $('.search-result').hide();
     }
     
     // var waypoint = new Waypoint({
@@ -541,7 +558,15 @@ $(document).ready(function() {
         const newURL = `${url.split('?')[0]}?${urlParams}`;
       
         return newURL;
-      }
+    }
+
+    $('#recent_searches_value').click(function() {
+        const url = window.location.href;
+        const paramName = 'search_term';
+        const paramValue = $(this).text();
+        const newURL = addParamToURL(url, paramName, paramValue);
+        window.location.href = newURL;
+    });
 
     var isLoading = false;
 

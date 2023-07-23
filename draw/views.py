@@ -520,19 +520,25 @@ def full(request):
         term = request.GET.get("search_term")
 
         if term != None:
-            recent = SearchTerm.objects.filter(term=term,member_no=member_no)
-            if recent !=None:
-                recent.delete()
-            try: 
-                SearchTerm.objects.create(term=term,member_no=member_no)
-            except:
-                pass
-            shoe = Shoe.objects.filter(shoename__contains = term).order_by('-id')[0:12]
-            shoe_count = Shoe.objects.filter(shoename__contains = term).count()
+            if term == '':
+                shoe = Shoe.objects.all().order_by('-id')[0:12]
+                shoe_count = Shoe.objects.all().count()
+            else:
+                print('패스안됨')
+                recent = SearchTerm.objects.filter(term=term,member_no=member_no)
+                if recent !=None:
+                    recent.delete()
+                try: 
+                    SearchTerm.objects.create(term=term,member_no=member_no)
+                except:
+                    pass
+                shoe = Shoe.objects.filter(shoename__contains = term).order_by('-id')[0:12]
+                shoe_count = Shoe.objects.filter(shoename__contains = term).count()
         else:
             shoe = Shoe.objects.all().order_by('-id')[0:12]
             shoe_count = Shoe.objects.all().count()
-        context = {'shoe': shoe, 'member': member, 'shoe_count': shoe_count ,'recent_searches': recent_searches}
+        # context = {'shoe': shoe, 'member': member, 'shoe_count': shoe_count ,'recent_searches': recent_searches}
+    
 
     # 검색, 정렬 기준
     if request.method == 'GET' and 'search_term' in request.GET and 'sort' in request.GET:
@@ -577,8 +583,12 @@ def full(request):
         shoe_count = Shoe.objects.all().count()
 
         # 필터링
-        brandList = request.GET.get("brand").split(',')
-        if len(brandList) != 0:
+        try:
+            brandList = request.GET.get("brand").split(',')
+        except:
+            brandList = None
+
+        if brandList != None:
             shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[start_index:end_index]
             shoe_count = Shoe.objects.filter(shoebrand__in=brandList).count()
 
@@ -612,7 +622,7 @@ def full(request):
                 shoe = Shoe.objects.filter(shoename__contains = term).order_by('-id')[start_index:end_index]
         
         # 필터링, 정렬 기준
-        if len(brandList) != 0 and sort != None:
+        if brandList != None and sort != None:
             if 'latest' in sort:
                 shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[start_index:end_index]
             elif 'bookmark' in sort:

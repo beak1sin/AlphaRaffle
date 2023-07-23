@@ -31,7 +31,7 @@
                         {% else %}
                         {% for recent_searches in recent_searches %}
                         <div class="recent-items" style="height: 44px; position: relative; background: #EEEEEE; border-radius: 20px; border: 0.30px #777777 solid; padding-left: 10px; margin-right: 10px; margin-top: 10px;">
-                            <p style="margin: 0px; font-size: 18px; font-weight: 500; float: left; line-height: 44px;">{{recent_searches.term}}</p>
+                            <p class="recent-searches-value" style="margin: 0px; font-size: 18px; font-weight: 500; float: left; line-height: 44px; cursor: pointer;">{{recent_searches.term}}</p>
                             <!-- <div style="width: 240px; height: 30px; left: 19px; top: 7px; position: absolute; color: black; font-size: 24px; font-family: Pretendard; font-weight: 500; word-wrap: break-word">{{recent_searches.term}}</div> -->
                             <div style="width: 25px; height: 25px; right: 0px; float: left; margin-left: 10px;">
                                 <div class="xbutton-icon">
