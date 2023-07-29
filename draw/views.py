@@ -380,13 +380,9 @@ def details(request):
     googleSiteOnly = {}
     # if googleSite 
     for googleSiteGet in googleSite.values():
-        # print(type(googleSiteGet))
-        # print(googleSiteGet['sitelink'])
         url = googleSiteGet['sitelink']
-        url = googleFormCrawl(url)
-        # print(url)
+        # url = googleFormCrawl(url)
         googleSiteGet['sitelink'] = url
-        # print(googleSiteGet['sitelink'])
         googleSiteOnly = googleSiteGet
         print(googleSiteOnly)
     img = Shoeimg.objects.filter(serialno=pk)
@@ -848,7 +844,7 @@ def comment(request):
                                     approved_comment=False
                                     )
         rs.save()
-
+        # post_comment(request)
         context['flag'] = '1'
         context['result_msg'] = '로그인 되어 있는 상태'
     else :
@@ -1280,3 +1276,24 @@ def sendmail(request):
 
     return redirect('/auth/practice')
     
+
+import json
+from django.shortcuts import render
+from django.http import JsonResponse
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
+@csrf_protect
+def post_comment(request):
+    # 댓글이 달렸을 때 호출되는 뷰
+    # 알림을 생성하고 WebSocket으로 알림 전송
+    comment = "새로운 댓글이 달렸습니다!"
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        'notifications_group',
+        {
+            'type': 'send_notification',
+            'notification': comment,
+        }
+    )
+    return JsonResponse({'status': 'success'})

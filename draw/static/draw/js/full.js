@@ -560,14 +560,6 @@ $(document).ready(function() {
         return newURL;
     }
 
-    $('#recent_searches_value').click(function() {
-        const url = window.location.href;
-        const paramName = 'search_term';
-        const paramValue = $(this).text();
-        const newURL = addParamToURL(url, paramName, paramValue);
-        window.location.href = newURL;
-    });
-
     var isLoading = false;
 
     window.addEventListener('scroll', function() {

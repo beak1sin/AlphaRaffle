@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'django_crontab',
     'django.contrib.sitemaps',
     'django.contrib.syndication',
+    'channels',
 ]
 
 # import sys
@@ -123,6 +124,19 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'AlphaRaffle.wsgi.application'
+
+
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             # Redis 주소 및 포트 정보
+#             'hosts': [('0.0.0.0', 6379)],
+#         },
+#     },
+# }
+
+ASGI_APPLICATION = 'AlphaRaffle.asgi.application'
 
 
 # Database

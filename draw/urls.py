@@ -21,6 +21,8 @@ from .feeds import LatestShoesFeed
 
 from django.views.generic import TemplateView
 
+from draw import consumers
+
 app_name = 'draw'
 
 urlpatterns = [

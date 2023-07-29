@@ -411,7 +411,21 @@ $(window).load(function() {
 	$(".backL").css("display", "none");
 });
 
-
+var wsScheme = window.location.protocol == "https:" ? "wss" : "ws";
+var notificationSocket = new WebSocket(
+    wsScheme + '://' + window.location.host +
+    '/ws/notification/'
+);
+// console.log(notificationSocket);
+notificationSocket.onmessage = function(event) {
+    // var notification = JSON.parse(e.data);
+    // var notificationList = document.getElementById('notification-list');
+    // var listItem = document.createElement('li');
+    // listItem.innerHTML = notification;
+    // notificationList.appendChild(listItem);
+        const data = JSON.parse(event.notification);
+        console.log('서버에서 받은 응답:', data.response);
+};
 
 // 마우스커서
 
