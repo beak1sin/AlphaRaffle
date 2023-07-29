@@ -66,7 +66,7 @@ INSTALLED_APPS = [
     'django_crontab',
     'django.contrib.sitemaps',
     'django.contrib.syndication',
-    'channels',
+    # 'channels',
 ]
 
 # import sys
@@ -123,7 +123,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'AlphaRaffle.wsgi.application'
+# WSGI_APPLICATION = 'AlphaRaffle.wsgi.application'
 
 
 # CHANNEL_LAYERS = {
