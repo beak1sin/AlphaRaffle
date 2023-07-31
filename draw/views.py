@@ -413,8 +413,13 @@ def details(request):
     else:
         serialnoSlash = None
 
+    if '_' in shoe.shoename:
+        shoenameSlash = shoe.shoename.replace('_', '/')
+    else:
+        shoenameSlash = None
+
     context["member_no"] = member_no
-    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'googleSiteOnly': googleSiteOnly, 'comment': comment, 'serialnoSlash': serialnoSlash }
+    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'googleSiteOnly': googleSiteOnly, 'comment': comment, 'serialnoSlash': serialnoSlash, 'shoenameSlash': shoenameSlash }
     #print(shoe.serialno)
     return render(request, 'draw/details.html', context)
     #return JsonResponse(context, content_type="application/json")
@@ -1276,24 +1281,3 @@ def sendmail(request):
 
     return redirect('/auth/practice')
     
-
-# import json
-# from django.shortcuts import render
-# from django.http import JsonResponse
-# from channels.layers import get_channel_layer
-# from asgiref.sync import async_to_sync
-
-# @csrf_protect
-# def post_comment(request):
-#     # 댓글이 달렸을 때 호출되는 뷰
-#     # 알림을 생성하고 WebSocket으로 알림 전송
-#     comment = "새로운 댓글이 달렸습니다!"
-#     channel_layer = get_channel_layer()
-#     async_to_sync(channel_layer.group_send)(
-#         'notifications_group',
-#         {
-#             'type': 'send_notification',
-#             'notification': comment,
-#         }
-#     )
-#     return JsonResponse({'status': 'success'})
