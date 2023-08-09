@@ -273,7 +273,7 @@ def crawl():
 
         for i in range(len(sitecard)):    
             link = sitecard[i].attrs['onclick']
-            shoenum.append(link[39:].split('/')[0])
+            shoenum.append(link[39:].split('/')[0].replace("'",""))
         
         shoenum = sorted(list(set(shoenum)), reverse=True)
         print(len(shoenum),shoenum)
@@ -345,7 +345,7 @@ class Telegram_crawl:
             print(f"An error occurred: {e}")
         return
 
-def crawl_test(request):
+def crawl_test():
     try:
         url = 'https://www.luck-d.com/'
         html = requests.get(url).text
@@ -357,7 +357,7 @@ def crawl_test(request):
 
         for i in range(len(sitecard)):    
             link = sitecard[i].attrs['onclick']
-            shoenum.append(link[39:].split('/')[0])
+            shoenum.append(link[39:].split('/')[0].replace("'",""))
         
         shoenum = sorted(list(set(shoenum)), reverse=True)
         print(len(shoenum),shoenum)
@@ -568,11 +568,10 @@ def crawl2(request):
 
         for i in range(len(sitecard)):    
             link = sitecard[i].attrs['onclick']
-            shoenum.append(link[39:].split('/')[0])
+            shoenum.append(link[39:].split('/')[0].replace("'",""))
         
         shoenum = sorted(list(set(shoenum)), reverse=True)
         print(len(shoenum),shoenum)
-
         for num in shoenum:
             now = datetime.datetime.now()
             print(now)
