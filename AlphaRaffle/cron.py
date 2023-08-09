@@ -190,12 +190,12 @@ def luckd_crowler(no):
         urllib.request.urlretrieve('https://static.luck-d.com/agent_site/'+quote(logo_file[leng:]), logo_name)
         
         sitelink = sitecard[i].a['href']
-        if 'luck-d' in sitelink:
-            response = requests.get(sitelink)
-            html = response.text
-            soup = BeautifulSoup(html,'html.parser')
-            matched = re.search(r'let link = decodeURIComponent\(\'(.*?)\'\);', html, re.S)
-            sitelink = matched.group(1)
+        # if 'luck-d' in sitelink:
+        #     response = requests.get(sitelink)
+        #     html = response.text
+        #     soup = BeautifulSoup(html,'html.parser')
+        #     matched = re.search(r'let link = decodeURIComponent\(\'(.*?)\'\);', html, re.S)
+        #     sitelink = matched.group(1)
 
         shoeunique = serialno+sitename+sitelink
 
@@ -367,7 +367,7 @@ def crawl_test():
             print(now)
             randomTime = random.randint(30, 60)
             # luckd_crowler(int(num))
-            luckd_crowler_test(6508)
+            luckd_crowler_test(int(num))
             # time.sleep(randomTime)
         return redirect('/')
     except Exception as e:
@@ -487,12 +487,13 @@ def luckd_crowler_test(no):
         # urllib.request.urlretrieve('https://static.luck-d.com/agent_site/'+quote(logo_file[leng:]), logo_name)
         
         sitelink = sitecard[i].a['href']
-        if 'luck-d' in sitelink:
-            response = requests.get(sitelink)
-            html = response.text
-            soup = BeautifulSoup(html,'html.parser')
-            matched = re.search(r'let link = decodeURIComponent\(\'(.*?)\'\);', html, re.S)
-            sitelink = matched.group(1)
+        print(sitelink)
+        # if 'luck-d' in sitelink:
+        #     response = requests.get(sitelink)
+        #     html = response.text
+        #     soup = BeautifulSoup(html,'html.parser')
+        #     matched = re.search(r'let link = decodeURIComponent\(\'(.*?)\'\);', html, re.S)
+        #     sitelink = matched.group(1)
 
         shoeunique = serialno+sitename+sitelink
 
