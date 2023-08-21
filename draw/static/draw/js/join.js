@@ -777,6 +777,9 @@ $(document).ready( () => {
                     }
                 } else {
                     alert(obj.result_msg);
+                    $('.next-btn-3').removeClass('abled');
+                    $('.next-btn-3').addClass('disabled');
+                    $('.next-btn-3').attr('disabled', true);
                 }
             }
         };

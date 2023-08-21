@@ -29,6 +29,7 @@ $(document).ready( () => {
         if(!emailRegEx.test(memberid)) {
             $('.email-error-box').html('이메일을 입력하세요.');
             document.getElementById("member_loginid").focus();
+            $(".backL").css("display", "none");
             return false;
         }
     
@@ -36,6 +37,7 @@ $(document).ready( () => {
         if(!passwordRegEx.test(memberpwd)) {
             $('.password-error-box').html('비밀번호를 입력하세요.');
             document.getElementById("member_loginpwd").focus();
+            $(".backL").css("display", "none");
             return false;
         }
         pwdencrypted = hex_sha1(memberpwd);
@@ -54,6 +56,7 @@ $(document).ready( () => {
                     location.href = "/main/";
                 }
                 else {
+                    $(".backL").css("display", "none");
                     $('.error-box').html(obj.result_msg);
                     $('#member_loginid').focus();
                     if(obj.inactive == "1") {
@@ -401,12 +404,12 @@ $(document).ready( () => {
     
     });
 
-    // 인증번호 전송
+    // 인증번호 확인
     $('#auth_btn').click( () => {
 
-        var auth = document.getElementById("auth").value;
+        var code = document.getElementById("auth").value;
 
-        var data = { auth: auth};
+        var data = { code: code};
         var datastr = JSON.stringify(data);
         
         xhr = new XMLHttpRequest();
@@ -415,7 +418,7 @@ $(document).ready( () => {
                 var data = xhr.responseText;
     
                 var obj = JSON.parse(data);
-                if(obj.flag == "0"){
+                if(obj.flag == "1"){
                     $('.auth-btn').removeClass('abled');
                     $('.auth-btn').addClass('disabled');
                     $('.auth-btn').attr('disabled', true);
@@ -424,13 +427,15 @@ $(document).ready( () => {
                     $('#auth_close_btn').removeClass('active');
                     $('.auth-next-btn').removeClass('disabled');
                     $('.auth-next-btn').addClass('abled');
+                    $('.auth-error-box').html('인증완료');
                     $('.auth-next-btn').attr('disabled', false);
                 } else {
                     alert(obj.result_msg);
+                    $('.auth-error-box').html('인증실패');
                 }
             }
         };
-        xhr.open("POST", "/auth_forgot_id");
+        xhr.open("POST", "/verification");
         xhr.setRequestHeader("X-CSRFToken", csrftoken);
         xhr.send(datastr);
     

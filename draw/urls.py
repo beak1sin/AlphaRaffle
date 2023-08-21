@@ -40,6 +40,7 @@ urlpatterns = [
     path('member_idcheck', views.member_idcheck, name='member_idcheck'),
     path('member_nicknamecheck', views.member_nicknamecheck, name='member_nicknamecheck'),
     path('auth_forgot_id', views.auth_forgot_id, name='auth_forgot_id'),
+    path('verification', views.verification, name='verification'),
     path('member_insert', views.member_insert, name='member_insert'),
     path('member_login', views.member_login, name='member_login'),
     path('member_delete', views.member_delete, name='member_delete'),

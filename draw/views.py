@@ -3,7 +3,7 @@ from django.contrib import auth
 from urllib.parse import quote
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
-from draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg, Comment, SearchTerm
+from draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg, Comment, SearchTerm, VerificationCode
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_protect
 from datetime import timedelta, datetime
@@ -332,11 +332,40 @@ def auth_forgot_id(request):
     rs = Member.objects.filter(member_id=memberid)
 
     if (len(rs)) > 0:
-        context['flag'] = '1'
-        context['result_msg'] = '인증번호를 전송하였습니다.'
+        rs = Member.objects.get(member_id=memberid)
+        auth = VerificationCode.objects.filter(member_id=rs.member_id)
+        if len(auth) > 0:
+            auth.delete()
+            context['flag'] = '1'
+            context['result_msg'] = '인증번호를 전송하였습니다.'
+        else:
+            context['flag'] = '1'
+            context['result_msg'] = '인증번호를 전송하였습니다.'
+        code = str(random.randint(100000, 999999))
+        expiry_time = datetime.datetime.now() + timedelta(minutes=5)
+        VerificationCode.objects.create(member_id=rs.member_id, code=code, expiry_time=expiry_time)
     else:
         context['flag'] = '0'
         context['result_msg'] = '존재하지 않는 이메일입니다.'
+
+    return JsonResponse(context, content_type="application/json")
+
+@csrf_protect
+def verification(request):
+    context = {}
+
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+    code = bodyjson['code']
+
+    auth = VerificationCode.objects.filter(code=code, expiry_time__gte=datetime.datetime.now())
+
+    if (len(auth)) > 0:
+        context['flag'] = '1'
+        context['result_msg'] = '인증이 완료되었습니다.'
+    else:
+        context['flag'] = '0'
+        context['result_msg'] = '인증실패했습니다.'
 
     return JsonResponse(context, content_type="application/json")
 

@@ -78,6 +78,11 @@ class SearchTerm(models.Model):
     member_no = models.CharField(max_length=255)
     term = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
+    
+class VerificationCode(models.Model):
+	member_id = models.CharField(db_column='member_id', max_length=50)
+	code = models.CharField(max_length=6)
+	expiry_time = models.DateTimeField()
 
 # 색인
 from django.contrib.sitemaps import Sitemap
