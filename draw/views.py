@@ -69,6 +69,25 @@ def member_idcheck(request):
 
     return JsonResponse(context, content_type="application/json")
 
+@csrf_protect
+def member_nicknamecheck(request):
+    context = {}
+
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+    membernickname = bodyjson['member_nickname']
+
+    rs = Member.objects.filter(member_nickname=membernickname)
+
+    if (len(rs)) > 0:
+        context['flag'] = '1'
+        context['result_msg'] = '이미 존재하는 닉네임입니다.'
+    else:
+        context['flag'] = '0'
+        context['result_msg'] = '사용 가능한 닉네임 입니다.'
+
+    return JsonResponse(context, content_type="application/json")
+
 # 새로운 회원가입 방식
 @csrf_protect
 def member_insert(request):
@@ -303,6 +322,25 @@ def join(request):
     return render(request, 'draw/join.html')
 
 @csrf_protect
+def auth_forgot_id(request):
+    context = {}
+
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+    memberid = bodyjson['member_id']
+
+    rs = Member.objects.filter(member_id=memberid)
+
+    if (len(rs)) > 0:
+        context['flag'] = '1'
+        context['result_msg'] = '인증번호를 전송하였습니다.'
+    else:
+        context['flag'] = '0'
+        context['result_msg'] = '존재하지 않는 이메일입니다.'
+
+    return JsonResponse(context, content_type="application/json")
+
+@csrf_protect
 def myPage(request):
 
     context = {}
@@ -373,8 +411,9 @@ def details(request):
     shoe = get_object_or_404(Shoe, serialno=pk) 
     #site = Shoesite.objects.filter(Q(serialno=pk)&Q(Published_date__gte=start_date, Published_date__lte=end_date))
     site = Shoesite.objects.filter(serialno=pk)
-    notGoogleSite = site.exclude(sitelink__contains='google')
+    notGoogleSite = site.exclude(Q(sitelink__contains='google') | Q(sitelink__contains='offline'))
     googleSite = Shoesite.objects.filter(serialno=pk, sitelink__contains='google')
+    offlineSite = Shoesite.objects.filter(serialno=pk, sitelink__contains='offline')
     # print(googleSite)
     # print(type(googleSite))
     googleSiteOnly = {}
@@ -403,6 +442,7 @@ def details(request):
 
     # 댓글
     comment = Comment.objects.filter(serialno=pk)
+    comment_count = comment.count()
     if comment.values():
         pass
     else:
@@ -418,11 +458,75 @@ def details(request):
     else:
         shoenameSlash = None
 
+    
+    current_time = datetime.datetime.now()
+    context["current_time"] = current_time
+
+    for site in googleSite:
+        
+        if site.pub_date == None:
+            # print(site.end_date , current_time)
+            site.is_valid_date = site.end_date > current_time  
+        if site.end_date == None:
+            # print(site.pub_date, current_time)
+            site.is_valid_date = site.pub_date > current_time  
+        if site.pub_date != None and site.end_date != None:
+            # print(site.pub_date, current_time, site.end_date)
+            site.is_valid_date = site.pub_date <= current_time <= site.end_date 
+        # print(site.is_valid_date)
+
+    for site in notGoogleSite:
+        
+        if site.pub_date == None:
+            # print(site.end_date , current_time)
+            site.is_valid_date = site.end_date > current_time  
+        if site.end_date == None:
+            # print(site.pub_date, current_time)
+            site.is_valid_date = site.pub_date > current_time  
+        if site.pub_date != None and site.end_date != None:
+            # print(site.pub_date, current_time, site.end_date)
+            site.is_valid_date = site.pub_date <= current_time <= site.end_date 
+        # print(site.is_valid_date)
+
+    for site in offlineSite:
+        
+        if site.pub_date == None:
+            # print(site.end_date , current_time)
+            site.is_valid_date = site.end_date > current_time  
+        if site.end_date == None:
+            # print(site.pub_date, current_time)
+            site.is_valid_date = site.pub_date > current_time  
+        if site.pub_date != None and site.end_date != None:
+            # print(site.pub_date, current_time, site.end_date)
+            site.is_valid_date = site.pub_date <= current_time <= site.end_date 
+        # print(site.is_valid_date)
+
     context["member_no"] = member_no
-    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'googleSiteOnly': googleSiteOnly, 'comment': comment, 'serialnoSlash': serialnoSlash, 'shoenameSlash': shoenameSlash }
+    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'offlineSite': offlineSite, 'googleSiteOnly': googleSiteOnly, 'comment': comment, 'comment_count': comment_count, 'serialnoSlash': serialnoSlash, 'shoenameSlash': shoenameSlash }
     #print(shoe.serialno)
     return render(request, 'draw/details.html', context)
     #return JsonResponse(context, content_type="application/json")
+
+@csrf_protect
+def map(request):
+    context = {}
+    return render(request, 'draw/map.html', context)
+
+def get_geocode(request):
+    query = request.GET.get('query')
+    
+    if not query:
+        return JsonResponse({'error': 'Query parameter is missing.'}, status=400)
+    
+    url = f'https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query={query}'
+    headers = {
+        "X-NCP-APIGW-API-KEY-ID": "f7pin7r31a",
+        "X-NCP-APIGW-API-KEY": "lULMysuFlNCXBkmF4TjdouyHi8oZEmPR4oCbKpct"
+    }
+    
+    response = requests.get(url, headers=headers)
+    
+    return JsonResponse(response.json())
 
 @csrf_protect
 def update_views(request):

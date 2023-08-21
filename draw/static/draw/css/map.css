@@ -1,0 +1,50 @@
+.address-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    background: #F4F4F4;
+    margin-bottom: 20px;
+    padding: 0px 20px;
+    transition: 0.5s all;
+    cursor: pointer;
+}
+
+.big-text {
+    transition: 0.5s all;
+}
+
+.small-text {
+    font-size: 10px;
+    font-weight: 300;
+    color: #393939;
+    transition: 0.5s all;
+}
+
+.address-items:hover {
+    background-color: black;
+}
+
+.address-items:hover p, .address-items:hover div p {
+    color: white;
+}
+
+.address-items.on {
+    border: 1px solid #000;
+}
+ 
+@media screen and (max-width: 768px) {
+    .shoe-display {
+        flex-direction: column;
+    }
+
+    .map, .address {
+        width: 100% !important;
+        padding-left: 0px !important;
+    }
+
+    .address {
+        margin-top: 30px !important;
+    }
+    
+}

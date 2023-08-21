@@ -335,10 +335,16 @@ $(document).ready( () => {
             targetParent.nextElementSibling.childNodes[1].innerText = '한글, 영문, 숫자를 조합해서 입력해주세요. (2-20자)';
             targetParent.childNodes[3].style.borderBottom = '2px solid red';
             targetParent.childNodes[1].style.color = 'red';
+            $('.nickname-duplicate-btn').removeClass('abled');
+            $('.nickname-duplicate-btn').addClass('disabled');
+            $('.nickname-duplicate-btn').attr('disabled', true);
         } else {
             targetParent.nextElementSibling.childNodes[1].innerText = '';
             targetParent.childNodes[3].style.borderBottom = '2px solid black';
             targetParent.childNodes[1].style.color = 'black';
+            $('.nickname-duplicate-btn').removeClass('disabled');
+            $('.nickname-duplicate-btn').addClass('abled');
+            $('.nickname-duplicate-btn').attr('disabled', false);
         }
         if ($nickname.length == 0) {
             targetParent.nextElementSibling.childNodes[1].innerText = '';
@@ -614,22 +620,22 @@ $(document).ready( () => {
     });
 
     // 필수항목
-    $('#member_id, #member_pwd, #member_nickname').keyup( () => {
-        memberid = document.getElementById("member_id").value;
-        memberpwd = document.getElementById("member_pwd").value;
+    // $('#member_id, #member_pwd, #member_nickname').keyup( () => {
+    //     memberid = document.getElementById("member_id").value;
+    //     memberpwd = document.getElementById("member_pwd").value;
 
-        membernickname = document.getElementById("member_nickname").value;
+    //     membernickname = document.getElementById("member_nickname").value;
 
-        if (emailRegEx.test(memberid) && passwordRegEx.test(memberpwd) && nicknameRegEx.test(membernickname)) {
-            $('.next-btn-3').removeClass('disabled');
-            $('.next-btn-3').addClass('abled');
-            $('.next-btn-3').attr('disabled', false);
-        } else {
-            $('.next-btn-3').removeClass('abled');
-            $('.next-btn-3').addClass('disabled');
-            $('.next-btn-3').attr('disabled', true);
-        }
-    });
+    //     if (emailRegEx.test(memberid) && passwordRegEx.test(memberpwd) && nicknameRegEx.test(membernickname)) {
+    //         $('.next-btn-3').removeClass('disabled');
+    //         $('.next-btn-3').addClass('abled');
+    //         $('.next-btn-3').attr('disabled', false);
+    //     } else {
+    //         $('.next-btn-3').removeClass('abled');
+    //         $('.next-btn-3').addClass('disabled');
+    //         $('.next-btn-3').attr('disabled', true);
+    //     }
+    // });
 
     function getCookie(name) {
         var cookieValue = null;
@@ -703,32 +709,10 @@ $(document).ready( () => {
         xhr.send(datastr);
     });
 
-    // 중복확인
+    // 아이디 중복확인
     $('#idcheck_btn').click( () => {
 
         memberidcheck = document.getElementById("member_id").value;
-        // if (!emailRegEx.test(memberidcheck)) {
-        //     Swal.fire({
-        //     icon: 'error',
-        //     title: '이메일 형식이 아닙니다.',
-        //     confirmButtonColor: '#000000',
-        //     timer: 2000,
-        //     timerProgressBar: true
-        //     })
-        //     document.getElementById("member_id").focus();
-        //     return false;
-        // }
-        // if(memberidcheck == "") {
-        //     Swal.fire({
-        //     icon: 'error',
-        //     title: '아이디가 비어있습니다.',
-        //     confirmButtonColor: '#000000',
-        //     timer: 2000,
-        //     timerProgressBar: true
-        //     })
-        //     document.getElementById("member_id").focus();
-        //     return false;
-        // }
     
         var data = { member_id: memberidcheck};
         var datastr = JSON.stringify(data);
@@ -744,12 +728,59 @@ $(document).ready( () => {
                     $('.next-btn').removeClass('disabled');
                     $('.next-btn').addClass('abled');
                     $('.next-btn').attr('disabled', false);
+                    $('#member_id').attr("readonly",true); 
+                    $('#email_close_btn').removeClass('active');
                 } else {
                     alert(obj.result_msg);
                 }
             }
         };
         xhr.open("POST", "/member_idcheck");
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.send(datastr);
+    
+    });
+
+    // 중복확인
+    $('#nicknamecheck_btn').click( () => {
+
+        membernicknamecheck = document.getElementById("member_nickname").value;
+
+        var data = { member_nickname: membernicknamecheck};
+        var datastr = JSON.stringify(data);
+        
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                var data = xhr.responseText;
+    
+                var obj = JSON.parse(data);
+                if(obj.flag == "0"){
+                    $('.nickname-duplicate-btn').removeClass('abled');
+                    $('.nickname-duplicate-btn').addClass('disabled');
+                    $('.nickname-duplicate-btn').attr('disabled', true);
+                    $("#member_nickname").attr("readonly",true);
+                    $('#nickname_close_btn').removeClass('active');
+                    memberid = document.getElementById("member_id").value;
+                    memberpwd = document.getElementById("member_pwd").value;
+
+                    membernickname = document.getElementById("member_nickname").value;
+
+                    if (emailRegEx.test(memberid) && passwordRegEx.test(memberpwd) && nicknameRegEx.test(membernickname)) {
+                        $('.next-btn-3').removeClass('disabled');
+                        $('.next-btn-3').addClass('abled');
+                        $('.next-btn-3').attr('disabled', false);
+                    } else {
+                        $('.next-btn-3').removeClass('abled');
+                        $('.next-btn-3').addClass('disabled');
+                        $('.next-btn-3').attr('disabled', true);
+                    }
+                } else {
+                    alert(obj.result_msg);
+                }
+            }
+        };
+        xhr.open("POST", "/member_nicknamecheck");
         xhr.setRequestHeader("X-CSRFToken", csrftoken);
         xhr.send(datastr);
     

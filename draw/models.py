@@ -24,7 +24,7 @@ class Member(models.Model):
 		db_table = 'member'
 
 	def __str__(self):
-		return "아이디: " + self.member_id + ", 이메일 : " + self.member_email
+		return "아이디: " + self.member_id + ", id : " + str(self.member_no) + ", 닉네임 : " + self.member_nickname
 	
 class Shoe(models.Model):
 	shoename = models.CharField(max_length=200) 		# 신발명

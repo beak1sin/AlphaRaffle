@@ -80,7 +80,7 @@
                     </a>
                 </div> -->
                 <div class="forgot-password-box">
-                    <a class="forgot-password-link" href="#">비밀번호를 잊으셨나요?</a>
+                    <a class="forgot-password-link" id="password_forgot_btn">비밀번호를 잊으셨나요?</a>
                 </div>
                 <div class="join-box">
                     <h6 class="join-box-title">아직 회원이 아니신가요?<a class="join-box-link" href="{% url 'draw:회원가입' %}">회원가입 하러가기</a></h6>
@@ -90,6 +90,44 @@
                 </div>
                 <div class="login-btn-box">
                     <button class="login-btn">로그인</button>
+                </div>
+            </div>
+            <div class="password-forgot-box" style="display: none;">
+                <div class="password-forgot-box-logo">
+                    <!-- <img class="login-box-logo-image" src="{% static 'draw/necessary/ar011(nukki).png' %}"> -->
+                    <img class="password-forgot-box-logo-image" src="{% static 'draw/necessary/logo(grey).png' %}">
+                </div>
+                <div style="padding-top:30px; height: 92px;">
+                    <h3 class="email-forgot-title">이메일을 입력해주세요.</h3>
+                    <div class="email-forgot-input-box">
+                        <input id="member_loginid_forgot" class="input-focus input-value" style="width: 100%; height: 38px; border: none;" type="email" placeholder="AlphaRaffle@example.com">
+                        <button type="button" class="input-icon-close" id="email_forgot_close_btn"></button>
+                    </div>
+                    <div style="width: 20%; float: left; padding-left: 14px;">
+                        <button id="auth_send_btn" class="auth-send-btn disabled" disabled="disabled">발송하기</button>
+                    </div>
+                </div>
+                <div>
+                    <p class="email-forgot-error-box" style="font-size: 12px; color: red; margin: 0px; float: left;"></p>
+                </div>
+                <div style="padding-top:30px; height: 92px;">
+                    <h3 class="auth-title">인증번호를 입력해주세요.</h3>
+                    <div class="auth-input-box">
+                        <input id="auth" class="input-focus input-value" style="width: 100%; height: 38px; border: none;" readonly="readonly" maxlength="6">
+                        <button type="button" class="input-icon-close" id="auth_close_btn"></button>
+                    </div>
+                    <div style="width: 20%; float: left; padding-left: 14px;">
+                        <button id="auth_btn" class="auth-btn disabled" disabled="disabled">인증확인</button>
+                    </div>
+                </div>
+                <div >
+                    <p class="auth-error-box" style="font-size: 12px; color: red; margin: 0px; float: left;"></p>
+                </div>
+                <div style="padding-top: 30px;">
+                    <div style="text-align: center; padding-bottom: 20px;">
+                        <p style="font-size: 14px; color: #777; margin: 0px;">이메일이 도착하지 않았나요?<a style="margin-left: 20px; font-size: 14px; color: #202020; border-bottom: 1px solid #202020; cursor: pointer;">인증번호 재발송</a></p>
+                    </div>
+                    <button class="auth-next-btn disabled"  disabled="disabled">다음</button>
                 </div>
             </div>
         </div>

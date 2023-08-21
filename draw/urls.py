@@ -38,6 +38,8 @@ urlpatterns = [
     path('auth/delete/', views.delete, name='회원탈퇴'),
     path('auth/practice/', views.practice, name='연습모드'),
     path('member_idcheck', views.member_idcheck, name='member_idcheck'),
+    path('member_nicknamecheck', views.member_nicknamecheck, name='member_nicknamecheck'),
+    path('auth_forgot_id', views.auth_forgot_id, name='auth_forgot_id'),
     path('member_insert', views.member_insert, name='member_insert'),
     path('member_login', views.member_login, name='member_login'),
     path('member_delete', views.member_delete, name='member_delete'),
@@ -60,6 +62,8 @@ urlpatterns = [
     path('auth/details/comment', views.comment, name='코멘트'),
     path('auth/details/reportLayer', views.reportLayer, name='신고'),
     path('auth/details/report', views.report, name='신고전송'),
+    path('auth/details/map/', views.map, name='map'),
+    path('auth/details/map/api/get_geocode/', views.get_geocode, name='get_geocode'),
 
     path('auth/practice/sendmail/', views.sendmail, name='sendmail'),
     path('auth/login/send_mail', views.send_mail, name='send_mail'),
@@ -68,6 +72,7 @@ urlpatterns = [
 
     path('main/likeShoe', views.like_shoe, name='신발좋아요'),
     path('full/likeShoe', views.like_shoe, name='신발좋아요'),
+    path('auth/details/likeShoe', views.like_shoe, name='신발좋아요'),
 
     path('full/delete_recent_searches', views.delete_recent_searches, name="최근검색어삭제"),
     path('full/all_recent_delete', views.all_recent_delete, name="최근검색어전체삭제"),

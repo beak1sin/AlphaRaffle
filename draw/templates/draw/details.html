@@ -1,138 +1,151 @@
 <!DOCTYPE html>
+
 {% load static %}
+{% load tz %}
 <html style="font-size: 16px;" lang="ko">
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="">
+    <meta name="keywords" content="AlphaRaffle, 발매정보">
     <meta name="description" content="">
     <title>AlphaRaffle</title>
     <link rel="icon" href="{% static 'draw/necessary/favicon-96x96.png' %}" type="image/png">
     <link rel="stylesheet" href="{% static 'draw/css/nicepage.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'draw/css/details.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
-
-    <meta name="generator" content="Nicepage 4.11.3, nicepage.com">
-    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    <link rel="stylesheet" href="{% static 'draw/css/font.css' %}" media="screen">
+    <!-- <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i"> -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard-dynamic-subset.css" />
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8303517261258440"
      crossorigin="anonymous"></script>
 
-    <script type="application/ld+json">
-        {
-            "@context": "http://schema.org",
-            "@type": "Organization",
-            "name": "AlphaRaffle",
-            "logo": "images/AR.jpg"
-        }
-    </script>
     <meta name="theme-color" content="#478ac9">
-    <meta property="og:title" content="details">
-    <meta property="og:description" content="">
+    <meta property="og:title" content="AlphaRaffle">
+    <meta property="og:image" content="{% static 'draw/images/ar011.png' %}">
+    <meta property="og:description" content="AlphaRaffle | {{shoe.shoename}}">
     <meta property="og:type" content="website">
 </head>
 
-<body class="u-body u-xl-mode" id="drawing_line">
-    <!-- 마우스커서 영역 -->
-    <svg class="drawing_line_svg">
-        <circle class="drawing_line_circle" cx="0" cy="0" r="8"></circle>
-        <polyline class="drawing_line_polyline" points=""></polyline>
-    </svg>
-    <!-- -----마우스커서 영역 -->
+<body class="u-body u-xl-mode" style="margin: 0; background: #FBFBFB">
 
-    <article>
-    <!-- 헤더 -->
     {% include 'draw/header.html' %}
 
-    <section class="u-clearfix u-section-1 blurOff" id="sec-3f81">
-        <div class="u-clearfix u-sheet u-sheet-1">
-            <div class="u-container-style u-expanded-width-sm u-expanded-width-xs u-group u-shape-rectangle u-group-1" data-animation-name="customAnimationIn" data-animation-duration="1000">
-                <div class="u-container-layout u-container-layout-1">
-                    <!-- 이미지 -->
-                    <div class="u-carousel u-expanded-width-xs u-gallery u-gallery-slider u-layout-carousel u-lightbox u-no-transition u-show-text-none u-gallery-1" data-interval="5000" data-u-ride="carousel" id="carousel-edf8">
-                        <ol class="u-absolute-hcenter u-carousel-indicators u-carousel-indicators-1">
-                            {% for img in img %}
-                            {% if forloop.counter0 == 0 %}
-                            <li data-u-target="#carousel-edf8" data-u-slide-to="{{forloop.counter0}}" class="u-active u-grey-70 u-shape-circle" style="width: 10px; height: 10px;"></li>
-                            {% else %}
-                            <li data-u-target="#carousel-edf8" data-u-slide-to="{{forloop.counter0}}" class="u-grey-70 u-shape-circle" style="width: 10px; height: 10px;"></li>
-                            {% endif %}
-                            {% endfor %}
-                        </ol>
-                        <div class="u-carousel-inner u-gallery-inner u-radius-50" role="listbox">
-                            {% for img in img %}
-                            {% if forloop.counter == 1 %}
-                            <div class="u-active u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter0}}">
-                                <div class="u-back-slide u-back-slide-1">
-                                    <img class="lazyload u-back-image u-expanded" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{img.serialno}}{{forloop.counter0}}.jpeg">
-                                </div>
-                            </div>
-                            {% else %}
-                            <div class="u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter0}}">
-                                <div class="u-back-slide">
-                                    <img class="lazyload u-back-image u-expanded" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{img.serialno}}{{forloop.counter0}}.jpeg">
-                                </div>
-                            </div>
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-                        <a class="u-absolute-vcenter u-carousel-control u-carousel-control-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-carousel-control-1" href="#carousel-edf8" role="button" data-u-slide="prev">
-                            <span aria-hidden="true">
-                                <svg viewBox="0 0 451.847 451.847">
-                                    <path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
-c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
-c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path>
-                                </svg>
-                            </span>
-                            <span class="sr-only">
-                                <svg viewBox="0 0 451.847 451.847">
-                                    <path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
-c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
-c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path>
-                                </svg>
-                            </span>
-                        </a>
-                        <a class="u-absolute-vcenter u-carousel-control u-carousel-control-next u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-carousel-control-2" href="#carousel-edf8" role="button" data-u-slide="next">
-                            <span aria-hidden="true">
-                                <svg viewBox="0 0 451.846 451.847">
-                                    <path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
-L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
-c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path>
-                                </svg>
-                            </span>
-                            <span class="sr-only">
-                                <svg viewBox="0 0 451.846 451.847">
-                                    <path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
-L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
-c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path>
-                                </svg>
-                            </span>
-                        </a>
-                    </div>
-
-                    <!-- 제품정보 -->
-                    <div class="product-info">
-                        <div class="product-info-name">
-                            <div class="product-info-name-shoename">
-                                <div class="product-info-name-shoename-ko">
-                                    {% if shoenameSlash == None %}
-                                    <p class="product-info-name-shoename-ko-text">{{shoe.shoename}}</p>
-                                    {% else %}
-                                    <p class="product-info-name-shoename-ko-text">{{shoenameSlash}}</p>
-                                    {% endif%}
-                                </div>
-                                <div class="product-info-name-shoename-en">
-                                    <p class="product-info-name-shoename-en-text">{{shoe.shoeengname}}</p>
-                                    <!-- <div style="height: 30px;"></div> -->
-                                    <div class="product-info-name-tag">
-                                        {% for shoebrand in shoebrand %}
-                                        <a class="product-info-name-tag-tagname tagname{{forloop.counter}}">#{{shoebrand}}</a>
-                                        {% endfor %}
+    <section style="width: 100vw; height: 100vh;">
+        <div style="width: 100vw; height: calc(100vh - 84px); top: 84px;">
+            <div style="width: 17.5vw; height: 100%; float: left;"></div>
+            <div style="width: 65vw; float: left;">
+                <div style="height: 20vh;">
+                </div>
+                <div style="height: calc(80vh - 84px); padding-bottom: 20vh;">
+                    <div class="u-section-1" style="width: 40%; height: 100%; float: left; position: relative;">
+                        <div class="u-carousel u-expanded-width-xs u-gallery u-gallery-slider u-layout-carousel u-lightbox u-no-transition u-show-text-none u-gallery-1" data-interval="5000" data-u-ride="carousel" id="carousel-edf8">
+                            <ol class="u-absolute-hcenter u-carousel-indicators u-carousel-indicators-1">
+                                {% for img in img %}
+                                {% if forloop.counter0 == 0 %}
+                                <li data-u-target="#carousel-edf8" data-u-slide-to="{{forloop.counter0}}" class="u-active u-grey-70 u-shape-circle" style="width: 10px; height: 10px;"></li>
+                                {% else %}
+                                <li data-u-target="#carousel-edf8" data-u-slide-to="{{forloop.counter0}}" class="u-grey-70 u-shape-circle" style="width: 10px; height: 10px;"></li>
+                                {% endif %}
+                                {% endfor %}
+                            </ol>
+                            <div class="u-carousel-inner u-gallery-inner u-radius-50" role="listbox">
+                                {% for img in img %}
+                                {% if forloop.counter == 1 %}
+                                <div class="u-active u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter0}}">
+                                    <div class="u-back-slide u-back-slide-1">
+                                        <img class="lazyload u-back-image u-expanded" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{img.serialno}}{{forloop.counter0}}.jpeg">
                                     </div>
                                 </div>
+                                {% else %}
+                                <div class="u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter0}}">
+                                    <div class="u-back-slide">
+                                        <img class="lazyload u-back-image u-expanded" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{img.serialno}}{{forloop.counter0}}.jpeg">
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
                             </div>
-                            <div class="product-info-name-logo">
+                            <a class="u-absolute-vcenter u-carousel-control u-carousel-control-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-carousel-control-1" href="#carousel-edf8" role="button" data-u-slide="prev">
+                                <span aria-hidden="true">
+                                    <svg viewBox="0 0 451.847 451.847">
+                                        <path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+    c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+    c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path>
+                                    </svg>
+                                </span>
+                                <span class="sr-only">
+                                    <svg viewBox="0 0 451.847 451.847">
+                                        <path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+    c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+    c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path>
+                                    </svg>
+                                </span>
+                            </a>
+                            <a class="u-absolute-vcenter u-carousel-control u-carousel-control-next u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-carousel-control-2" href="#carousel-edf8" role="button" data-u-slide="next">
+                                <span aria-hidden="true">
+                                    <svg viewBox="0 0 451.846 451.847">
+                                        <path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+    L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+    c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path>
+                                    </svg>
+                                </span>
+                                <span class="sr-only">
+                                    <svg viewBox="0 0 451.846 451.847">
+                                        <path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+    L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+    c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path>
+                                    </svg>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div style="width: 60%; height: 100%; float: left; padding-left: 50px;">
+                        <div>
+                            {% if shoenameSlash == None %}
+                            <span style="font-size: 32px; font-weight: 900; line-height: 36px;">{{shoe.shoename}}</span>
+                            {% else %}
+                            <span style="font-size: 32px; font-weight: 900; line-height: 36px;">{{shoenameSlash}}</span>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <span style="font-size: 20px; font-weight: 500; color: rgba(0, 0, 0, 0.50); line-height: 24px;">{{shoe.shoeengname}}</span>
+                        </div>
+                        <div style="padding: 10px 0px; height: auto; overflow: hidden;">
+                            <div style="padding: 10px 0px; height: auto; overflow: hidden;">
+                                <div style="float: left;">
+                                    <span style="font-size: 24px; font-weight: 500;">제품코드</span>
+                                </div>
+                                <div style="float: right;">
+                                    {% if serialnoSlash == None %}
+                                    <span class="serialno" style="font-size: 24px; font-weight: 700">{{shoe.serialno}}</span>
+                                    {% else %}
+                                    <span class="serialnoSlash" style="font-size: 24px; font-weight: 700">{{serialnoSlash}}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div style="padding: 10px 0px; height: auto; overflow: hidden;">
+                                <div style="float: left;">
+                                    <span style="font-size: 24px; font-weight: 500;">발매일</span>
+                                </div>
+                                <div style="float: right;">
+                                    <span style="font-size: 24px; font-weight: 700">{{shoe.pubdate}}</span>
+                                </div>
+                            </div>
+                            <div style="padding: 10px 0px; height: auto; overflow: hidden;">
+                                <div style="float: left;">
+                                    <span style="font-size: 24px; font-weight: 500;">발매가</span>
+                                </div>
+                                <div style="float: right;">
+                                    <span style="font-size: 24px; font-weight: 700">{{shoe.shoeprice}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display:flex; width: 100%; flex-wrap: wrap;">
+                            <div style="height: 36px; background: #FBFBFB; border-radius: 10px; border: 0.30px #777777 solid; padding: 5px 10px; margin-right: 15px;">
+                                <!-- <div style="width: 100px; height: 30px; left: 0px; top: 0px; position: absolute; background: #FBFBFB; border-radius: 10px; border: 0.30px #777777 solid"></div> -->
                                 {% if 'NIKE' in shoe.shoebrand %}
                                 <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/NIKE.png' %}">
                                 {% elif 'ADIDAS' in shoe.shoebrand %}
@@ -156,260 +169,336 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                                 {% elif 'SALOMON' in shoe.shoebrand %}
                                 <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/SALOMON.jpeg' %}">
                                 {% endif %}
+                                <div style="color: black; font-size: 16px; font-family: Pretendard; font-weight: 700; word-wrap: break-word; float: left; line-height: 25px; margin-left: 10px;">{{shoe.shoebrand}}</div>
                             </div>
                         </div>
-                        <div class="product-info-details">
-                            <div class="product-info-details-serialno">
-                                <span class="product-info-details-name">제품코드</span>
-                                {% if serialnoSlash == None %}
-                                <span class="product-info-details-data" id="serialno">{{shoe.serialno}}</span>
+                        <div style="padding: 10px 0px; height: auto; overflow: hidden; position: relative;">
+                            <div class="details-bookmark-icon">
+                                {% if member in shoe.likes.all %}
+                                <label class="details-bookmark-icon-label on">
+                                    <span class="icon"></span>
+                                </label>
                                 {% else %}
-                                <span class="product-info-details-data" id="serialno">{{serialnoSlash}}</span>
+                                <label class="details-bookmark-icon-label">
+                                    <span class="icon"></span>
+                                </label>
                                 {% endif %}
                             </div>
-                            <div class="product-info-details-pubdate">
-                                <span class="product-info-details-name">발매일</span>
-                                <span class="product-info-details-data">{{shoe.pubdate}}</span>
+                            <div style="position: absolute; top: 50%; transform: translateY(-50%); left: 34px;"><p id="shoelikecount" style="margin: 0; color: #121212; font-size: 15px; font-weight: 700;">{{shoe.shoelikecount}}</p></div>
+                            <div style="float: right; height: 36px;">
                             </div>
-                            <div class="product-info-details-shoeprice">
-                                <span class="product-info-details-name">가격</span>
-                                <span class="product-info-details-data">{{shoe.shoeprice}}</span>
-                            </div>
-                        </div>
-                        <div class="product-info-contents">
-                            <p class="product-info-contents-name">설명</p>
-                            {% if '-' in shoe.shoedetail %}
-                            <div class="product-info-contents-none">제품 설명이 없습니다.</div>
-                            {% else %}
-                            <div class="product-info-contents-shoedetail">{{shoe.shoedetail}}</div>
-                            {% endif %}
                         </div>
                     </div>
-                    <!-- <a onclick="dropped();" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-radius-50 u-text-hover-white u-btn-1">응모하기</a> -->
                 </div>
-            </div>
-        </div>
-    </section>
-    <section class="u-clearfix u-section-2 blurOff" id="section2">
-        <div class="u-clearfix u-sheet u-sheet-1">
-            <h3 class="u-text u-text-default u-text-1">GoogleForm</h3>
-            <!--products-->
-            <!--products_options_json-->
-            <!--{"type":"Recent","source":"","tags":"","count":""}-->
-            <!--/products_options_json-->
-            <div class="u-products u-products-1">
-                <div class="u-repeater u-repeater-1">
-                    <!--product_item-->
-                    {% for site in googleSite %}
-                    <div class="u-align-center u-container-style u-products-item u-repeater-item u-radius-50">
-                        <div class="u-container-layout u-similar-container u-valign-top-sm u-valign-top-xs u-container-layout-1">
-                            <!--product_image-->
-                            <img class="lazyload u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-image u-image-round u-product-control u-radius-50 u-image-1" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" data-image-width="842" data-image-height="595">
-                            <!--/product_image-->
-                            <!--product_title-->
-                            <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2">
-                                    <!--product_title_content-->{{ site.sitename }}
-                            </h4>
-                            <h5 style="font-size: 15px;">
-                            {% if site.pub_date == None %}
-                                ~ {{ site.end_date }} 까지
-                            {% elif site.end_date == None %}
-                                발매 : {{ site.pub_date }} ~ 
+                <div style="height: calc(100vh - 84px);">
+                    <div>
+                        <span style="font-size: 36px; font-weight: 900;">자동 응모 서비스</span>
+                    </div>
+                    <div>
+                        <span style="color: #777777; font-size: 24px; font-weight: 400;">클릭하면 구글폼에 개인 정보를 자동 입력하여 응모합니다.</span>
+                    </div>
+                    <div class="wrapper">
+                        {% if googleSite %}
+                        {% for site in googleSite %}
+                            {% if site.is_valid_date %}
+                            <div class="wrapper-items">
+                                <div style="height: 50%; position: relative; border-bottom: 0.30px #777777 solid;">
+                                    <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                                </div>
+                                <div style="height: 50%;">
+                                    <div style="height: 40%; text-align: center; display: table; width: 100%;"><p style="font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;">{{site.sitename}}</p></div>
+                                    <div style="height: 20%; text-align: center; display: table; width: 100%;">
+                                        <p style="font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;">
+                                            {% if site.pub_date == None %}
+                                                ~ {{ site.end_date }} 까지
+                                            {% elif site.end_date == None %}
+                                                발매 : {{ site.pub_date }} ~ 
+                                            {% else %}
+                                                {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                            {% endif %}   
+                                        </p>
+                                    </div>
+                                    <div style="height: 40%; position: relative;">
+                                        <button onclick="window.open('{{site.sitelink}}')" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #FBFBFB; border: 0.30px #777777 solid; border-radius: 20px; font-size: 12px; color: black; cursor: pointer;">응모</button>
+                                    </div>
+                                </div>
+                            </div>
                             {% else %}
-                                
-                                {{ site.pub_date }} ~ {{ site.end_date }} 까지
-                            {% endif %}                                
-                            </h5>
-                            <!--/product_title-->
-                            <!--product_button-->
-                            <!--options_json-->
-                            <!--{"clickType":"add-to-cart","content":"응모하기"}-->
-                            <!--/options_json-->
-                                <!--product_button_content-->
-                            {% if 'google' in site.sitelink %}
-                            <a onclick="window.open('{{googleSiteOnly.sitelink}}')"  class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-1">
-                                <!--product_button_content-->응모하기
-                                <!--/product_button_content--></a>
+                            <div class="wrapper-items-blur" style=" position: relative; ">
+                                <div class="wrapper-items-blur-box" style="">
+                                    <div style="height: 50%; position: relative; border-bottom: 0.30px #777777 solid;">
+                                        <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                                    </div>
+                                    <div style="height: 50%;">
+                                        <div style="height: 40%; text-align: center; display: table; width: 100%;"><p style="font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;">{{site.sitename}}</p></div>
+                                        <div style="height: 20%; text-align: center; display: table; width: 100%;">
+                                            <p style="font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;">
+                                                {% if site.pub_date == None %}
+                                                    ~ {{ site.end_date }} 까지
+                                                {% elif site.end_date == None %}
+                                                    발매 : {{ site.pub_date }} ~ 
+                                                {% else %}
+                                                    {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                                {% endif %}   
+                                            </p>
+                                        </div>
+                                        <div style="height: 40%; position: relative;">
+                                            <button style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(238, 238, 238, 0.70);  border: 0.30px #777777 solid; border-radius: 20px; font-size: 12px; color: black;">응모</button>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <!--/product_button-->
-                            {% else %}
-                            <a onclick="window.open('{{site.sitelink}}')" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-1">
-                                <!--product_button_content-->응모하기
-                                <!--/product_button_content--></a>
-                            <!--/product_button-->
+                                <p style="width: 100%; text-align: center; position: absolute; margin: 0; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 16px; color: white; font-weight: 500;">응모가 마감됐습니다.</p>
+                            </div>
                             {% endif %}
-                            
+                        {% endfor %}
+                        {% else %}
+                        <div class="wrapper-items-None">
+                            <p style="margin: 0; display: table-cell; vertical-align: middle;">존재하지 않습니다.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <span style="font-size: 36px; font-weight: 900;">응모 링크</span>
+                    </div>
+                    <div>
+                        <span style="color: #777777; font-size: 24px; font-weight: 400;">클릭하면 응모 페이지로 자동 연결합니다.</span>
+                    </div>
+                    <div class="wrapper">
+                        {% if notGoogleSite %}
+                        {% for site in notGoogleSite %}
+                            {% if site.is_valid_date %}
+                            <div class="wrapper-items">
+                                <div style="height: 50%; position: relative; border-bottom: 0.30px #777777 solid;">
+                                    <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                                </div>
+                                <div style="height: 50%;">
+                                    <div style="height: 40%; text-align: center; display: table; width: 100%;"><p style="font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;">{{site.sitename}}</p></div>
+                                    <div style="height: 20%; text-align: center; display: table; width: 100%;">
+                                        <p style="font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;">
+                                            {% if site.pub_date == None %}
+                                                ~ {{ site.end_date }} 까지
+                                            {% elif site.end_date == None %}
+                                                발매 : {{ site.pub_date }} ~ 
+                                            {% else %}
+                                                {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                            {% endif %}   
+                                        </p>
+                                    </div>
+                                    <div style="height: 40%; position: relative;">
+                                        <button onclick="window.open('{{site.sitelink}}')" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #FBFBFB; border: 0.30px #777777 solid; border-radius: 20px; font-size: 12px; color: black; cursor: pointer;">응모</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="wrapper-items-blur" style=" position: relative; ">
+                                <div class="wrapper-items-blur-box" style="">
+                                    <div style="height: 50%; position: relative; border-bottom: 0.30px #777777 solid;">
+                                        <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                                    </div>
+                                    <div style="height: 50%;">
+                                        <div style="height: 40%; text-align: center; display: table; width: 100%;"><p style="font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;">{{site.sitename}}</p></div>
+                                        <div style="height: 20%; text-align: center; display: table; width: 100%;">
+                                            <p style="font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;">
+                                                {% if site.pub_date == None %}
+                                                    ~ {{ site.end_date }} 까지
+                                                {% elif site.end_date == None %}
+                                                    발매 : {{ site.pub_date }} ~ 
+                                                {% else %}
+                                                    {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                                {% endif %}   
+                                            </p>
+                                        </div>
+                                        <div style="height: 40%; position: relative;">
+                                            <button style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(238, 238, 238, 0.70);  border: 0.30px #777777 solid; border-radius: 20px; font-size: 12px; color: black;">응모</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p style="width: 100%; text-align: center; position: absolute; margin: 0; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 16px; color: white; font-weight: 500;">응모가 마감됐습니다.</p>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                        {% else %}
+                        <div class="wrapper-items-None">
+                            <p style="margin: 0; display: table-cell; vertical-align: middle;">존재하지 않습니다.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="u-section-3" style="height: calc(100vh - 84px);">
+                    <div>
+                        <span style="font-size: 36px; font-weight: 900;">오프라인 응모</span>
+                    </div>
+                    <div>
+                        <span style="color: #777777; font-size: 24px; font-weight: 400;">응모 정보와 매장 위치를 확인하세요.</span>
+                    </div>
+                    <div class="wrapper">
+                        {% if offlineSite %}
+                        {% for site in offlineSite %}
+                            {% if site.is_valid_date %}
+                            <div class="wrapper-items">
+                                <div style="height: 50%; position: relative; border-bottom: 0.30px #777777 solid;">
+                                    <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                                </div>
+                                <div style="height: 50%;">
+                                    <div style="height: 40%; text-align: center; display: table; width: 100%;"><p style="font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;">{{site.sitename}}</p></div>
+                                    <div style="height: 20%; text-align: center; display: table; width: 100%;">
+                                        <p style="font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;">
+                                            {% if site.pub_date == None %}
+                                                ~ {{ site.end_date }} 까지
+                                            {% elif site.end_date == None %}
+                                                발매 : {{ site.pub_date }} ~ 
+                                            {% else %}
+                                                {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                            {% endif %}   
+                                        </p>
+                                    </div>
+                                    <div style="height: 40%; position: relative;">
+                                        <button onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}'" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #FBFBFB; border: 0.30px #777777 solid; border-radius: 20px; font-size: 12px; color: black; cursor: pointer;">응모</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="wrapper-items-blur" style=" position: relative; ">
+                                <div class="wrapper-items-blur-box" style="">
+                                    <div style="height: 50%; position: relative; border-bottom: 0.30px #777777 solid;">
+                                        <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                                    </div>
+                                    <div style="height: 50%;">
+                                        <div style="height: 40%; text-align: center; display: table; width: 100%;"><p style="font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;">{{site.sitename}}</p></div>
+                                        <div style="height: 20%; text-align: center; display: table; width: 100%;">
+                                            <p style="font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;">
+                                                {% if site.pub_date == None %}
+                                                    ~ {{ site.end_date }} 까지
+                                                {% elif site.end_date == None %}
+                                                    발매 : {{ site.pub_date }} ~ 
+                                                {% else %}
+                                                    {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                                {% endif %}   
+                                            </p>
+                                        </div>
+                                        <div style="height: 40%; position: relative;">
+                                            <button style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(238, 238, 238, 0.70);  border: 0.30px #777777 solid; border-radius: 20px; font-size: 12px; color: black;">응모</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p style="width: 100%; text-align: center; position: absolute; margin: 0; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 16px; color: white; font-weight: 500;">응모가 마감됐습니다.</p>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                        {% else %}
+                        <div class="wrapper-items-None">
+                            <p style="margin: 0; display: table-cell; vertical-align: middle;">존재하지 않습니다.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div style="position: relative;">
+                        <span style="font-size: 36px; font-weight: 900; ">댓글</span>
+                        <p style="position: absolute; left: 80px; bottom: 0; margin: 0; font-size: 20px; font-weight: 300; color: #777; line-height: 43px;">{{comment_count}}개</p>
+                        <p style="position: absolute; right: 30px; bottom: 14px; margin: 0; font-size: 20px; font-weight: 300; color: #777; line-height: 20px;">좋아요 순</p>
+                        <div class="details-viewSort-icon">
+                            <label class="details-viewSort-icon-label">
+                                <span class="icon"></span>
+                            </label>
                         </div>
                     </div>
+                    <div style="width: 100%; padding: 20px 50px; background: #EEEEEE; border-radius: 10px; margin-top: 30px;">
+                        <div style="height: 36px; width: 36px; float: left;">
+                            <img class="lazyload" style="width: 36px; height: 36px; border-radius: 50px;" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}">
+                        </div>
+                        <span style="font-size: 20px; font-weight: 500; line-height: 36px; margin-left: 10px;">{{member.member_nickname}}</span>
+                        <div style="width: 100%; position: relative; margin-top: 10px;">
+                            <input class="commentArea" style="width: 97%; height: 38px; border: none; border-bottom: 1px solid black;  background: #EEEEEE;" placeholder="댓글을 입력해주세요." maxlength="200">
+                            <div class="comment-send-icon">
+                                <label class="comment-send-icon-label">
+                                    <span class="icon"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <span style="font-size: 12px; font-weight: 200; color: #E13030;">악성 댓글과 도배 및 스팸 댓글은 처벌 및 사용 제한 조치를 받을 수 있습니다.</span>
+                        <span class="commentLength"></span>
+                    </div>
+
+                    {% for comment in comment %}
+                    {% if comment.serialno != None %}
+                    <div style="padding: 20px 50px; height: auto; overflow: hidden;">
+                        <div style="height: 36px; width: 36px; float: left;">
+                            <img class="lazyload" style="width: 36px; height: 36px; border-radius: 50px;" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}">
+                        </div>
+                        <div style="width: calc(100% - 50px); float: left; padding-left: 10px;">
+                            <div style="position: relative;">
+                                <span style="font-size: 16px; font-weight: 500; ">{{comment.member_nickname}}</span>
+                                <span style="font-size: 14px; font-weight: 500; color: #C8C8C8; margin-left: 15px;" >{{comment.created_date}}</span>
+                                <div class="comment-option-icon">
+                                    <label class="comment-option-icon-label">
+                                        <span class="icon"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div style="padding: 10px 0px;">
+                                <span style="font-size: 16px; font-weight: 200;">{{comment.comment}}</span>
+                            </div>
+                            <div style="position: relative;">
+                                {% if member.member_no == None %}
+                                <span class="comment-reply-logout off" style="font-size: 14px; font-weight: 400; color: #777777; cursor: pointer;">답글 달기</span>
+                                {% else %}
+                                <span class="comment-reply off" style="font-size: 14px; font-weight: 400; color: #777777; cursor: pointer;">답글 달기</span>
+                                {% endif %}
+                                <div class="comment-like-icon">
+                                    <label class="comment-like-icon-label">
+                                        <span class="icon"></span>
+                                    </label>
+                                </div>
+                                <p style="position: absolute; margin: 0; font-size: 14px; font-weight: 700; color: #3E3E3E; right: 56px; top: 50%; transform: translateY(-50%);">0</p>
+                                <div class="comment-hate-icon">
+                                    <label class="comment-hate-icon-label">
+                                        <span class="icon"></span>
+                                    </label>
+                                </div>
+                                <p style="position: absolute; margin: 0; font-size: 14px; font-weight: 700; color: #3E3E3E; right: 0px; top: 50%; transform: translateY(-50%);">0</p>
+                            </div>
+                            <!-- <div data-id="reply-area" style="width: 100%; padding: 20px 50px; background: #EEEEEE; border-radius: 10px; margin-top: 20px;">
+                                <div style="height: 36px; width: 36px; float: left;">
+                                    <img class="lazyload" style="width: 36px; height: 36px; border-radius: 50px;" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}">
+                                </div>
+                                <span style="font-size: 20px; font-weight: 500; line-height: 36px; margin-left: 10px;">{{member.member_nickname}}</span>
+                                <div style="width: 100%; position: relative; margin-top: 10px;">
+                                    <input style="width: 97%; height: 38px; border: none; border-bottom: 1px solid black;  background: #EEEEEE;" placeholder="댓글을 입력해주세요.">
+                                    <div class="comment-send-icon">
+                                        <label class="comment-send-icon-label">
+                                            <span class="icon"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <span style="font-size: 12px; font-weight: 200; color: #E13030;">악성 댓글과 도배 및 스팸 댓글은 처벌 및 사용 제한 조치를 받을 수 있습니다.</span>
+                            </div> -->
+                        </div>
+                        
+                    </div>
+                    {% else %}
+                    <div style="width: 100%; height: 200px; display: table; text-align: center;">
+                        <p style="margin: 0; display: table-cell; vertical-align: middle;">댓글이 존재하지 않습니다.</p>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>
-            <!--/products-->
-
-            <h3 class="u-text u-text-default u-text-1">URL</h3>
-            <div class="u-products u-products-1">
-                <div class="u-repeater u-repeater-1">
-                    <!--product_item-->
-                    {% for site in notGoogleSite %}
-                    <div class="u-align-center u-container-style u-products-item u-repeater-item u-radius-50">
-                        <div class="u-container-layout u-similar-container u-valign-top-sm u-valign-top-xs u-container-layout-1">
-                            <!--product_image-->
-                            <img class="lazyload u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-image u-image-round u-product-control u-radius-50 u-image-1" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" data-image-width="842" data-image-height="595">
-                            <!--/product_image-->
-                            <!--product_title-->
-                            <h4 class="u-align-center u-product-control u-text u-text-grey-80 u-text-2">
-                                    <!--product_title_content-->{{ site.sitename }}
-                            </h4>
-                            <h5 style="font-size: 15px;">
-                            {% if site.pub_date == None %}
-                                ~ {{ site.end_date }} 까지
-                            {% elif site.end_date == None %}
-                                발매 : {{ site.pub_date }} ~ 
-                            {% else %}
-                                
-                                {{ site.pub_date }} ~ {{ site.end_date }} 까지
-                            {% endif %}                                
-                            </h5>
-                            <!--/product_title-->
-                            <!--product_button-->
-                            <!--options_json-->
-                            <!--{"clickType":"add-to-cart","content":"응모하기"}-->
-                            <!--/options_json-->
-                                <!--product_button_content-->
-                            {% if 'google' in site.sitelink %}
-                            <a onclick="window.open('{{site.sitelink}}'+'&'+'{{site.nameentry}}'+'{{member.member_realname}}'+'&'+'{{site.birthentry}}'+'{{member.member_birth}}'+'&'+'{{site.phoneentry}}'+'{{member.member_phonenumber}}'+'&'+'{{site.nikeidentry}}'+'{{member.member_nikeid}}'+'&')"  class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-1">
-                                <!--product_button_content-->응모하기
-                                <!--/product_button_content--></a>
-                            <!--/product_button-->
-                            {% else %}
-                            <a onclick="window.open('{{site.sitelink}}')" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-1">
-                                <!--product_button_content-->응모하기
-                                <!--/product_button_content--></a>
-                            <!--/product_button-->
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <!--/products-->
-
-
+            <div style="width: 17.5vw; height: 100%; float: left;"></div>
         </div>
-    </section>
-    <section class="u-clearfix u-section-3 blurOff" id="sec-00f7">
-        <div class="u-clearfix u-sheet u-sheet-1">
-            <h4 class="u-text u-text-1">
-                댓글 쓰기
-                <p id="commentLength"></p>
-            </h4>
-            <!-- <p class="u-text u-text-2">작성된 글이 없습니다.</p> -->
-            <!-- 댓글 리스트 -->
-            <div style="text-align: center;">
-            {% for comment in comment %}
-            {% if comment.serialno != None %}
-            <div class="comment_div">
-                <div class="comment_header">
-                    <div class="profile_img">
-                        <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
-                    </div>
-                    <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px; float: left;">{{comment.member_nickname}}님</label>
-                    <p class="comment-created-date">{{comment.created_date}}</p>
-                </div>
-                <div class="comment_content">
-                    <p class="p_comment">{{comment.comment}}</p>
-                </div>
-                <div class="comment_footer" style="border-bottom: 1px dashed #666666;">
-                    <button class="reply-btn u-hover-grey-60 disabled">답글 쓰기</button>
-                    <button class="report_btn u-hover-grey-60">신고</button>
-                      <a href="javascript:;" class="icon heart">
-                         <img src="https://cdn-icons-png.flaticon.com/512/812/812327.png" alt="좋아요">
-                      </a>
-                </div>
-            </div>
-            <!-- reply -->
-            <div class="u-border-2 u-border-grey-80 u-form u-radius-25 u-form-1 reply" style="display: none;">
-                <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
-                    <div class="u-form-group u-form-message">
-                        <div class="profile_img">
-                            <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
-                        </div>
-                        <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{comment.member_nickname}}님</label>
-                        <textarea placeholder="댓글을 작성하세요." rows="4" cols="50" id="message-872b" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-25" style="resize: none; margin-top: 10px;" required=""></textarea>
-                    </div>
-                    <!-- <input type="text" placeholder="이메일을 입력하세요." id="member_loginid" name="member_loginid" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-1" required=""> -->
-                    <div class="u-align-right u-form-group u-form-submit">
-                        <!-- <a href="#" class="u-btn u-btn-submit u-button-style">Submit</a> -->
-                        <!-- <input type="submit" value="submit" class="u-form-control-hidden"> -->
-                        <button onclick="comment();" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">작성하기<br>
-                        </button>
-                    </div>
-                </form>
-            </div>
-            
-            {% else %}
-            <p style="text-align: center;">댓글 없음</p>
-            {% endif %}
-            {% endfor %}
-            </div>
-            <!-- ------- 댓글 리스트  -->
-
-
-            <div class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-bottom u-container-style u-group u-shape-rectangle u-group-1" style="margin-top: 5px;">
-                <!-- <div class="u-container-layout u-container-layout-1"></div> -->
-            </div>
-
-
-            {% if member.member_no == None %}
-            <div class="u-border-2 u-border-grey-80 u-form u-radius-25 u-form-1">
-                <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
-                    <div class="u-form-group u-form-message">
-                        <label for="message-872b" class="u-label u-text-grey-80 u-label-1"><a href="{% url 'draw:로그인' %}">로그인</a> 후에 이용해주시기 바랍니다.</label>
-                        <textarea placeholder="댓글을 작성하세요." rows="4" cols="50" id="commentArea" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-25" required="" readonly></textarea>
-                    </div>
-                    <!-- <input type="text" placeholder="이메일을 입력하세요." id="member_loginid" name="member_loginid" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-1" required=""> -->
-                    <div class="u-align-right u-form-group u-form-submit">
-                        <!-- <a href="#" class="u-btn u-btn-submit u-button-style">Submit</a> -->
-                        <!-- <input type="submit" value="submit" class="u-form-control-hidden"> -->
-                        <button class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">작성하기<br>
-                        </button>
-                    </div>
-                </form>
-            </div>
-            {% else %}
-            <div class="u-border-2 u-border-grey-80 u-form u-radius-25 u-form-1">
-                <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
-                    <div class="u-form-group u-form-message">
-                        <div class="profile_img">
-                            <img class="lazyload" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}" style="width: 40px; height: 40px; border-radius: 50px;">
-                        </div>
-                        <label for="message-872b" class="u-label u-text-grey-80 u-label-1" style="line-height: 40px;">{{member.member_nickname}}님</label>
-                        <textarea placeholder="댓글을 작성하세요." id="commentArea" maxlength="200" rows="4" cols="50" id="message-872b" name="message" class="u-border-1 u-border-grey-80 u-input u-input-rectangle u-radius-25" style="resize: none; margin-top: 10px;" required=""></textarea>
-                    </div>
-                    <!-- <input type="text" placeholder="이메일을 입력하세요." id="member_loginid" name="member_loginid" class="u-border-2 u-border-grey-80 u-input u-input-rectangle u-radius-50 u-input-1" required=""> -->
-                    <div class="u-align-right u-form-group u-form-submit">
-                        <!-- <a href="#" class="u-btn u-btn-submit u-button-style">Submit</a> -->
-                        <!-- <input type="submit" value="submit" class="u-form-control-hidden"> -->
-                        <button id="comment_btn" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-grey-80 u-hover-grey-60 u-radius-50 u-btn-1">작성하기<br>
-                        </button>
-                    </div>
-                </form>
-                <div class="maxLength-box">
-                    <p class="maxLength-box-font">0 / 200</p>
-                </div>
-            </div>
-            {% endif %}
-            <p class="u-text u-text-3" id="comment_error_msg" style="color: red; display: none;">내용을 입력해주세요.</p>
-        </div>
-    </section>
-    <section class="u-clearfix u-section-4 blurOff" style="height:100px;">
+        
     </section>
 
-    <div class="report-layer off">
+    
+
+    <!-- <div class="bookmark-layer off">
         <div class="title_area">
             <p class="title">로그인이 필요합니다.</p>
         </div>
-        <div class="content_area">신고를 하시려면 로그인이 필요합니다.<br>로그인 페이지로 이동하겠습니까?</div>
+        <div class="content_area">북마크에 추가하려면 로그인이 필요합니다.<br>로그인 페이지로 이동하겠습니까?</div>
         <div class="btn_area">
             <a id="cancel_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
                 취소
@@ -418,41 +507,23 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                 확인
             </a>
         </div>
-    </div>
-
-    <div class="report-form-layer off">
-        <div class="title_area">
-            <p class="title">신고하기</p>
-        </div>
-        <div class="content_area">
-            <textarea class="content_area_value" rows="4" cols="50" maxlength="200" style="resize: none; width: 310px; height: 80px"></textarea>
-        </div>
-        <div class="btn_area">
-            <a id="cancel_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
-                취소
-            </a>
-            <a id="report_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
-                확인
-            </a>
-        </div>
-    </div>
-
-    <!-- 풋터 -->
-    {% include 'draw/footer.html' %}
-    </article>
+    </div> -->
 
     {% include 'draw/search.html' %}
 
     {% include 'draw/loading.html' %}
 
     {% include 'draw/go_up.html' %}
-
+    
+    <script>const STATIC_FULL_URL = "{% url 'draw:map' %}?serialnum=";const STATIC_IMAGES_URL = "{% static 'draw/images/' %}";</script>
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
     <script src="{% static 'draw/js/details.js' %}"></script>
     <script src="{% static 'draw/js/alpharaffle.js' %}"></script>
+    <script src="{% static 'draw/js/sha1.js' %}"></script>
 </body>
 
 </html>

@@ -44,6 +44,8 @@
                     <li class="u-nav-item">
                       <a class="u-nav-link" id="btn" href="{% url 'draw:로그인' %}">로그인/회원가입</a>
                     </li>
+                    <p class="user_hidden" hidden></p>
+                    <p class="nickname_hidden" hidden></p>
                     {% else %}
                     <!-- <li class="u-nav-item">
                         {{member.member_nickname}}님 환영합니다.
@@ -51,6 +53,8 @@
                     <li class="u-nav-item">
                         <a class="u-nav-link" id="btn" href="{% url 'draw:로그아웃' %}">로그아웃</a>
                     </li>
+                    <p class="user_hidden" hidden>{{member.member_no}}</p>
+                    <p class="nickname_hidden" hidden>{{member.member_nickname}}</p>
                     {% endif %}
                 </ul>
             </div>
@@ -125,6 +129,7 @@
         </div>
     </div>
     {% endif %}
+    <!-- <div id="notificationBox" style="position: fixed; width: 300px; height: 84px; top: 42px; right: 100px;"></div> -->
 </header>
 
 <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>

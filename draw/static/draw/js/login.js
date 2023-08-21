@@ -194,6 +194,246 @@ $(document).ready( () => {
         $('.password-title').css({'color': 'black'});
     })
 
+    $('#password_forgot_btn').click(function() {
+        $('.login-box').hide()
+        $('.password-forgot-box').show();
+    });
+
+    // member_loginid_forgot focus
+    $("#member_loginid_forgot").keyup( () => {
+        let $id = $('#member_loginid_forgot').val();
+        if (!emailRegEx.test($id)) {
+            $('.email-forgot-error-box').html('이메일 형식이 아닙니다.');
+            $('.email-forgot-input-box').css({'border-bottom': '2px solid red'});
+            $('.email-forgot-title').css({'color': 'red'});
+            $('.auth-send-btn').removeClass('abled');
+            $('.auth-send-btn').addClass('disabled');
+            $('.auth-send-btn').attr('disabled', true);
+        } else {
+            $('.email-forgot-error-box').html('');
+            $('.email-forgot-input-box').css({'border-bottom': '2px solid black'});
+            $('.email-forgot-title').css({'color': 'black'});
+            $('.auth-send-btn').removeClass('disabled');
+            $('.auth-send-btn').addClass('abled');
+            $('.auth-send-btn').attr('disabled', false);
+        }
+        if ($id.length == 0) {
+            $('.email-forgot-error-box').html('');
+            $('.email-forgot-input-box').css({'border-bottom': '2px solid black'});
+            $('.email-forgot-title').css({'color': 'black'});
+        }
+    });
+
+    $('#member_loginid_forgot').focus( (e) => {
+        let $id = $('#member_loginid_forgot').val();
+        const value = $(e.target).parent();
+        if (!emailRegEx.test($id)) {
+            value.css({'border-bottom': '2px solid red'});
+            $('.auth-send-btn').removeClass('abled');
+            $('.auth-send-btn').addClass('disabled');
+            $('.auth-send-btn').attr('disabled', true);
+        } else {
+            if (!$(e.target).hasClass('complete')) {
+                value.css({'border-bottom': '2px solid black'});
+                $('.auth-send-btn').removeClass('disabled');
+                $('.auth-send-btn').addClass('abled');
+                $('.auth-send-btn').attr('disabled', false);
+            }
+            
+        }
+        if ($id.length == 0) {
+            $('.email-forgot-error-box').html('');
+            $('.email-forgot-input-box').css({'border-bottom': '2px solid black'});
+            $('.email-forgot-title').css({'color': 'black'});
+        }
+
+        
+    });
+
+    $('#member_loginid_forgot').blur( (e) => {
+        let $id = $('#member_loginid_forgot').val();
+        const value = $(e.target).parent();
+        if (!emailRegEx.test($id)) {
+            value.css({'border-bottom': '1px solid red'});
+            $('.auth-send-btn').removeClass('abled');
+            $('.auth-send-btn').addClass('disabled');
+            $('.auth-send-btn').attr('disabled', true);
+        } else {
+            if (!$(e.target).hasClass('complete')) {
+                value.css({'border-bottom': '1px solid #F5F5F5'});
+                $('.auth-send-btn').removeClass('disabled');
+                $('.auth-send-btn').addClass('abled');
+                $('.auth-send-btn').attr('disabled', false);
+            }
+        }
+        if ($id.length == 0) {
+            $('.email-forgot-error-box').html('');
+            $('.email-forgot-input-box').css({'border-bottom': '1px solid #F5F5F5'});
+            $('.email-forgot-title').css({'color': 'black'});
+        }
+    });
+
+    $('#email_forgot_close_btn').click( () => {
+        $('.email-forgot-error-box').html('');
+        $('.email-forgot-input-box').css({'border-bottom': '1px solid #F5F5F5'});
+        $('.email-forgot-title').css({'color': 'black'});
+        $('.auth-send-btn').removeClass('abled');
+        $('.auth-send-btn').addClass('disabled');
+        $('.auth-send-btn').attr('disabled', true);
+    });
+
+    // auth focus
+    $("#auth").keyup( () => {
+        let $id = $('#auth').val();
+        if ($id.length != 6) {
+            $('.auth-error-box').html('인증번호 6자리를 입력해주세요.');
+            $('.auth-input-box').css({'border-bottom': '2px solid red'});
+            $('.auth-title').css({'color': 'red'});
+            $('.auth-btn').removeClass('abled');
+            $('.auth-btn').addClass('disabled');
+            $('.auth-btn').attr('disabled', true);
+        } else {
+            $('.auth-error-box').html('');
+            $('.auth-input-box').css({'border-bottom': '2px solid black'});
+            $('.auth-title').css({'color': 'black'});
+            $('.auth-btn').removeClass('disabled');
+            $('.auth-btn').addClass('abled');
+            $('.auth-btn').attr('disabled', false);
+        }
+        if ($id.length == 0) {
+            $('.auth-error-box').html('');
+            $('.auth-input-box').css({'border-bottom': '2px solid black'});
+            $('.auth-title').css({'color': 'black'});
+        }
+    });
+
+    $('#auth').focus( (e) => {
+        let $id = $('#auth').val();
+        const value = $(e.target).parent();
+        if ($id.length != 6) {
+            value.css({'border-bottom': '2px solid red'});
+            $('.auth-btn').removeClass('abled');
+            $('.auth-btn').addClass('disabled');
+            $('.auth-btn').attr('disabled', true);
+        } else {
+            if (!$(e.target).hasClass('complete')) {
+                value.css({'border-bottom': '2px solid black'});
+                $('.auth-btn').removeClass('disabled');
+                $('.auth-btn').addClass('abled');
+                $('.auth-btn').attr('disabled', false);
+            }
+            
+        }
+        if ($id.length == 0) {
+            $('.auth-error-box').html('');
+            $('.auth-input-box').css({'border-bottom': '2px solid black'});
+            $('.auth-title').css({'color': 'black'});
+        }
+
+        
+    });
+
+    $('#auth').blur( (e) => {
+        let $id = $('#auth').val();
+        const value = $(e.target).parent();
+        if ($id.length != 6) {
+            value.css({'border-bottom': '1px solid red'});
+            $('.auth-btn').removeClass('abled');
+            $('.auth-btn').addClass('disabled');
+            $('.auth-btn').attr('disabled', true);
+        } else {
+            if (!$(e.target).hasClass('complete')) {
+                value.css({'border-bottom': '1px solid #F5F5F5'});
+                $('.auth-btn').removeClass('disabled');
+                $('.auth-btn').addClass('abled');
+                $('.auth-btn').attr('disabled', false);
+            }
+        }
+        if ($id.length == 0) {
+            $('.auth-error-box').html('');
+            $('.auth-input-box').css({'border-bottom': '1px solid #F5F5F5'});
+            $('.auth-title').css({'color': 'black'});
+        }
+    });
+
+    $('#auth_close_btn').click( () => {
+        $('.auth-error-box').html('');
+        $('.auth-input-box').css({'border-bottom': '1px solid #F5F5F5'});
+        $('.auth-title').css({'color': 'black'});
+        $('.auth-btn').removeClass('abled');
+        $('.auth-btn').addClass('disabled');
+        $('.auth-btn').attr('disabled', true);
+    });
+
+    // 인증번호 전송
+    $('#auth_send_btn').click( () => {
+
+        var memberidcheck = document.getElementById("member_loginid_forgot").value;
+
+        var data = { member_id: memberidcheck};
+        var datastr = JSON.stringify(data);
+        
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                var data = xhr.responseText;
     
+                var obj = JSON.parse(data);
+                if(obj.flag == "1"){
+                    alert(obj.result_msg);
+                    $('#auth').attr('readonly', false);
+                    $('#auth').focus();
+                    $('.auth-send-btn').removeClass('abled');
+                    $('.auth-send-btn').addClass('disabled');
+                    $('.auth-send-btn').attr('disabled', true);
+                    $("#member_loginid_forgot").attr("readonly",true);
+                    $("#member_loginid_forgot").addClass("complete");
+                    $('.email-forgot-error-box').html('인증번호를 전송했습니다.');
+                    $('#email_forgot_close_btn').removeClass('active');
+                } else {
+                    alert(obj.result_msg);
+                }
+            }
+        };
+        xhr.open("POST", "/auth_forgot_id");
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.send(datastr);
+    
+    });
+
+    // 인증번호 전송
+    $('#auth_btn').click( () => {
+
+        var auth = document.getElementById("auth").value;
+
+        var data = { auth: auth};
+        var datastr = JSON.stringify(data);
+        
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                var data = xhr.responseText;
+    
+                var obj = JSON.parse(data);
+                if(obj.flag == "0"){
+                    $('.auth-btn').removeClass('abled');
+                    $('.auth-btn').addClass('disabled');
+                    $('.auth-btn').attr('disabled', true);
+                    $("#auth").attr("readonly",true);
+                    $("#auth").addClass("complete");
+                    $('#auth_close_btn').removeClass('active');
+                    $('.auth-next-btn').removeClass('disabled');
+                    $('.auth-next-btn').addClass('abled');
+                    $('.auth-next-btn').attr('disabled', false);
+                } else {
+                    alert(obj.result_msg);
+                }
+            }
+        };
+        xhr.open("POST", "/auth_forgot_id");
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.send(datastr);
+    
+    });
     
 });

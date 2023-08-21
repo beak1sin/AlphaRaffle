@@ -106,11 +106,16 @@
                         <h1 class="join-profile-title">프로필 생성</h1>
                     </div>
                     <div class="join-nickname-input-box">
-                        <h3 class="join-nickname-input-title">닉네임을 입력해주세요</h3>
+                        <h3 class="join-nickname-input-title">닉네임을 입력해주세요
+                            <div class="nickname-duplicate-btn-box" style="float: right;">
+                                <button class="nickname-duplicate-btn disabled" id="nicknamecheck_btn" disabled="disabled">중복확인</button>
+                            </div>
+                        </h3>
                         <div class="join-nickname-input-value-box">
                             <input class="join-nickname-input-value input-focus input-value" id="member_nickname" type="text" placeholder="ex ) 홍길동짱짱맨" tabindex="1" maxlength="20">
                             <button type="button" class="input-icon-close" id="nickname_close_btn"></button>
                         </div>
+                        
                     </div>
                     <div>
                         <p class="nickname-error-box" style="font-size: 12px; color: red; margin: 0px; text-align: left;"></p>

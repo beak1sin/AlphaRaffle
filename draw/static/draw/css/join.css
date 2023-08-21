@@ -156,6 +156,33 @@ input::placeholder {
     cursor: pointer;
 }
 
+.join-nickname-input-box .nickname-duplicate-btn-box {
+    width: 20%;
+    float: left;
+    padding: 0px 0px 0px 14px;
+}
+
+.nickname-duplicate-btn.disabled {
+    width: 80px;
+    height: 39px;
+    font-size: 16px;
+    border: none;
+    border-radius: 7px;
+    background-color: #E4E4E4;
+    color: black !important;
+}
+
+.nickname-duplicate-btn.abled {
+    width: 80px;
+    height: 39px;
+    font-size: 16px;
+    border: none;
+    border-radius: 7px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
 .join-email-box .next-btn-box {
     padding-top: 50px;
 }

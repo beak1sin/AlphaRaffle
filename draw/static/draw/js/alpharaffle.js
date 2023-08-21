@@ -411,21 +411,53 @@ $(window).load(function() {
 	$(".backL").css("display", "none");
 });
 
-var wsScheme = window.location.protocol == "https:" ? "wss" : "ws";
-var notificationSocket = new WebSocket(
-    wsScheme + '://' + window.location.host +
-    '/ws/notification/'
-);
-// console.log(notificationSocket);
-notificationSocket.onmessage = function(event) {
-    // var notification = JSON.parse(e.data);
-    // var notificationList = document.getElementById('notification-list');
-    // var listItem = document.createElement('li');
-    // listItem.innerHTML = notification;
-    // notificationList.appendChild(listItem);
-        const data = JSON.parse(event.notification);
-        console.log('서버에서 받은 응답:', data.response);
+// channels
+
+/* 
+const loc = window.location.href.split(window.location.host)[1];
+
+const socket = new WebSocket(`ws://${window.location.host}/ws${loc}`);
+// console.log(socket);
+var dataBox = $('#notificationBox');
+
+socket.onmessage = (e) => {
+    // console.log('Server: ' + e.data);
+    const {message, sender} = JSON.parse(e.data);
+    console.log(message);
+    console.log(sender);
+    // dataBox.html(`<p>${sender}: ${message}`);
 };
+
+socket.onopen = (e) => {
+    socket.send(JSON.stringify({
+        'message': 'Hello from Client',
+        'sender': 'test sender'
+    }));
+};
+
+$('.bookmark-icon-label').click(() => {
+    const message = '클릭됨';
+    socket.send(JSON.stringify({
+        'message': message,
+        'sender': $('.user_hidden').text()
+    }));
+});
+
+*/
+
+// $('.comment-send-icon-label').click(function() {
+//     alert('전송');
+//     const receiver = $(this).parent().parent().parent().parent().children(':first').children(':first').text();
+//     const message = '댓글 연습';
+//     alert(receiver);
+//     socket.send(JSON.stringify({
+//         'message': message,
+//         'sender': $('.user_hidden').text(),
+//         'receiver': receiver
+//     }));
+// });
+
+
 
 // 마우스커서
 
