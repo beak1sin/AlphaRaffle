@@ -344,6 +344,13 @@ def auth_forgot_id(request):
         code = str(random.randint(100000, 999999))
         expiry_time = datetime.datetime.now() + timedelta(minutes=5)
         VerificationCode.objects.create(member_id=rs.member_id, code=code, expiry_time=expiry_time)
+        message = render_to_string('draw/verification_email.html',                         {
+                    'verification_code': code
+                })
+        mail_subject = "[AlphaRaffle] 인증번호 6자리입니다."
+        user_email = rs.member_id
+        email = EmailMessage(mail_subject, message, to=[user_email])
+        email.send()
     else:
         context['flag'] = '0'
         context['result_msg'] = '존재하지 않는 이메일입니다.'
@@ -366,6 +373,29 @@ def verification(request):
     else:
         context['flag'] = '0'
         context['result_msg'] = '인증실패했습니다.'
+
+    return JsonResponse(context, content_type="application/json")
+
+
+@csrf_protect
+def new_password(request):
+    context = {}
+
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+    memberid = bodyjson['memberid']
+    pwdencryted = bodyjson['pwdencrypted']
+    member = Member.objects.get(member_id=memberid)
+
+    if member:
+        member.member_pwd = pwdencryted
+        member.save()
+        context['flag'] = '1'
+        context['result_msg'] = '비밀번호가 변경되었습니다.'
+    else:
+        context['flag'] = '0'
+        context['result_msg'] = '회원정보가 없습니다.'
+
 
     return JsonResponse(context, content_type="application/json")
 

@@ -125,9 +125,40 @@
                 </div>
                 <div style="padding-top: 30px;">
                     <div style="text-align: center; padding-bottom: 20px;">
-                        <p style="font-size: 14px; color: #777; margin: 0px;">이메일이 도착하지 않았나요?<a style="margin-left: 20px; font-size: 14px; color: #202020; border-bottom: 1px solid #202020; cursor: pointer;">인증번호 재발송</a></p>
+                        <p style="font-size: 14px; color: #777; margin: 0px;">이메일이 도착하지 않았나요?<a id="auth_re_send_btn" style="margin-left: 20px; font-size: 14px; color: #202020; border-bottom: 1px solid #202020; cursor: pointer;">인증번호 재발송</a></p>
                     </div>
                     <button class="auth-next-btn disabled"  disabled="disabled">다음</button>
+                </div>
+            </div>
+            <div class="password-forgot-box-2" style="display: none;">
+                <div class="password-forgot-box-logo-2">
+                    <!-- <img class="login-box-logo-image" src="{% static 'draw/necessary/ar011(nukki).png' %}"> -->
+                    <img class="password-forgot-box-logo-image-2" src="{% static 'draw/necessary/logo(grey).png' %}">
+                </div>
+                <div style="padding-top:30px; height: 92px;">
+                    <h3 class="password-forgot-title">계정에 사용할 새로운 암호를 입력해주세요.</h3>
+                    <div class="password-forgot-input-box">
+                        <button type="button" class="password-icon-hide"></button>
+                        <input id="new_password" class="input-focus password-value" style="width: 100%; height: 38px; border: none;" type="password" tabindex="1">
+                        <button type="button" class="password-icon-close" id="password_close_btn"></button>
+                    </div>
+                </div>
+                <div>
+                    <p class="password-forgot-error-box" style="font-size: 12px; color: red; margin: 0px; float: left;"></p>
+                </div>
+                <div style="padding-top:30px; height: 92px;">
+                    <h3 class="password-forgot-title-2">암호를 다시 입력해주세요.</h3>
+                    <div class="password-forgot-input-box-2">
+                        <button type="button" class="password-icon-hide"></button>
+                        <input id="new_password_2" class="input-focus password-value" style="width: 100%; height: 38px; border: none;" type="password" tabindex="2">
+                        <button type="button" class="password-icon-close" id="password_close_btn_2"></button>
+                    </div>
+                </div>
+                <div >
+                    <p class="password-forgot-error-box-2" style="font-size: 12px; color: red; margin: 0px; float: left;"></p>
+                </div>
+                <div style="padding-top: 30px;">
+                    <button class="new-password-btn disabled" id="new_password_btn"  disabled="disabled">비밀번호 변경</button>
                 </div>
             </div>
         </div>

@@ -202,6 +202,11 @@ $(document).ready( () => {
         $('.password-forgot-box').show();
     });
 
+    $('.auth-next-btn').click(function() {
+        $('.password-forgot-box').hide();
+        $('.password-forgot-box-2').show();
+    });
+
     // member_loginid_forgot focus
     $("#member_loginid_forgot").keyup( () => {
         let $id = $('#member_loginid_forgot').val();
@@ -368,9 +373,158 @@ $(document).ready( () => {
         $('.auth-btn').attr('disabled', true);
     });
 
+    // new_password focus
+    $("#new_password").keyup( () => {
+        let $pwd = $('#new_password').val();
+        if (!passwordRegEx.test($pwd)) {
+            $('.password-forgot-error-box').html('영문, 숫자, 특수문자를 조합해서 입력해주세요. (8-20자)');
+            $('.password-forgot-input-box').css({'border-bottom': '2px solid red'});
+            $('.password-forgot-title').css({'color': 'red'});
+        } else {
+            $('.password-forgot-error-box').html('');
+            $('.password-forgot-input-box').css({'border-bottom': '2px solid black'});
+            $('.password-forgot-title').css({'color': 'black'});
+        }
+        if ($pwd.length == 0) {
+            $('.password-forgot-error-box').html('');
+            $('.password-forgot-input-box').css({'border-bottom': '2px solid black'});
+            $('.password-forgot-title').css({'color': 'black'});
+        }
+    });
+
+    $('#new_password').focus( (e) => {
+        let $pwd = $('#new_password').val();
+        const value = $(e.target).parent();
+        if (!passwordRegEx.test($pwd)) {
+            value.css({'border-bottom': '2px solid red'});
+        } else {
+            value.css({'border-bottom': '2px solid black'});
+            
+        }
+        if ($pwd.length == 0) {
+            $('.password-forgot-error-box').html('');
+            $('.password-forgot-input-box').css({'border-bottom': '2px solid black'});
+            $('.password-forgot-title').css({'color': 'black'});
+        }
+
+        
+    });
+
+    $('#new_password').blur( (e) => {
+        let $pwd = $('#new_password').val();
+        const value = $(e.target).parent();
+        if (!passwordRegEx.test($pwd)) {
+            value.css({'border-bottom': '1px solid red'});
+        } else {
+            value.css({'border-bottom': '1px solid #F5F5F5'});
+        }
+        if ($pwd.length == 0) {
+            $('.password-forgot-error-box').html('');
+            $('.password-forgot-input-box').css({'border-bottom': '1px solid #F5F5F5'});
+            $('.password-forgot-title').css({'color': 'black'});
+        }
+    });
+
+    $('#password_close_btn').click( () => {
+        $('.password-forgot-error-box').html('');
+        $('.password-forgot-input-box').css({'border-bottom': '1px solid #F5F5F5'});
+        $('.password-forgot-title').css({'color': 'black'});
+    });
+
+    // new_password_2 focus
+    $("#new_password_2").keyup( () => {
+        let $pwd = $('#new_password').val();
+        let $pwd2 = $('#new_password_2').val();
+        if ($pwd != $pwd2) {
+            $('.password-forgot-error-box-2').html('비밀번호가 일치하지 않습니다.');
+            $('.password-forgot-input-box-2').css({'border-bottom': '2px solid red'});
+            $('.password-forgot-title-2').css({'color': 'red'});
+            $('.new-password-btn').removeClass('abled');
+            $('.new-password-btn').addClass('disabled');
+            $('.new-password-btn').attr('disabled', true);
+        } else {
+            $('.password-forgot-error-box-2').html('');
+            $('.password-forgot-input-box-2').css({'border-bottom': '2px solid black'});
+            $('.password-forgot-title-2').css({'color': 'black'});
+            $('.new-password-btn').removeClass('disabled');
+            $('.new-password-btn').addClass('abled');
+            $('.new-password-btn').attr('disabled', false);
+        }
+        if ($pwd2.length == 0) {
+            $('.password-forgot-error-box-2').html('');
+            $('.password-forgot-input-box-2').css({'border-bottom': '2px solid black'});
+            $('.password-forgot-title-2').css({'color': 'black'});
+            $('.new-password-btn').removeClass('abled');
+            $('.new-password-btn').addClass('disabled');
+            $('.new-password-btn').attr('disabled', true);
+        }
+    });
+
+    $('#new_password_2').focus( (e) => {
+        let $pwd = $('#new_password').val();
+        let $pwd2 = $('#new_password_2').val();
+        const value = $(e.target).parent();
+        if ($pwd != $pwd2) {
+            value.css({'border-bottom': '2px solid red'});
+            $('.new-password-btn').removeClass('abled');
+            $('.new-password-btn').addClass('disabled');
+            $('.new-password-btn').attr('disabled', true);
+        } else {
+            value.css({'border-bottom': '2px solid black'});
+            $('.new-password-btn').removeClass('disabled');
+            $('.new-password-btn').addClass('abled');
+            $('.new-password-btn').attr('disabled', false);
+            
+        }
+        if ($pwd2.length == 0) {
+            $('.password-forgot-error-box-2').html('');
+            $('.password-forgot-input-box-2').css({'border-bottom': '2px solid black'});
+            $('.password-forgot-title-2').css({'color': 'black'});
+            $('.new-password-btn').removeClass('abled');
+            $('.new-password-btn').addClass('disabled');
+            $('.new-password-btn').attr('disabled', true);
+        }
+
+        
+    });
+
+    $('#new_password_2').blur( (e) => {
+        let $pwd = $('#new_password').val();
+        let $pwd2 = $('#new_password_2').val();
+        const value = $(e.target).parent();
+        if ($pwd != $pwd2) {
+            value.css({'border-bottom': '1px solid red'});
+            $('.new-password-btn').removeClass('abled');
+            $('.new-password-btn').addClass('disabled');
+            $('.new-password-btn').attr('disabled', true);
+        } else {
+            value.css({'border-bottom': '1px solid #F5F5F5'});
+            $('.new-password-btn').removeClass('disabled');
+            $('.new-password-btn').addClass('abled');
+            $('.new-password-btn').attr('disabled', false);
+        }
+        if ($pwd2.length == 0) {
+            $('.password-forgot-error-box-2').html('');
+            $('.password-forgot-input-box-2').css({'border-bottom': '1px solid #F5F5F5'});
+            $('.password-forgot-title-2').css({'color': 'black'});
+            $('.new-password-btn').removeClass('abled');
+            $('.new-password-btn').addClass('disabled');
+            $('.new-password-btn').attr('disabled', true);
+        }
+    });
+
+    $('#password_close_btn_2').click( () => {
+        $('.password-forgot-error-box-2').html('');
+        $('.password-forgot-input-box-2').css({'border-bottom': '1px solid #F5F5F5'});
+        $('.password-forgot-title-2').css({'color': 'black'});
+        $('.new-password-btn').removeClass('abled');
+        $('.new-password-btn').addClass('disabled');
+        $('.new-password-btn').attr('disabled', true);
+    });
+
     // 인증번호 전송
     $('#auth_send_btn').click( () => {
-
+        $(".backL").css("display", "");
         var memberidcheck = document.getElementById("member_loginid_forgot").value;
 
         var data = { member_id: memberidcheck};
@@ -383,7 +537,7 @@ $(document).ready( () => {
     
                 var obj = JSON.parse(data);
                 if(obj.flag == "1"){
-                    alert(obj.result_msg);
+                    // alert(obj.result_msg);
                     $('#auth').attr('readonly', false);
                     $('#auth').focus();
                     $('.auth-send-btn').removeClass('abled');
@@ -393,9 +547,12 @@ $(document).ready( () => {
                     $("#member_loginid_forgot").addClass("complete");
                     $('.email-forgot-error-box').html('인증번호를 전송했습니다.');
                     $('#email_forgot_close_btn').removeClass('active');
+                    $('#auth_send_btn').text('05:00')
+                    startCountdown();
                 } else {
                     alert(obj.result_msg);
                 }
+                $(".backL").css("display", "none");
             }
         };
         xhr.open("POST", "/auth_forgot_id");
@@ -404,9 +561,74 @@ $(document).ready( () => {
     
     });
 
+    let countdownInterval;
+
+    function startCountdown() {
+        let minutes = 5;
+        let seconds = 0;
+        
+        clearInterval(countdownInterval);  // 기존의 카운트다운 인터벌을 제거
+        countdownInterval = setInterval(() => {
+            if (seconds === 0) {
+                if (minutes === 0) {
+                    clearInterval(countdownInterval);
+                } else {
+                    minutes--;
+                    seconds = 59;
+                }
+            } else {
+                seconds--;
+            }
+            $('#auth_send_btn').text(`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`);
+        }, 1000);
+    }
+
+    // 인증번호 재전송
+    $('#auth_re_send_btn').click( () => {
+        if ($('#auth_send_btn').hasClass('disabled')) {
+            $(".backL").css("display", "");
+            var memberidcheck = document.getElementById("member_loginid_forgot").value;
+
+            var data = { member_id: memberidcheck};
+            var datastr = JSON.stringify(data);
+            
+            xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    var data = xhr.responseText;
+        
+                    var obj = JSON.parse(data);
+                    if(obj.flag == "1"){
+                        // alert(obj.result_msg);
+                        // $('#auth').attr('readonly', false);
+                        $('#auth').focus();
+                        // $('.auth-send-btn').removeClass('abled');
+                        // $('.auth-send-btn').addClass('disabled');
+                        // $('.auth-send-btn').attr('disabled', true);
+                        // $("#member_loginid_forgot").attr("readonly",true);
+                        // $("#member_loginid_forgot").addClass("complete");
+                        $('.email-forgot-error-box').html('인증번호를 재전송했습니다.');
+                        $('.auth-error-box').html('');
+                        // $('#email_forgot_close_btn').removeClass('active');
+                        $('#auth_send_btn').text('05:00')
+                        startCountdown();
+                    } else {
+                        alert(obj.result_msg);
+                    }
+                    $(".backL").css("display", "none");
+                }
+            };
+            xhr.open("POST", "/auth_forgot_id");
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            xhr.send(datastr);
+        } else {
+            alert('이메일을 입력하지 않았습니다.');
+        }
+    });
+
     // 인증번호 확인
     $('#auth_btn').click( () => {
-
+        $(".backL").css("display", "");
         var code = document.getElementById("auth").value;
 
         var data = { code: code};
@@ -433,9 +655,46 @@ $(document).ready( () => {
                     alert(obj.result_msg);
                     $('.auth-error-box').html('인증실패');
                 }
+                $(".backL").css("display", "none");
             }
         };
         xhr.open("POST", "/verification");
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.send(datastr);
+    
+    });
+
+    // 비밀번호 변경
+    $('#new_password_btn').click( () => {
+        $(".backL").css("display", "");
+        let memberid = document.getElementById("member_loginid_forgot").value;
+        let $pwd = $('#new_password').val();
+        let $pwd2 = $('#new_password_2').val();
+        if ($pwd != $pwd2) {
+            $(".backL").css("display", "none");
+            return false;
+        }
+        let pwdencrypted = hex_sha1($pwd);
+
+        var data = {memberid: memberid ,pwdencrypted: pwdencrypted};
+        var datastr = JSON.stringify(data);
+        
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                var data = xhr.responseText;
+    
+                var obj = JSON.parse(data);
+                if(obj.flag == "1"){
+                    alert(obj.result_msg);
+                    location.href = '/auth/login/';
+                } else {
+                    alert(obj.result_msg);
+                }
+                $(".backL").css("display", "none");
+            }
+        };
+        xhr.open("POST", "/new_password");
         xhr.setRequestHeader("X-CSRFToken", csrftoken);
         xhr.send(datastr);
     

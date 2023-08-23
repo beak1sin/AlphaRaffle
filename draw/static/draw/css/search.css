@@ -8,11 +8,11 @@ input::placeholder {
 }
 
 /* input x버튼 기능 */
-.input-icon-close {
+.search-input-icon-close {
     display: none; 
 }
 
-.input-icon-close.active {
+.search-input-icon-close.active {
     display: block;
     position: absolute;
     top: 50%;

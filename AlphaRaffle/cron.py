@@ -18,13 +18,13 @@ if __name__ == '__main__':
 
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'AlphaRaffle.settings')
         application = get_wsgi_application()
-        from draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg
+        from draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg, VerificationCode
 
     else:
 
-        from ..draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg
+        from ..draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg, VerificationCode
 
-from draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg
+from draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg, VerificationCode
 
 # a = sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 # from ..draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg
@@ -344,6 +344,14 @@ class Telegram_crawl:
             print('서버 재배포 실패 오류')
             print(f"An error occurred: {e}")
         return
+    
+    def daily_verificationCode_delete(self):
+        try:
+            asyncio.run(self.bot.send_message(self.chat_id, '만료된 인증번호 삭제완료'))
+        except Exception as e:
+            print('텔레그램 만료 인증번호 삭제 메세지 전송 실패')
+            print(f"An error occurred: {e}")
+        return
 
 def crawl_test():
     try:
@@ -599,3 +607,13 @@ def crawl2(request):
         print('에러로 인한 크롤링 중단')
         telegram_crawl.crawl_error_msg()
         raise
+
+
+def daily_verification_delete_crontab():
+    telegram_crawl = Telegram_crawl()
+    try:
+        verificationCode = VerificationCode.objects.filter(expiry_time__lte = datetime.datetime.now()).delete()
+    except Exception as e:
+        print(f'An error occurred: {e}')
+
+    telegram_crawl.daily_verificationCode_delete()
