@@ -86,7 +86,7 @@ CRONJOBS = [
     # ('10 9,21 * * *', 'crawl', '>> ' + cronPath2),
     # ('*/1 * * * *', 'AlphaRaffle.cron.hello', '>> ' + cronPath),
     ('10 9,21 * * *', 'AlphaRaffle.cron.crawl', '>> ' + cronPath2),
-    ('0 3 * * *', 'AlphaRaffle.cron.daily_verification_delete_crontab', '>> ' + cronPath3),
+    ('0 15 * * *', 'AlphaRaffle.cron.daily_verification_delete_crontab', '>> ' + cronPath3),
 ]
 
 # The Debug Toolbar is shown only if your IP is listed in the INTERNAL_IPS setting.

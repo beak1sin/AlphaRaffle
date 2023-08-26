@@ -52,11 +52,9 @@ $(document).ready( () => {
     
                 var obj = JSON.parse(data);
                 if(obj.flag == "0"){
-                    $(".backL").css("display", "none");
                     location.href = "/main/";
                 }
                 else {
-                    $(".backL").css("display", "none");
                     $('.error-box').html(obj.result_msg);
                     $('#member_loginid').focus();
                     if(obj.inactive == "1") {
@@ -64,6 +62,7 @@ $(document).ready( () => {
                         getid(obj.member_loginid);
                     }
                 }
+                $(".backL").css("display", "none");
             }
         };
         xhr.open("POST", "/member_login");

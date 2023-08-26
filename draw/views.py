@@ -18,6 +18,8 @@ import json
 from pathlib import Path
 from django.core.mail import send_mail
 
+from django.conf import settings
+
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.contrib.sites.shortcuts import get_current_site
@@ -140,7 +142,7 @@ def member_insert(request):
 
 # 메일 인증
 @csrf_protect
-def send_mail(request):
+def send_mail2(request):
     bodydata = request.body.decode('utf-8')
     context = {}
     bodyjson = json.loads(bodydata)
@@ -349,8 +351,15 @@ def auth_forgot_id(request):
                 })
         mail_subject = "[AlphaRaffle] 인증번호 6자리입니다."
         user_email = rs.member_id
-        email = EmailMessage(mail_subject, message, to=[user_email])
-        email.send()
+        # email = EmailMessage(mail_subject, message, to=[user_email])
+        # email.send()
+        send_mail(
+            mail_subject,
+            "-",
+            settings.DEFAULT_FROM_EMAIL,
+            [user_email],
+            html_message=message,
+        )
     else:
         context['flag'] = '0'
         context['result_msg'] = '존재하지 않는 이메일입니다.'
@@ -1105,6 +1114,10 @@ class customHandler500(View):
         context = {}
         return render(request, "draw/errors/500.html",context)
 
+def google_temp(request):
+    context = {}
+    
+    return render(request, "draw/google_temp.html",context)
 
 
 from selenium import webdriver
