@@ -1120,18 +1120,20 @@ def google_temp(request):
     return render(request, "draw/google_temp.html",context)
 
 def googleCrawl(request):
-    # url = 'https://docs.google.com/forms/d/e/1FAIpQLSeD5cUf-XH9Q5lxF3_EQurNnnXNolM-oARjVxnW7XP2QVx9sA/viewform'
+    url = 'https://docs.google.com/forms/d/e/1FAIpQLSeD5cUf-XH9Q5lxF3_EQurNnnXNolM-oARjVxnW7XP2QVx9sA/viewform'
+    
     # url = 'https://docs.google.com/forms/d/e/1FAIpQLSc_RlwPQjfqI7DRfEf9CFzNTQbI6pmqOkI26FfJ5kvj7V6A5g/viewform'
     # url = 'https://docs.google.com/forms/d/e/1FAIpQLSc_RlwPQjfqI7DRfEf9CFzNTQbI6pmqOkI26FfJ5kvj7V6A5g/formResponse'
-    url = 'https://alpharaffle.com/google_temp'
-    html = requests.get(url)
-    jsondata = html.json()
-    FB_PUBLIC_LOAD_DATA_ = jsondata["FB_PUBLIC_LOAD_DATA_"]
-    print(FB_PUBLIC_LOAD_DATA_)
+    # url = 'https://alpharaffle.com/google_temp'
+    html = requests.get(url).text
+    print(html)
+    # jsondata = html.json()
+    # FB_PUBLIC_LOAD_DATA_ = jsondata["FB_PUBLIC_LOAD_DATA_"]
+    # print(FB_PUBLIC_LOAD_DATA_)
     soup = BeautifulSoup(html,'html.parser')
-    matched = re.search(r'<script>var FB_PUBLIC_LOAD_DATA_ = (.*);</script>', html, re.S)
+    matched = re.search(r'var FB_PUBLIC_LOAD_DATA_ = (.*);', html, re.S)
     # print('------------------------')
-    print(matched)
+    # print(matched)
     if matched == None:
         return None, None, None, None
     entryList = matched.group(1)
