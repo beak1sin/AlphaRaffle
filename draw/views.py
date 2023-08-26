@@ -1119,6 +1119,114 @@ def google_temp(request):
     
     return render(request, "draw/google_temp.html",context)
 
+def googleCrawl(request):
+    # url = 'https://docs.google.com/forms/d/e/1FAIpQLSeD5cUf-XH9Q5lxF3_EQurNnnXNolM-oARjVxnW7XP2QVx9sA/viewform'
+    # url = 'https://docs.google.com/forms/d/e/1FAIpQLSc_RlwPQjfqI7DRfEf9CFzNTQbI6pmqOkI26FfJ5kvj7V6A5g/viewform'
+    # url = 'https://docs.google.com/forms/d/e/1FAIpQLSc_RlwPQjfqI7DRfEf9CFzNTQbI6pmqOkI26FfJ5kvj7V6A5g/formResponse'
+    url = 'https://alpharaffle.com/google_temp'
+    html = requests.get(url)
+    jsondata = html.json()
+    FB_PUBLIC_LOAD_DATA_ = jsondata["FB_PUBLIC_LOAD_DATA_"]
+    print(FB_PUBLIC_LOAD_DATA_)
+    soup = BeautifulSoup(html,'html.parser')
+    matched = re.search(r'<script>var FB_PUBLIC_LOAD_DATA_ = (.*);</script>', html, re.S)
+    # print('------------------------')
+    print(matched)
+    if matched == None:
+        return None, None, None, None
+    entryList = matched.group(1)
+    print(entryList)
+    output_entryList = json.loads(entryList)
+    
+
+    output_entryList2 = []
+    for i in range(len(output_entryList[1][1])):
+        output_entryList2.append(output_entryList[1][1][i])
+        
+
+    googleEntry = []
+    for i in range(len(output_entryList2)):
+        # print(output_entryList2[i])
+        # print()
+
+        # 타이틀
+        title = output_entryList2[i][1]
+        
+        # checkbox value 값
+        # try:
+        #     print(output_entryList2[i][4][0][1][0][0])
+        # except:
+        #     None
+        try:
+            checkboxValue = output_entryList2[i][4][0][1][0][0]
+        except:
+            checkboxValue = None
+        
+        # checkbox entry 값
+        # try:
+        #     print(output_entryList2[i][4][0][0])
+        # except:
+        #     None
+        try:
+            entry = output_entryList2[i][4][0][0]
+        except:
+            entry = None
+            
+        # input 글자 제한 수
+        try:
+            inputLimitChar = output_entryList2[i][4][0][4][0][2][0]
+        except:
+            inputLimitChar = None
+        
+        # 유형 index(0: input, 3: dropdown, 4: checkbox, 8: text)
+        # print(output_entryList2[i][3])
+        index = output_entryList2[i][3]
+
+        # 체크박스 개수
+        # try:
+        #     print(len(output_entryList2[i][4][0][1]))
+        # except:
+        #     None
+        try:
+            checkboxLength = len(output_entryList2[i][4][0][1])
+        except:
+            checkboxLength = None
+        
+        # print(title, 'index:'+ str(index), checkboxLength, entry, checkboxValue, inputLimitChar)
+        googleEntry.append([])
+        googleEntry[i].append(title)
+        googleEntry[i].append(index)
+        googleEntry[i].append(checkboxLength)
+        googleEntry[i].append(entry)
+        googleEntry[i].append(checkboxValue)
+        googleEntry[i].append(inputLimitChar)
+        
+    # 0: title, 1: index, 2: checkboxLength, 3: entry, 4: checkboxValue, 5: inputLimitChar
+    checkbox_dict = {}
+    input_dict = {}
+    for i in range(len(googleEntry)):
+        # 필수 체크박스이고 체크박스가 한개인 경우
+        if googleEntry[i][1] == 4 and googleEntry[i][2] == 1:
+            checkbox_dict[googleEntry[i][3]] = googleEntry[i][4]
+        # input인 경우
+        if googleEntry[i][1] == 0:
+            if '성함' in googleEntry[i][0] or '이름' in googleEntry[i][0]:
+                nameentry = googleEntry[i][3]
+            if '연락처' in googleEntry[i][0] or '전화번호' in googleEntry[i][0] or '휴대폰' in googleEntry[i][0] or '핸드폰' in googleEntry[i][0]:
+                if '11' in googleEntry[i][5]:
+                    phoneentry = [googleEntry[i][3],11]
+                else:
+                    phoneentry = [googleEntry[i][3],'-']
+            if '생년월일' in googleEntry[i][0] or '생일' in googleEntry[i][0]:
+                if '6' in googleEntry[i][5]:
+                    birthentry = [ googleEntry[i][3], 6 ]
+                else:
+                    birthentry = [ googleEntry[i][3], 8 ]
+            if '아이디' in googleEntry[i][0] or 'ID' in googleEntry[i][0] or 'id' in googleEntry[i][0]:
+                nikeidentry = googleEntry[i][3]
+
+    print(nameentry,phoneentry,birthentry,nikeidentry)
+
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
