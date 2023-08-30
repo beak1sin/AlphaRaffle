@@ -202,7 +202,8 @@ $(document).ready(function(){
                           var obj = JSON.parse(data);
             
                           if (obj.flag == '0') {
-                              alert(obj.result_msg);
+                            //   $('.bookmark-layer').removeClass('off');
+                            //   $('.bookmark-layer').addClass('on');
                               location.href = '/auth/login/';
                           } else {
                               if(obj.liked) {

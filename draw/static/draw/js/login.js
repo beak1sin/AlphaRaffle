@@ -592,7 +592,6 @@ $(document).ready( () => {
     
                 var obj = JSON.parse(data);
                 if(obj.flag == "1"){
-                    // alert(obj.result_msg);
                     $('#auth').attr('readonly', false);
                     $('#auth').focus();
                     $('.auth-send-btn').removeClass('abled');
@@ -605,7 +604,7 @@ $(document).ready( () => {
                     $('#auth_send_btn').text('05:00')
                     startCountdown();
                 } else {
-                    alert(obj.result_msg);
+                    $('.email-forgot-error-box').html('존재하지 않는 이메일입니다.');
                 }
                 $(".backL").css("display", "none");
             }
@@ -654,7 +653,6 @@ $(document).ready( () => {
         
                     var obj = JSON.parse(data);
                     if(obj.flag == "1"){
-                        // alert(obj.result_msg);
                         // $('#auth').attr('readonly', false);
                         $('#auth').focus();
                         // $('.auth-send-btn').removeClass('abled');
@@ -677,7 +675,7 @@ $(document).ready( () => {
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
             xhr.send(datastr);
         } else {
-            alert('이메일을 입력하지 않았습니다.');
+            $('.email-forgot-error-box').html('이메일을 입력하지 않았습니다.');
         }
     });
 
@@ -707,7 +705,6 @@ $(document).ready( () => {
                     $('.auth-error-box').html('인증완료');
                     $('.auth-next-btn').attr('disabled', false);
                 } else {
-                    alert(obj.result_msg);
                     $('.auth-error-box').html('인증실패');
                 }
                 $(".backL").css("display", "none");
@@ -741,7 +738,6 @@ $(document).ready( () => {
     
                 var obj = JSON.parse(data);
                 if(obj.flag == "1"){
-                    alert(obj.result_msg);
                     location.href = '/auth/login/';
                 } else {
                     alert(obj.result_msg);
