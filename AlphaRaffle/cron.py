@@ -190,14 +190,6 @@ def luckd_crowler(no):
         urllib.request.urlretrieve('https://static.luck-d.com/agent_site/'+quote(logo_file[leng:]), logo_name)
         
         sitelink = sitecard[i].a['href']
-        # if "docs.google.com" in sitelink:
-        #     nameentry, birthentry, phoneentry, nikeidentry = entrycrawl(sitelink)
-        # if 'luck-d' in sitelink:
-        #     response = requests.get(sitelink)
-        #     html = response.text
-        #     soup = BeautifulSoup(html,'html.parser')
-        #     matched = re.search(r'let link = decodeURIComponent\(\'(.*?)\'\);', html, re.S)
-        #     sitelink = matched.group(1)
 
         shoeunique = serialno+sitename+sitelink
 
@@ -207,6 +199,26 @@ def luckd_crowler(no):
         except:
             pass
         # print(sitename, logo_file, sitelink)
+        
+        if "docs.google.com" in sitelink:
+            telegram_crawl = Telegram_crawl()
+            try:
+                nameentry, phoneentrylen, birthentrylen,  nikeidentry = entrycrawl(sitelink)
+                birthentry = birthentrylen[0]
+                birthlen = birthentrylen[1] # 생년월일 길이
+                phoneentry = phoneentrylen[0]
+                phonehyphen = phoneentrylen[1] # 폰 하이픈 여부
+
+                Shoesite.objects.filter(shoesiteunique = shoeunique).update(nameentry = nameentry, birthentry = birthentry, phoneentry = phoneentry, nikeidentry = nikeidentry )
+                telegram_crawl.crawl_entry_msg(nameentry, birthentry, phoneentry, nikeidentry)
+            except Exception as e:
+                telegram_crawl.crawl_entry_error_msg(e)
+        # if 'luck-d' in sitelink:
+        #     response = requests.get(sitelink)
+        #     html = response.text
+        #     soup = BeautifulSoup(html,'html.parser')
+        #     matched = re.search(r'let link = decodeURIComponent\(\'(.*?)\'\);', html, re.S)
+        #     sitelink = matched.group(1)
 
         # #종료일
         end_date = soup.select('li.release_time > label > span')[i].text.strip()
@@ -348,22 +360,31 @@ def entrycrawl(url):
         if googleEntry[i][1] == 0:
             if '성함' in googleEntry[i][0] or '이름' in googleEntry[i][0]:
                 nameentry = googleEntry[i][3]
+            else :
+                nameentry = None
+                
             if '연락처' in googleEntry[i][0] or '전화번호' in googleEntry[i][0] or '휴대폰' in googleEntry[i][0] or '핸드폰' in googleEntry[i][0]:
                 if '11' in googleEntry[i][5]:
                     phoneentry = [googleEntry[i][3],11]
                 else:
                     phoneentry = [googleEntry[i][3],'-']
+            else :
+                phoneentry = None
+
             if '생년월일' in googleEntry[i][0] or '생일' in googleEntry[i][0]:
                 if '6' in googleEntry[i][5]:
                     birthentry = [ googleEntry[i][3], 6 ]
                 else:
                     birthentry = [ googleEntry[i][3], 8 ]
+            else :
+                birthentry = None
+
             if '아이디' in googleEntry[i][0] or 'ID' in googleEntry[i][0] or 'id' in googleEntry[i][0]:
                 nikeidentry = googleEntry[i][3]
+            else :
+                nikeidentry = None
 
-    print(nameentry,phoneentry,birthentry,nikeidentry)    
-    #return nameentry,phoneentry,birthentry,nikeidentry
-# entrycrawl('127.0.0.1:8080/google_temp')
+    return nameentry,phoneentry,birthentry,nikeidentry
 
 import subprocess
 
@@ -457,6 +478,22 @@ class Telegram_crawl:
             asyncio.run(self.bot.send_message(self.chat_id, '만료된 인증번호 삭제완료'))
         except Exception as e:
             print('텔레그램 만료 인증번호 삭제 메세지 전송 실패')
+            print(f"An error occurred: {e}")
+        return
+    
+    def crawl_entry_msg(self, nameentry, birthentry, phoneentry, nikeidentry):
+        try:
+            asyncio.run(self.bot.send_message(self.chat_id, f'entry 크롤링 성공 = nameentry: {nameentry}, birthentry: {birthentry}, phoneentry: {phoneentry}, nikeidentry: {nikeidentry}'))
+        except Exception as e:
+            print('telegram entry 메세지 전송 실패')
+            print(f"An error occurred: {e}")
+        return
+    
+    def crawl_entry_error_msg(self, error):
+        try:
+            asyncio.run(self.bot.send_message(self.chat_id, f'entry 크롤링 실패:  {error}'))
+        except Exception as e:
+            print('텔레그램 오류')
             print(f"An error occurred: {e}")
         return
 

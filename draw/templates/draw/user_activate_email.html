@@ -1,8 +1,180 @@
 {% autoescape off %}
-    안녕하세요. AlphaRaffle입니다.
 
-    아래 링크를 클릭하면 회원가입 인증이 완료됩니다.
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>AlphaRaffle</title>
+	<style type="text/css">
+		body {
+			Margin: 0;
+			padding: 0;
+			background-color: #f6f9fc;
+		}
 
-    회원가입 링크 : http://{{ domain }}{% url 'draw:activate' uid64=uid token=token %}
+		table {
+			border-spacing: 0;
+		}
+
+		td {
+			padding: 0;
+		}
+
+		img {
+			border: 0;
+		}
+
+		.wrapper {
+			width: 100%;
+			table-layout: fixed;
+			background-color: #f6f9fc;
+			padding-bottom: 40px;
+		}
+
+		.webkit {
+			max-width: 600px;
+			background-color: #ffffff;
+		}
+
+		.outer {
+			Margin: 0 auto;
+			width: 100%;
+			max-width: 600px;
+			border-spacing: 0;
+			font-family: sans-serif;
+			color: #4a4a4a;
+		}
+
+		.three-columns {
+			text-align: center;
+			font-size: 0;
+			background-color: black;
+		}
+
+		.three-columns .column {
+			width: 100%;
+			max-width: 200px;
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		.padding {
+			padding: 15px;
+		}
+
+		.three-columns .content {
+			font-size: 12px;
+			line-height: 20px;
+			color: white;
+			font-weight: 200;
+		}
+
+		@media screen and (max-width: 600px) {
+
+		}
+
+		@media screen and (max-width: 400px) {
+			
+		}
+	</style>
+</head>
+<body>
+
+	<center class="wrapper" style="width: 100%; table-layout: fixed; background-color: #f6f9fc; padding: 40px 0px;">
+		<div class="webkit" style="max-width: 604px; background-color: #ffffff;">
+			<table class="outer" align="center" style="Margin: 0 auto; width: 100%; max-width: 604px; border-spacing: 0; font-family: sans-serif; color: #4a4a4a;">
+				<tr>
+					<td>
+						<table width="100%" style="border-bottom: 1px solid black;">
+							<tr>
+								<td style="background-color: white; padding: 10px; text-align: center;">
+									<a href="https://alpharaffle.com">
+										<img src="https://alpharaffle.com/static/draw/necessary/ar(black).png" width="120" alt="Logo" title="Logo">
+									</a>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td style="background-color: #fbfbfb;">
+						<table width="100%">
+							<tr>
+								<td>
+									<table align="center">
+										<tr>
+											<td style="padding: 100px 20px;">
+												<p style="font-size: 24px;">안녕하세요. AlphaRaffle입니다.</p>
+												<p>아래 링크를 클릭하면 회원가입 인증이 완료됩니다.</p>
+												<p style="font-weight: bold;">회원가입 링크 : http://{{ domain }}{% url 'draw:activate' uid64=uid token=token %}</p>
+												<p>감사합니다.</p>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table width="100%">
+							<tr>
+								<td class="three-columns" style="text-align: center; font-size: 0; background-color: black;">
+									<table class="column" style="width: 100%; max-width: 200px; display: inline-block; vertical-align: middle;">
+										<tr>
+											<td class="padding">
+												<table class="content" style="font-size: 12px; line-height: 20px; color: white; font-weight: 200;">
+													<tr>
+														<td><a href="https://alpharaffle.com"><img src="https://alpharaffle.com/static/draw/necessary/ar(white).png" width="150" alt="" style="max-width: 150px;"></a></td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+
+									<table class="column" style="width: 100%; max-width: 200px; display: inline-block; vertical-align: middle;">
+										<tr>
+											<td class="padding">
+												<table class="content" style="font-size: 12px; line-height: 20px; color: white; font-weight: 200;">
+													<tr>
+														<td style="padding: 10px;">
+															<p style="font-size: 15px; font-weight: bold;">About Service</p>
+															<p>신발 및 악세사리 제품을 자동 응모해주는 사이트입니다.</p>
+															<p>응모 진행중   |   발매 예정   |   발매 종료</p>
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+									<table class="column" style="width: 100%; max-width: 200px; display: inline-block; vertical-align: middle;">
+										<tr>
+											<td class="padding">
+												<table class="content" style="font-size: 12px; line-height: 20px; color: white; font-weight: 200;">
+													<tr>
+														<td style="padding: 10px;">
+															<p style="font-size: 15px; font-weight: bold;">AlphaRaffle</p>
+															<p>대표 정윤건 이재백   |   개인정보책임 박안성</p>
+															<p>이메일 alpharaffle@gmail.com</p>
+															<p>Copyright 2023. OLOR All right reserved</p>
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</center>
+</body>
+</html>
 
 {% endautoescape %}

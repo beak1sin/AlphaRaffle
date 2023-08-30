@@ -25,6 +25,7 @@ from draw import consumers
 
 app_name = 'draw'
 
+
 urlpatterns = [
 
     # path('',views.home, name = '홈'),
@@ -68,7 +69,7 @@ urlpatterns = [
     path('auth/details/map/api/get_geocode/', views.get_geocode, name='get_geocode'),
 
     path('auth/practice/sendmail/', views.sendmail, name='sendmail'),
-    path('auth/login/send_mail', views.send_mail, name='send_mail'),
+    path('auth/login/resend_mail', views.resend_mail, name='resend_mail'),
 
     path('activate/<str:uid64>/<str:token>/', views.activate, name='activate'),
 
@@ -78,9 +79,6 @@ urlpatterns = [
 
     path('full/delete_recent_searches', views.delete_recent_searches, name="최근검색어삭제"),
     path('full/all_recent_delete', views.all_recent_delete, name="최근검색어전체삭제"),
-
-
-    path('google_temp', views.google_temp, name="google_temp"),
 
     path('googleCrawl', views.googleCrawl, name="googleCrawl"),
 

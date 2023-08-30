@@ -131,8 +131,13 @@ def member_insert(request):
                 })
         mail_subject = "[AlphaRaffle] 회원가입 인증 메일입니다."
         user_email = rs.member_id
-        email = EmailMessage(mail_subject, message, to=[user_email])
-        email.send()
+        send_mail(
+            mail_subject,
+            "-",
+            settings.DEFAULT_FROM_EMAIL,
+            [user_email],
+            html_message=message,
+        )
 
         context['flag'] = '1'
         # context['result_msg'] = '회원가입 인증메일을 보냈습니다. 인증 후 로그인 바랍니다.'
@@ -142,25 +147,35 @@ def member_insert(request):
 
 # 메일 인증
 @csrf_protect
-def send_mail2(request):
+def resend_mail(request):
     bodydata = request.body.decode('utf-8')
     context = {}
     bodyjson = json.loads(bodydata)
-    memberid = bodyjson['member_loginid']
+    memberid = bodyjson['member_id']
     rs = Member.objects.get(member_id=memberid)
-    current_site = get_current_site(request)
-    message = render_to_string('draw/user_activate_email.html',                         {
-                'user': rs,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(rs.pk)).encode().decode(),
-                'token': account_activation_token.make_token(rs),
-            })
-    mail_subject = "[AlphaRaffle] 회원가입 인증 메일입니다."
-    user_email = rs.member_id
-    email = EmailMessage(mail_subject, message, to=[user_email])
-    email.send()
-    context['flag'] = '0'
-    context['result_msg'] = '회원가입 재인증메일을 보냈습니다. 인증 후 로그인 바랍니다.'
+    if rs:
+        current_site = get_current_site(request)
+        message = render_to_string('draw/user_activate_email.html',                         {
+                    'user': rs,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(rs.pk)).encode().decode(),
+                    'token': account_activation_token.make_token(rs),
+                })
+        mail_subject = "[AlphaRaffle] 회원가입 재인증 메일입니다."
+        user_email = rs.member_id
+        send_mail(
+                mail_subject,
+                "-",
+                settings.DEFAULT_FROM_EMAIL,
+                [user_email],
+                html_message=message,
+            )
+        context['flag'] = '1'
+        context['result_msg'] = '회원가입 재인증메일을 보냈습니다. 인증 후 로그인 바랍니다.'
+    else:
+        context['flag'] = '0'
+        context['result_msg'] = '존재하지 않는 이메일입니다.'
+    
     return JsonResponse(context, content_type="application/json")
 
 # 메일 인증 토큰
@@ -532,12 +547,17 @@ def details(request):
 
     for site in googleSite:
         
-        if site.pub_date == None:
+        if site.pub_date == None and site.end_date != None:
             # print(site.end_date , current_time)
             site.is_valid_date = site.end_date > current_time  
-        if site.end_date == None:
+
+        if site.end_date == None and site.pub_date != None:
             # print(site.pub_date, current_time)
             site.is_valid_date = site.pub_date > current_time  
+        
+        if site.end_date == None and site.pub_date == None:
+            site.is_valid_date = True
+
         if site.pub_date != None and site.end_date != None:
             # print(site.pub_date, current_time, site.end_date)
             site.is_valid_date = site.pub_date <= current_time <= site.end_date 
@@ -545,12 +565,17 @@ def details(request):
 
     for site in notGoogleSite:
         
-        if site.pub_date == None:
+        if site.pub_date == None and site.end_date != None:
             # print(site.end_date , current_time)
-            site.is_valid_date = site.end_date > current_time  
-        if site.end_date == None:
+            site.is_valid_date = site.end_date > current_time
+
+        if site.end_date == None and site.pub_date != None:
             # print(site.pub_date, current_time)
             site.is_valid_date = site.pub_date > current_time  
+
+        if site.end_date == None and site.pub_date == None:
+            site.is_valid_date = True
+        
         if site.pub_date != None and site.end_date != None:
             # print(site.pub_date, current_time, site.end_date)
             site.is_valid_date = site.pub_date <= current_time <= site.end_date 
@@ -558,12 +583,17 @@ def details(request):
 
     for site in offlineSite:
         
-        if site.pub_date == None:
+        if site.pub_date == None and site.end_date != None:
             # print(site.end_date , current_time)
-            site.is_valid_date = site.end_date > current_time  
-        if site.end_date == None:
+            site.is_valid_date = site.end_date > current_time
+
+        if site.end_date == None and site.pub_date != None:
             # print(site.pub_date, current_time)
             site.is_valid_date = site.pub_date > current_time  
+
+        if site.end_date == None and site.pub_date == None:
+            site.is_valid_date = True
+        
         if site.pub_date != None and site.end_date != None:
             # print(site.pub_date, current_time, site.end_date)
             site.is_valid_date = site.pub_date <= current_time <= site.end_date 
@@ -1114,11 +1144,6 @@ class customHandler500(View):
         context = {}
         return render(request, "draw/errors/500.html",context)
 
-def google_temp(request):
-    context = {}
-    
-    return render(request, "draw/google_temp.html",context)
-
 def googleCrawl(request):
     url = 'https://docs.google.com/forms/d/e/1FAIpQLSeD5cUf-XH9Q5lxF3_EQurNnnXNolM-oARjVxnW7XP2QVx9sA/viewform'
     
@@ -1137,7 +1162,7 @@ def googleCrawl(request):
     if matched == None:
         return None, None, None, None
     entryList = matched.group(1)
-    print(entryList)
+    # print(entryList)
     output_entryList = json.loads(entryList)
     
 

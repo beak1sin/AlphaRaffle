@@ -209,13 +209,18 @@
                                     <div style="height: 40%; text-align: center; display: table; width: 100%;"><p style="font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;">{{site.sitename}}</p></div>
                                     <div style="height: 20%; text-align: center; display: table; width: 100%;">
                                         <p style="font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;">
-                                            {% if site.pub_date == None %}
+                                            {% if site.pub_date == None and site.end_date != None %}
                                                 ~ {{ site.end_date }} 까지
-                                            {% elif site.end_date == None %}
+                                            {% endif %}
+                                            {% if site.end_date == None and site.pub_date != None %}
                                                 발매 : {{ site.pub_date }} ~ 
-                                            {% else %}
-                                                {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                            {% endif %}
+                                            {% if site.end_date == None and site.pub_date == None %}
+                                                해당 사항 없음 
                                             {% endif %}   
+                                            {% if site.end_date != None and site.pub_date != None %}
+                                                {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                            {% endif %}  
                                         </p>
                                     </div>
                                     <div style="height: 40%; position: relative;">
@@ -233,13 +238,18 @@
                                         <div style="height: 40%; text-align: center; display: table; width: 100%;"><p style="font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;">{{site.sitename}}</p></div>
                                         <div style="height: 20%; text-align: center; display: table; width: 100%;">
                                             <p style="font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;">
-                                                {% if site.pub_date == None %}
+                                                {% if site.pub_date == None and site.end_date != None %}
                                                     ~ {{ site.end_date }} 까지
-                                                {% elif site.end_date == None %}
+                                                {% endif %}
+                                                {% if site.end_date == None and site.pub_date != None %}
                                                     발매 : {{ site.pub_date }} ~ 
-                                                {% else %}
-                                                    {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                                {% endif %}
+                                                {% if site.end_date == None and site.pub_date == None %}
+                                                    해당 사항 없음 
                                                 {% endif %}   
+                                                {% if site.end_date != None and site.pub_date != None %}
+                                                    {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                                {% endif %}  
                                             </p>
                                         </div>
                                         <div style="height: 40%; position: relative;">
@@ -276,11 +286,16 @@
                                     <div style="height: 40%; text-align: center; display: table; width: 100%;"><p style="font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;">{{site.sitename}}</p></div>
                                     <div style="height: 20%; text-align: center; display: table; width: 100%;">
                                         <p style="font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;">
-                                            {% if site.pub_date == None %}
+                                            {% if site.pub_date == None and site.end_date != None %}
                                                 ~ {{ site.end_date }} 까지
-                                            {% elif site.end_date == None %}
+                                            {% endif %}
+                                            {% if site.end_date == None and site.pub_date != None %}
                                                 발매 : {{ site.pub_date }} ~ 
-                                            {% else %}
+                                            {% endif %}
+                                            {% if site.end_date == None and site.pub_date == None %}
+                                                해당 사항 없음 
+                                            {% endif %}   
+                                            {% if site.end_date != None and site.pub_date != None %}
                                                 {{ site.pub_date }} ~ {{ site.end_date }} 까지
                                             {% endif %}   
                                         </p>
@@ -300,13 +315,18 @@
                                         <div style="height: 40%; text-align: center; display: table; width: 100%;"><p style="font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;">{{site.sitename}}</p></div>
                                         <div style="height: 20%; text-align: center; display: table; width: 100%;">
                                             <p style="font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;">
-                                                {% if site.pub_date == None %}
+                                                {% if site.pub_date == None and site.end_date != None %}
                                                     ~ {{ site.end_date }} 까지
-                                                {% elif site.end_date == None %}
+                                                {% endif %}
+                                                {% if site.end_date == None and site.pub_date != None %}
                                                     발매 : {{ site.pub_date }} ~ 
-                                                {% else %}
-                                                    {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                                {% endif %}
+                                                {% if site.end_date == None and site.pub_date == None %}
+                                                    해당 사항 없음 
                                                 {% endif %}   
+                                                {% if site.end_date != None and site.pub_date != None %}
+                                                    {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                                {% endif %}  
                                             </p>
                                         </div>
                                         <div style="height: 40%; position: relative;">
@@ -346,13 +366,18 @@
                                     <div style="height: 40%; text-align: center; display: table; width: 100%;"><p style="font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;">{{site.sitename}}</p></div>
                                     <div style="height: 20%; text-align: center; display: table; width: 100%;">
                                         <p style="font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;">
-                                            {% if site.pub_date == None %}
+                                            {% if site.pub_date == None and site.end_date != None %}
                                                 ~ {{ site.end_date }} 까지
-                                            {% elif site.end_date == None %}
+                                            {% endif %}
+                                            {% if site.end_date == None and site.pub_date != None %}
                                                 발매 : {{ site.pub_date }} ~ 
-                                            {% else %}
-                                                {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                            {% endif %}
+                                            {% if site.end_date == None and site.pub_date == None %}
+                                                해당 사항 없음 
                                             {% endif %}   
+                                            {% if site.end_date != None and site.pub_date != None %}
+                                                {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                            {% endif %}  
                                         </p>
                                     </div>
                                     <div style="height: 40%; position: relative;">
@@ -370,13 +395,18 @@
                                         <div style="height: 40%; text-align: center; display: table; width: 100%;"><p style="font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;">{{site.sitename}}</p></div>
                                         <div style="height: 20%; text-align: center; display: table; width: 100%;">
                                             <p style="font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;">
-                                                {% if site.pub_date == None %}
+                                                {% if site.pub_date == None and site.end_date != None %}
                                                     ~ {{ site.end_date }} 까지
-                                                {% elif site.end_date == None %}
+                                                {% endif %}
+                                                {% if site.end_date == None and site.pub_date != None %}
                                                     발매 : {{ site.pub_date }} ~ 
-                                                {% else %}
-                                                    {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                                {% endif %}
+                                                {% if site.end_date == None and site.pub_date == None %}
+                                                    해당 사항 없음 
                                                 {% endif %}   
+                                                {% if site.end_date != None and site.pub_date != None %}
+                                                    {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                                {% endif %}  
                                             </p>
                                         </div>
                                         <div style="height: 40%; position: relative;">

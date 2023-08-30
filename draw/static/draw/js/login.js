@@ -58,8 +58,32 @@ $(document).ready( () => {
                     $('.error-box').html(obj.result_msg);
                     $('#member_loginid').focus();
                     if(obj.inactive == "1") {
-                        $('.sendmail_btn').show();
-                        getid(obj.member_loginid);
+                        $('.email-resend-msg').html('인증메일을 못받으셨다면 재전송 버튼을 누르신 후 다시 인증해주시기 바랍니다.<a id="resend_mail" style="font-size: 12px;  margin-left: 10px; color: #202020; border-bottom: 1px solid #202020; cursor: pointer;">재전송</a>');
+                        $('#resend_mail').attr('data-value', memberid);
+
+                        $('#resend_mail').click(function() {
+                            $(".backL").css("display", "");
+                            let memberid = $('#resend_mail').attr('data-value')
+
+                            var data = { member_id: memberid};
+                            var datastr = JSON.stringify(data);
+                            
+                            xhr = new XMLHttpRequest();
+                            xhr.onreadystatechange = function() {
+                                if (xhr.readyState == 4) {
+                                    var data = xhr.responseText;
+                        
+                                    var obj = JSON.parse(data);
+                                    if(obj.flag == "1"){
+                                        $('.email-resend-complete-msg').html(obj.result_msg);
+                                    }
+                                    $(".backL").css("display", "none");
+                                }
+                            };
+                            xhr.open("POST", "resend_mail");
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                            xhr.send(datastr);
+                        });
                     }
                 }
                 $(".backL").css("display", "none");
@@ -69,6 +93,38 @@ $(document).ready( () => {
         xhr.setRequestHeader("X-CSRFToken", csrftoken);
         xhr.send(datastr);
     
+    });
+
+    $('#resend_mail').click(function() {
+        let memberid = $('#resend_mail').attr('data-value')
+        console.log(memberid);
+        // return false;
+        // var data = { member_id: memberid};
+        // var datastr = JSON.stringify(data);
+        
+        // xhr = new XMLHttpRequest();
+        // xhr.onreadystatechange = function() {
+        //     if (xhr.readyState == 4) {
+        //         var data = xhr.responseText;
+    
+        //         var obj = JSON.parse(data);
+        //         if(obj.flag == "0"){
+        //             location.href = "/main/";
+        //         }
+        //         else {
+        //             $('.error-box').html(obj.result_msg);
+        //             $('#member_loginid').focus();
+        //             if(obj.inactive == "1") {
+        //                 $('.email-resend-msg').html('인증메일을 못받으셨다면 재전송 버튼을 누르신 후 다시 인증해주시기 바랍니다.<a id="resend_mail" style="font-size: 12px;  margin-left: 10px; color: #202020; border-bottom: 1px solid #202020; cursor: pointer;">재전송</a>');
+        //                 $('#resend_mail').attr('data-value', memberid);
+        //             }
+        //         }
+        //         $(".backL").css("display", "none");
+        //     }
+        // };
+        // xhr.open("POST", "auth/login/send_mail");
+        // xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        // xhr.send(datastr);
     });
 
     // 이메일, 비밀번호 정규식

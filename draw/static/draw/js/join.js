@@ -26,7 +26,7 @@ $(document).ready( () => {
     });
 
     $('.draw-btn').click( () => {
-        location.href='/main/';
+        location.href='/auth/login/';
     })
 
       // input focus
