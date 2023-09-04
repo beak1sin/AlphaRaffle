@@ -444,7 +444,13 @@ def myPage(request):
 
         liked_shoes = member.liked_posts.all()
 
-        context = {'member':member ,'liked_shoes':liked_shoes}
+        comment = Comment.objects.filter(member_nickname=member.member_nickname)
+        comment_count = comment.count()
+        for com in comment:
+            com.shoename = Shoe.objects.get(serialno=com.serialno).shoename
+            print(com.shoename)
+
+        context = {'member':member ,'liked_shoes':liked_shoes, 'comment': comment, 'comment_count': comment_count}
         return render(request, "draw/myPage.html", context)
 
     else:
