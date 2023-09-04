@@ -309,6 +309,10 @@ tags
 ## personel ##
 my_settings.py
 
+# .pem(private_key)
+# object_manager_private_key.pem
+# object_manager_delete_read_private_key.pem
+
 # End of https://www.toptal.com/developers/gitignore/api/vim,linux,macos,django,python
 
 # static 폴더
