@@ -42,7 +42,11 @@
             <div style="width: 300px; float: left; height: calc(100vh - 84px); position: fixed; box-shadow: 4px 0px 5px 2px rgba(135, 135, 135, 0.12);">
                 <div style="width: 100%; height: 22%; padding-bottom: 2vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
                     <div style="width: 50px; height: 50px;">
-                        <img style="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%;" src="{% static 'draw/images/jordan1OFF.jpeg' %}">
+                        {% if member.profile_img_url == '-' %}
+                        <img id="profile_img" style="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
+                        {% else %}
+                        <img id="profile_img" style="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%;" src="{{member.profile_img_url}}">
+                        {% endif %}
                     </div>
                     <p style="margin: 0px; padding-top: 10px; font-size: 28px; font-weight: 500; line-height: 30px; border-bottom: 2px solid black;">{{member.member_nickname}}</p>
                 </div>
@@ -197,6 +201,9 @@
                 <div style="width: 100%;">
                     <p style="margin: 0px; font-size: 40px; font-weight: 700;">가입한 정보</p>
                 </div>
+                {% csrf_token %}
+                <input type="file" id="upload">
+                <img id="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%;">
             </div>
 
             <div class="delete-content" style="width: calc(100vw - 300px); left: 300px; height: 100%; float: left; position: relative; display: none;  background-color: #C8C8C8;">

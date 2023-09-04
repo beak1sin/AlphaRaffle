@@ -81,6 +81,31 @@ $(document).ready(function() {
         $('#comment_tab').removeClass('checked');
         $('#setting_tab').removeClass('checked');
     });
+
+    document.getElementById('upload').addEventListener('change', function(){
+        var fileInput = document.getElementById('upload');
+        var file = fileInput.files[0];
+        console.log(file);
+        var formData = new FormData();
+        formData.append('file', file);
+        var url = `${window.location.protocol}//${window.location.host}/auth/mypage/upload`;
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken') // getCookie는 아래에 정의됨
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.image_url);
+            $('#profile_img').attr('src', data.image_url);
+            // location.href = '/auth/mypage/';
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    });
 });
 
 function getCookie(name) {

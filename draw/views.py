@@ -484,6 +484,92 @@ def member_update(request):
         context['result_msg'] = '회원 정보가 없습니다.'
 
         return JsonResponse(context, content_type="application/json")
+    
+import oci
+import environ
+@csrf_protect
+def upload(request):
+    context = {}
+    if request.method == 'POST':
+        if request.session.has_key('member_no'):
+            member_no = request.session['member_no']
+            member = Member.objects.get(pk= member_no)
+            member_nickname = member.member_nickname
+
+            file = request.FILES['file']
+            # print(file.name)
+            BASE_DIR = Path(__file__).resolve().parent.parent
+            environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
+
+            ORACLE_OBJECT_MANAGER_OCID = os.environ.get('ORACLE_OBJECT_MANAGER_OCID')
+            ORACLE_OBJECT_MANAGER_KEY_FILE = os.environ.get('ORACLE_OBJECT_MANAGER_KEY_FILE')
+            ORACLE_OBJECT_MANAGER_FINGERPRINT = os.environ.get('ORACLE_OBJECT_MANAGER_FINGERPRINT')
+            ORACLE_TENANCY = os.environ.get('ORACLE_TENANCY')
+            ORACLE_REGION = os.environ.get('ORACLE_REGION')
+            
+            # Oracle Object Storage 설정
+            config = {
+                "user": ORACLE_OBJECT_MANAGER_OCID, # YOUR_USER_OCID
+                "key_file": ORACLE_OBJECT_MANAGER_KEY_FILE, # PATH_TO_YOUR_PRIVATE_KEY
+                "fingerprint": ORACLE_OBJECT_MANAGER_FINGERPRINT, # YOUR_FINGERPRINT
+                "tenancy": ORACLE_TENANCY, # YOUR_TENANCY_OCID
+                "region": ORACLE_REGION, # YOUR_REGION
+                "compartment_id": ORACLE_TENANCY # YOUR_COMPARTMENT_OCID
+            }
+            object_storage = oci.object_storage.ObjectStorageClient(config)
+            namespace = object_storage.get_namespace().data
+
+            # 파일 업로드
+            bucket_name = "alpharaffle-storage"
+            object_name = 'profiles/' + member_nickname + '-' + file.name
+            list_objects_response = object_storage.list_objects(namespace, bucket_name, prefix=object_name)
+            if list_objects_response.data.objects:
+                if list_objects_response.data.objects[0].name == object_name:
+                    ORACLE_OBJECT_MANAGER_DELETE_READ_OCID = os.environ.get('ORACLE_OBJECT_MANAGER_DELETE_READ_OCID')
+                    ORACLE_OBJECT_MANAGER_DELETE_READ_KEY_FILE = os.environ.get('ORACLE_OBJECT_MANAGER_DELETE_READ_KEY_FILE')
+                    ORACLE_OBJECT_MANAGER_DELETE_READ_FINGERPRINT = os.environ.get('ORACLE_OBJECT_MANAGER_DELETE_READ_FINGERPRINT')
+                    config = {
+                        "user": ORACLE_OBJECT_MANAGER_DELETE_READ_OCID, # YOUR_USER_OCID
+                        "key_file": ORACLE_OBJECT_MANAGER_DELETE_READ_KEY_FILE, # PATH_TO_YOUR_PRIVATE_KEY
+                        "fingerprint": ORACLE_OBJECT_MANAGER_DELETE_READ_FINGERPRINT, # YOUR_FINGERPRINT
+                        "tenancy": ORACLE_TENANCY, # YOUR_TENANCY_OCID
+                        "region": ORACLE_REGION, # YOUR_REGION
+                        "compartment_id": ORACLE_TENANCY # YOUR_COMPARTMENT_OCID
+                    }
+                    object_storage = oci.object_storage.ObjectStorageClient(config)
+                    namespace = object_storage.get_namespace().data
+
+                    # 파일 업로드
+                    bucket_name = "alpharaffle-storage"
+                    object_name = 'profiles/' + member_nickname + '-' + file.name
+                    list_objects_response = object_storage.list_objects(namespace, bucket_name, prefix=object_name)
+
+                    object_storage.delete_object(namespace, bucket_name, object_name)
+                    print('일치함')
+            else:
+                print('불일치')
+            # if list_objects_response.data.objects:
+            #     object_storage.delete_object(namespace, bucket_name, object_name)
+            object_storage.put_object(namespace, bucket_name, object_name, file)
+            # try:
+            #     object_storage.put_object(namespace, bucket_name, object_name, file)
+            # except:
+            #     object_storage.delete_object(namespace, bucket_name, object_name)
+            #     object_storage.put_object(namespace, bucket_name, object_name, file)
+
+            image_url = f"https://objectstorage.{config['region']}.oraclecloud.com/n/{namespace}/b/{bucket_name}/o/{object_name}"
+
+            Member.objects.filter(pk= member_no).update(profile_img_url=image_url)
+
+            context["message"] = "File uploaded successfully!"
+            context["image_url"] = image_url
+        else:
+            member_no = None
+            member = None
+
+        return JsonResponse(context)
+    context["message"] = "Invalid request method."
+    return JsonResponse(context)
 
 @csrf_protect
 def details(request):

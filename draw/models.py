@@ -17,6 +17,7 @@ class Member(models.Model):
 	member_phonenumber = models.CharField(db_column='member_phonenumber', max_length=200)
 	usage_flag = models.CharField(db_column='usage_flag', max_length=10, default='1')
 	register_date = models.DateTimeField(db_column='register_date')
+	profile_img_url = models.CharField(db_column='profile_img_url', max_length=200, default='-', null=True)
 	is_active = models.BooleanField(db_column='is_active', default=False)
 
 	class Meta:
