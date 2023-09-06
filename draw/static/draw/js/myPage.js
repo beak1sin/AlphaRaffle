@@ -82,6 +82,9 @@ $(document).ready(function() {
         $('#setting_tab').removeClass('checked');
     });
 
+    $('.profile-change-btn').click(function() {
+        document.getElementById("upload").click();
+    });
     document.getElementById('upload').addEventListener('change', function(){
         var fileInput = document.getElementById('upload');
         var file = fileInput.files[0];
@@ -100,10 +103,35 @@ $(document).ready(function() {
         .then(data => {
             console.log(data.image_url);
             $('#profile_img').attr('src', data.image_url);
+            $('#profile_img_2').attr('src', data.image_url);
             // location.href = '/auth/mypage/';
         })
         .catch((error) => {
             console.error('Error:', error);
+        });
+    });
+
+    $('.comment-delete-btn').click(function () {
+        let pk = $(this).parent().parent().attr('data-value');
+        let comment = $(this).parent().parent().children(':nth-child(2)').children(':nth-child(1)').text();
+        let created_date = $(this).parent().parent().children(':nth-child(2)').children(':nth-child(2)').text();
+        let shoename = $(this).parent().parent().children(':nth-child(2)').children(':nth-child(3)').text();
+        const data = {'pk': pk,'comment': comment, 'created_date': created_date, 'shoename': shoename};
+
+        fetch('comment_delete', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            $(this).parent().parent().css({'text-align': 'center'});
+            $(this).parent().parent().html(data.message);
+        })
+        .catch(error => {
+            console.log('Error: ' + error);
         });
     });
 });

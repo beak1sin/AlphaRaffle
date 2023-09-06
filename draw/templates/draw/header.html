@@ -1,106 +1,47 @@
 {% load static %}
-<header class="u-clearfix u-header u-header" style="border-bottom: 1px solid #C8C8C8;">
-    <div class="u-clearfix u-sheet u-sheet-1">
-        <a href="{% url 'draw:홈' %}" id="logo" data-page-id="1211428442" class="u-image u-logo u-image-1" data-image-width="1280" data-image-height="960">
-            <img data-src="{% static 'draw/images/ar011.png' %}" class="lazyload u-logo-image u-logo-image-1">
+<header style="border-bottom: 1px solid #C8C8C8;">
+    <div style="float: left; margin: 5px 0 0 40px;">
+        <a href="{% url 'draw:홈' %}">
+            <img style="width: 120px; height: 74px; cursor: pointer;" data-src="{% static 'draw/necessary/ar(black).png' %}" class="lazyload logo">
         </a>
-        <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
-            <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
-                <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" style="transition-duration: 0.5s;" href="#">
-                    <svg class="u-svg-link" viewBox="0 0 24 24">
-                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use>
-                    </svg>
-                    <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
-                        <g>
-                            <rect y="1" width="16" height="2"></rect>
-                            <rect y="7" width="16" height="2"></rect>
-                            <rect y="13" width="16" height="2"></rect>
-                        </g>
-                    </svg>
-                </a>
-            </div>
-            <div class="u-custom-menu u-nav-container" style="margin-right: 32px;">
-                <ul class="u-nav u-unstyled u-nav-1" id="notification-list">
-                    <li class="u-nav-item">
-                        <a class="u-nav-link search-link" id="btn">
-                        <!-- <a class="u-nav-link search-link" id="btn" href="{% url 'draw:검색' %}"> -->
-                            <div class="search-icon">
-                                <label class="search-icon-label">
-                                    <span class="icon"></span>
-                                </label>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="u-nav-item">
-                        <a class="u-nav-link" id="btn" href="{% url 'draw:full' %}">발매일정</a>
-                    </li>
-                    {% if member.member_no == None %}
-                    {% else %}
-                    <li class="u-nav-item">
-                        <a class="u-nav-link" id="btn" href="{% url 'draw:마이페이지' %}">마이페이지</a>
-                    </li>
-                    {% endif %}
-                    {% if member.member_no == None %} 
-                    <li class="u-nav-item">
-                      <a class="u-nav-link" id="btn" href="{% url 'draw:로그인' %}">로그인/회원가입</a>
-                    </li>
-                    <p class="user_hidden" hidden></p>
-                    <p class="nickname_hidden" hidden></p>
-                    {% else %}
-                    <!-- <li class="u-nav-item">
-                        {{member.member_nickname}}님 환영합니다.
-                    </li> -->
-                    <li class="u-nav-item">
-                        <a class="u-nav-link" id="btn" href="{% url 'draw:로그아웃' %}">로그아웃</a>
-                    </li>
-                    <p class="user_hidden" hidden>{{member.member_no}}</p>
-                    <p class="nickname_hidden" hidden>{{member.member_nickname}}</p>
-                    {% endif %}
-                </ul>
-            </div>
-            <div class="u-custom-menu u-nav-container-collapse">
-                <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
-                    <div class="u-inner-container-layout u-sidenav-overflow">
-                        <div class="u-menu-close"></div>
-                        <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                            {% if member.member_no == None %}
-                            <li class="u-nav-item">
-                              <a class="u-button-style u-nav-link" id="btn-nav" href="{% url 'draw:로그인' %}">로그인/회원가입</a>
-                            </li>
-                            {% else %}
-                            <!-- <li class="u-nav-item">
-                                {{member.member_nickname}}님 환영합니다.
-                            </li> -->
-                            <li class="u-nav-item">
-                                <a class="u-button-style u-nav-link" id="btn-nav" href="{% url 'draw:로그아웃' %}">로그아웃</a>
-                            </li>
-                            {% endif %}
-                            <li class="u-nav-item">
-                                <a class="u-button-style u-nav-link" id="btn-nav" href="{% url 'draw:full' %}">발매일정</a>
-                            </li>
-                            <li class="u-nav-item">
-                                <a class="u-button-style u-nav-link" id="btn-nav" href="{% url 'draw:full' %}">검색</a>
-                            </li>
-                            {% if member.member_no == None %}
-                            {% else %}
-                            <li class="u-nav-item">
-                                <a class="u-button-style u-nav-link" id="btn-nav" href="{% url 'draw:마이페이지' %}">마이페이지</a>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </div>
-                <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
-            </div>
-        </nav>
     </div>
-    <!-- {% if request.path != '/start/' %}
-    <div class="progress-container">
-      <div class="progress-bar"></div>
+    <div style="float: right; margin-right: 40px; display: flex;">
+        <div style="width: 84px; height: 84px; position: relative;">
+            <div class="search-icon"></div>
+        </div>
+        {% if member.member_no == None %}
+        <div style="width: 84px; height: 84px; position: relative;">
+            <div style="position: absolute; width: 50px; height: 50px; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <a id="btn" href="{% url 'draw:로그인' %}">로그인/회원가입</a>
+            </div>
+        </div>
+        {% else %}
+        <div style="width: 84px; height: 84px; position: relative;">
+            <div class="notification-icon"></div>
+        </div>
+        <div style="width: 84px; height: 84px; position: relative;">
+            <div style="position: absolute; width: 50px; height: 50px; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                {% if member.profile_img_url == '-' %}
+                <img class="profile-img off" style="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%; cursor: pointer;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
+                {% else %}
+                <img class="profile-img off" style="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%; cursor: pointer;" src="{{member.profile_img_url}}">
+                {% endif %}
+            </div>
+        </div>
+        <div class="profile-list off">
+            <div class="mypage" style="width: 150px; height: 84px; position: relative; transition: all 0.2s; cursor: pointer;" onclick="location.href = `{% url 'draw:마이페이지' %}`">
+                <div class="mypage-icon"></div>
+                <p class="mypage-title">마이페이지</p>
+            </div>
+            <div class="logout" style="width: 150px; height: 84px; position: relative; transition: all 0.2s; cursor: pointer;" onclick="location.href = `{% url 'draw:로그아웃' %}`">
+                <div class="logout-icon"></div>
+                <p class="logout-title">로그아웃</p>
+            </div>
+        </div>
+        {% endif %}
     </div>
-    {% endif %} -->
     {% if request.path == '/main/' %}
-    <div style="width: 100vw; height: 42px; background-color: black;">
+    <div style="width: 100vw; height: 42px; background-color: black; position: fixed; top: 84px;">
         <div style="width: 30vw; height: 100%; float: left;"></div>
         <div style="width: 40vw; height: 100%; float: left;">
             <div style="width: 33.33%; height: 100%; float: left; padding: 5px 20px; text-align: center;">
@@ -129,82 +70,17 @@
         </div>
     </div>
     {% endif %}
-    <!-- <div id="notificationBox" style="position: fixed; width: 300px; height: 84px; top: 42px; right: 100px;"></div> -->
 </header>
-
-<script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<!-- <script type="text/javascript">
-    $(window).load(function(){
-        $(window).scroll(function() {
-            var wintop = $(window).scrollTop(), docheight = $('article').height(), winheight = $(window).height();
-            // console.log(wintop);
-            var totalScroll = (wintop/(docheight-winheight))*100;
-            // console.log("total scroll" + totalScroll);
-            $(".progress-bar").css("width",totalScroll+"%");
-        });
-    });
-</script> -->
-
 <style type="text/css">
     #btn {
-        padding: 10px 20px;
-        /* border: 2px solid; */
-        /* border-radius: 50px; */
         transition-duration: 0.2s;
         color: #B0B0B0;
     }
 
     #btn:hover {
-        transition-duration: 0.2s;
-        /* background: black; */
-        /* border: 2px solid black; */
         color: black;
     }
 
-    #btn-nav {
-        border: 2px solid;
-        border-radius: 50px;
-        transition-duration: 0.5s;
-        margin-top: 20px;
-    }
-
-    #btn-nav:hover {
-        transition-duration: 0.5s;
-    }
-
-    #mypage-btn:hover {
-        transition-duration: 0.5s;
-        border: 2px solid black;
-        /*background: black;*/
-    }
-
-    .progress-container {
-        left:0;
-        width: 100%;
-        height: 0.4em;
-        margin-bottom: 0px;
-        position: fixed;
-/*        top: 0px;*/
-        overflow: hidden;
-        background-color: white;
-        content: "";
-        display: table;
-        table-layout: fixed;
-        border-top: solid black 2px;
-    }
-
-    .progress-bar {
-        width: 0%;
-        float: left;
-        height: 100%;
-        z-index:99;
-        max-width: 100%;
-        /*background-color:#3a98db;*/
-        background-color:black;
-        -webkit-transition: width .4s ease;
-        -o-transition: width .4s ease;
-        transition: width .4s ease;
-    }
-
 </style>
+<script type="text/javascript">
+</script>

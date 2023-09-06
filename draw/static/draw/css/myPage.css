@@ -270,3 +270,22 @@ input[type="checkbox"] {
   background-image: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle data-name='타원 113' cx='8' cy='8' r='8' transform='translate(4 4)' style='fill:%23ababab'/%3E%3Cg data-name='Group 1124'%3E%3Cpath data-name='Path 1138' d='m16.04 15.031-3.03-3.03 3.03-3.03-1.01-1.01-3.03 3.03-3.03-3.03-1.01 1.01 3.03 3.03-3.03 3.03 1.01 1.01 3.03-3.03 3.031 3.03z'/%3E%3C/g%3E%3Cpath data-name='Rectangle 2097' style='fill:none' d='M0 0h24v24H0z'/%3E%3C/svg%3E%0A");
 }
 /* ----------비밀번호 x버튼 기능 */
+
+.profile-change-btn, .nickname-change-btn {
+  width: 120px;
+  height: 40px;
+  border-radius: 10px;
+  background: #EEE;
+  color: #333;
+  font-size: 20px;
+  font-weight: 200;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.profile-change-btn:hover, .nickname-change-btn:hover {
+  color: #EEE;
+  background: #333;
+}

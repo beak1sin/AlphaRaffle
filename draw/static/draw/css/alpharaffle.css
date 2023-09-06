@@ -181,6 +181,59 @@ footer {
 
 /* 검색 아이콘 */
 .search-icon {
+  position: absolute; width: 24px; height: 24px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: url('../necessary/search.svg') no-repeat center center/22px auto; cursor: pointer; transition: all 0.1s;
+}
+
+.search-icon:hover {
+  background: url('../necessary/search_hover.svg') no-repeat center center/22px auto;
+}
+
+.notification-icon {
+  position: absolute; width: 24px; height: 24px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: url('../necessary/notification.svg') no-repeat center center/22px auto; cursor: pointer; transition: all 0.1s;
+}
+
+.notification-icon:hover {
+  background: url('../necessary/notification_hover.svg') no-repeat center center/22px auto;
+}
+
+.mypage-title, .logout-title {
+  position: absolute; top: 50%; left: 60%; transform: translate(-60%, -50%); margin: 0 !important; font-size: 13px; font-weight: 300; color: #333;
+}
+
+.mypage-icon {
+  position: absolute; width: 24px; height: 24px; top: 50%; left: 20%; transform: translate(-20%, -50%); background: url('../necessary/mypage.svg') no-repeat center center/22px auto; cursor: pointer; transition: all 0.1s;
+}
+
+.mypage:hover, .logout:hover {
+  background-color: #333333;
+}
+
+.mypage:hover .mypage-icon {
+  background: url('../necessary/mypage_hover.svg') no-repeat center center/22px auto !important;
+}
+
+.logout:hover .logout-icon {
+  background: url('../necessary/logout_hover.svg') no-repeat center center/22px auto !important;
+}
+
+.mypage:hover .mypage-title, .logout:hover .logout-title {
+  color: white;
+}
+
+.logout-icon {
+  position: absolute; width: 24px; height: 24px; top: 50%; left: 20%; transform: translate(-20%, -50%); background: url('../necessary/logout.svg') no-repeat center center/22px auto; cursor: pointer; transition: all 0.1s;
+}
+
+.profile-list.on {
+  position: fixed; right: 0; top: 84px; background-color: #FFFFFF; z-index: 1; display: flex; flex-direction: column; border: 0.4px solid #C8C8C8; border-top: none;
+}
+
+.profile-list.off {
+  position: fixed; right: 0; top: 0; background-color: #FFFFFF; z-index: 1; flex-direction: column; border: 0.4px solid #C8C8C8; border-top: none; display: none;;
+}
+
+
+/* .search-icon {
   position: absolute;
   bottom: 0px;
   left: 50%;
@@ -212,7 +265,7 @@ footer {
 
 .search-link {
   transition: all 0.1s;
-}
+} */
 
 .u-section-1.blurOn {
     filter: blur(4px);

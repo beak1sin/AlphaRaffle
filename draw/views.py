@@ -206,6 +206,7 @@ def home(request):
     # shoe = Shoe.objects.all().order_by('-id')[0:12]
     member = None
     member_no = None
+    recent_searches = None
 
     droppedSite = Shoesite.objects.filter(end_date__gte=nowtime).order_by('end_date')   #진행중
     endSite = Shoesite.objects.filter(end_date__lt=nowtime).order_by('-end_date')       #종료
@@ -230,8 +231,9 @@ def home(request):
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
         member = Member.objects.get(pk=member_no)
+        recent_searches = SearchTerm.objects.filter(member_no=member_no).order_by('-created_at')[:10]
 
-    context = {'member': member, 'droppedShoe': droppedShoe, 'endShoe': endShoe, 'upcomingShoe': upcomingShoe ,'endShoe_count': endShoe_count}  # member 객체를 context에 추가
+    context = {'member': member, 'droppedShoe': droppedShoe, 'endShoe': endShoe, 'upcomingShoe': upcomingShoe ,'endShoe_count': endShoe_count, 'recent_searches': recent_searches}  # member 객체를 context에 추가
 
     if request.method == 'POST':
         context2 = {}
@@ -427,10 +429,11 @@ def new_password(request):
 def myPage(request):
 
     context = {}
+    if request.session.has_key('member_no'):
+        member_no = request.session['member_no']
+        member = Member.objects.get(pk=member_no)
+        recent_searches = SearchTerm.objects.filter(member_no=member_no).order_by('-created_at')[:10]
 
-    if 'member_no' in request.session:
-        memberno = request.session['member_no']
-        member = Member.objects.get(member_no=memberno)
         context['member_no'] = member.member_no
         context['member_id'] = member.member_id
         context['member_realname'] = member.member_realname
@@ -448,9 +451,8 @@ def myPage(request):
         comment_count = comment.count()
         for com in comment:
             com.shoename = Shoe.objects.get(serialno=com.serialno).shoename
-            print(com.shoename)
 
-        context = {'member':member ,'liked_shoes':liked_shoes, 'comment': comment, 'comment_count': comment_count}
+        context = {'member':member ,'liked_shoes':liked_shoes, 'comment': comment, 'comment_count': comment_count, 'recent_searches': recent_searches}
         return render(request, "draw/myPage.html", context)
 
     else:
@@ -578,6 +580,29 @@ def upload(request):
     return JsonResponse(context)
 
 @csrf_protect
+def comment_delete(request):
+    context = {}
+    if request.method == 'POST':
+        if request.session.has_key('member_no'):
+            data = json.loads(request.body)
+            pk = data.get('pk')
+            comment = data.get('comment')
+            created_date = data.get('created_date')
+            shoename = data.get('shoename')
+
+            member_no = request.session['member_no']
+            member = Member.objects.get(pk= member_no)
+            member_nickname = member.member_nickname
+
+            serialno = Shoe.objects.get(shoename=shoename).serialno
+
+            Comment.objects.filter(id=pk, comment=comment, member_nickname=member_nickname, serialno=serialno).delete()
+
+            context["message"] = "댓글 삭제 완료!"
+
+    return JsonResponse(context)
+
+@csrf_protect
 def details(request):
     pk = request.GET['serialnum']
 
@@ -609,11 +634,12 @@ def details(request):
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
         member = Member.objects.get(pk= member_no)
-        #print(member_no)
-
+        recent_searches = SearchTerm.objects.filter(member_no=member_no).order_by('-created_at')[:10]
     else:
         member_no = None
         member = None
+        recent_searches = None
+    context['recent_searches'] = recent_searches
 
     # 댓글
     comment = Comment.objects.filter(serialno=pk)
@@ -771,11 +797,6 @@ def member_delete(request):
         context['result_msg'] = '비밀번호가 일치하지 않습니다.'
 
     return JsonResponse(context, content_type="application/json")
-@csrf_exempt
-def search(request):
-    
-        #?serialno=recent_searches
-    return render(request, "draw/full?serialno=.html", context)
     
 @csrf_protect
 def full(request):

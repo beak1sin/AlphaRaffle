@@ -299,7 +299,7 @@ $(document).ready(function() {
     $('.u-section-4').addClass('blurOff');
   }
 
-  $('.search-link').click(function() {
+  $('.search-link, .search-icon').click(function() {
     $('.search-section').show();
     $('#scroll-container').css({'overflow': 'hidden'});
   });
@@ -376,7 +376,8 @@ $(document).ready(function() {
 
     $('#search_form').submit(function(event) {
         event.preventDefault();
-        const url = window.location.href;
+        // const url = window.location.href;
+        const url = window.location.protocol + '//' + window.location.host + '/full/';
         const paramName = $('#search_value').attr('name');
         const paramValue = $('#search_value').val().trim();
         const newURL = addParamToURL(url, paramName, paramValue);
@@ -401,6 +402,15 @@ $(document).ready(function() {
         window.location.href = newURL;
     });
 
+    $(document).on('click', '.profile-img', function() {
+        if ($(this).hasClass('off')) {
+            $(this).removeClass('off').addClass('on');
+            $('.profile-list').removeClass('off').addClass('on');
+        } else if ($(this).hasClass('on')) {
+            $(this).removeClass('on').addClass('off');
+            $('.profile-list').removeClass('on').addClass('off');
+        }
+    });
 });
 
 $(document).ready(function() {

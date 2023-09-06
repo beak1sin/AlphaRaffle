@@ -55,12 +55,11 @@ urlpatterns = [
     path('main/like', views.like, name='좋아요'),
     path('main/likeCancel', views.likeCancel, name='좋아요취소'),
 
-    path('full/search/', views.search, name='검색'),
-    
     # path('crawl', views.crawl, name='crawl'),
     
     path('auth/mypage/member_update', views.member_update, name='member_update'),
     path('auth/mypage/upload', views.upload, name='upload'),
+    path('auth/mypage/comment_delete', views.comment_delete, name='comment_delete'),
 
     path('auth/details/', views.details, name='상세정보'),
     path('auth/details/update_views', views.update_views, name='조회수 증가'),
