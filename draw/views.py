@@ -495,6 +495,7 @@ def member_update(request):
     
 import oci
 import environ
+import magic
 @csrf_protect
 def upload(request):
     context = {}
@@ -505,6 +506,17 @@ def upload(request):
             member_nickname = member.member_nickname
 
             file = request.FILES['file']
+
+            mime = magic.from_buffer(file.read(), mime=True)
+            allowed_mime_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml']
+            if mime not in allowed_mime_types:
+                context['flag'] = '0'
+                context['message'] = '* 허용되지 않는 파일 확장자입니다.'
+                return JsonResponse(context)
+            if file.size > 1 * 1024 * 1024:
+                context['flag'] = '0'
+                context['message'] = '* 파일 크기가 1MB를 넘습니다.'
+                return JsonResponse(context)
             # print(file.name)
             BASE_DIR = Path(__file__).resolve().parent.parent
             environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
@@ -568,7 +580,7 @@ def upload(request):
             image_url = f"https://objectstorage.{config['region']}.oraclecloud.com/n/{namespace}/b/{bucket_name}/o/{object_name}"
 
             Member.objects.filter(pk= member_no).update(profile_img_url=image_url)
-
+            context['flag'] = '1'
             context["message"] = "File uploaded successfully!"
             context["image_url"] = image_url
         else:

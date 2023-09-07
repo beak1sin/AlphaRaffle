@@ -10,10 +10,8 @@
             <div class="search-icon"></div>
         </div>
         {% if member.member_no == None %}
-        <div style="width: 84px; height: 84px; position: relative;">
-            <div style="position: absolute; width: 50px; height: 50px; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                <a id="btn" href="{% url 'draw:로그인' %}">로그인/회원가입</a>
-            </div>
+        <div style="width: 120px; height: 84px; position: relative;">
+            <a id="btn" href="{% url 'draw:로그인' %}" style="position: absolute; width: 120px; top: 50%; left: 50%; transform: translate(-50%, -50%);">로그인/회원가입</a>
         </div>
         {% else %}
         <div style="width: 84px; height: 84px; position: relative;">

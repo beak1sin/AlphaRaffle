@@ -88,7 +88,7 @@ $(document).ready(function() {
     document.getElementById('upload').addEventListener('change', function(){
         var fileInput = document.getElementById('upload');
         var file = fileInput.files[0];
-        console.log(file);
+        
         var formData = new FormData();
         formData.append('file', file);
         var url = `${window.location.protocol}//${window.location.host}/auth/mypage/upload`;
@@ -101,9 +101,13 @@ $(document).ready(function() {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data.image_url);
-            $('#profile_img').attr('src', data.image_url);
-            $('#profile_img_2').attr('src', data.image_url);
+            if (data.flag == '0') {
+                $('.fileUpload-msg').css({'color': 'red'});
+                $('.fileUpload-msg').html(data.message);
+            } else {
+                $('#profile_img').attr('src', data.image_url);
+                $('#profile_img_2').attr('src', data.image_url);
+            }
             // location.href = '/auth/mypage/';
         })
         .catch((error) => {
