@@ -513,11 +513,11 @@ def upload(request):
             if mime not in allowed_mime_types:
                 context['flag'] = '0'
                 context['message'] = '* 허용되지 않는 파일 확장자입니다.'
-                return JsonResponse(context)
+                return JsonResponse(context, content_type="application/json")
             if file.size > 1 * 1024 * 1024:
                 context['flag'] = '0'
                 context['message'] = '* 파일 크기가 1MB를 넘습니다.'
-                return JsonResponse(context)
+                return JsonResponse(context, content_type="application/json")
 
             BASE_DIR = Path(__file__).resolve().parent.parent
             environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
