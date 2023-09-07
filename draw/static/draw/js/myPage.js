@@ -105,6 +105,7 @@ $(document).ready(function() {
                 $('.fileUpload-msg').css({'color': 'red'});
                 $('.fileUpload-msg').html(data.message);
             } else {
+                $('#header_profile_img').attr('src', data.image_url);
                 $('#profile_img').attr('src', data.image_url);
                 $('#profile_img_2').attr('src', data.image_url);
             }

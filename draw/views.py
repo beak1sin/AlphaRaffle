@@ -508,6 +508,7 @@ def upload(request):
             file = request.FILES['file']
 
             mime = magic.from_buffer(file.read(), mime=True)
+            file.seek(0)  # 파일 포인터를 초기 위치로 되돌립니다.
             allowed_mime_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml']
             if mime not in allowed_mime_types:
                 context['flag'] = '0'
@@ -517,7 +518,7 @@ def upload(request):
                 context['flag'] = '0'
                 context['message'] = '* 파일 크기가 1MB를 넘습니다.'
                 return JsonResponse(context)
-            # print(file.name)
+
             BASE_DIR = Path(__file__).resolve().parent.parent
             environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
 
