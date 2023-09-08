@@ -11,6 +11,7 @@ $(document).ready(function() {
                 $('.checked-content').hide();
                 $('.comment-content').hide();
                 $('.setting-content').hide();
+                $('.setting-content').removeClass('on');
                 $('.delete-content').hide();
                 $('#delete_tab').hide();
                 $('#checked_tab').removeClass('checked');
@@ -27,6 +28,7 @@ $(document).ready(function() {
                 $('.checked-content').show();
                 $('.comment-content').hide();
                 $('.setting-content').hide();
+                $('.setting-content').removeClass('on');
                 $('.delete-content').hide();
                 $('#delete_tab').hide();
                 $('#bookmark_tab').removeClass('checked');
@@ -43,6 +45,7 @@ $(document).ready(function() {
                 $('.checked-content').hide();
                 $('.comment-content').show();
                 $('.setting-content').hide();
+                $('.setting-content').removeClass('on');
                 $('.delete-content').hide();
                 $('#delete_tab').hide();
                 $('#bookmark_tab').removeClass('checked');
@@ -58,7 +61,7 @@ $(document).ready(function() {
                 $('.bookmark-content').hide();
                 $('.checked-content').hide();
                 $('.comment-content').hide();
-                $('.setting-content').show();
+                $('.setting-content').addClass('on');
                 $('.delete-content').hide();
                 $('#delete_tab').show();
                 $('#bookmark_tab').removeClass('checked');
@@ -82,7 +85,7 @@ $(document).ready(function() {
         $('#setting_tab').removeClass('checked');
     });
 
-    $('.profile-change-btn').click(function() {
+    $('.profile-img-change-btn').click(function() {
         document.getElementById("upload").click();
     });
     document.getElementById('upload').addEventListener('change', function(){
@@ -139,6 +142,13 @@ $(document).ready(function() {
             console.log('Error: ' + error);
         });
     });
+
+    document.getElementById('redirectAndClick').addEventListener('click', function() {
+        window.location.href = `${window.location.protocol}//${window.location.host}/auth/login/?autoClick=true`;
+    });
+
+
+
 });
 
 function getCookie(name) {

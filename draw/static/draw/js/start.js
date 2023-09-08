@@ -2,6 +2,17 @@ $(document).ready( () => {
 
     // alert(window.innerWidth + ', ' + window.innerHeight);
 
+    // 프로필
+    $(document).on('click', '.profile-img', function() {
+        if ($(this).hasClass('off')) {
+            $(this).removeClass('off').addClass('on');
+            $('.profile-list').removeClass('off').addClass('on');
+        } else if ($(this).hasClass('on')) {
+            $(this).removeClass('on').addClass('off');
+            $('.profile-list').removeClass('on').addClass('off');
+        }
+    });
+
     $('#main-btn').click( () => {
         location.href = '/main/';
     });

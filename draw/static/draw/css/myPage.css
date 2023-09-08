@@ -271,7 +271,15 @@ input[type="checkbox"] {
 }
 /* ----------비밀번호 x버튼 기능 */
 
-.profile-change-btn, .nickname-change-btn {
+.setting-content {
+  width: calc(100vw - 300px); left: 300px; height: 100%; float: left; position: relative; padding: 50px 100px 0px;  display: none;
+}
+
+.setting-content.on {
+  display: flex !important; flex-direction: column; justify-content: space-between;
+}
+
+.profile-img-change-btn, .nickname-change-btn, .profile-change-btn, .member-delete-btn {
   width: 120px;
   height: 40px;
   border-radius: 10px;
@@ -285,7 +293,22 @@ input[type="checkbox"] {
   transition: all 0.5s;
 }
 
-.profile-change-btn:hover, .nickname-change-btn:hover {
+.password-change-btn {
+  /* width: 120px; */
+  height: 40px;
+  border-radius: 10px;
+  background: #EEE;
+  color: #333;
+  font-size: 20px;
+  font-weight: 200;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  transition: all 0.5s;
+  float: left;
+}
+
+.profile-img-change-btn:hover, .profile-change-btn:hover, .nickname-change-btn:hover, .password-change-btn:hover, .member-delete-btn:hover {
   color: #EEE;
   background: #333;
 }

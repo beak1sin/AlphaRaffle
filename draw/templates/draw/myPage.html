@@ -232,11 +232,11 @@
                 </div>
             </div>
 
-            <div class="setting-content" style="width: calc(100vw - 300px); left: 300px; height: 100%; float: left; position: relative; padding: 50px 100px 0px 100px; display: none;">
+            <div class="setting-content">
                 <!-- <div style="width: 100%;">
                     <p style="margin: 0px; font-size: 40px; font-weight: 700;">가입한 정보</p>
                 </div> -->
-                <div style="width: 100%;">
+                <div>
                     <div style="width: 100px; height: 100px; float: left;">
                         {% if member.profile_img_url == '-' %}
                         <img id="profile_img_2" style="width: 100px; height: 100px; border: 1px solid black; border-radius: 50%;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
@@ -247,7 +247,7 @@
                     <div style="margin-left: 50px; float: left;">
                         <p style="margin: 0; color: #333; font-size: 32px; font-weight: 500;">{{member.member_nickname}}</p>
                         <div style="display: flex;">
-                            <div class="profile-change-btn">사진 변경</div>
+                            <div class="profile-img-change-btn">사진 변경</div>
                             <input type="file" id="upload" style="display: none;" accept=".jpg, .jpeg, .png, .gif, .webp, .svg">
                             <div class="nickname-change-btn" style="margin-left: 5px;">닉네임 변경</div>
                         </div>
@@ -255,8 +255,50 @@
                     </div>
                 </div>
                 
-                
-                <img id="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%;">
+                <div style="display: flex; flex-direction: column;">
+                    <p style="margin: 0; font-size: 32px; font-weight: 900; color: #333;">가입 정보</p>
+                    <div style="margin-top: 10px;">
+                        <p style="margin: 0; font-size: 26px; font-weight: 200; color: #333; float: left; width: 150px;">이메일</p>
+                        <p style="margin: 0; font-size: 26px; font-weight: 500; color: #333; float: left;">{{member.member_id}}</p>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <p style="margin: 0; font-size: 26px; font-weight: 200; color: #333; float: left; width: 150px;">비밀번호</p>
+                        <div id="redirectAndClick" class="password-change-btn">&nbsp;&nbsp;비밀번호 변경하기&nbsp;&nbsp;</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column;">
+                    <p style="margin: 0; font-size: 32px; font-weight: 900; color: #333;">응모 정보</p>
+                    <div style="margin-top: 10px;">
+                        <p style="margin: 0; font-size: 26px; font-weight: 200; color: #333; float: left; width: 150px;">이름</p>
+                        <p style="margin: 0; font-size: 26px; font-weight: 500; color: #333; float: left;">{{member.member_realname}}</p>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <p style="margin: 0; font-size: 26px; font-weight: 200; color: #333; float: left; width: 150px;">휴대폰 번호</p>
+                        <p style="margin: 0; font-size: 26px; font-weight: 500; color: #333; float: left;">{{member.member_phonenumber}}</p>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <p style="margin: 0; font-size: 26px; font-weight: 200; color: #333; float: left; width: 150px;">생년월일</p>
+                        <p style="margin: 0; font-size: 26px; font-weight: 500; color: #333; float: left;">{{member.member_birth}}</p>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <p style="margin: 0; font-size: 26px; font-weight: 200; color: #333; float: left; width: 150px;">나이키 ID</p>
+                        <p style="margin: 0; font-size: 26px; font-weight: 500; color: #333; float: left;">{{member.member_nikeid}}</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column;">
+                    <p style="margin: 0; font-size: 32px; font-weight: 900; color: #333;">수신 정보</p>
+                    <div style="margin-top: 10px;">
+                        <p style="margin: 0; font-size: 26px; font-weight: 200; color: #333; float: left; width: 150px;">SMS 수신</p>
+                        <p style="margin: 0; font-size: 26px; font-weight: 500; color: #333; float: left;">이메일 수신</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; width: 600px; margin-bottom: 40px;">
+                    <div class="profile-change-btn">변경</div>
+                    <div class="member-delete-btn" style="margin-left: 5px;">회원 탈퇴하기</div>
+                </div>
             </div>
 
             <div class="delete-content" style="width: calc(100vw - 300px); left: 300px; height: 100%; float: left; position: relative; display: none;  background-color: #C8C8C8;">

@@ -752,3 +752,10 @@ $(document).ready( () => {
     });
     
 });
+
+window.onload = function() {
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('autoClick') && urlParams.get('autoClick') === 'true') {
+        document.getElementById('password_forgot_btn').click();
+    }
+};
