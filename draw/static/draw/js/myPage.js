@@ -89,13 +89,14 @@ $(document).ready(function() {
         document.getElementById("upload").click();
     });
     document.getElementById('upload').addEventListener('change', function(){
+        $(".backL").css("display", "");
         var fileInput = document.getElementById('upload');
         var file = fileInput.files[0];
         
         var formData = new FormData();
         formData.append('file', file);
-        var url = `${window.location.protocol}//${window.location.host}/auth/mypage/upload`;
-        fetch(url, {
+        // var url = `${window.location.protocol}//${window.location.host}/auth/mypage/upload`;
+        fetch('upload', {
             method: 'POST',
             headers: {
                 'X-CSRFToken': getCookie('csrftoken') // getCookie는 아래에 정의됨
@@ -112,14 +113,17 @@ $(document).ready(function() {
                 $('#profile_img').attr('src', data.image_url);
                 $('#profile_img_2').attr('src', data.image_url);
             }
+            $(".backL").css("display", "none");
             // location.href = '/auth/mypage/';
         })
         .catch((error) => {
             console.error('Error:', error);
+            $(".backL").css("display", "none");
         });
     });
 
     $('.comment-delete-btn').click(function () {
+        $(".backL").css("display", "");
         let pk = $(this).parent().parent().attr('data-value');
         let comment = $(this).parent().parent().children(':nth-child(2)').children(':nth-child(1)').text();
         let created_date = $(this).parent().parent().children(':nth-child(2)').children(':nth-child(2)').text();
@@ -137,6 +141,7 @@ $(document).ready(function() {
         .then(data => {
             $(this).parent().parent().css({'text-align': 'center'});
             $(this).parent().parent().html(data.message);
+            $(".backL").css("display", "none");
         })
         .catch(error => {
             console.log('Error: ' + error);

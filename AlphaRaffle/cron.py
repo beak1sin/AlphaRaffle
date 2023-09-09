@@ -202,17 +202,20 @@ def luckd_crowler(no):
         
         if "docs.google.com" in sitelink:
             telegram_crawl = Telegram_crawl()
-            try:
-                nameentry, phoneentrylen, birthentrylen,  nikeidentry = entrycrawl(sitelink)
-                birthentry = birthentrylen[0]
-                birthlen = birthentrylen[1] # 생년월일 길이
-                phoneentry = phoneentrylen[0]
-                phonehyphen = phoneentrylen[1] # 폰 하이픈 여부
+            if 'closedform' in sitelink:
+                pass
+            else:
+                try:
+                    nameentry, phoneentrylen, birthentrylen,  nikeidentry = entrycrawl(sitelink)
+                    birthentry = birthentrylen[0]
+                    birthlen = birthentrylen[1] # 생년월일 길이
+                    phoneentry = phoneentrylen[0]
+                    phonehyphen = phoneentrylen[1] # 폰 하이픈 여부
 
-                Shoesite.objects.filter(shoesiteunique = shoeunique).update(nameentry = nameentry, birthentry = birthentry, phoneentry = phoneentry, nikeidentry = nikeidentry )
-                telegram_crawl.crawl_entry_msg(nameentry, birthentry, phoneentry, nikeidentry)
-            except Exception as e:
-                telegram_crawl.crawl_entry_error_msg(e)
+                    Shoesite.objects.filter(shoesiteunique = shoeunique).update(nameentry = nameentry, birthentry = birthentry, phoneentry = phoneentry, nikeidentry = nikeidentry )
+                    telegram_crawl.crawl_entry_msg(nameentry, birthentry, phoneentry, nikeidentry)
+                except Exception as e:
+                    telegram_crawl.crawl_entry_error_msg(e)
         # if 'luck-d' in sitelink:
         #     response = requests.get(sitelink)
         #     html = response.text

@@ -666,7 +666,7 @@ $(document).ready( () => {
                         $('#auth_send_btn').text('05:00')
                         startCountdown();
                     } else {
-                        alert(obj.result_msg);
+                        $('.email-forgot-error-box').html(obj.result_msg);
                     }
                     $(".backL").css("display", "none");
                 }

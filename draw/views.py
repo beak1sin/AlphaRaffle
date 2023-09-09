@@ -327,9 +327,9 @@ def login(request):
         member = Member.objects.get(pk= member_no)
         context["member_no"] = member_no
         context = {'shoe':shoe, 'member':member }
-
+    
         # 로그인 상태에서 비밀번호 변경
-        if request.GET.get('autoClick'):
+        if request.GET.get('autoClick') == 'true':
             return render(request, 'draw/login.html', context)
         else:
             return redirect('/main/')
@@ -499,106 +499,6 @@ def member_update(request):
 import oci
 import environ
 import magic
-# @csrf_protect
-# def upload(request):
-#     context = {}
-#     if request.method == 'POST':
-#         if request.session.has_key('member_no'):
-#             member_no = request.session['member_no']
-#             member = Member.objects.get(pk= member_no)
-#             member_nickname = member.member_nickname
-
-#             try:
-#                 file = request.FILES['file']
-#             except Exception as e:
-#                 context['message'] = e
-#                 return JsonResponse(context, content_type="application/json")
-
-
-#             mime = magic.from_buffer(file.read(), mime=True)
-#             file.seek(0)  # 파일 포인터를 초기 위치로 되돌립니다.
-#             allowed_mime_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml']
-#             if mime not in allowed_mime_types:
-#                 context['flag'] = '0'
-#                 context['message'] = '* 허용되지 않는 파일 확장자입니다.'
-#                 return JsonResponse(context, content_type="application/json")
-#             if file.size > 1 * 1024 * 1024:
-#                 context['flag'] = '0'
-#                 context['message'] = '* 파일 크기가 1MB를 넘습니다.'
-#                 return JsonResponse(context, content_type="application/json")
-
-#             BASE_DIR = Path(__file__).resolve().parent.parent
-#             environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
-
-#             ORACLE_OBJECT_MANAGER_OCID = os.environ.get('ORACLE_OBJECT_MANAGER_OCID')
-#             ORACLE_OBJECT_MANAGER_KEY_FILE = os.environ.get('ORACLE_OBJECT_MANAGER_KEY_FILE')
-#             ORACLE_OBJECT_MANAGER_FINGERPRINT = os.environ.get('ORACLE_OBJECT_MANAGER_FINGERPRINT')
-#             ORACLE_TENANCY = os.environ.get('ORACLE_TENANCY')
-#             ORACLE_REGION = os.environ.get('ORACLE_REGION')
-            
-#             # Oracle Object Storage 설정
-#             config = {
-#                 "user": ORACLE_OBJECT_MANAGER_OCID, # YOUR_USER_OCID
-#                 "key_file": ORACLE_OBJECT_MANAGER_KEY_FILE, # PATH_TO_YOUR_PRIVATE_KEY
-#                 "fingerprint": ORACLE_OBJECT_MANAGER_FINGERPRINT, # YOUR_FINGERPRINT
-#                 "tenancy": ORACLE_TENANCY, # YOUR_TENANCY_OCID
-#                 "region": ORACLE_REGION, # YOUR_REGION
-#                 "compartment_id": ORACLE_TENANCY # YOUR_COMPARTMENT_OCID
-#             }
-#             object_storage = oci.object_storage.ObjectStorageClient(config)
-#             namespace = object_storage.get_namespace().data
-
-#             # 파일 업로드
-#             bucket_name = "alpharaffle-storage"
-#             object_name = 'profiles/' + member_nickname + '-' + file.name
-#             list_objects_response = object_storage.list_objects(namespace, bucket_name, prefix=object_name)
-#             if list_objects_response.data.objects:
-#                 if list_objects_response.data.objects[0].name == object_name:
-                    # ORACLE_OBJECT_MANAGER_DELETE_READ_OCID = os.environ.get('ORACLE_OBJECT_MANAGER_DELETE_READ_OCID')
-                    # ORACLE_OBJECT_MANAGER_DELETE_READ_KEY_FILE = os.environ.get('ORACLE_OBJECT_MANAGER_DELETE_READ_KEY_FILE')
-                    # ORACLE_OBJECT_MANAGER_DELETE_READ_FINGERPRINT = os.environ.get('ORACLE_OBJECT_MANAGER_DELETE_READ_FINGERPRINT')
-                    # config = {
-                    #     "user": ORACLE_OBJECT_MANAGER_DELETE_READ_OCID, # YOUR_USER_OCID
-                    #     "key_file": ORACLE_OBJECT_MANAGER_DELETE_READ_KEY_FILE, # PATH_TO_YOUR_PRIVATE_KEY
-                    #     "fingerprint": ORACLE_OBJECT_MANAGER_DELETE_READ_FINGERPRINT, # YOUR_FINGERPRINT
-                    #     "tenancy": ORACLE_TENANCY, # YOUR_TENANCY_OCID
-                    #     "region": ORACLE_REGION, # YOUR_REGION
-                    #     "compartment_id": ORACLE_TENANCY # YOUR_COMPARTMENT_OCID
-                    # }
-#                     object_storage = oci.object_storage.ObjectStorageClient(config)
-#                     namespace = object_storage.get_namespace().data
-
-#                     # 파일 업로드
-#                     bucket_name = "alpharaffle-storage"
-#                     object_name = 'profiles/' + member_nickname + '-' + file.name
-#                     list_objects_response = object_storage.list_objects(namespace, bucket_name, prefix=object_name)
-
-#                     object_storage.delete_object(namespace, bucket_name, object_name)
-#                     print('일치함')
-#             else:
-#                 print('불일치')
-#             # if list_objects_response.data.objects:
-#             #     object_storage.delete_object(namespace, bucket_name, object_name)
-#             object_storage.put_object(namespace, bucket_name, object_name, file)
-#             # try:
-#             #     object_storage.put_object(namespace, bucket_name, object_name, file)
-#             # except:
-#             #     object_storage.delete_object(namespace, bucket_name, object_name)
-#             #     object_storage.put_object(namespace, bucket_name, object_name, file)
-
-#             image_url = f"https://objectstorage.{config['region']}.oraclecloud.com/n/{namespace}/b/{bucket_name}/o/{object_name}"
-
-#             Member.objects.filter(pk= member_no).update(profile_img_url=image_url)
-#             context['flag'] = '1'
-#             context["message"] = "File uploaded successfully!"
-#             context["image_url"] = image_url
-#         else:
-#             member_no = None
-#             member = None
-
-#         return JsonResponse(context)
-#     context["message"] = "Invalid request method."
-#     return JsonResponse(context)
 
 @csrf_protect
 def upload(request):
@@ -1352,13 +1252,13 @@ class customHandler500(View):
         return render(request, "draw/errors/500.html",context)
 
 def googleCrawl(request):
-    url = 'https://docs.google.com/forms/d/e/1FAIpQLSeD5cUf-XH9Q5lxF3_EQurNnnXNolM-oARjVxnW7XP2QVx9sA/viewform'
+    url = 'https://docs.google.com/forms/d/e/1FAIpQLSe7DmdJZaJUIAtg-78n6VTASTqCd_ueLeG3CzoHoyfALYQIHg/closedform?pli=1'
     
     # url = 'https://docs.google.com/forms/d/e/1FAIpQLSc_RlwPQjfqI7DRfEf9CFzNTQbI6pmqOkI26FfJ5kvj7V6A5g/viewform'
     # url = 'https://docs.google.com/forms/d/e/1FAIpQLSc_RlwPQjfqI7DRfEf9CFzNTQbI6pmqOkI26FfJ5kvj7V6A5g/formResponse'
     # url = 'https://alpharaffle.com/google_temp'
     html = requests.get(url).text
-    print(html)
+    
     # jsondata = html.json()
     # FB_PUBLIC_LOAD_DATA_ = jsondata["FB_PUBLIC_LOAD_DATA_"]
     # print(FB_PUBLIC_LOAD_DATA_)
