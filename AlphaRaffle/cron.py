@@ -202,6 +202,10 @@ def luckd_crowler(no):
         
         if "docs.google.com" in sitelink:
             telegram_crawl = Telegram_crawl()
+            # redirct url
+            response = requests.get(sitelink, allow_redirects=True)
+            sitelink = response.url
+            
             if 'closedform' in sitelink:
                 pass
             else:
@@ -514,8 +518,8 @@ def crawl_test():
             link = sitecard[i].attrs['onclick']
             shoenum.append(link[39:].split('/')[0].replace("'",""))
         
-        shoenum = sorted(list(set(shoenum)), reverse=True)
-        print(len(shoenum),shoenum)
+        shoenum = [2401]
+        # print(len(shoenum),shoenum)
 
         for num in shoenum:
             now = datetime.datetime.now()
@@ -643,6 +647,32 @@ def luckd_crowler_test(no):
         
         sitelink = sitecard[i].a['href']
         print(sitelink)
+        
+
+        if "docs.google.com" in sitelink:
+            response = requests.get(sitelink, allow_redirects=True)
+
+            # If there is a redirect, this will give the final URL
+            sitelink = response.url
+
+            print(sitelink)
+            # telegram_crawl = Telegram_crawl()
+            if 'closedform' in sitelink:
+                print('???????????')
+                pass
+            else:
+                try:
+                    nameentry, phoneentrylen, birthentrylen,  nikeidentry = entrycrawl(sitelink)
+                    birthentry = birthentrylen[0]
+                    birthlen = birthentrylen[1] # 생년월일 길이
+                    phoneentry = phoneentrylen[0]
+                    phonehyphen = phoneentrylen[1] # 폰 하이픈 여부
+                    print(birthentry, birthlen, phoneentry, phonehyphen)
+                    # Shoesite.objects.filter(shoesiteunique = shoeunique).update(nameentry = nameentry, birthentry = birthentry, phoneentry = phoneentry, nikeidentry = nikeidentry )
+                    # telegram_crawl.crawl_entry_msg(nameentry, birthentry, phoneentry, nikeidentry)
+                except Exception as e:
+                    # telegram_crawl.crawl_entry_error_msg(e)
+                    print('error:'+e)
         # if 'luck-d' in sitelink:
         #     response = requests.get(sitelink)
         #     html = response.text
@@ -764,3 +794,4 @@ def daily_verification_delete_crontab():
         print(f'An error occurred: {e}')
 
     telegram_crawl.daily_verificationCode_delete()
+
