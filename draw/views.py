@@ -602,6 +602,11 @@ def details(request):
 
     context = {}
 
+    if Shoe.objects.filter(serialno=pk).exists():
+        print("The serialno already exists in the database.")
+    else:
+        print("The serialno does not exist in the database.")
+
     shoe = get_object_or_404(Shoe, serialno=pk) 
     #site = Shoesite.objects.filter(Q(serialno=pk)&Q(Published_date__gte=start_date, Published_date__lte=end_date))
     site = Shoesite.objects.filter(serialno=pk)
@@ -1258,7 +1263,7 @@ def googleCrawl(request):
     # url = 'https://docs.google.com/forms/d/e/1FAIpQLSc_RlwPQjfqI7DRfEf9CFzNTQbI6pmqOkI26FfJ5kvj7V6A5g/formResponse'
     # url = 'https://alpharaffle.com/google_temp'
     html = requests.get(url).text
-    
+
     # jsondata = html.json()
     # FB_PUBLIC_LOAD_DATA_ = jsondata["FB_PUBLIC_LOAD_DATA_"]
     # print(FB_PUBLIC_LOAD_DATA_)

@@ -1,12 +1,12 @@
 {% load static %}
 <header style="border-bottom: 1px solid #C8C8C8;">
-    <div style="float: left; margin: 5px 0 0 40px;">
+    <div class="logo-box" style="">
         <a href="{% url 'draw:홈' %}">
             <img style="width: 120px; height: 60px; cursor: pointer; margin-top: 6px;" data-src="{% static 'draw/necessary/ar(black).png' %}" class="lazyload logo">
         </a>
     </div>
-    <div style="float: right; margin-right: 40px; display: flex;">
-        <div style="width: 84px; height: 84px; position: relative;">
+    <div class="menu-box">
+        <div class="menu-items">
             <div class="search-icon"></div>
         </div>
         {% if member.member_no == None %}
@@ -14,10 +14,10 @@
             <a id="btn" href="{% url 'draw:로그인' %}" style="position: absolute; width: 120px; top: 50%; left: 50%; transform: translate(-50%, -50%);">로그인/회원가입</a>
         </div>
         {% else %}
-        <div style="width: 84px; height: 84px; position: relative;">
+        <div class="menu-items">
             <div class="notification-icon"></div>
         </div>
-        <div style="width: 84px; height: 84px; position: relative;">
+        <div class="menu-items">
             <div style="position: absolute; width: 50px; height: 50px; top: 50%; left: 50%; transform: translate(-50%, -50%);">
                 {% if member.profile_img_url == '-' %}
                 <img id="header_profile_img" class="profile-img off" style="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%; cursor: pointer;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
@@ -38,7 +38,7 @@
         </div>
         {% endif %}
     </div>
-    {% if request.path == '/main/' %}
+    {% if request.path == '/' %}
     <div style="width: 100vw; height: 42px; background-color: black; position: fixed; top: 84px;">
         <div style="width: 30vw; height: 100%; float: left;"></div>
         <div style="width: 40vw; height: 100%; float: left;">
@@ -78,6 +78,32 @@
 
     #btn:hover {
         color: black;
+    }
+
+    .logo-box {
+        float: left; margin: 5px 0 0 40px;
+    }
+
+    .menu-box {
+        float: right; margin-right: 40px; display: flex;
+    }
+
+    .menu-items {
+        width: 84px; height: 84px; position: relative;
+    }
+
+    @media (max-width: 575px) {
+        .logo-box {
+            margin: 5px 0 0 5px;
+        }
+
+        .menu-box {
+            margin-right: 5px;
+        }
+
+        .menu-items {
+            width: 50px;
+        }
     }
 
 </style>

@@ -34,7 +34,7 @@
 
     <section style="width: 100vw; height: 100vh;">
         <div style="width: 100vw; height: calc(100vh - 84px); top: 84px;">
-            <div style="width: 17.5vw; height: 100%; float: left;">
+            <div class="ad-box">
                 <ins class="adsbygoogle"
                     style="display:block"
                     data-ad-client="ca-pub-8303517261258440"
@@ -45,8 +45,8 @@
                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
-            <div style="width: 65vw; float: left;">
-                <div style="height: 20vh;">
+            <div class="whole-box">
+                <div class="top-ad-box">
                     <ins class="adsbygoogle"
                         style="display:block"
                         data-ad-client="ca-pub-8303517261258440"
@@ -57,8 +57,8 @@
                         (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>
                 </div>
-                <div style="height: calc(80vh - 84px); padding-bottom: 20vh;">
-                    <div class="u-section-1" style="width: 40%; height: 100%; float: left; position: relative;">
+                <div class="box1">
+                    <div class="box1-items-1 u-section-1">
                         <div class="u-carousel u-expanded-width-xs u-gallery u-gallery-slider u-layout-carousel u-lightbox u-no-transition u-show-text-none u-gallery-1" data-interval="5000" data-u-ride="carousel" id="carousel-edf8">
                             <ol class="u-absolute-hcenter u-carousel-indicators u-carousel-indicators-1">
                                 {% for img in img %}
@@ -121,7 +121,7 @@
                         </div>
                     </div>
 
-                    <div style="width: 60%; height: 100%; float: left; padding-left: 50px;">
+                    <div class="box1-items-2">
                         <div>
                             {% if shoenameSlash == None %}
                             <span style="font-size: 32px; font-weight: 900; line-height: 36px;">{{shoe.shoename}}</span>
@@ -209,7 +209,7 @@
                         </div>
                     </div>
                 </div>
-                <div style="height: calc(100vh - 84px);">
+                <div class="box2">
                     <div>
                         <span style="font-size: 36px; font-weight: 900;">자동 응모 서비스</span>
                     </div>
@@ -297,7 +297,7 @@
                         {% if notGoogleSite %}
                         {% for site in notGoogleSite %}
                             {% if site.is_valid_date %}
-                            <div class="wrapper-items">
+                            <div class="wrapper-items no-margin">
                                 <div style="height: 50%; position: relative; border-bottom: 0.30px #777777 solid;">
                                     <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
                                 </div>
@@ -325,7 +325,7 @@
                                 </div>
                             </div>
                             {% else %}
-                            <div class="wrapper-items-blur" style=" position: relative; ">
+                            <div class="wrapper-items-blur no-margin" style=" position: relative; ">
                                 <div class="wrapper-items-blur-box" style="">
                                     <div style="height: 50%; position: relative; border-bottom: 0.30px #777777 solid;">
                                         <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
@@ -366,7 +366,7 @@
                     </div>
                 </div>
 
-                <div class="u-section-3" style="height: calc(100vh - 84px);">
+                <div class="box3">
                     <div>
                         <span style="font-size: 36px; font-weight: 900;">오프라인 응모</span>
                     </div>
@@ -377,7 +377,7 @@
                         {% if offlineSite %}
                         {% for site in offlineSite %}
                             {% if site.is_valid_date %}
-                            <div class="wrapper-items">
+                            <div class="wrapper-items no-margin">
                                 <div style="height: 50%; position: relative; border-bottom: 0.30px #777777 solid;">
                                     <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
                                 </div>
@@ -405,8 +405,8 @@
                                 </div>
                             </div>
                             {% else %}
-                            <div class="wrapper-items-blur" style=" position: relative; ">
-                                <div class="wrapper-items-blur-box" style="">
+                            <div class="wrapper-items-blur no-margin" style=" position: relative; ">
+                                <div class="wrapper-items-blur-box">
                                     <div style="height: 50%; position: relative; border-bottom: 0.30px #777777 solid;">
                                         <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
                                     </div>
@@ -445,6 +445,18 @@
                         {% endif %}
                     </div>
 
+                    <div class="bottom-ad-box">
+                        <ins class="adsbygoogle"
+                            style="display:block"
+                            data-ad-client="ca-pub-8303517261258440"
+                            data-ad-slot="3708592674"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+
                     <div style="position: relative;">
                         <span style="font-size: 36px; font-weight: 900; ">댓글</span>
                         <p style="position: absolute; left: 80px; bottom: 0; margin: 0; font-size: 20px; font-weight: 300; color: #777; line-height: 43px;">{{comment_count}}개</p>
@@ -457,7 +469,11 @@
                     </div>
                     <div style="width: 100%; padding: 20px 50px; background: #EEEEEE; border-radius: 10px; margin-top: 30px;">
                         <div style="height: 36px; width: 36px; float: left;">
-                            <img class="lazyload" style="width: 36px; height: 36px; border-radius: 50px;" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}">
+                            {% if member.profile_img_url == '-' %}
+                            <img style="width: 36px; height: 36px; border-radius: 50px;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
+                            {% else %}
+                            <img style="width: 36px; height: 36px; border-radius: 50px;" src="{{member.profile_img_url}}">
+                            {% endif %}
                         </div>
                         <span style="font-size: 20px; font-weight: 500; line-height: 36px; margin-left: 10px;">{{member.member_nickname}}</span>
                         <div style="width: 100%; position: relative; margin-top: 10px;">
@@ -476,7 +492,11 @@
                     {% if comment.serialno != None %}
                     <div style="padding: 20px 50px; height: auto; overflow: hidden;">
                         <div style="height: 36px; width: 36px; float: left;">
-                            <img class="lazyload" style="width: 36px; height: 36px; border-radius: 50px;" data-src="{% static 'draw/images/jordan1OFF.jpeg' %}">
+                            {% if member.profile_img_url == '-' %}
+                            <img style="width: 36px; height: 36px; border-radius: 50px;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
+                            {% else %}
+                            <img style="width: 36px; height: 36px; border-radius: 50px;" src="{{member.profile_img_url}}">
+                            {% endif %}
                         </div>
                         <div style="width: calc(100% - 50px); float: left; padding-left: 10px;">
                             <div style="position: relative;">
@@ -536,7 +556,7 @@
                     {% endfor %}
                 </div>
             </div>
-            <div style="width: 17.5vw; height: 100%; float: left;">
+            <div class="ad-box">
                 <ins class="adsbygoogle"
                     style="display:block"
                     data-ad-client="ca-pub-8303517261258440"

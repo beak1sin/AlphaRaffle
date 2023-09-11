@@ -142,7 +142,7 @@ def luckd_crowler(no):
     # shoeDB = Shoe.objects.filter(serialno = serialno)
     # shoeDB.update(shoename = shoename , shoeengname = subname,
     #                 shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, shoeprice = shoeprice)
-    
+
     if len(imglen)>=1:            
         for i in range(len(imglen)):
             img_file = imglen[i].img['src']
@@ -794,4 +794,5 @@ def daily_verification_delete_crontab():
         print(f'An error occurred: {e}')
 
     telegram_crawl.daily_verificationCode_delete()
+
 
