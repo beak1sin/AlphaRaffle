@@ -121,7 +121,7 @@
                                     <div class="commentCount-box">
                                         <p class="commentCount">0</p>
                                     </div>
-                                    <div class="img-box" onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}'">
+                                    <div class="img-box" onclick="window.open(STATIC_FULL_URL + '{{shoe.serialno}}', '_blank')">
                                         <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{shoe.serialno}}0.jpeg">
                                     </div>
                                     <div class="bookmark-icon">
@@ -146,7 +146,7 @@
                                     <p class="pubdate">{{shoe.pubdate}}</p>
                                 </div>
                                 <div class="grid-goBtn-box">
-                                    <button class="goBtn">바로가기</button>
+                                    <button class="goBtn" onclick="window.open(STATIC_FULL_URL + '{{shoe.serialno}}', '_blank')">바로가기</button>
                                 </div>
                             </div>
                         </div>
@@ -202,7 +202,7 @@
                     {% for comment in comment %}
                     {% if comment.serialno != None %}
                     <div style="width: 100%; height: auto; margin-bottom: 40px; display: inline-block;" data-value="{{comment.id}}">
-                        <div style="float: left; width: 80px; height: 80px;">
+                        <div style="float: left; width: 80px; height: 80px; cursor: pointer;" onclick="window.open(STATIC_FULL_URL + '{{comment.serialno}}', '_blank')">
                             <img style="width: 80px; height: 80px; border-radius: 4px; border: 0.6px solid #C8C8C8;" src="{% static 'draw/images/' %}{{comment.shoename}}{{comment.serialno}}0.jpeg">
                         </div>
                         <div style="max-width: 500px; float: left; margin-left: 20px;">
@@ -341,6 +341,7 @@
                 </div>
             </div>
         </div>
+        <script>const STATIC_FULL_URL = "{% url 'draw:상세정보' %}?serialnum=";const STATIC_IMAGES_URL = "{% static 'draw/images/' %}";</script>
     </section>
 
     {% include 'draw/search.html' %}

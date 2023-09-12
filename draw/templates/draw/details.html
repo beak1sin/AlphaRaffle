@@ -400,7 +400,7 @@
                                         </p>
                                     </div>
                                     <div style="height: 40%; position: relative;">
-                                        <button onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}'" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #FBFBFB; border: 0.30px #777777 solid; border-radius: 20px; font-size: 12px; color: black; cursor: pointer;">응모</button>
+                                        <button onclick="window.open(STATIC_FULL_URL + '{{shoe.serialno}}', '_blank')" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #FBFBFB; border: 0.30px #777777 solid; border-radius: 20px; font-size: 12px; color: black; cursor: pointer;">응모</button>
                                     </div>
                                 </div>
                             </div>
@@ -468,6 +468,9 @@
                         </div>
                     </div>
                     <div style="width: 100%; padding: 20px 50px; background: #EEEEEE; border-radius: 10px; margin-top: 30px;">
+                        {% if member.member_no == None %}
+                        <p>로그인 후 이용해주시기 바랍니다.</p>
+                        {% else %}
                         <div style="height: 36px; width: 36px; float: left;">
                             {% if member.profile_img_url == '-' %}
                             <img style="width: 36px; height: 36px; border-radius: 50px;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
@@ -476,6 +479,7 @@
                             {% endif %}
                         </div>
                         <span style="font-size: 20px; font-weight: 500; line-height: 36px; margin-left: 10px;">{{member.member_nickname}}</span>
+                        {% endif %}
                         <div style="width: 100%; position: relative; margin-top: 10px;">
                             <input class="commentArea" style="width: 97%; height: 38px; border: none; border-bottom: 1px solid black;  background: #EEEEEE;" placeholder="댓글을 입력해주세요." maxlength="200">
                             <div class="comment-send-icon">

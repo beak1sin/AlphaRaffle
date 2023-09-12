@@ -52,7 +52,7 @@ $(document).ready( () => {
     
                 var obj = JSON.parse(data);
                 if(obj.flag == "0"){
-                    location.href = "/main/";
+                    location.href = "/";
                 }
                 else {
                     $('.error-box').html(obj.result_msg);
