@@ -172,7 +172,7 @@ $(document).ready(function(){
                   html += '<div class="grid-container"><div class="grid-img-box">';
                   html += '<div class="comment-icon"><label class="comment-icon-label"><span class="icon"></span></label></div>';
                   html += '<div class="commentCount-box"><p class="commentCount">0</p></div>';
-                  html += '<div class="img-box" onclick="location.href = \'' + STATIC_FULL_URL + shoe1.serialno + '\'">';
+                  html += '<div class="img-box" onclick="window.open(\'' + STATIC_FULL_URL + shoe1.serialno + '\', \'_blank\')">'; 
                   html += '<img class="lazyload shoeimg" data-src="' + STATIC_IMAGES_URL + shoe1.shoename + shoe1.serialno + '0.jpeg"></div>';
                   html += '<div class="bookmark-icon">';
                   html += '<label class="bookmark-icon-label' + (liked ? ' on' : '') + '">';
@@ -180,7 +180,7 @@ $(document).ready(function(){
                   html += '<div class="shoelikecount-box"><p class="shoelikecount">' + shoe1.shoelikecount + '</p></div></div>';
                   html += '<div class="grid-shoename-box"><p class="shoename">' + shoe1.shoename + '</p></div>';
                   html += '<div class="grid-pubdate-box"><p class="pubdate">' + shoe1.pubdate + '</p></div>';
-                  html += '<div class="grid-goBtn-box"><button class="goBtn" onclick="location.href = \'' + STATIC_FULL_URL + shoe1.serialno + '\'">바로가기</button></div>';
+                  html += '<div class="grid-goBtn-box"><button class="goBtn" onclick="window.open(\'' + STATIC_FULL_URL + shoe1.serialno + '\', \'_blank\')">바로가기</button></div>';
                   html += '</div></div>';
               }
               $('.infinite-container').append(html);

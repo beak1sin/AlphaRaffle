@@ -411,6 +411,18 @@ $(document).ready(function() {
             $('.profile-list').removeClass('on').addClass('off');
         }
     });
+
+    // profile-img 제외 남은 여백 클릭 시 이벤트
+    $(document).on('click', function(event) {
+        // 클릭된 요소가 .profile-list 또는 그 자식 요소, 또는 .profile-img가 아니면
+        if (!$(event.target).closest('.profile-list').length && !$(event.target).hasClass('profile-img')) {
+            // .profile-list가 on 상태인 경우에만 off로 변경
+            if ($('.profile-list').hasClass('on')) {
+                $('.profile-img').removeClass('on').addClass('off');
+                $('.profile-list').removeClass('on').addClass('off');
+            }
+        }
+    });
 });
 
 $(document).ready(function() {

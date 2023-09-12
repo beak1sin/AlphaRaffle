@@ -512,21 +512,23 @@ def upload(request):
             try:
                 file = request.FILES['file']
             except Exception as e:
-                context['message'] = e
-                return JsonResponse(context, content_type="application/json")
-
+                return
+                # context['message'] = e
+                # return JsonResponse(context, content_type="application/json")
+            file_name = file.name
 
             mime = magic.from_buffer(file.read(), mime=True)
             file.seek(0)  # 파일 포인터를 초기 위치로 되돌립니다.
-            allowed_mime_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml']
+            allowed_mime_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
             if mime not in allowed_mime_types:
                 context['flag'] = '0'
                 context['message'] = '* 허용되지 않는 파일 확장자입니다.'
                 return JsonResponse(context, content_type="application/json")
             if file.size > 1 * 1024 * 1024:
-                context['flag'] = '0'
-                context['message'] = '* 파일 크기가 1MB를 넘습니다.'
-                return JsonResponse(context, content_type="application/json")
+                file, file_name = compress_to_limit(file)
+                # context['flag'] = '0'
+                # context['message'] = '* 파일 크기가 1MB를 넘습니다.'
+                # return JsonResponse(context, content_type="application/json")
 
             BASE_DIR = Path(__file__).resolve().parent.parent
             environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
@@ -555,8 +557,8 @@ def upload(request):
             if list_objects_response.data.objects:  # 기존에 프로필 사진 파일 여부 검사
                 for obj in list_objects_response.data.objects:
                     object_storage.delete_object(namespace, bucket_name, obj.name)
-
-            object_name = object_prefix + file.name
+            
+            object_name = object_prefix + file_name
             object_storage.put_object(namespace, bucket_name, object_name, file) 
             
             image_url = f"https://objectstorage.{config['region']}.oraclecloud.com/n/{namespace}/b/{bucket_name}/o/{object_name}"
@@ -572,6 +574,70 @@ def upload(request):
         return JsonResponse(context)
     context["message"] = "Invalid request method."
     return JsonResponse(context)
+
+from PIL import Image, ExifTags
+import io
+
+def compress_to_limit(file, max_size_kb=1024, step=10):
+    image = Image.open(file)
+    image = correct_image_orientation(image)
+
+    if image.mode == 'RGBA':
+        image = image.convert('RGB')
+
+    quality = 90
+    file_bytes = None
+
+    while quality > 10:
+        output = io.BytesIO()
+        image.save(output, format="JPEG", quality=quality)
+        file_size_kb = len(output.getvalue()) / 1024
+
+        if file_size_kb <= max_size_kb:
+            file_bytes = output.getvalue()
+            break
+
+        quality -= step
+
+    if not file_bytes:
+        # Reduce image dimensions if quality reduction alone doesn't help
+        ratio = max_size_kb / file_size_kb
+        new_width = int(image.width * ratio**0.5)
+        new_height = int(image.height * ratio**0.5)
+        
+        image = image.resize((new_width, new_height))
+        output = io.BytesIO()
+        image.save(output, format="JPEG", quality=quality)
+        file_bytes = output.getvalue()
+
+    return io.BytesIO(file_bytes), file.name
+
+def correct_image_orientation(image):
+    try:
+        for orientation in ExifTags.TAGS.keys():
+            if ExifTags.TAGS[orientation] == 'Orientation':
+                break
+
+        exif = image._getexif()
+        if exif is not None and orientation in exif:
+            if exif[orientation] == 2:
+                image = image.transpose(Image.FLIP_LEFT_RIGHT)
+            elif exif[orientation] == 3:
+                image = image.rotate(180)
+            elif exif[orientation] == 4:
+                image = image.rotate(180).transpose(Image.FLIP_LEFT_RIGHT)
+            elif exif[orientation] == 5:
+                image = image.rotate(-90, expand=True).transpose(Image.FLIP_LEFT_RIGHT)
+            elif exif[orientation] == 6:
+                image = image.rotate(-90, expand=True)
+            elif exif[orientation] == 7:
+                image = image.rotate(90, expand=True).transpose(Image.FLIP_LEFT_RIGHT)
+            elif exif[orientation] == 8:
+                image = image.rotate(90, expand=True)
+        return image
+    except (AttributeError, KeyError, IndexError):
+        # In case of issues with the image's Exif data
+        return image
 
 @csrf_protect
 def comment_delete(request):
