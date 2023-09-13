@@ -33,8 +33,8 @@
     {% include 'draw/header.html' %}
 
     <section style="width: 100vw; height: 100vh;">
-        <div style="width: 100vw; height: calc(100vh - 84px); top: 84px;">
-            <div class="ad-box">
+        <div class="details-box">
+            <div class="left-ad-box">
                 <ins class="adsbygoogle"
                     style="display:block"
                     data-ad-client="ca-pub-8303517261258440"
@@ -124,41 +124,41 @@
                     <div class="box1-items-2">
                         <div>
                             {% if shoenameSlash == None %}
-                            <span style="font-size: 32px; font-weight: 900; line-height: 36px;">{{shoe.shoename}}</span>
+                            <span class="shoename">{{shoe.shoename}}</span>
                             {% else %}
-                            <span style="font-size: 32px; font-weight: 900; line-height: 36px;">{{shoenameSlash}}</span>
+                            <span class="shoename">{{shoenameSlash}}</span>
                             {% endif %}
                         </div>
                         <div>
-                            <span style="font-size: 20px; font-weight: 500; color: rgba(0, 0, 0, 0.50); line-height: 24px;">{{shoe.shoeengname}}</span>
+                            <span class="shoeengname">{{shoe.shoeengname}}</span>
                         </div>
                         <div style="padding: 10px 0px; height: auto; overflow: hidden;">
                             <div style="padding: 10px 0px; height: auto; overflow: hidden;">
                                 <div style="float: left;">
-                                    <span style="font-size: 24px; font-weight: 500;">제품코드</span>
+                                    <span class="title">제품코드</span>
                                 </div>
                                 <div style="float: right;">
                                     {% if serialnoSlash == None %}
-                                    <span class="serialno" style="font-size: 24px; font-weight: 700">{{shoe.serialno}}</span>
+                                    <span class="serialno">{{shoe.serialno}}</span>
                                     {% else %}
-                                    <span class="serialnoSlash" style="font-size: 24px; font-weight: 700">{{serialnoSlash}}</span>
+                                    <span class="serialnoSlash">{{serialnoSlash}}</span>
                                     {% endif %}
                                 </div>
                             </div>
                             <div style="padding: 10px 0px; height: auto; overflow: hidden;">
                                 <div style="float: left;">
-                                    <span style="font-size: 24px; font-weight: 500;">발매일</span>
+                                    <span class="title">발매일</span>
                                 </div>
                                 <div style="float: right;">
-                                    <span style="font-size: 24px; font-weight: 700">{{shoe.pubdate}}</span>
+                                    <span class="pubdate">{{shoe.pubdate}}</span>
                                 </div>
                             </div>
                             <div style="padding: 10px 0px; height: auto; overflow: hidden;">
                                 <div style="float: left;">
-                                    <span style="font-size: 24px; font-weight: 500;">발매가</span>
+                                    <span class="title">발매가</span>
                                 </div>
                                 <div style="float: right;">
-                                    <span style="font-size: 24px; font-weight: 700">{{shoe.shoeprice}}</span>
+                                    <span class="shoeprice">{{shoe.shoeprice}}</span>
                                 </div>
                             </div>
                         </div>
@@ -211,10 +211,10 @@
                 </div>
                 <div class="box2">
                     <div>
-                        <span style="font-size: 36px; font-weight: 900;">자동 응모 서비스</span>
+                        <span class="box-title">자동 응모 서비스</span>
                     </div>
                     <div>
-                        <span style="color: #777777; font-size: 24px; font-weight: 400;">클릭하면 구글폼에 개인 정보를 자동 입력하여 응모합니다.</span>
+                        <span class="box-title-comment">클릭하면 구글폼에 개인 정보를 자동 입력하여 응모합니다.</span>
                     </div>
                     <div class="wrapper">
                         {% if googleSite %}
@@ -288,10 +288,10 @@
                         {% endif %}
                     </div>
                     <div>
-                        <span style="font-size: 36px; font-weight: 900;">응모 링크</span>
+                        <span class="box-title">응모 링크</span>
                     </div>
                     <div>
-                        <span style="color: #777777; font-size: 24px; font-weight: 400;">클릭하면 응모 페이지로 자동 연결합니다.</span>
+                        <span class="box-title-comment">클릭하면 응모 페이지로 자동 연결합니다.</span>
                     </div>
                     <div class="wrapper">
                         {% if notGoogleSite %}
@@ -368,10 +368,10 @@
 
                 <div class="box3">
                     <div>
-                        <span style="font-size: 36px; font-weight: 900;">오프라인 응모</span>
+                        <span class="box-title">오프라인 응모</span>
                     </div>
                     <div>
-                        <span style="color: #777777; font-size: 24px; font-weight: 400;">응모 정보와 매장 위치를 확인하세요.</span>
+                        <span class="box-title-comment">응모 정보와 매장 위치를 확인하세요.</span>
                     </div>
                     <div class="wrapper">
                         {% if offlineSite %}
@@ -458,9 +458,9 @@
                     </div>
 
                     <div style="position: relative; clear: both;">
-                        <span style="font-size: 36px; font-weight: 900; ">댓글</span>
-                        <p style="position: absolute; left: 80px; bottom: 0; margin: 0; font-size: 20px; font-weight: 300; color: #777; line-height: 43px;">{{comment_count}}개</p>
-                        <p style="position: absolute; right: 30px; bottom: 14px; margin: 0; font-size: 20px; font-weight: 300; color: #777; line-height: 20px;">좋아요 순</p>
+                        <span class="box-title">댓글</span>
+                        <p class="comment-count">{{comment_count}}개</p>
+                        <p class="details-viewSort-title">좋아요 순</p>
                         <div class="details-viewSort-icon">
                             <label class="details-viewSort-icon-label">
                                 <span class="icon"></span>
@@ -560,7 +560,7 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="ad-box">
+            <div class="right-ad-box">
                 <ins class="adsbygoogle"
                     style="display:block"
                     data-ad-client="ca-pub-8303517261258440"
@@ -606,6 +606,7 @@
     <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
     <script src="{% static 'draw/js/details.js' %}"></script>
     <script src="{% static 'draw/js/alpharaffle.js' %}"></script>
+    <script src="{% static 'draw/js/headerScroll.js' %}"></script>
     <script src="{% static 'draw/js/sha1.js' %}"></script>
 </body>
 

@@ -6,6 +6,26 @@ input:focus {
   border-bottom: 1px solid #EEEEEE;
 }
 
+.mypage-box.nav-up {
+  width: 100vw; height: calc(100vh - 84px); top: 84px;
+  transition: all 0.2s;
+}
+
+.mypage-box.nav-down {
+  width: 100vw; height: calc(100vh);
+  transition: all 0.2s;
+}
+
+.mypage-nav-box.nav-up {
+  width: 300px; float: left; height: calc(100vh - 84px); position: fixed; box-shadow: 4px 0px 5px 2px rgba(135, 135, 135, 0.12); top: 84px;
+  transition: all 0.2s;
+}
+
+.mypage-nav-box.nav-down {
+  width: 300px; float: left; height: calc(100vh); position: fixed; box-shadow: 4px 0px 5px 2px rgba(135, 135, 135, 0.12);
+  transition: all 0.2s;
+}
+
 .tab {
   width: 100%;
   height: 10vh;

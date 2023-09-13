@@ -725,6 +725,18 @@ background: url(../necessary/like_fill.svg) no-repeat center center/24px auto;
   margin: 20px 0; width: 100%; height: 10vh;
 }
 
+.left-ad-box {
+  width: 17.5vw; position: fixed; left: 0; top: 50%; transform: translateY(-50%);
+}
+
+.right-ad-box {
+  width: 17.5vw; position: fixed; right: 0; top: 50%; transform: translateY(-50%);
+}
+
+.details-box {
+  width: 100vw; height: calc(100vh - 84px); top: 84px; position: relative; padding: 0 17.5vw;
+}
+
 .whole-box {
   width: 65vw; float: left; padding: 0 10px;
 }
@@ -740,17 +752,53 @@ background: url(../necessary/like_fill.svg) no-repeat center center/24px auto;
   width: 60%; height: 100%; float: left; padding-left: 50px;
 }
 
+.shoename {
+  font-size: 32px; font-weight: 900; line-height: 36px;
+}
+
+.shoeengname {
+  font-size: 20px; font-weight: 500; color: rgba(0, 0, 0, 0.50); line-height: 24px;
+}
+
+.title {
+  font-size: 24px; font-weight: 500;
+}
+
+.serialno, .serialnoSlash, .pubdate, .shoeprice {
+  font-size: 24px; font-weight: 700;
+}
+
 .box2, .box3 {
   height: calc(100vh - 84px);
 }
 
+.box-title {
+  font-size: 36px; font-weight: 900;
+}
+
+.box-title-comment {
+  color: #777777; font-size: 24px; font-weight: 400;
+}
+
+.comment-count {
+  position: absolute; left: 80px; bottom: 0; margin: 0 !important; font-size: 20px; font-weight: 300; color: #777; line-height: 43px;
+}
+
+.details-viewSort-title {
+  position: absolute; right: 30px; bottom: 14px; margin: 0 !important; font-size: 20px; font-weight: 300; color: #777; line-height: 20px;
+}
+
 @media (max-width: 767px) {
-  .ad-box {
+  .left-ad-box, .right-ad-box {
     display: none;
   }
 
   .top-ad-box {
     height: 15vh !important;
+  }
+
+  .details-box {
+    padding: 0;
   }
 
   .whole-box {
@@ -762,6 +810,7 @@ background: url(../necessary/like_fill.svg) no-repeat center center/24px auto;
     display: flex;
     flex-direction: column;
     height: auto;
+    padding-bottom: 5vh;
   }
 
   .box1-items-1 {
@@ -770,6 +819,23 @@ background: url(../necessary/like_fill.svg) no-repeat center center/24px auto;
   .box1-items-2 {
     width: 100%;
     padding-right: 50px;
+    margin-top: 50px;
+  }
+
+  .shoename {
+    font-size: 26px;
+  }
+  
+  .shoeengname {
+    font-size: 18px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .serialno, .serialnoSlash, .pubdate, .shoeprice {
+    font-size: 20px !important;
   }
 
   .box2, .box3 {
@@ -777,6 +843,27 @@ background: url(../necessary/like_fill.svg) no-repeat center center/24px auto;
     display: flex;
     flex-direction: column;
     padding: 0 50px;
+  }
+
+  .box-title {
+    font-size: 26px;
+  }
+
+  .box-title-comment {
+    font-size: 20px;
+  }
+
+  .comment-count {
+    left: 60px; font-size: 18px; line-height: 34px;
+  }
+
+  .details-viewSort-title {
+    bottom: 7px;
+    font-size: 18px;
+  }
+
+  .details-viewSort-icon {
+    bottom: 6px;
   }
   
   .wrapper {

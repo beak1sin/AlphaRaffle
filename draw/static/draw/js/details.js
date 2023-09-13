@@ -232,8 +232,5 @@ $(document).ready(function() {
         alert('로그인 후에 이용이 가능합니다.');
     });
 
-    // $('.comment-send-icon-label').click(function() {
-    //     var receiver = $(this).parent().parent().parent().parent().children(':first').children(':first').text();
-    //     alert(receiver);
-    // });
+    
 });

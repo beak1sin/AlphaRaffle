@@ -230,6 +230,24 @@ $(document).ready(function(){
       xhr.send(datastr);
   }
 
+  var bannerBoxBottom = $('.banner-box').offset().top + $('.banner-box').height() - 42;
+  var adBox = $('.ad-box');
+
+  if ($(window).scrollTop() > bannerBoxBottom) {
+      adBox.addClass('fixed');
+  } else {
+      adBox.removeClass('fixed');
+  }
+  
+  $(window).scroll(function() {
+      var scrollPos = $(window).scrollTop();
+      if (scrollPos > bannerBoxBottom) {
+          adBox.addClass('fixed');
+      } else {
+          adBox.removeClass('fixed');
+      }
+  });
+
 });//DOCUMENT READY
 
 

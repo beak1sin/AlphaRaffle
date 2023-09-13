@@ -1,5 +1,5 @@
 {% load static %}
-<header style="border-bottom: 1px solid #C8C8C8;">
+<header class="nav-down" style="border-bottom: 1px solid #C8C8C8;">
     <div class="logo-box" style="">
         <a href="{% url 'draw:홈' %}">
             <img style="width: 120px; height: 60px; cursor: pointer; margin-top: 6px;" data-src="{% static 'draw/necessary/ar(black).png' %}" class="lazyload logo">
@@ -39,7 +39,7 @@
         {% endif %}
     </div>
     {% if request.path == '/' %}
-    <div style="width: 100vw; height: 42px; background-color: black; position: fixed; top: 84px;">
+    <div style="width: 100vw; height: 42px; background-color: black; display: inline-block;">
         <div class="main-header-1"></div>
         <div class="main-header-2">
             <div style="width: 33.33%; height: 100%; float: left; padding: 5px 20px; text-align: center;">
@@ -71,6 +71,9 @@
 </header>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <style type="text/css">
+    header {
+        transition: top 0.2s ease-in-out;
+    }
     #btn {
         transition-duration: 0.2s;
         color: #B0B0B0;
@@ -108,19 +111,7 @@
         width: 84px; height: 84px; position: relative;
     }
 
-    @media (max-width: 575px) {
-        .logo-box {
-            margin: 5px 0 0 5px;
-        }
-
-        .menu-box {
-            margin-right: 5px;
-        }
-
-        .menu-items {
-            width: 50px;
-        }
-
+    @media (max-width: 767px) {
         .main-header-1, .main-header-3 {
             width: 10vw;
         }
@@ -136,6 +127,24 @@
         .main-header-2 {
             width: 80vw;
         }
+    }
+
+    @media (max-width: 575px) {
+        .logo-box {
+            margin: 5px 0 0 5px;
+        }
+
+        .menu-box {
+            margin-right: 5px;
+        }
+
+        .menu-items {
+            width: 50px;
+        }
+    }
+
+    .nav-up {
+        top: -84px;
     }
 
 </style>
