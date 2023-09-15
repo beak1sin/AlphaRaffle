@@ -819,7 +819,10 @@ def imgchange():
             if shoe.serialno in filename:
                 if shoe.shoename in filename:
                     new_filename = filename.replace(shoe.shoename, '').replace(' ', '')
-                    os.rename(os.path.join(image_folder, filename), os.path.join(image_folder, new_filename))
+                    try:
+                        os.rename(os.path.join(image_folder, filename), os.path.join(image_folder, new_filename))
+                    except Exception as e:
+                        print(f'error: {e}')
                 # shoename 제거 및 serialno 앞의 공백 제거
                 # filename.replace(shoe.shoename, '')
                 # print(shoe.shoename)
