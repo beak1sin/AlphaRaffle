@@ -413,6 +413,6 @@ input[type="checkbox"] {
 }
 @media (max-width: 767px) {
     .filter-layer-footer {
-        margin-bottom: 50px;
+        margin-bottom: 100px;
     }
 }
