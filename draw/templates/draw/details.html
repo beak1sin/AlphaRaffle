@@ -79,13 +79,13 @@
                                 {% if forloop.counter == 1 %}
                                 <div class="u-active u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter0}}">
                                     <div class="u-back-slide u-back-slide-1">
-                                        <img class="lazyload u-back-image u-expanded" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{img.serialno}}{{forloop.counter0}}.jpeg">
+                                        <img class="lazyload u-back-image u-expanded" data-src="{% static 'draw/images/' %}{{img.serialno}}{{forloop.counter0}}.jpeg">
                                     </div>
                                 </div>
                                 {% else %}
                                 <div class="u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter0}}">
                                     <div class="u-back-slide">
-                                        <img class="lazyload u-back-image u-expanded" data-src="{% static 'draw/images/' %}{{shoe.shoename}}{{img.serialno}}{{forloop.counter0}}.jpeg">
+                                        <img class="lazyload u-back-image u-expanded" data-src="{% static 'draw/images/' %}{{img.serialno}}{{forloop.counter0}}.jpeg">
                                     </div>
                                 </div>
                                 {% endif %}

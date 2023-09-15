@@ -804,7 +804,7 @@ def daily_verification_delete_crontab():
 import os
 import re
 
-def imgchange(request):
+def imgchange():
     # 이미지 폴더 경로 설정
     image_folder = '/usr/local/share/AlphaRaffle/draw/static/draw/images'
     # print('실행')
