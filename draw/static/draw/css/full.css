@@ -416,7 +416,7 @@ input[type="checkbox"] {
         margin-bottom: 100px;
     }
 
-    .ad-box {
+    .ad-box > * {
         display: none;
     }
 }

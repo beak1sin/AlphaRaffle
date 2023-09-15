@@ -89,6 +89,8 @@ def luckd_crowler(no):
     time.sleep(0.01)
     #신발 한글이름
     shoename = soup.select("h1.page_title")[0].text.replace('/', '_')
+    shoename = shoename.replace('%', '♪')
+    shoename = shoename.replace('+', '♣')
     #신발 영어이름
     try:
         subname  = soup.select("h2.sub_title")[0].text
@@ -112,7 +114,7 @@ def luckd_crowler(no):
     for i in range(len(detail_info)):
         detail_info_find = soup.select('ul.detail_info>li')[i].text
         if '제품 코드' in detail_info_find:
-            serialno = detail_info_find[5:].replace('/', '_')
+            serialno = detail_info_find[6:].replace('/', '_')
         if '발매일' in detail_info_find:
             shoepubdate = detail_info_find[3:]
         if '발매가' in detail_info_find or '가격' in detail_info_find:
@@ -216,7 +218,7 @@ def luckd_crowler(no):
                     phoneentry = phoneentrylen[0]
                     phonehyphen = phoneentrylen[1] # 폰 하이픈 여부
 
-                    Shoesite.objects.filter(shoesiteunique = shoeunique).update(nameentry = nameentry, birthentry = birthentry, phoneentry = phoneentry, nikeidentry = nikeidentry )
+                    Shoesite.objects.filter(shoesiteunique = shoeunique).update(nameentry = nameentry, birthentry = birthentry, phoneentry = phoneentry, nikeidentry = nikeidentry)
                     telegram_crawl.crawl_entry_msg(nameentry, birthentry, phoneentry, nikeidentry)
                 except Exception as e:
                     telegram_crawl.crawl_entry_error_msg(e)
@@ -359,6 +361,7 @@ def entrycrawl(url):
     # 0: title, 1: index, 2: checkboxLength, 3: entry, 4: checkboxValue, 5: inputLimitChar
     checkbox_dict = {}
     input_dict = {}
+    nameentry,phoneentry,birthentry,nikeidentry = None, None, None, None
     for i in range(len(googleEntry)):
         # 필수 체크박스이고 체크박스가 한개인 경우
         if googleEntry[i][1] == 4 and googleEntry[i][2] == 1:
@@ -367,29 +370,31 @@ def entrycrawl(url):
         if googleEntry[i][1] == 0:
             if '성함' in googleEntry[i][0] or '이름' in googleEntry[i][0]:
                 nameentry = googleEntry[i][3]
-            else :
-                nameentry = None
+            # else :
+            #     nameentry = None
                 
             if '연락처' in googleEntry[i][0] or '전화번호' in googleEntry[i][0] or '휴대폰' in googleEntry[i][0] or '핸드폰' in googleEntry[i][0]:
                 if '11' in googleEntry[i][5]:
                     phoneentry = [googleEntry[i][3],11]
+                    
                 else:
                     phoneentry = [googleEntry[i][3],'-']
-            else :
-                phoneentry = None
+            # else :
+            #     phoneentry = None
 
             if '생년월일' in googleEntry[i][0] or '생일' in googleEntry[i][0]:
                 if '6' in googleEntry[i][5]:
                     birthentry = [ googleEntry[i][3], 6 ]
                 else:
                     birthentry = [ googleEntry[i][3], 8 ]
-            else :
-                birthentry = None
+            # else :
+            #     birthentry = None
 
             if '아이디' in googleEntry[i][0] or 'ID' in googleEntry[i][0] or 'id' in googleEntry[i][0]:
                 nikeidentry = googleEntry[i][3]
-            else :
-                nikeidentry = None
+            # else :
+            #     nikeidentry = None
+
 
     return nameentry,phoneentry,birthentry,nikeidentry
 
@@ -517,8 +522,9 @@ def crawl_test():
         for i in range(len(sitecard)):    
             link = sitecard[i].attrs['onclick']
             shoenum.append(link[39:].split('/')[0].replace("'",""))
-        
-        shoenum = [2401]
+
+        # shoenum = sorted(list(set(shoenum)), reverse=True)
+        shoenum = [3317]
         # print(len(shoenum),shoenum)
 
         for num in shoenum:
@@ -568,7 +574,7 @@ def luckd_crowler_test(no):
     for i in range(len(detail_info)):
         detail_info_find = soup.select('ul.detail_info>li')[i].text
         if '제품 코드' in detail_info_find:
-            serialno = detail_info_find[5:]
+            serialno = detail_info_find[6:]
         if '발매일' in detail_info_find:
             shoepubdate = detail_info_find[3:]
         if '발매가' in detail_info_find or '가격' in detail_info_find:
@@ -578,7 +584,7 @@ def luckd_crowler_test(no):
         else:
             product_detail = '-'
     
-    
+        
     # print(serialno, shoepubdate, shoeprice, product_detail)
 
     if len(serialno) <= 2:
@@ -667,7 +673,7 @@ def luckd_crowler_test(no):
                     birthlen = birthentrylen[1] # 생년월일 길이
                     phoneentry = phoneentrylen[0]
                     phonehyphen = phoneentrylen[1] # 폰 하이픈 여부
-                    print(birthentry, birthlen, phoneentry, phonehyphen)
+                    print(nameentry, birthentry, birthlen, phoneentry, phonehyphen, nikeidentry)
                     # Shoesite.objects.filter(shoesiteunique = shoeunique).update(nameentry = nameentry, birthentry = birthentry, phoneentry = phoneentry, nikeidentry = nikeidentry )
                     # telegram_crawl.crawl_entry_msg(nameentry, birthentry, phoneentry, nikeidentry)
                 except Exception as e:
@@ -795,4 +801,32 @@ def daily_verification_delete_crontab():
 
     telegram_crawl.daily_verificationCode_delete()
 
+import os
+import re
 
+def imgchange(request):
+    # 이미지 폴더 경로 설정
+    image_folder = '/usr/local/share/AlphaRaffle/draw/static/draw/images'
+    # print('실행')
+    # 파일명 분석을 위한 정규 표현식 패턴
+    shoes = Shoe.objects.filter()
+
+    # 이미지 폴더 내의 모든 파일을 순회
+    for filename in os.listdir(image_folder):
+        # print(filename)
+        for shoe in shoes:
+            # 파일명이 shoename과 serialno를 포함하는지 확인
+            if shoe.serialno in filename:
+                if shoe.shoename in filename:
+                    new_filename = filename.replace(shoe.shoename, '').replace(' ', '')
+                    os.rename(os.path.join(image_folder, filename), os.path.join(image_folder, new_filename))
+                # shoename 제거 및 serialno 앞의 공백 제거
+                # filename.replace(shoe.shoename, '')
+                # print(shoe.shoename)
+                # print(filename)
+                # new_filename = filename.replace(shoe.shoename, '').replace(' ', '')  # shoename과 공백 제거
+                # print(new_filename)
+                # 파일 재명명
+                # os.rename(os.path.join(image_folder, filename), os.path.join(image_folder, new_filename))
+
+    return redirect('/')

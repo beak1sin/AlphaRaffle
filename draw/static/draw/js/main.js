@@ -232,6 +232,7 @@ $(document).ready(function(){
 
   var bannerBoxBottom = $('.banner-box').offset().top + $('.banner-box').height() - 42;
   var adBox = $('.ad-box');
+  var adBoxPos = $('.ad-box-pos');
 
   if ($(window).scrollTop() > bannerBoxBottom) {
       adBox.addClass('fixed');
@@ -243,8 +244,10 @@ $(document).ready(function(){
       var scrollPos = $(window).scrollTop();
       if (scrollPos > bannerBoxBottom) {
           adBox.addClass('fixed');
+          adBoxPos.addClass('fixed');
       } else {
           adBox.removeClass('fixed');
+          adBoxPos.removeClass('fixed');
       }
   });
 

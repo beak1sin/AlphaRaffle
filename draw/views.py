@@ -232,7 +232,7 @@ def home(request):
         member_no = request.session['member_no']
         member = Member.objects.get(pk=member_no)
         recent_searches = SearchTerm.objects.filter(member_no=member_no).order_by('-created_at')[:10]
-
+    
     context = {'member': member, 'droppedShoe': droppedShoe, 'endShoe': endShoe, 'upcomingShoe': upcomingShoe ,'endShoe_count': endShoe_count, 'recent_searches': recent_searches}  # member 객체를 context에 추가
 
     if request.method == 'POST':
@@ -719,8 +719,10 @@ def details(request):
     else:
         serialnoSlash = None
 
-    if '_' in shoe.shoename:
+    if '_' in shoe.shoename or '♪' in shoe.shoename or '凸' in shoe.shoename :
         shoenameSlash = shoe.shoename.replace('_', '/')
+        shoenameSlash = shoenameSlash.replace('♪', '%')
+        shoenameSlash = shoenameSlash.replace('凸', '+')
     else:
         shoenameSlash = None
 
@@ -871,6 +873,13 @@ def full(request):
     recent_searches = None
     term = None
     shoe_count = Shoe.objects.all().count()
+
+    if '_' in shoe.shoename or '♪' in shoe.shoename or '凸' in shoe.shoename :
+        shoenameSlash = shoe.shoename.replace('_', '/')
+        shoenameSlash = shoenameSlash.replace('♪', '%')
+        shoenameSlash = shoenameSlash.replace('凸', '+')
+    else:
+        shoenameSlash = None
 
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']

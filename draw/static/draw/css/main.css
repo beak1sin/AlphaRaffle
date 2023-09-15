@@ -222,8 +222,16 @@
   -ms-transition: all 0.3s cubic-bezier(1,.01,.32,1);
   transition: all 0.3s cubic-bezier(1,.01,.32,1); 
 }
+
+.ad-box-pos {
+  left: 50%; position: absolute; transform: translateX(-50%)
+}
+
+.ad-box-pos.fixed {
+  top: 50%; transform: translate(-50%, -50%);
+}
 @media (max-width: 767px) {
-  .ad-box {
+  .ad-box > * {
     display: none;
   }
 }

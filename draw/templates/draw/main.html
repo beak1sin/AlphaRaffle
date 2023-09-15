@@ -122,11 +122,13 @@
             </div>
             <div class="grid-wrapper-box">
                 <div class="ad-box">
-                    <ins class="kakao_ad_area" style="display:none;"
-                    data-ad-unit = "DAN-gUHxDMcnAJns3OeR"
-                    data-ad-width = "160"
-                    data-ad-height = "600"></ins>
-                    <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+                    <div class="ad-box-pos">
+                        <ins class="kakao_ad_area" style="display:none;"
+                        data-ad-unit = "DAN-gUHxDMcnAJns3OeR"
+                        data-ad-width = "160"
+                        data-ad-height = "600"></ins>
+                        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+                    </div>
                 </div>
                 
                 <div style="width: 65vw; float: left;">
@@ -181,7 +183,11 @@
                                     </div>
                                 </div>
                                 <div class="grid-shoename-box">
+                                    {% if shoenameSlash == None %}
                                     <p class="shoename">{{shoe.shoename}}</p>
+                                    {% else %}
+                                    <p class="shoename">{{shoenameSlash}}</p>
+                                    {% endif %}
                                 </div>
                                 <div class="grid-pubdate-box">
                                     <p class="pubdate">{{shoe.pubdate}}</p>
@@ -227,7 +233,11 @@
                                     </div>
                                 </div>
                                 <div class="grid-shoename-box">
+                                    {% if shoenameSlash == None %}
                                     <p class="shoename">{{shoe.shoename}}</p>
+                                    {% else %}
+                                    <p class="shoename">{{shoenameSlash}}</p>
+                                    {% endif %}
                                 </div>
                                 <div class="grid-pubdate-box">
                                     <p class="pubdate">{{shoe.pubdate}}</p>
@@ -273,7 +283,11 @@
                                     </div>
                                 </div>
                                 <div class="grid-shoename-box">
+                                    {% if shoenameSlash == None %}
                                     <p class="shoename">{{shoe.shoename}}</p>
+                                    {% else %}
+                                    <p class="shoename">{{shoenameSlash}}</p>
+                                    {% endif %}
                                 </div>
                                 <div class="grid-pubdate-box">
                                     <p class="pubdate">{{shoe.pubdate}}</p>
@@ -288,11 +302,13 @@
                     </div>
                 </div>
                 <div class="ad-box">
-                    <ins class="kakao_ad_area" style="display:none;"
-                    data-ad-unit = "DAN-YPfFgrfhCMxAZ7mq"
-                    data-ad-width = "160"
-                    data-ad-height = "600"></ins>
-                    <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+                    <div class="ad-box-pos">
+                        <ins class="kakao_ad_area" style="display:none;"
+                        data-ad-unit = "DAN-YPfFgrfhCMxAZ7mq"
+                        data-ad-width = "160"
+                        data-ad-height = "600"></ins>
+                        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+                    </div>
                 </div>
             </div>
         </div>

@@ -726,11 +726,11 @@ background: url(../necessary/like_fill.svg) no-repeat center center/24px auto;
 }
 
 .left-ad-box {
-  position: fixed; left: 0; top: 50%; transform: translateY(-50%);
+  width: 17.5vw; position: fixed; left: 0; top: 50%; transform: translateY(-50%);
 }
 
 .right-ad-box {
-  position: fixed; right: 0; top: 50%; transform: translateY(-50%);
+  width: 17.5vw; position: fixed; right: 0; top: 50%; transform: translateY(-50%);
 }
 
 .details-box {

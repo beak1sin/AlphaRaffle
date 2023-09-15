@@ -84,6 +84,7 @@ urlpatterns = [
     path('googleCrawl', views.googleCrawl, name="googleCrawl"),
 
     path('crawl', cron.crawl2, name='crawl'),
+    path('imgchange', cron.imgchange, name='imgchange'),
 
     # 색인
     # 기본 Sitemap 경로
