@@ -222,5 +222,9 @@
   -ms-transition: all 0.3s cubic-bezier(1,.01,.32,1);
   transition: all 0.3s cubic-bezier(1,.01,.32,1); 
 }
-
+@media (max-width: 767px) {
+  .ad-box {
+    display: none;
+  }
+}
 

@@ -415,4 +415,8 @@ input[type="checkbox"] {
     .filter-layer-footer {
         margin-bottom: 100px;
     }
+
+    .ad-box {
+        display: none;
+    }
 }
