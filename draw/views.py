@@ -874,13 +874,6 @@ def full(request):
     term = None
     shoe_count = Shoe.objects.all().count()
 
-    if '_' in shoe.shoename or '♪' in shoe.shoename or '凸' in shoe.shoename :
-        shoenameSlash = shoe.shoename.replace('_', '/')
-        shoenameSlash = shoenameSlash.replace('♪', '%')
-        shoenameSlash = shoenameSlash.replace('凸', '+')
-    else:
-        shoenameSlash = None
-
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
         member = Member.objects.get(pk=member_no)

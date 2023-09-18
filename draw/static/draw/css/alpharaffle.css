@@ -1,3 +1,18 @@
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+section > *, header > *, footer > *, .u-sheet > *, .u-section-row > * {
+  position: relative;
+}
+
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard-dynamic-subset.css");
+
+html {
+  font-family: 'Pretendard' !important;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
 /* 크롬 자동완성 파란색 없애기 */
 input:-webkit-autofill { -webkit-box-shadow: 0 0 0 30px #fbfbfb inset ; -webkit-text-fill-color: #000; }
 input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0s; }

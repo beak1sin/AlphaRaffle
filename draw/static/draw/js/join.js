@@ -666,18 +666,6 @@ $(document).ready( () => {
     
         pwdencrypted = hex_sha1(memberpwd);
     
-        // wflag = document.getElementById("warrantcheck").checked;
-        // if(wflag == false) {
-        //     Swal.fire({
-        //       icon: 'error',
-        //       title: '약관에 동의해주세요.',
-        //       confirmButtonColor: '#000000',
-        //       timer: 2000,
-        //       timerProgressBar: true
-        //     })
-        //     return false;
-        // }
-    
         memberrealname = document.getElementById("member_realname").value;
         membernickname = document.getElementById("member_nickname").value;
         memberbirth = document.getElementById("member_birth").value;

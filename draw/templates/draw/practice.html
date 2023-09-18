@@ -4,97 +4,127 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'draw/css/nicepage.css' %}" media="screen">
+    <!-- <link rel="stylesheet" href="{% static 'draw/css/nicepage.css' %}" media="screen"> -->
     <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
+    <style>
+        .carousel-wrapper {
+            width: 500px;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carousel {
+            display: flex;
+        }
+
+        .carousel-img {
+            width: 500px;
+            height: 500px;
+        }
+
+
+
+        .prev-btn {
+            position: absolute;
+            left: 10px;
+            width: 40px;
+            height: 40px;
+            padding: 10px;
+            opacity: 0.7;
+            color: #ffffff !important;
+            background-color: #4d4d4d;
+            display: inline-block;
+            z-index: 1;
+            font-size: inherit;
+            font-family: inherit;
+            line-height: inherit;
+            letter-spacing: inherit;
+            text-transform: inherit;
+            font-style: inherit;
+            font-weight: inherit;
+            text-decoration: none;
+            border: none;
+            margin: 0 !important;
+            bottom: 0;
+            text-align: center;
+            border-radius: 50%;
+            top: 50% !important;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .next-btn {
+            position: absolute;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            padding: 10px;
+            opacity: 0.7;
+            color: #ffffff !important;
+            background-color: #4d4d4d;
+            display: inline-block;
+            z-index: 1;
+            font-size: inherit;
+            font-family: inherit;
+            line-height: inherit;
+            letter-spacing: inherit;
+            text-transform: inherit;
+            font-style: inherit;
+            font-weight: inherit;
+            text-decoration: none;
+            border: none;
+            margin: 0 !important;
+            text-align: center;
+            border-radius: 50%;
+            top: 50% !important;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .prev-btn > span, .next-btn > span{
+            display: inline-block;
+            height: 100%;
+            width: 100%;
+            color: #ffffff !important;
+        }
+
+    </style>
+
 	<title>Practice</title>
 </head>
-<body class="u-body u-xl-mode">
-    
-    <!-- <section style="width: 100vw; height: 100vh; background-color: antiquewhite;">
-        <div style="width: 100vw; height: calc(100vh - 84px); top:84px; background-color: darkcyan;">
-            <div style="width: 100vw; height: 20vh; background-color: aqua;"></div>
-            <div style="width: 100vw; height: 40vh; background-color: violet;"></div>
-            <div style="width: 100vw; height: 31.6vh; background-color: salmon; position: relative;">
-                <p style="margin: 0px; position: absolute; bottom: 0px;">fklsdjflkdsajflkjasdlfjsla;kdjl;sad</p>
-            </div>
+<body >
+    <div class="carousel-wrapper">
+        <div class="carousel">
+            <img class="carousel-img" src="{% static 'draw/images/501000230.jpeg'%}">
+            <img class="carousel-img" src="{% static 'draw/images/501000231.jpeg'%}">
+            <img class="carousel-img" src="{% static 'draw/images/501000232.jpeg'%}">
+            <img class="carousel-img" src="{% static 'draw/images/501000233.jpeg'%}">
         </div>
-    </section> -->
-    <section style="width: 100vw; height: 100vh; background-color: antiquewhite;">
-        <div style="width: 100vw; height: calc(100vh - 84px); top:84px; background-color: darkcyan;">
-            <div style="width: 50%; height: 100%; background-color: aqua; float: left; padding: 50px 50px;">
-                <div style="display: flex; flex-direction: row; flex-wrap: wrap; padding: 10px;">
-                    <img style="width: 250px; height: 250px; padding: 10px;" src="{% static 'draw/images/톰 삭스 x 나이키 크래프트 제너럴 퍼포즈 슈 필드 브라운 DA6672-2010.jpeg' %}">
-                    <img style="width: 250px; height: 250px; padding: 10px;" src="{% static 'draw/images/톰 삭스 x 나이키 크래프트 제너럴 퍼포즈 슈 필드 브라운 DA6672-2011.jpeg' %}">
-                    <img style="width: 250px; height: 250px; padding: 10px;" src="{% static 'draw/images/톰 삭스 x 나이키 크래프트 제너럴 퍼포즈 슈 필드 브라운 DA6672-2012.jpeg' %}">
-                    <img style="width: 250px; height: 250px; padding: 10px;" src="{% static 'draw/images/톰 삭스 x 나이키 크래프트 제너럴 퍼포즈 슈 필드 브라운 DA6672-2013.jpeg' %}">
-                    <img style="width: 250px; height: 250px; padding: 10px;" src="{% static 'draw/images/톰 삭스 x 나이키 크래프트 제너럴 퍼포즈 슈 필드 브라운 DA6672-2014.jpeg' %}">
-                    <img style="width: 250px; height: 250px; padding: 10px;" src="{% static 'draw/images/톰 삭스 x 나이키 크래프트 제너럴 퍼포즈 슈 필드 브라운 DA6672-2015.jpeg' %}">
-                    <img style="width: 250px; height: 250px; padding: 10px;" src="{% static 'draw/images/톰 삭스 x 나이키 크래프트 제너럴 퍼포즈 슈 필드 브라운 DA6672-2016.jpeg' %}">
-                    <img style="width: 250px; height: 250px; padding: 10px;" src="{% static 'draw/images/톰 삭스 x 나이키 크래프트 제너럴 퍼포즈 슈 필드 브라운 DA6672-2017.jpeg' %}">
-                    <img style="width: 250px; height: 250px; padding: 10px;" src="{% static 'draw/images/톰 삭스 x 나이키 크래프트 제너럴 퍼포즈 슈 필드 브라운 DA6672-2018.jpeg' %}">
-
-                </div>
-                <div class="line">
-                    fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>fixed 해제 라인</br>
-                </div>
-            </div>
-            <div style="width: 50%; height: 100%; background-color: violet; float: left; padding: 50px 50px;">
-                <div class="textbox" style="position: fixed; padding: 50px 50px;  height: 100%;">
-                    <p class="text" style="margin: 0px; font-size: 40px; font-weight: 500; white-space: normal; line-height: 40px;">레트로 무드와 모던한 편안함의 만남. Sporty & Rich와 협업으로 오늘을 위해 새롭게 돌아온 빈티지 스타일을 선보이는 아디다스 쇼츠를 만나보세요. 측면의 밑단 트임이 모든 방향에서 자유로운 움직임을 이끌고, 앞면의 포켓 포켓이 편리한 수납공간을 더해줍니다. 측면의 관통하는 3-스트라이프가 대담하고 스포티한 룩을 선사합니다. 탄력적인 허리밴드를 늘리거나 조여 꼭 맞게 핏을 조절할 수 있습니다.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div style="width: 100%; height: 20%; padding: 50px; position: relative;">
-        <form id="search_form" method="get" action="">
-            <div style="width: 100%; height: 100%; padding: 20px 0px; position: relative;">
-                <input class="input-value" id="search_value" style="width: 100%; height: 100%; font-size: 30px; background-color: #FBFBFB; border: none; border-bottom: 2px solid rgb(245, 245, 245);" placeholder="검색어를 입력하세요.">
-                <button type="button" id="search_close_btn" class="input-icon-close"></button>
-            </div>
-        </form>
+        <a class="prev-btn">
+            <span>
+                <svg viewBox="0 0 451.847 451.847">
+                    <path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path>
+                </svg>
+            </span>
+        </a>
+        <a class="next-btn">
+            <span>
+                <svg viewBox="0 0 451.846 451.847">
+                    <path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path>
+                </svg>
+            </span>
+        </a>
     </div>
-
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
 <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
 <script>
-    $('#search_form').submit(function (event) {
-        event.preventDefault(); // 폼 제출 기본 동작 막기
-        var $inputValue = $('#search_value').val();
-        var url = $(this).attr("action") + "?search_term=" + encodeURIComponent($inputValue);
-        $(this).attr("action", url);
-
-        // 폼 제출
-        this.submit();
-    });
-
-    $(document).ready(function() {
-
-        // alert($('.line').height());
-        // alert($('.line').offset().top);
-
-    });
-
-    var isLoading = false;
-
-    $(window).scroll(function() {
-        var $line = $('.line').offset().top;
-        var $text = $('.text').offset().top;
-        console.log('fixed 해제 라인 위치: ' + $line, 'text 위치: ' + $text, 'isLoading: ' + isLoading);
-        if (!isLoading && $line <= $text) {
-            isLoading = true;
-            loadData(function() {
-                isLoading = false;
-            })
-        }
-    });
-
-	function loadData(callback) {
-        alert('겹침 ');
-        $('.textbox').css({'position': 'static'});
-    }
 </script>
 </html>

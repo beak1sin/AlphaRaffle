@@ -806,7 +806,8 @@ import re
 
 def imgchange():
     # 이미지 폴더 경로 설정
-    image_folder = '/usr/local/share/AlphaRaffle/draw/static/draw/images'
+    # image_folder = '/usr/local/share/AlphaRaffle/draw/static/draw/images'
+    image_folder = '/Users/jb/AlphaRaffle/draw/static/draw/images'
     # print('실행')
     # 파일명 분석을 위한 정규 표현식 패턴
     shoes = Shoe.objects.filter()
@@ -833,3 +834,4 @@ def imgchange():
                 # os.rename(os.path.join(image_folder, filename), os.path.join(image_folder, new_filename))
 
     return redirect('/')
+
