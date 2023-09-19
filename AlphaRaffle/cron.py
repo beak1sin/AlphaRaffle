@@ -61,6 +61,10 @@ import shutil
 import json
 import requests
 import datetime
+# jpeg -> avif 변환 
+from PIL import Image
+import pillow_avif
+import unicodedata
 
 def hello():
     now = datetime.datetime.now()
@@ -806,8 +810,8 @@ import re
 
 def imgchange():
     # 이미지 폴더 경로 설정
-    # image_folder = '/usr/local/share/AlphaRaffle/draw/static/draw/images'
-    image_folder = '/Users/jb/AlphaRaffle/draw/static/draw/images'
+    image_folder = '/usr/local/share/AlphaRaffle/draw/static/draw/images'
+    # image_folder = '/Users/jb/AlphaRaffle/draw/static/draw/images'
     # print('실행')
     # 파일명 분석을 위한 정규 표현식 패턴
     shoes = Shoe.objects.filter()
@@ -819,9 +823,11 @@ def imgchange():
             # 파일명이 shoename과 serialno를 포함하는지 확인
             if shoe.serialno in filename:
                 if shoe.shoename in filename:
-                    new_filename = filename.replace(shoe.shoename, '').replace(' ', '')
+                    nfc_string = unicodedata.normalize('NFC', filename)
+                    new_filename = nfc_string.replace(shoe.shoename, '').replace(' ', '')
                     try:
                         os.rename(os.path.join(image_folder, filename), os.path.join(image_folder, new_filename))
+                        print('성공')
                     except Exception as e:
                         print(f'error: {e}')
                 # shoename 제거 및 serialno 앞의 공백 제거
@@ -835,3 +841,40 @@ def imgchange():
 
     return redirect('/')
 
+def avif():
+    # 이미지 폴더 경로 설정
+    image_folder = '/usr/local/share/AlphaRaffle/draw/static/draw/images'
+    # image_folder = '/Users/jb/AlphaRaffle/draw/static/draw/images'
+    # print('실행')
+    # 파일명 분석을 위한 정규 표현식 패턴
+    # shoes = Shoe.objects.filter()
+
+    # 이미지 폴더 내의 모든 파일을 순회
+    for filename in os.listdir(image_folder):
+        if 'jpeg' in filename or 'png' in filename or 'jpg' in filename:
+            try:
+                nfc_string = unicodedata.normalize('NFC', filename)
+                file_path = os.path.join(image_folder, nfc_string)
+                img = Image.open(file_path)
+                avif_path = os.path.join(image_folder, nfc_string.replace('.jpeg', '.avif').replace('.jpg', '.avif').replace('.png', '.avif'))
+                img.save(avif_path, "AVIF")
+                print('변환 성공')
+            except Exception as e:
+                print(f'error: {e}')
+
+    return redirect('/')
+
+def deleteimg():
+    image_folder = '/usr/local/share/AlphaRaffle/draw/static/draw/images'
+    # image_folder = '/Users/jb/AlphaRaffle/draw/static/draw/images'
+    for filename in os.listdir(image_folder):
+        if 'jpeg' in filename or 'png' in filename or 'jpg' in filename:
+            try:
+                nfc_string = unicodedata.normalize('NFC', filename)
+                file_path = os.path.join(image_folder, nfc_string)
+                os.remove(file_path)
+                print('삭제 성공')
+            except Exception as e:
+                print(f'error: {e}')
+
+    return redirect('/')
