@@ -241,7 +241,7 @@ input:focus {
 }
 
 .checkbox-icon input:checked+.icon{
-  background: #000 url(../images/icon_checkbox.png) 50% 50% no-repeat;
+  background: #000 url(../images/icon_checkbox.avif) 50% 50% no-repeat;
   background-size: 12px auto;
   border-color: #000;
 }
