@@ -54,26 +54,6 @@
     text-align: center;
 }
 
-/* .filter-layer-header .exit-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 16px;
-    width: 24px;
-    height: 24px;
-    background: url(../images/x_icon.png) 50% 50% no-repeat;
-    background-size: 70% auto;
-    border: 2px solid black;
-    border-radius: 50px;
-    transition-duration: 0.5s;
-}
-
-.filter-layer-header .exit-btn:hover {
-    background-color: black;
-    background-image: url(../images/x_white_icon.png);
-    transition-duration: 0.5s;
-} */
-
 .filter-layer-content {
     width: auto;
     flex: 1;
