@@ -93,8 +93,7 @@ def luckd_crowler(no):
     time.sleep(0.01)
     #신발 한글이름
     shoename = soup.select("h1.page_title")[0].text.replace('/', '_')
-    shoename = shoename.replace('%', '♪')
-    shoename = shoename.replace('+', '♣')
+    
     #신발 영어이름
     try:
         subname  = soup.select("h2.sub_title")[0].text
