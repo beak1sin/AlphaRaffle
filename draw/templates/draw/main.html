@@ -28,7 +28,7 @@
 
     <meta name="theme-color" content="#478ac9">
     <meta property="og:title" content="AlphaRaffle">
-    <meta property="og:image" content="{% static 'draw/images/ar011.png' %}">
+    <meta property="og:image" content="{% static 'draw/images/ar011.avif' %}">
     <meta property="og:description" content="AlphaRaffle | 구글 폼 방식 응모를 자동으로 응모해주고 발매 정보를 실시간으로 제공해주는 플랫폼입니다.">
     <meta property="og:type" content="website">
 </head>
@@ -61,7 +61,7 @@
                                       <span>2023.04.15 10AM</span> -->
                                       <button>바로가기</button>
                                   </div>                
-                  <img src="{% static 'draw/necessary/banner-1.png' %}">
+                  <img src="{% static 'draw/necessary/banner-1.avif' %}">
                                </li>
                                
                                <!-- <li id="slider_list">
@@ -162,11 +162,7 @@
                                         <p class="commentCount">0</p>
                                     </div>
                                     <div class="img-box" onclick="window.open(STATIC_FULL_URL + '{{shoe.serialno}}', '_blank')">
-                                        <!-- <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.jpeg"> -->
-                                        <picture>
-                                            <source class="lazyload" data-srcset="{% static 'draw/images/' %}{{shoe.serialno}}0.avif" type="image/avif">
-                                            <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.jpeg">
-                                        </picture>
+                                        <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.avif">
                                     </div>
                                     <div class="bookmark-icon">
                                         {% if member in shoe.likes.all %}
@@ -216,7 +212,7 @@
                                         <p class="commentCount">0</p>
                                     </div>
                                     <div class="img-box" onclick="window.open(STATIC_FULL_URL + '{{shoe.serialno}}', '_blank')">
-                                        <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.jpeg">
+                                        <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.avif">
                                     </div>
                                     <div class="bookmark-icon">
                                         {% if member in shoe.likes.all %}
@@ -266,7 +262,7 @@
                                         <p class="commentCount">0</p>
                                     </div>
                                     <div class="img-box" onclick="window.open(STATIC_FULL_URL + '{{shoe.serialno}}', '_blank')">
-                                        <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.jpeg">
+                                        <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.avif">
                                     </div>
                                     <div class="bookmark-icon">
                                         {% if member in shoe.likes.all %}

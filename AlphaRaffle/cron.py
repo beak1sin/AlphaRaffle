@@ -141,37 +141,73 @@ def luckd_crowler(no):
         Shoe.objects.create(shoename = shoename , shoeengname = subname, serialno = serialno,
                         shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, shoeprice = shoeprice)
     except Exception as e:
-        print(f"An error occurred: {e}")
-        print(no,'already exist shoe')
+        print(f"An error occurred {no}: {e}")
         pass
     
     # shoeDB = Shoe.objects.filter(serialno = serialno)
     # shoeDB.update(shoename = shoename , shoeengname = subname,
     #                 shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, shoeprice = shoeprice)
 
-    if len(imglen)>=1:            
-        for i in range(len(imglen)):
-            img_file = imglen[i].img['src']
-            img_name = os.path.join(str(Path(__file__).resolve().parent.parent)+"/draw/static/draw/images/"+shoename+serialno+str(i)+'.jpeg')
+    if Shoe.objects.filter(serialno=serialno).exists():
+        pass
+    else:
+        if len(imglen)>=1:            
+            for i in range(len(imglen)):
+                img_file = imglen[i].img['src']
+
+                temp_img_name = os.path.join(str(Path(__file__).resolve().parent.parent)+"/draw/static/draw/images/"+serialno+str(i)+'.jpeg')
+                avif_img_name = os.path.join(str(Path(__file__).resolve().parent.parent)+"/draw/static/draw/images/"+serialno+str(i)+'.avif')
+                
+                # 이미지를 임시 JPEG 파일로 다운로드
+                urllib.request.urlretrieve(img_file, temp_img_name)
+
+                try:
+                    # JPEG 파일을 열어 AVIF로 저장
+                    with Image.open(temp_img_name) as img:
+                        if img.mode == "P":
+                            img = img.convert("RGBA")
+                        img.save(avif_img_name, "AVIF")
+
+                    # 임시 JPEG 파일 삭제
+                    os.remove(temp_img_name)
+                except Exception as e:
+                    print(f'error: {e}')
+                
+                try:
+                    Shoeimg.objects.create(serialno= serialno, shoeimg = serialno+str(i))
+                except:
+                    pass
+                
+                
+        else:
+            
+            img2 = soup.select("div.img_div")
+            img_file = img2[0].img['src']
+
+            temp_img_name = os.path.join(str(Path(__file__).resolve().parent.parent)+"/draw/static/draw/images/"+serialno+str(0)+'.jpeg')
+            avif_img_name = os.path.join(str(Path(__file__).resolve().parent.parent)+"/draw/static/draw/images/"+serialno+str(0)+'.avif')
+
+            # 이미지를 임시 JPEG 파일로 다운로드
+            urllib.request.urlretrieve(img_file, temp_img_name)
+
             
             try:
-                Shoeimg.objects.create(serialno= serialno, shoeimg = shoename+serialno+str(i))
+                # JPEG 파일을 열어 AVIF로 저장  
+                with Image.open(temp_img_name) as img:
+                    if img.mode == "P":
+                        img = img.convert("RGBA")
+                    img.save(avif_img_name, "AVIF")
+
+                # 임시 JPEG 파일 삭제
+                os.remove(temp_img_name)
+            except Exception as e:
+                print(f'error: {e}')
+            
+            try:
+                Shoeimg.objects.create(serialno= serialno, shoeimg = serialno+str(0))
             except:
                 pass
-            
-            urllib.request.urlretrieve(img_file, img_name)
-    else:
         
-        img2 = soup.select("div.img_div")
-        img_file = img2[0].img['src']
-        img_name = os.path.join(str(Path(__file__).resolve().parent.parent)+"/draw/static/draw/images/"+shoename+serialno+str(0)+'.jpeg')
-        
-        try:
-            Shoeimg.objects.create(serialno= serialno, shoeimg = shoename+serialno+str(0))
-        except:
-            pass
-        
-        urllib.request.urlretrieve(img_file, img_name)
     
     
     #사이트별 
@@ -810,8 +846,8 @@ import re
 
 def imgchange():
     # 이미지 폴더 경로 설정
-    image_folder = '/usr/local/share/AlphaRaffle/draw/static/draw/images'
-    # image_folder = '/Users/jb/AlphaRaffle/draw/static/draw/images'
+    # image_folder = '/usr/local/share/AlphaRaffle/draw/static/draw/images'
+    image_folder = '/Users/jb/AlphaRaffle/draw/static/draw/images'
     # print('실행')
     # 파일명 분석을 위한 정규 표현식 패턴
     shoes = Shoe.objects.filter()
@@ -843,8 +879,9 @@ def imgchange():
 
 def avif():
     # 이미지 폴더 경로 설정
-    image_folder = '/usr/local/share/AlphaRaffle/draw/static/draw/images'
+    # image_folder = '/usr/local/share/AlphaRaffle/draw/static/draw/images'
     # image_folder = '/Users/jb/AlphaRaffle/draw/static/draw/images'
+    image_folder = '/Users/jb/AlphaRaffle/draw/static/draw/necessary'
     # print('실행')
     # 파일명 분석을 위한 정규 표현식 패턴
     # shoes = Shoe.objects.filter()
@@ -856,19 +893,22 @@ def avif():
                 nfc_string = unicodedata.normalize('NFC', filename)
                 file_path = os.path.join(image_folder, nfc_string)
                 img = Image.open(file_path)
+                if img.mode == "P":
+                    img = img.convert("RGBA")
                 avif_path = os.path.join(image_folder, nfc_string.replace('.jpeg', '.avif').replace('.jpg', '.avif').replace('.png', '.avif'))
                 img.save(avif_path, "AVIF")
-                print('변환 성공')
             except Exception as e:
                 print(f'error: {e}')
 
     return redirect('/')
 
 def deleteimg():
-    image_folder = '/usr/local/share/AlphaRaffle/draw/static/draw/images'
+    # image_folder = '/usr/local/share/AlphaRaffle/draw/static/draw/images'
     # image_folder = '/Users/jb/AlphaRaffle/draw/static/draw/images'
+    image_folder = '/Users/jb/AlphaRaffle/draw/static/draw/necessary'
     for filename in os.listdir(image_folder):
         if 'jpeg' in filename or 'png' in filename or 'jpg' in filename:
+        # if 'avif' in filename:    
             try:
                 nfc_string = unicodedata.normalize('NFC', filename)
                 file_path = os.path.join(image_folder, nfc_string)
