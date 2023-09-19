@@ -93,7 +93,7 @@ def luckd_crowler(no):
     time.sleep(0.01)
     #신발 한글이름
     shoename = soup.select("h1.page_title")[0].text.replace('/', '_')
-    
+
     #신발 영어이름
     try:
         subname  = soup.select("h2.sub_title")[0].text
@@ -117,7 +117,7 @@ def luckd_crowler(no):
     for i in range(len(detail_info)):
         detail_info_find = soup.select('ul.detail_info>li')[i].text
         if '제품 코드' in detail_info_find:
-            serialno = detail_info_find[6:].replace('/', '_')
+            serialno = detail_info_find[6:].replace('/', '_').strip()
         if '발매일' in detail_info_find:
             shoepubdate = detail_info_find[3:]
         if '발매가' in detail_info_find or '가격' in detail_info_find:
