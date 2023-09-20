@@ -230,9 +230,31 @@
 .ad-box-pos.fixed {
   top: 50%; transform: translate(-50%, -50%);
 }
+
+.mobile-ad-box {
+  width: 100vw;
+  height: 6vh;
+  float: left;
+  background-color: #FBFBFB;
+  display: none;
+  position: relative;
+}
+
+.mobile-ad-box-js {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+}
+
 @media (max-width: 767px) {
   .ad-box > * {
     display: none;
+  }
+
+  .banner-box {
+    height: 30vh;
+  }
+
+  .mobile-ad-box {
+    display: block;
   }
 }
 

@@ -17,6 +17,7 @@
    */
   
   body {
+    line-height: 1.6;
     margin: 0;
   }
   
@@ -432,4 +433,8 @@
 
 h3 {
     font-weight: 400;
+}
+
+label {
+  cursor: pointer;
 }

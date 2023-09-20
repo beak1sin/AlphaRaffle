@@ -385,6 +385,19 @@ input[type="checkbox"] {
     height: 0;
 }
 
+.mobile-ad-box {
+    width: 100vw;
+    height: 6vh;
+    float: left;
+    background-color: #FBFBFB;
+    display: none;
+    position: relative;
+}
+
+.mobile-ad-box-js {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+}
+
 @media (max-width: 991px){
     .search-result {
         padding: 20px 50px 5px 50px !important;
@@ -398,5 +411,9 @@ input[type="checkbox"] {
 
     .ad-box > * {
         display: none;
+    }
+
+    .mobile-ad-box {
+        display: block;
     }
 }

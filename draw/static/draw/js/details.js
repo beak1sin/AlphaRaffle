@@ -233,4 +233,52 @@ $(document).ready(function() {
     });
 
     
+    
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    var adContainerTop = document.querySelector('.top-ad-box-js'); // 광고를 표시할 컨테이너 선택 (상단)
+    var adContainerBottom = document.querySelector('.bottom-ad-box-js'); // 광고를 표시할 컨테이너 선택 (하단)
+
+    var adScriptTop = document.createElement('script'); // 새로운 <script> 태그 생성 (상단)
+    adScriptTop.setAttribute('type', 'text/javascript');
+    adScriptTop.setAttribute('src', '//t1.daumcdn.net/kas/static/ba.min.js');
+    adScriptTop.setAttribute('async', true);
+
+    var adElementTop = document.createElement('ins');
+    adElementTop.className = 'kakao_ad_area';
+    adElementTop.style.display = 'none';
+
+
+    var adScriptBottom = document.createElement('script'); // 새로운 <script> 태그 생성 (하단)
+    adScriptBottom.setAttribute('type', 'text/javascript');
+    adScriptBottom.setAttribute('src', '//t1.daumcdn.net/kas/static/ba.min.js');
+    adScriptBottom.setAttribute('async', true);
+
+    var adElementBottom = document.createElement('ins');
+    adElementBottom.className = 'kakao_ad_area';
+    adElementBottom.style.display = 'none';
+
+    // 화면의 너비에 따라 적절한 광고 데이터 설정
+    if (window.innerWidth < 728) {
+        adElementTop.setAttribute('data-ad-unit', 'DAN-emBQqKhNUlAEd2Cb');
+        adElementTop.setAttribute('data-ad-width', '320');
+        adElementTop.setAttribute('data-ad-height', '100');
+        adElementBottom.setAttribute('data-ad-unit', 'DAN-gotHkYVL9z9PnsAc');
+        adElementBottom.setAttribute('data-ad-width', '320');
+        adElementBottom.setAttribute('data-ad-height', '100');
+    } else {
+        adElementTop.setAttribute('data-ad-unit', 'DAN-c65JhAo32jkuvteX');
+        adElementTop.setAttribute('data-ad-width', '728');
+        adElementTop.setAttribute('data-ad-height', '90');
+        adElementBottom.setAttribute('data-ad-unit', 'DAN-VGpc879tojj1N4DK');
+        adElementBottom.setAttribute('data-ad-width', '728');
+        adElementBottom.setAttribute('data-ad-height', '90');
+    }
+
+    // 광고 요소와 스크립트를 컨테이너에 추가
+    adContainerTop.appendChild(adElementTop);
+    adContainerTop.appendChild(adScriptTop);
+    adContainerBottom.appendChild(adElementBottom);
+    adContainerBottom.appendChild(adScriptBottom);
 });
