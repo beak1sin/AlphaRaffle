@@ -8,7 +8,7 @@ class LatestShoesFeed(Feed):
     description = "Updates on the latest shoes."
 
     def items(self):
-        return Shoe.objects.order_by('-pubdate')[:12]
+        return Shoe.objects.order_by('-id')[:20]
 
     def item_title(self, item):
         return item.shoename
