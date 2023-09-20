@@ -136,9 +136,11 @@ def luckd_crowler(no):
     else:
         pass
 
+    imgDownload = False
     try:
         Shoe.objects.create(shoename = shoename , shoeengname = subname, serialno = serialno,
                         shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, shoeprice = shoeprice)
+        imgDownload = True
     except Exception as e:
         print(f"An error occurred {no}: {e}")
         pass
@@ -147,13 +149,10 @@ def luckd_crowler(no):
     # shoeDB.update(shoename = shoename , shoeengname = subname,
     #                 shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, shoeprice = shoeprice)
 
-    if Shoe.objects.filter(serialno=serialno).exists():
-        pass
-    else:
+    if imgDownload:
         if len(imglen)>=1:            
             for i in range(len(imglen)):
                 img_file = imglen[i].img['src']
-
                 temp_img_name = os.path.join(str(Path(__file__).resolve().parent.parent)+"/draw/static/draw/images/"+serialno+str(i)+'.jpeg')
                 avif_img_name = os.path.join(str(Path(__file__).resolve().parent.parent)+"/draw/static/draw/images/"+serialno+str(i)+'.avif')
                 
@@ -182,7 +181,6 @@ def luckd_crowler(no):
             
             img2 = soup.select("div.img_div")
             img_file = img2[0].img['src']
-
             temp_img_name = os.path.join(str(Path(__file__).resolve().parent.parent)+"/draw/static/draw/images/"+serialno+str(0)+'.jpeg')
             avif_img_name = os.path.join(str(Path(__file__).resolve().parent.parent)+"/draw/static/draw/images/"+serialno+str(0)+'.avif')
 
@@ -471,13 +469,13 @@ def crawl():
             # uwsgi 재실행 등.. 서버 재배포
             subprocess.call(['/usr/local/share/AlphaRaffle/bin/start.sh'])
             # 서버 재배포 성공 메세지(텔레그램)
-            # telegram_crawl.serverRestart_complete_msg()
+            telegram_crawl.serverRestart_complete_msg()
             print('서버 재배포 성공')
-        except:
+        except Exception as e:
             # 서버 재배포 실패 메세지(텔레그램)
-            # telegram_crawl.serverRestart_error_msg()
-            print('서버 재배포 실패')
-        return redirect('/')
+            telegram_crawl.serverRestart_error_msg()
+            print(f'서버 재배포 실패 : {e}')
+        return
     except Exception as e:
         print(f"An error occurred: {e}")
         print('에러로 인한 크롤링 중단')
@@ -494,7 +492,9 @@ class Telegram_crawl:
 
     def crawl_complete_msg(self):
         try:
-            asyncio.run(self.bot.send_message(self.chat_id, '크롤링 성공'))
+            # asyncio.run(self.bot.send_message(self.chat_id, '크롤링 성공'))
+            # 코루틴 실행
+            run_in_new_loop(self.bot.send_message(self.chat_id, '크롤링 성공'))
         except Exception as e:
             print('텔레그램 오류')
             print(f"An error occurred: {e}")
@@ -502,7 +502,8 @@ class Telegram_crawl:
     
     def crawl_error_msg(self, error):
         try:
-            asyncio.run(self.bot.send_message(self.chat_id, f'크롤링 실패:  {error}'))
+            # asyncio.run(self.bot.send_message(self.chat_id, f'크롤링 실패:  {error}'))
+            run_in_new_loop(self.bot.send_message(self.chat_id, f'크롤링 실패:  {error}'))
         except Exception as e:
             print('텔레그램 오류')
             print(f"An error occurred: {e}")
@@ -510,7 +511,8 @@ class Telegram_crawl:
 
     def serverRestart_complete_msg(self):
         try:
-            asyncio.run(self.bot.send_message(self.chat_id, '서버 재배포 성공'))
+            # asyncio.run(self.bot.send_message(self.chat_id, '서버 재배포 성공'))
+            run_in_new_loop(self.bot.send_message(self.chat_id, '서버 재배포 성공'))
         except Exception as e:
             print('서버 재배포 오류')
             print(f"An error occurred: {e}")
@@ -518,7 +520,8 @@ class Telegram_crawl:
 
     def serverRestart_error_msg(self):
         try:
-            asyncio.run(self.bot.send_message(self.chat_id, '서버 재배포 실패'))
+            # asyncio.run(self.bot.send_message(self.chat_id, '서버 재배포 실패'))
+            run_in_new_loop(self.bot.send_message(self.chat_id, '서버 재배포 실패'))
         except Exception as e:
             print('서버 재배포 실패 오류')
             print(f"An error occurred: {e}")
@@ -526,7 +529,8 @@ class Telegram_crawl:
     
     def daily_verificationCode_delete(self):
         try:
-            asyncio.run(self.bot.send_message(self.chat_id, '만료된 인증번호 삭제완료'))
+            # asyncio.run(self.bot.send_message(self.chat_id, '만료된 인증번호 삭제완료'))
+            run_in_new_loop(self.bot.send_message(self.chat_id, '만료된 인증번호 삭제완료'))
         except Exception as e:
             print('텔레그램 만료 인증번호 삭제 메세지 전송 실패')
             print(f"An error occurred: {e}")
@@ -534,7 +538,8 @@ class Telegram_crawl:
     
     def crawl_entry_msg(self, nameentry, birthentry, phoneentry, nikeidentry):
         try:
-            asyncio.run(self.bot.send_message(self.chat_id, f'entry 크롤링 성공 = nameentry: {nameentry}, birthentry: {birthentry}, phoneentry: {phoneentry}, nikeidentry: {nikeidentry}'))
+            # asyncio.run(self.bot.send_message(self.chat_id, f'entry 크롤링 성공 = nameentry: {nameentry}, birthentry: {birthentry}, phoneentry: {phoneentry}, nikeidentry: {nikeidentry}'))
+            run_in_new_loop(self.bot.send_message(self.chat_id, f'entry 크롤링 성공 = nameentry: {nameentry}, birthentry: {birthentry}, phoneentry: {phoneentry}, nikeidentry: {nikeidentry}'))
         except Exception as e:
             print('telegram entry 메세지 전송 실패')
             print(f"An error occurred: {e}")
@@ -542,11 +547,22 @@ class Telegram_crawl:
     
     def crawl_entry_error_msg(self, error):
         try:
-            asyncio.run(self.bot.send_message(self.chat_id, f'entry 크롤링 실패:  {error}'))
+            # asyncio.run(self.bot.send_message(self.chat_id, f'entry 크롤링 실패:  {error}'))
+            run_in_new_loop(self.bot.send_message(self.chat_id, f'entry 크롤링 실패:  {error}'))
         except Exception as e:
             print('텔레그램 오류')
             print(f"An error occurred: {e}")
         return
+
+def run_in_new_loop(coroutine):
+    """새로운 이벤트 루프에서 코루틴을 실행하는 도우미 함수"""
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    try:
+        result = loop.run_until_complete(coroutine)
+        return result
+    finally:
+        loop.close()
 
 def crawl_test():
     try:
@@ -917,3 +933,4 @@ def deleteimg():
                 print(f'error: {e}')
 
     return redirect('/')
+
