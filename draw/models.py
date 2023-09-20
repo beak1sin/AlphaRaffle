@@ -45,8 +45,8 @@ class Shoe(models.Model):
 
 	# 색인
 	def get_absolute_url(self):
-		serialno = self.serialno
-		return f'/auth/details/?serialnum={serialno}'
+		cleaned_serialno = ''.join(char for char in self.serialno if ord(char) > 31)
+		return f'/auth/details/?serialnum={cleaned_serialno}'
 
 class Shoeimg(models.Model):
 	serialno = models.CharField(max_length=50, default= None)
