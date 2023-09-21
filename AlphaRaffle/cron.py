@@ -475,6 +475,9 @@ def crawl():
             # 서버 재배포 실패 메세지(텔레그램)
             telegram_crawl.serverRestart_error_msg()
             print(f'서버 재배포 실패 : {e}')
+
+        # cloudflare 캐시 삭제
+        cloudflareCacheDeleteAPI()
         return
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -492,9 +495,9 @@ class Telegram_crawl:
 
     def crawl_complete_msg(self):
         try:
-            # asyncio.run(self.bot.send_message(self.chat_id, '크롤링 성공'))
+            asyncio.run(self.bot.send_message(self.chat_id, '크롤링 성공'))
             # 코루틴 실행
-            run_in_new_loop(self.bot.send_message(self.chat_id, '크롤링 성공'))
+            # run_in_new_loop(self.bot.send_message(self.chat_id, '크롤링 성공'))
         except Exception as e:
             print('텔레그램 오류')
             print(f"An error occurred: {e}")
@@ -502,8 +505,8 @@ class Telegram_crawl:
     
     def crawl_error_msg(self, error):
         try:
-            # asyncio.run(self.bot.send_message(self.chat_id, f'크롤링 실패:  {error}'))
-            run_in_new_loop(self.bot.send_message(self.chat_id, f'크롤링 실패:  {error}'))
+            asyncio.run(self.bot.send_message(self.chat_id, f'크롤링 실패:  {error}'))
+            # run_in_new_loop(self.bot.send_message(self.chat_id, f'크롤링 실패:  {error}'))
         except Exception as e:
             print('텔레그램 오류')
             print(f"An error occurred: {e}")
@@ -511,8 +514,8 @@ class Telegram_crawl:
 
     def serverRestart_complete_msg(self):
         try:
-            # asyncio.run(self.bot.send_message(self.chat_id, '서버 재배포 성공'))
-            run_in_new_loop(self.bot.send_message(self.chat_id, '서버 재배포 성공'))
+            asyncio.run(self.bot.send_message(self.chat_id, '서버 재배포 성공'))
+            # run_in_new_loop(self.bot.send_message(self.chat_id, '서버 재배포 성공'))
         except Exception as e:
             print('서버 재배포 오류')
             print(f"An error occurred: {e}")
@@ -520,8 +523,8 @@ class Telegram_crawl:
 
     def serverRestart_error_msg(self):
         try:
-            # asyncio.run(self.bot.send_message(self.chat_id, '서버 재배포 실패'))
-            run_in_new_loop(self.bot.send_message(self.chat_id, '서버 재배포 실패'))
+            asyncio.run(self.bot.send_message(self.chat_id, '서버 재배포 실패'))
+            # run_in_new_loop(self.bot.send_message(self.chat_id, '서버 재배포 실패'))
         except Exception as e:
             print('서버 재배포 실패 오류')
             print(f"An error occurred: {e}")
@@ -529,8 +532,8 @@ class Telegram_crawl:
     
     def daily_verificationCode_delete(self):
         try:
-            # asyncio.run(self.bot.send_message(self.chat_id, '만료된 인증번호 삭제완료'))
-            run_in_new_loop(self.bot.send_message(self.chat_id, '만료된 인증번호 삭제완료'))
+            asyncio.run(self.bot.send_message(self.chat_id, '만료된 인증번호 삭제완료'))
+            # run_in_new_loop(self.bot.send_message(self.chat_id, '만료된 인증번호 삭제완료'))
         except Exception as e:
             print('텔레그램 만료 인증번호 삭제 메세지 전송 실패')
             print(f"An error occurred: {e}")
@@ -538,8 +541,8 @@ class Telegram_crawl:
     
     def crawl_entry_msg(self, nameentry, birthentry, phoneentry, nikeidentry):
         try:
-            # asyncio.run(self.bot.send_message(self.chat_id, f'entry 크롤링 성공 = nameentry: {nameentry}, birthentry: {birthentry}, phoneentry: {phoneentry}, nikeidentry: {nikeidentry}'))
-            run_in_new_loop(self.bot.send_message(self.chat_id, f'entry 크롤링 성공 = nameentry: {nameentry}, birthentry: {birthentry}, phoneentry: {phoneentry}, nikeidentry: {nikeidentry}'))
+            asyncio.run(self.bot.send_message(self.chat_id, f'entry 크롤링 성공 = nameentry: {nameentry}, birthentry: {birthentry}, phoneentry: {phoneentry}, nikeidentry: {nikeidentry}'))
+            # run_in_new_loop(self.bot.send_message(self.chat_id, f'entry 크롤링 성공 = nameentry: {nameentry}, birthentry: {birthentry}, phoneentry: {phoneentry}, nikeidentry: {nikeidentry}'))
         except Exception as e:
             print('telegram entry 메세지 전송 실패')
             print(f"An error occurred: {e}")
@@ -547,8 +550,8 @@ class Telegram_crawl:
     
     def crawl_entry_error_msg(self, error):
         try:
-            # asyncio.run(self.bot.send_message(self.chat_id, f'entry 크롤링 실패:  {error}'))
-            run_in_new_loop(self.bot.send_message(self.chat_id, f'entry 크롤링 실패:  {error}'))
+            asyncio.run(self.bot.send_message(self.chat_id, f'entry 크롤링 실패:  {error}'))
+            # run_in_new_loop(self.bot.send_message(self.chat_id, f'entry 크롤링 실패:  {error}'))
         except Exception as e:
             print('텔레그램 오류')
             print(f"An error occurred: {e}")
@@ -934,3 +937,28 @@ def deleteimg():
 
     return redirect('/')
 
+def cloudflareCacheDeleteAPI():
+    import environ
+    BASE_DIR = Path(__file__).resolve().parent
+    environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))           
+    # Cloudflare API 정보
+    API_ENDPOINT = "https://api.cloudflare.com/client/v4/zones/256758d25057f54765029dd28e859cdf/purge_cache"
+    API_KEY = os.environ.get('CLOUDFLARE_API_KEY')
+    EMAIL = os.environ.get('CLOUDFLARE_EMAIL')
+
+    headers = {
+        "X-Auth-Email": EMAIL,
+        "X-Auth-Key": API_KEY,
+        "Content-Type": "application/json"
+    }
+
+    data = {
+        "purge_everything": True
+    }
+
+    response = requests.post(API_ENDPOINT, headers=headers, json=data)
+
+    if response.status_code == 200:
+        print("Cache cleared successfully!")
+    else:
+        print("Error clearing cache:", response.text)

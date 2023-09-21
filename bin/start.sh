@@ -9,8 +9,8 @@ python /usr/local/share/AlphaRaffle/manage.py collectstatic --noinput
 echo "############# collectstatic OK #############"
 killall -9 uwsgi
 echo "############# KILL OK #############"
-uwsgi --ini /usr/local/share/AlphaRaffle/AlphaRaffle_uwsgi.ini
-echo "############# START OK ############"
+uwsgi --ini /usr/local/share/AlphaRaffle/AlphaRaffle_uwsgi.ini &
+echo "############# START OK (BackGround) ############"
 deactivate
 echo "############# virtualenvs OFF #############"
 #tail -111f /usr/local/share/AlphaRaffle/logs/uwsgi.log
