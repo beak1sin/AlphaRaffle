@@ -447,6 +447,10 @@ header {
     flex-direction: column; */
 }
 
+.grid-wrapper-box2 {
+  width: 65vw; float: left;
+}
+
 .ad-box {
     width: 17.5vw;
     height: 33vh;
@@ -499,8 +503,51 @@ header {
 }
 
 @media (max-width:575px) {
+  .ad-box {
+    display: none;
+  }
+
+  .grid-wrapper-box2 {
+    width: 100vw;
+  }
   .grid-wrapper {
-    grid-template-columns: repeat(1, 100%);
+    width: 100vw;
+    grid-auto-rows: 300px;
+    grid-template-columns: repeat(2, 50%);
+  }
+
+  .grid-shoename-box .shoename {
+    font-size: 14px !important;
+    line-height: 14px !important;
+  } 
+
+  .grid-pubdate-box {
+    height: 5% !important;
+  }
+
+  .grid-goBtn-box .goBtn {
+    font-size: 12px !important;
+    width: 70px !important;
+  }
+
+  .grid-container .bookmark-icon {
+    bottom: 4px;
+    left: 4px;
+  }
+
+  .grid-container .shoelikecount-box {
+    bottom: 3px;
+    left: 28px;
+  }
+
+  .grid-container .comment-icon {
+    bottom: 4px;
+    left: 56px;
+  }
+
+  .grid-container .commentCount-box {
+    bottom: 3px;
+    left: 80px;
   }
 }
 

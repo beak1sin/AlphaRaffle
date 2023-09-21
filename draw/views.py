@@ -519,12 +519,12 @@ def upload(request):
 
             mime = magic.from_buffer(file.read(), mime=True)
             file.seek(0)  # 파일 포인터를 초기 위치로 되돌립니다.
-            allowed_mime_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+            allowed_mime_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/avif']
             if mime not in allowed_mime_types:
                 context['flag'] = '0'
                 context['message'] = '* 허용되지 않는 파일 확장자입니다.'
                 return JsonResponse(context, content_type="application/json")
-            if file.size > 1 * 1024 * 1024:
+            if file.size > 200 * 1024:
                 file, file_name = compress_to_limit(file)
                 # context['flag'] = '0'
                 # context['message'] = '* 파일 크기가 1MB를 넘습니다.'
@@ -578,7 +578,7 @@ def upload(request):
 from PIL import Image, ExifTags
 import io
 
-def compress_to_limit(file, max_size_kb=1024, step=10):
+def compress_to_limit(file, max_size_kb=200, step=10):
     image = Image.open(file)
     image = correct_image_orientation(image)
 
@@ -719,12 +719,15 @@ def details(request):
     else:
         serialnoSlash = None
 
-    if '_' in shoe.shoename or '♪' in shoe.shoename or '凸' in shoe.shoename :
+    if '_' in shoe.shoename:
         shoenameSlash = shoe.shoename.replace('_', '/')
-        shoenameSlash = shoenameSlash.replace('♪', '%')
-        shoenameSlash = shoenameSlash.replace('凸', '+')
     else:
         shoenameSlash = None
+
+    if '_' in shoe.shoeengname:
+        shoeengnameSlash = shoe.shoeengname.replace('_', '/')
+    else:
+        shoeengnameSlash = None
 
     
     current_time = datetime.datetime.now()
@@ -785,7 +788,7 @@ def details(request):
         # print(site.is_valid_date)
 
     context["member_no"] = member_no
-    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'offlineSite': offlineSite, 'googleSiteOnly': googleSiteOnly, 'comment': comment, 'comment_count': comment_count, 'serialnoSlash': serialnoSlash, 'shoenameSlash': shoenameSlash }
+    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'offlineSite': offlineSite, 'googleSiteOnly': googleSiteOnly, 'comment': comment, 'comment_count': comment_count, 'serialnoSlash': serialnoSlash, 'shoenameSlash': shoenameSlash, 'shoeengnameSlash': shoeengnameSlash }
     #print(shoe.serialno)
     return render(request, 'draw/details.html', context)
     #return JsonResponse(context, content_type="application/json")

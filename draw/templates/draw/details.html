@@ -124,7 +124,11 @@
                             {% endif %}
                         </div>
                         <div>
+                            {% if shoeengnameSlash == None %}
                             <span class="shoeengname">{{shoe.shoeengname}}</span>
+                            {% else %}
+                            <span class="shoeengname">{{shoeengnameSlash}}</span>
+                            {% endif %}
                         </div>
                         <div style="padding: 10px 0px; height: auto; overflow: hidden;">
                             <div style="padding: 10px 0px; height: auto; overflow: hidden;">
