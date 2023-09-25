@@ -26,9 +26,12 @@ input::placeholder {
     transform: translate(0, -50%);
 }
 /* ------------input x버튼 기능 */
-
+ol {
+    column-count: 2;
+    margin-top: 10px;
+}
 ol > li {
-    font-size: 30px;
+    font-size: 26px;
     margin-left: 12px;
     font-weight: 500;
 }
@@ -55,4 +58,132 @@ ol > li {
     background: url(../necessary/close_btn.svg) no-repeat center center/36px auto;
     position: relative;
     z-index: 1;
+}
+
+.search {
+    width: 100vw; height: calc(100vh - 84px); top: 84px; position: relative;
+}
+
+.search-ad-box {
+    width: 17.5vw; height: 100%; float: left;
+}
+
+.search-box {
+    width: 65vw; height: 100%; float: left; display: flex; flex-direction: column;
+}
+
+#search_value {
+    width: 100%; height: 100%; font-size: 30px; background-color: #FBFBFB; border: none; border-bottom: 2px solid rgb(245, 245, 245);
+}
+
+.search-bigText {
+    margin: 0px; font-size: 32px; font-weight: 900;
+}
+
+.search-value-box {
+    width: 100%; height: 20%; padding: 50px; position: relative;
+}
+
+.search-recent-box {
+    width: 100%; height: auto; padding: 0px 50px 50px 50px;
+}
+
+.search-popular-box {
+    width: 100%; height: auto; padding: 0px 50px 50px 50px;
+}
+
+#all_recent_delete {
+    margin: 0 0 0 20px; font-size: 20px; font-weight: 500; float: left; color: #777777; text-decoration: underline; text-underline-position: under; line-height: 51.2px; cursor: pointer;
+}
+
+.recent-items {
+    height: 44px; position: relative; background: #EEEEEE; border-radius: 20px; border: 0.30px #777777 solid; padding-left: 10px; margin-right: 10px; margin-top: 10px;
+}
+
+.recent-searches-value {
+    margin: 0px; font-size: 18px; font-weight: 500; float: left; line-height: 44px; cursor: pointer;
+}
+
+.xbutton-icon-box {
+    width: 25px; height: 25px; right: 0px; float: left; margin-left: 10px;
+}
+
+@media (max-width: 767px) {
+    .search-ad-box {
+        display: none;
+    }
+
+    .search-box {
+        width: 100vw;
+    }
+
+    .search {
+        height: 100vh; top: 0;
+    }
+
+    #search_value {
+        font-size: 24px;
+    }
+
+    .search-bigText {
+        font-size: 26px;
+    }
+
+    ol > li {
+        font-size: 22px;
+    }
+    #all_recent_delete {
+        font-size: 16px;
+        line-height: 40px;
+    }
+}
+
+@media (max-width: 430px) {
+    #search_value {
+        font-size: 20px;
+    }
+
+    .search-value-box {
+        padding: 50px 50px 0 50px;
+    }
+
+    #search_value {
+        font-size: 20px;
+    }
+
+    .search-bigText {
+        font-size: 22px;
+    }
+
+    ol {
+        column-count: 1;
+        padding-left: 10px;
+    }
+
+    ol > li {
+        font-size: 18px;
+    }
+
+    #all_recent_delete {
+        line-height: 34px;
+    }
+
+    .recent-items {
+        height: 30px;
+    }
+
+    .recent-searches-value {
+        font-size: 14px;
+        line-height: 32px;
+    }
+
+    .xbutton-icon-box {
+        height: 30px;
+        position: relative;
+        margin-left: 0;
+    }
+
+    .xbutton-icon-box .xbutton-icon {
+        top: 50%; left: 50%; transform: translate(-50%, -50%); line-height: 1;
+    }
 }

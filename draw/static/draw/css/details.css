@@ -788,6 +788,70 @@ background: url(../necessary/like_fill.svg) no-repeat center center/24px auto;
   position: absolute; right: 30px; bottom: 14px; margin: 0 !important; font-size: 20px; font-weight: 300; color: #777; line-height: 20px;
 }
 
+.comment-write-box {
+  width: 100%; padding: 20px 50px; background: #EEEEEE; border-radius: 10px; margin-top: 30px;
+}
+
+.comment-list-box {
+  padding: 20px 50px; height: auto; overflow: hidden;
+}
+
+.current {
+  color: #333333; font-weight: 400;
+}
+
+.page-num {
+  color: #C8C8C8; font-weight: 400;
+  transition: all 0.2s;
+}
+
+.page-num:hover {
+  color: #333333;
+}
+
+.page-url {
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+
+.page-icon {
+  position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+
+.page-previous-icon {
+  width: 16px; height: 16px; cursor: pointer; transition: all 0.2s; background: url('../necessary/page_previous_icon.svg') no-repeat center;
+}
+
+.page-previous-icon:hover {
+  background: url('../necessary/page_previous_fill_icon.svg') no-repeat center
+}
+
+.page-first-icon {
+  width: 16px; height: 16px; cursor: pointer; transition: all 0.2s; background: url('../necessary/page_first_icon.svg') no-repeat center;
+}
+
+.page-first-icon:hover {
+  background: url('../necessary/page_first_fill_icon.svg') no-repeat center
+}
+
+.page-next-icon {
+  width: 16px; height: 16px; cursor: pointer; transition: all 0.2s; background: url('../necessary/page_next_icon.svg') no-repeat center;
+}
+
+.page-next-icon:hover {
+  background: url('../necessary/page_next_fill_icon.svg') no-repeat center
+}
+
+.page-last-icon {
+  width: 16px; height: 16px; cursor: pointer; transition: all 0.2s; background: url('../necessary/page_last_icon.svg') no-repeat center;
+}
+
+.page-last-icon:hover {
+  background: url('../necessary/page_last_fill_icon.svg') no-repeat center
+}
+
 @media (max-width: 767px) {
   .left-ad-box, .right-ad-box {
     display: none;
@@ -885,6 +949,14 @@ background: url(../necessary/like_fill.svg) no-repeat center center/24px auto;
 
   .box2, .box3 {
     padding: 0 10px;
+  }
+
+  .comment-write-box {
+    padding: 20px 10px;
+  }
+
+  .comment-list-box {
+    padding: 20px 0px;
   }
 
 }

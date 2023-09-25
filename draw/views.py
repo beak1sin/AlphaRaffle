@@ -662,6 +662,7 @@ def comment_delete(request):
 
     return JsonResponse(context)
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 @csrf_protect
 def details(request):
     pk = request.GET['serialnum']
@@ -710,9 +711,38 @@ def details(request):
     comment = Comment.objects.filter(serialno=pk)
     comment_count = comment.count()
     if comment.values():
-        pass
+        for com in comment:
+            com.profile_img_url = Member.objects.get(member_nickname=com.member_nickname).profile_img_url
+        paginator = Paginator(comment, 1)
+        page = request.GET.get('page')
+        try:
+            comments = paginator.page(page)
+        except PageNotAnInteger:
+            # 페이지가 정수가 아닐 경우 첫 번째 페이지 반환
+            comments = paginator.page(1)
+        except EmptyPage:
+            # 페이지 범위를 벗어난 경우 마지막 페이지 반환
+            comments = paginator.page(paginator.num_pages)
+        start_page = ((comments.number - 1) // 5) * 5 + 1
+        if start_page == 1:
+            previous_page = 1
+            next_page = 6
+        else:
+            previous_page = start_page - 5
+            next_page = start_page + 5
+        
+        end_page = min(start_page + 4, paginator.num_pages)
+        page_numbers = list(range(start_page, end_page + 1))
     else:
-        comment = {'serialno': ''}
+        comments = {'serialno': ''}
+        start_page = None
+        end_page = None
+        page_numbers = None
+        previous_page = None
+        next_page = None
+    
+    
+    
     
     if '_' in pk:
         serialnoSlash = pk.replace('_', '/')
@@ -788,7 +818,7 @@ def details(request):
         # print(site.is_valid_date)
 
     context["member_no"] = member_no
-    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'offlineSite': offlineSite, 'googleSiteOnly': googleSiteOnly, 'comment': comment, 'comment_count': comment_count, 'serialnoSlash': serialnoSlash, 'shoenameSlash': shoenameSlash, 'shoeengnameSlash': shoeengnameSlash }
+    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'offlineSite': offlineSite, 'googleSiteOnly': googleSiteOnly, 'comment': comments, 'comment_count': comment_count, 'serialnoSlash': serialnoSlash, 'shoenameSlash': shoenameSlash, 'shoeengnameSlash': shoeengnameSlash,'start_page': start_page, 'end_page': end_page, 'page_numbers': page_numbers, 'previous_page': previous_page, 'next_page': next_page }
     #print(shoe.serialno)
     return render(request, 'draw/details.html', context)
     #return JsonResponse(context, content_type="application/json")

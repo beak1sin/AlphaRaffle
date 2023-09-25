@@ -36,7 +36,7 @@
     <meta property="og:type" content="website">
 </head>
 
-<body style="background: #FBFBFB">
+<body class="u-body u-xl-mode" style="background: #FBFBFB">
 
     {% include 'draw/header.html' %}
 
@@ -458,7 +458,7 @@
                             </label>
                         </div>
                     </div>
-                    <div style="width: 100%; padding: 20px 50px; background: #EEEEEE; border-radius: 10px; margin-top: 30px;">
+                    <div class="comment-write-box">
                         {% if member.member_no == None %}
                         <p>로그인 후 이용해주시기 바랍니다.</p>
                         {% else %}
@@ -483,14 +483,15 @@
                         <span class="commentLength"></span>
                     </div>
 
+                    
+                    {% if comment.serialno != '' %}
                     {% for comment in comment %}
-                    {% if comment.serialno != None %}
-                    <div style="padding: 20px 50px; height: auto; overflow: hidden;">
+                    <div class="comment-list-box">
                         <div style="height: 36px; width: 36px; float: left;">
                             {% if member.profile_img_url == '-' %}
                             <img style="width: 36px; height: 36px; border-radius: 50px;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
                             {% else %}
-                            <img style="width: 36px; height: 36px; border-radius: 50px;" src="{{member.profile_img_url}}">
+                            <img style="width: 36px; height: 36px; border-radius: 50px;" src="{{comment.profile_img_url}}">
                             {% endif %}
                         </div>
                         <div style="width: calc(100% - 50px); float: left; padding-left: 10px;">
@@ -543,13 +544,45 @@
                         </div>
                         
                     </div>
+                    {% endfor %}
+                    <div class="pagination" style="text-align: center;">
+                        <span class="step-links" style="display: flex; justify-content: center; gap: 10px;">
+                            {% if comment.has_previous %}
+                                <a class="page-url" href="?serialnum={{shoe.serialno}}&page=1">
+                                    <div class="page-first-icon page-icon"></div>
+                                </a>
+                                <a class="page-url" href="?serialnum={{shoe.serialno}}&page={{ previous_page }}">
+                                    <div class="page-previous-icon page-icon"></div>
+                                </a>
+                            {% endif %}
+                            {% for num in page_numbers %}
+                                {% if comment.number == num %}
+                                    <span class="current">{{ num }}</span>
+                                {% else %}
+                                    <a class="page-num" href="?serialnum={{shoe.serialno}}&page={{ num }}">{{ num }}</a>
+                                {% endif %}
+                            {% endfor %}
+                            {% if comment.has_next %}
+                                
+                                <a class="page-url" href="?serialnum={{shoe.serialno}}&page={{ next_page }}">
+                                    <div class="page-next-icon page-icon"></div>
+                                </a>
+                                
+                                <a class="page-url" href="?serialnum={{shoe.serialno}}&page={{ comment.paginator.num_pages }}">
+                                    <div class="page-last-icon page-icon"></div>
+                                </a>
+                            {% endif %}
+                            
+                        </span>
+                    </div>
                     {% else %}
                     <div style="width: 100%; height: 200px; display: table; text-align: center;">
                         <p style="margin: 0; display: table-cell; vertical-align: middle;">댓글이 존재하지 않습니다.</p>
                     </div>
                     {% endif %}
-                    {% endfor %}
+                    
                 </div>
+                
             </div>
             <div class="right-ad-box">
                 <div class="right-ad-box-js" style="left: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%)">

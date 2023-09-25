@@ -70,6 +70,9 @@ $(document).ready(function() {
                 $('#delete_tab').removeClass('checked');
             }
         }
+        $('header').removeClass('nav-up').addClass('nav-down');
+            $('#mypage').removeClass('nav-down').addClass('nav-up');
+            $('#mypage_nav').removeClass('nav-down').addClass('nav-up');
     });
 
     $('#delete_tab').click(function() {

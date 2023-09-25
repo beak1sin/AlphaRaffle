@@ -130,6 +130,7 @@ $(document).ready(function() {
     });
 
     $('.comment-send-icon-label').click(function() {
+        $(".backL").css("display", "");
         let $comment = $(this).parent().prev();
         let $commentValue = $comment.val().trim();
         if ($commentValue.trim() == "") {
@@ -153,7 +154,7 @@ $(document).ready(function() {
                     alert(obj.result_msg);
                 } else {
                     // 현재경로 + 공백추가 필수!!
-                    $('.u-section-3').load(location.href + " .u-section-3", function() {
+                    $('.box3').load(location.href + " .box3", function() {
                         $('.commentArea').keyup(function (e) {
                             let content = $(this).val();
                             let count = content.length;
@@ -212,7 +213,7 @@ $(document).ready(function() {
                                }
                            });
                        });
-
+                       $(".backL").css("display", "none");
                     });
                 }
             }

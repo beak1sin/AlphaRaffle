@@ -80,6 +80,12 @@ urlpatterns = [
 
     path('full/delete_recent_searches', views.delete_recent_searches, name="최근검색어삭제"),
     path('full/all_recent_delete', views.all_recent_delete, name="최근검색어전체삭제"),
+    path('delete_recent_searches', views.delete_recent_searches, name="최근검색어삭제"),
+    path('all_recent_delete', views.all_recent_delete, name="최근검색어전체삭제"),
+    path('auth/details/delete_recent_searches', views.delete_recent_searches, name="최근검색어삭제"),
+    path('auth/details/all_recent_delete', views.all_recent_delete, name="최근검색어전체삭제"),
+    path('auth/mypage/delete_recent_searches', views.delete_recent_searches, name="최근검색어삭제"),
+    path('auth/mypage/all_recent_delete', views.all_recent_delete, name="최근검색어전체삭제"),
 
     path('googleCrawl', views.googleCrawl, name="googleCrawl"),
 
