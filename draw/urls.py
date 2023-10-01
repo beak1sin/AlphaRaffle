@@ -11,7 +11,7 @@ from django.contrib.sitemaps import GenericSitemap
 from .models import Shoe
 
 info_dict = {
-    'queryset': Shoe.objects.all(),
+    'queryset': Shoe.objects.all().order_by('-id'),
 }
 # --색인
 
