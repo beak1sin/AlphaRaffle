@@ -1,4 +1,2 @@
-User-agent: *
-Disallow: /admin/
-
-Sitemap: https://alpharaffle.com/sitemap.xml
+# robots.txt file of https://example.com/
+sitemap: https://alpharaffle.com/sitemap.xml
