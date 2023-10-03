@@ -1016,21 +1016,3 @@ def changeavif3():
 
     # 이미지를 PNG로 저장
     final_img.save('/Users/jb/Downloads/알파래플_핸드오프_Folder/SVG/mstile-144x144.png', format='PNG')
-
-import re
-
-def scale_svg_path(d, x_scale, y_scale):
-    numbers = re.findall("[-+]?[.]?[\d]+(?:,\d\d\d)*[\.]?\d*(?:[eE][-+]?\d+)?", d)
-    scaled_numbers = [str(float(num) * x_scale) if i % 2 == 0 else str(float(num) * y_scale) for i, num in enumerate(numbers)]
-    new_d = re.sub("[-+]?[.]?[\d]+(?:,\d\d\d)*[\.]?\d*(?:[eE][-+]?\d+)?", "{}", d).format(*scaled_numbers)
-    return new_d
-
-# 원본 경로 데이터
-d_original = "M162.18,278.05v-.07c0-14.16-11.48-25.06-25.65-25.06l-27.48,.03c-.96,0-1.75,.78-1.75,1.75v62.86c0,.96,.78,1.75,1.75,1.75h14.5c.96,0,1.75-.78,1.75-1.75v-12.58c0-.31,.42-.41,.55-.13l6.5,13.46c.29,.6,.9,.99,1.57,.99h24.36c.96,0,1.75-.78,1.75-1.75v-12.5c0-.96-.78-1.75-1.75-1.75h-14.58c-.36,0-.42-.5-.08-.6,10.71-3.08,18.55-12.94,18.55-24.64Zm-27.06,8.34c-5.4,.68-9.94-3.86-9.26-9.26,.46-3.68,3.43-6.65,7.11-7.11,5.4-.68,9.94,3.86,9.26,9.26-.46,3.68-3.44,6.65-7.11,7.11Z"
-# 스케일링 비율
-x_scale = 120 / 500  # 원하는 X 스케일링 비율
-y_scale = 60 / 500  # 원하는 Y 스케일링 비율
-
-# 스케일링된 경로 데이터
-d_scaled = scale_svg_path(d_original, x_scale, y_scale)
-print(d_scaled)
