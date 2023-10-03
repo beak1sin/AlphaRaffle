@@ -962,3 +962,75 @@ def cloudflareCacheDeleteAPI():
         print("Cache cleared successfully!")
     else:
         print("Error clearing cache:", response.text)
+
+def changeavif():
+    import PIL.Image
+    from PIL import Image
+    img = Image.open('/Users/jb/Downloads/알파래플_핸드오프_Folder/SVG/ar011.png')
+    img_resized = img.resize((96, 60), Image.Resampling.LANCZOS)
+    # print(img_resized)
+    img_resized.save('/Users/jb/Downloads/알파래플_핸드오프_Folder/SVG/ar011-96x96.png', format='PNG')
+
+def changeavif2():
+    img = Image.open('/Users/jb/Downloads/알파래플_핸드오프_Folder/SVG/ar011.png')
+
+    # 방법 1: 비율 유지 리사이즈
+    aspect_ratio = img.width / img.height
+    new_width = 96
+    new_height = int(new_width / aspect_ratio)
+    img_resized_1 = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+
+    # 방법 2: 썸네일 생성
+    size = (96, 96)
+    img_resized_2 = img.copy()
+    img_resized_2.thumbnail(size, Image.Resampling.LANCZOS)
+
+    # 방법 3: 크기 변경 후 자르기
+    img_resized_3 = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+    left = (img_resized_3.width - 96)/2
+    top = (img_resized_3.height - 96)/2
+    right = (img_resized_3.width + 96)/2
+    bottom = (img_resized_3.height + 96)/2
+    img_resized_3 = img_resized_3.crop((left, top, right, bottom))
+
+    # 이미지를 PNG로 저장
+    img_resized_1.save('/Users/jb/Downloads/알파래플_핸드오프_Folder/SVG/ar011-96x96_1.png', format='PNG')
+    img_resized_2.save('/Users/jb/Downloads/알파래플_핸드오프_Folder/SVG/ar011-96x96_2.png', format='PNG')
+    img_resized_3.save('/Users/jb/Downloads/알파래플_핸드오프_Folder/SVG/ar011-96x96_3.png', format='PNG')
+
+def changeavif3():
+    img = Image.open('/Users/jb/Downloads/알파래플_핸드오프_Folder/SVG/ar011.png')
+
+    # 원본 이미지의 비율 유지하면서, 너비가 96픽셀이 되도록 크기 조절
+    aspect_ratio = img.width / img.height
+    new_width = 144
+    new_height = int(new_width / aspect_ratio)
+    img_resized = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+
+    # 최종 이미지를 생성하고 하얀색으로 채우기
+    final_img = Image.new('RGB', (144, 144), 'white')
+
+    # 원본 이미지를 최종 이미지의 중앙에 붙여넣기
+    y_offset = (final_img.height - img_resized.height) // 2
+    final_img.paste(img_resized, (0, y_offset))
+
+    # 이미지를 PNG로 저장
+    final_img.save('/Users/jb/Downloads/알파래플_핸드오프_Folder/SVG/mstile-144x144.png', format='PNG')
+
+import re
+
+def scale_svg_path(d, x_scale, y_scale):
+    numbers = re.findall("[-+]?[.]?[\d]+(?:,\d\d\d)*[\.]?\d*(?:[eE][-+]?\d+)?", d)
+    scaled_numbers = [str(float(num) * x_scale) if i % 2 == 0 else str(float(num) * y_scale) for i, num in enumerate(numbers)]
+    new_d = re.sub("[-+]?[.]?[\d]+(?:,\d\d\d)*[\.]?\d*(?:[eE][-+]?\d+)?", "{}", d).format(*scaled_numbers)
+    return new_d
+
+# 원본 경로 데이터
+d_original = "M162.18,278.05v-.07c0-14.16-11.48-25.06-25.65-25.06l-27.48,.03c-.96,0-1.75,.78-1.75,1.75v62.86c0,.96,.78,1.75,1.75,1.75h14.5c.96,0,1.75-.78,1.75-1.75v-12.58c0-.31,.42-.41,.55-.13l6.5,13.46c.29,.6,.9,.99,1.57,.99h24.36c.96,0,1.75-.78,1.75-1.75v-12.5c0-.96-.78-1.75-1.75-1.75h-14.58c-.36,0-.42-.5-.08-.6,10.71-3.08,18.55-12.94,18.55-24.64Zm-27.06,8.34c-5.4,.68-9.94-3.86-9.26-9.26,.46-3.68,3.43-6.65,7.11-7.11,5.4-.68,9.94,3.86,9.26,9.26-.46,3.68-3.44,6.65-7.11,7.11Z"
+# 스케일링 비율
+x_scale = 120 / 500  # 원하는 X 스케일링 비율
+y_scale = 60 / 500  # 원하는 Y 스케일링 비율
+
+# 스케일링된 경로 데이터
+d_scaled = scale_svg_path(d_original, x_scale, y_scale)
+print(d_scaled)

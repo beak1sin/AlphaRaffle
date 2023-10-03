@@ -9,7 +9,21 @@
     <meta name="keywords" content="AlphaRaffle, 발매정보">
     <meta name="description" content="">
     <title>AlphaRaffle</title>
-    <link rel="icon" href="{% static 'draw/necessary/favicon-96x96.png' %}" type="image/png">
+    <!-- Apple Touch 아이콘 -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'draw/necessary/apple-touch-icon-180x180.png' %}"> 
+    <!-- Android/Chrome 아이콘 -->
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'draw/necessary/android-chrome-192x192.png' %}">
+    <!-- 일반적인 파비콘 -->
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'draw/necessary/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'draw/necessary/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'draw/necessary/favicon-16x16.png' %}">
+    <!-- Microsoft 타일 아이콘 -->
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="{% static 'draw/necessary/mstile-144x144.png' %}">
+    <!-- macOS 탭 핀 -->
+    <link rel="mask-icon" href="{% static 'draw/necessary/ar01.svg' %}">
+    
+    <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="{% static 'draw/css/normalize.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'draw/css/full.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
@@ -26,15 +40,6 @@
     gtag('config', 'G-D6Q3RQNTG2');
     </script>
 
-    <script type="application/ld+json">
-        {
-            "@context": "http://schema.org",
-            "@type": "Organization",
-            "name": "AlphaRaffle",
-            "logo": "images/logo3.jpeg"
-        }
-    </script>
-    <meta name="theme-color" content="#478ac9">
     <meta property="og:title" content="AlphaRaffle | 발매정보">
     <meta property="og:image" content="{% static 'draw/images/ar011.avif' %}">
     <meta property="og:description" content="AlphaRaffle | 전체 발매정보를 검색할 수 있습니다.">
