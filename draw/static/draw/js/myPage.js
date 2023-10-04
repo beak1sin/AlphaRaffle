@@ -204,6 +204,34 @@ $(document).ready(function() {
         lastScrollTop = st;
     }
 
+    $('.checkbox-circle-btn').click(function() {
+        if ($(this).hasClass('checked')) {
+            $(this).removeClass('checked');
+        } else {   
+            $(this).addClass('checked');
+        }
+    });
+
+    $('#left-btns').on('click', '.profile-change-btn', function(){
+        $(this).removeClass('profile-change-btn').addClass('profile-save-btn').text('저장');
+        $('.info').hide();
+        $('.info-input').show();
+        if ($('.profile-cancel-btn').length === 0) {
+            $('#left-btns').append('<div class="profile-cancel-btn" style="margin-left: 20px;">취소</div>');
+        }
+    });
+
+    $('#left-btns').on('click', '.profile-cancel-btn', function(){
+        $('.profile-save-btn').removeClass('profile-save-btn').addClass('profile-change-btn').text('변경');
+        $('.info-input').hide();
+        $('.info').show();
+        $(this).remove();
+    });
+
+    $('#left-btns').on('click', '.profile-save-btn', function(){
+        alert('안녕');
+    });
+
 });
 
 function getCookie(name) {

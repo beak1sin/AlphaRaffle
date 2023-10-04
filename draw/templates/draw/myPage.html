@@ -271,51 +271,63 @@
                 </div>
                 
                 <div style="display: flex; flex-direction: column;">
-                    <p style="margin: 0; font-size: 32px; font-weight: 900; color: #333;">가입 정보</p>
+                    <p style="margin: 0; font-size: 24px; font-weight: 900; color: #333;">가입 정보</p>
                     <div style="margin-top: 10px;">
-                        <p style="margin: 0; font-size: 26px; font-weight: 200; color: #333; float: left; width: 150px;">이메일</p>
-                        <p style="margin: 0; font-size: 26px; font-weight: 200; color: #333; float: left;">{{member.member_id}}</p>
+                        <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left; width: 150px;">이메일</p>
+                        <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left;">{{member.member_id}}</p>
                     </div>
                     <div style="margin-top: 10px;">
-                        <p style="margin: 0; font-size: 26px; font-weight: 200; color: #333; float: left; width: 150px;">비밀번호</p>
+                        <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left; width: 150px;">비밀번호</p>
                         <div id="redirectAndClick" class="password-change-btn">&nbsp;&nbsp;비밀번호 변경하기&nbsp;&nbsp;</div>
                     </div>
                 </div>
 
                 <div style="display: flex; flex-direction: column;">
-                    <p style="margin: 0; font-size: 32px; font-weight: 900; color: #333;">응모 정보</p>
+                    <p style="margin: 0; font-size: 24px; font-weight: 900; color: #333;">응모 정보</p>
                     <div style="margin-top: 10px;">
-                        <p style="margin: 0; font-size: 26px; font-weight: 200; color: #333; float: left; width: 150px;">이름</p>
-                        <p style="margin: 0; font-size: 26px; font-weight: 500; color: #333; float: left;">{{member.member_realname}}</p>
+                        <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left; width: 150px;">이름</p>
+                        <p class="info" style="margin: 0; font-size: 20px; font-weight: 500; color: #333; float: left;">{{member.member_realname}}</p>
+                        <input class="info-input" style="height: 32px; display: none;" value="{{member.member_realname}}">
                     </div>
                     <div style="margin-top: 10px;">
-                        <p style="margin: 0; font-size: 26px; font-weight: 200; color: #333; float: left; width: 150px;">휴대폰 번호</p>
-                        <p style="margin: 0; font-size: 26px; font-weight: 500; color: #333; float: left;">{{member.member_phonenumber}}</p>
+                        <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left; width: 150px;">휴대폰 번호</p>
+                        <p class="info" style="margin: 0; font-size: 20px; font-weight: 500; color: #333; float: left;">{{member.member_phonenumber}}</p>
+                        <input class="info-input" style="height: 32px; display: none;" value="{{member.member_phonenumber}}">
                     </div>
                     <div style="margin-top: 10px;">
-                        <p style="margin: 0; font-size: 26px; font-weight: 200; color: #333; float: left; width: 150px;">생년월일</p>
-                        <p style="margin: 0; font-size: 26px; font-weight: 500; color: #333; float: left;">{{member.member_birth}}</p>
+                        <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left; width: 150px;">생년월일</p>
+                        <p class="info" style="margin: 0; font-size: 20px; font-weight: 500; color: #333; float: left;">{{member.member_birth}}</p>
+                        <input class="info-input" style="height: 32px; display: none;" value="{{member.member_birth}}">
                     </div>
                     <div style="margin-top: 10px;">
-                        <p style="margin: 0; font-size: 26px; font-weight: 200; color: #333; float: left; width: 150px;">나이키 ID</p>
-                        <p style="margin: 0; font-size: 26px; font-weight: 500; color: #333; float: left;">{{member.member_nikeid}}</p>
+                        <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left; width: 150px;">나이키 ID</p>
+                        <p class="info" style="margin: 0; font-size: 20px; font-weight: 500; color: #333; float: left;">{{member.member_nikeid}}</p>
+                        <input class="info-input" style="height: 32px; display: none;" value="{{member.member_nikeid}}">
                     </div>
                 </div>
 
                 <div style="display: flex; flex-direction: column;">
-                    <p style="margin: 0; font-size: 32px; font-weight: 900; color: #333;">수신 정보</p>
-                    <div style="margin-top: 10px; display: flex;">
-                        <div>
-                            <p style="margin: 0; font-size: 26px; font-weight: 200; color: #333; float: left;">SMS 수신</p>
+                    <div>
+                        <p style="float: left; margin: 0; font-size: 24px; font-weight: 900; color: #333;">수신 정보</p>
+                        <p style="float: left; margin: 0; font-size: 12px; font-weight: 300; color: #333; margin-left: 100px; margin-top: 10px;">마케팅 활용과 광고 수신에 동의합니다.</p>
+                        <p style="float: left; margin: 0; font-size: 12px; font-weight: 300; color: #201DB1; margin-left: 10px; margin-top: 10px; text-decoration-line: underline; cursor: pointer;">이용 약관 보기</p>
+                    </div>
+                    <div style="width: 300px; margin-top: 20px; display: flex; justify-content: space-between;">
+                        <div style="display: flex;">
+                            <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left;">SMS 수신</p>
+                            <div class="checkbox-circle-btn"></div>
                         </div>
-                        <div>
-                            <p style="margin: 0; font-size: 26px; font-weight: 200; color: #333; float: left;">이메일 수신</p>
+                        <div style="display: flex;">
+                            <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left;">이메일 수신</p>
+                            <div class="checkbox-circle-btn checked"></div>
                         </div>
                     </div>
                 </div>
 
                 <div style="display: flex; justify-content: space-between; width: 600px; margin-bottom: 40px;">
-                    <div class="profile-change-btn">변경</div>
+                    <div id="left-btns" style="display: flex;">
+                        <div class="profile-change-btn">변경</div>
+                    </div>
                     <div class="member-delete-btn" style="margin-left: 5px;">회원 탈퇴하기</div>
                 </div>
             </div>
