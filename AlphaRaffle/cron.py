@@ -998,21 +998,22 @@ def changeavif2():
     img_resized_2.save('/Users/jb/Downloads/알파래플_핸드오프_Folder/SVG/ar011-96x96_2.png', format='PNG')
     img_resized_3.save('/Users/jb/Downloads/알파래플_핸드오프_Folder/SVG/ar011-96x96_3.png', format='PNG')
 
-def changeavif3():
+def changeavif3(size):
     img = Image.open('/Users/jb/Downloads/알파래플_핸드오프_Folder/SVG/ar011.png')
 
     # 원본 이미지의 비율 유지하면서, 너비가 96픽셀이 되도록 크기 조절
     aspect_ratio = img.width / img.height
-    new_width = 144
+    new_width = size
     new_height = int(new_width / aspect_ratio)
     img_resized = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
 
     # 최종 이미지를 생성하고 하얀색으로 채우기
-    final_img = Image.new('RGB', (144, 144), 'white')
+    final_img = Image.new('RGB', (size, size), 'white')
 
     # 원본 이미지를 최종 이미지의 중앙에 붙여넣기
     y_offset = (final_img.height - img_resized.height) // 2
     final_img.paste(img_resized, (0, y_offset))
 
     # 이미지를 PNG로 저장
-    final_img.save('/Users/jb/Downloads/알파래플_핸드오프_Folder/SVG/mstile-144x144.png', format='PNG')
+    final_img.save(f'/Users/jb/Downloads/알파래플_핸드오프_Folder/SVG/apple-touch-icon-{size}x{size}.png', format='PNG')
+
