@@ -7,9 +7,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="AlphaRaffle, 발매정보">
-    <meta name="description" content="">
-    <title>AlphaRaffle</title>
+    <meta name="keywords" content="AlphaRaffle, 발매정보, 스니커즈, 한정판 신발, 한정판 스니커즈, 나이키, 뉴발란스, 아디다스, 한정판 신발 응모, 한정판 신발 발매 정보, 한정판 거래, 조던, 이지부스트, Sneakers, nike, jordan">
+    <meta name="description" content="지금 당장 {{shoe.shoename}} ({{shoe.shoeengname}}) - {{shoe.serialno}} 의 정보를 확인해보세요!">
+    <title>AlphaRaffle | {{shoe.shoename}}</title>
     <!-- Apple Touch 아이콘 -->
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'draw/necessary/apple-touch-icon-180x180.png' %}"> 
     <!-- Android/Chrome 아이콘 -->
@@ -43,9 +43,9 @@
     gtag('config', 'G-D6Q3RQNTG2');
     </script>
 
-    <meta property="og:title" content="AlphaRaffle">
+    <meta property="og:title" content="AlphaRaffle | {{shoe.shoename}}">
     <meta property="og:image" content="{% static 'draw/images/ar011.avif' %}">
-    <meta property="og:description" content="AlphaRaffle | {{shoe.shoename}}">
+    <meta property="og:description" content="지금 당장 {{shoe.shoename}} ({{shoe.shoeengname}}) - {{shoe.serialno}} 의 정보를 확인해보세요!">
     <meta property="og:type" content="website">
 </head>
 
