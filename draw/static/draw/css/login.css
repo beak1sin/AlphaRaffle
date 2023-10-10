@@ -122,7 +122,7 @@ input[type="checkbox"] {
 }
 
 .login-section .password-forgot-box, .login-section .password-forgot-box-2 {
-    width: 560px;
+    max-width: 560px;
     margin: 25vh auto;
     background-color: white;
     /* padding: 45px; */
@@ -329,6 +329,14 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
+#auth_re_send_btn {
+    margin-left: 20px; font-size: 14px; color: #202020; border-bottom: 1px solid #202020; cursor: pointer;
+}
+
+.auth-resend-msg {
+    font-size: 14px; color: #777; margin: 0px;
+}
+
 
 @media (max-height: 1080px) {
     .login-box {
@@ -352,8 +360,77 @@ input[type="checkbox"] {
 }
 
 @media (max-width: 600px) {
-    .login-box {
+    .login-section .login-box, .login-section .password-forgot-box, .login-section .password-forgot-box-2 {
         margin-left: 20px !important;
         margin-right: 20px !important;
+    }
+}
+
+@media (max-width: 575px) {
+    .login-section .login-box, .login-section .password-forgot-box, .login-section .password-forgot-box-2 {
+        padding: 30px;
+    }
+
+    .login-box .login-box-logo, .password-forgot-box .password-forgot-box-logo, .password-forgot-box-2 .password-forgot-box-logo-2 {
+        padding-bottom: 0;
+    }
+
+    .login-title, .email-forgot-title, .auth-title, .password-forgot-title, .password-forgot-title-2 {
+        font-size: 16px;
+    }
+
+    .login-box .password-box {
+        padding-top: 10px;
+    }
+
+    .email-save-box .email-save-title {
+        font-size: 12px;
+    }
+
+    .checkbox-icon .icon {
+        width: 12px;
+        height: 12px;
+    }
+
+    .login-box .forgot-password-box {
+        padding-top: 10px;
+    }
+
+    .forgot-password-box .forgot-password-link {
+        font-size: 12px;
+    }
+
+    .join-box .join-box-title {
+        font-size: 12px;
+    }
+
+    .join-box .join-box-title {
+        font-size: 12px;
+    }
+
+    .join-box-title .join-box-link {
+        font-size: 12px;
+    }
+
+    .login-box .login-btn-box {
+        padding-top: 10px;
+    }
+
+    .login-btn-box .login-btn, .auth-next-btn.abled, .new-password-btn.abled, .auth-next-btn.disabled, .new-password-btn.disabled {
+        font-size: 20px;
+        height: 60px;
+    }
+
+    .auth-send-btn.abled, .auth-btn.abled, .auth-send-btn.disabled, .auth-btn.disabled {
+        font-size: 12px;
+        width: 60px;
+    }
+
+    #auth_re_send_btn {
+        font-size: 12px;
+    }
+
+    .auth-resend-msg {
+        font-size: 12px;
     }
 }

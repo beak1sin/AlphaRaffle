@@ -81,13 +81,13 @@
                                 {% if forloop.counter == 1 %}
                                 <div class="u-active u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter0}}">
                                     <div class="u-back-slide u-back-slide-1">
-                                        <img class="lazyload u-back-image u-expanded" data-src="{% static 'draw/images/' %}{{img.serialno}}{{forloop.counter0}}.avif">
+                                        <img class="u-back-image u-expanded" src="{% static 'draw/images/' %}{{img.serialno}}{{forloop.counter0}}.avif">
                                     </div>
                                 </div>
                                 {% else %}
                                 <div class="u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter0}}">
                                     <div class="u-back-slide">
-                                        <img class="lazyload u-back-image u-expanded" data-src="{% static 'draw/images/' %}{{img.serialno}}{{forloop.counter0}}.avif">
+                                        <img class="u-back-image u-expanded" src="{% static 'draw/images/' %}{{img.serialno}}{{forloop.counter0}}.avif">
                                     </div>
                                 </div>
                                 {% endif %}
@@ -501,7 +501,7 @@
                     {% for comment in comment %}
                     <div class="comment-list-box">
                         <div style="height: 36px; width: 36px; float: left;">
-                            {% if member.profile_img_url == '-' %}
+                            {% if comment.profile_img_url == '-' %}
                             <img style="width: 36px; height: 36px; border-radius: 50px;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
                             {% else %}
                             <img style="width: 36px; height: 36px; border-radius: 50px;" src="{{comment.profile_img_url}}">

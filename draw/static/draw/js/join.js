@@ -684,12 +684,12 @@ $(document).ready( () => {
     
                 var obj = JSON.parse(data);
                 if(obj.flag == "1"){
-                    $(".backL").css("display", "none");
                     $('.3').hide();
                     $('.4').show();
                 } else {
                     alert(obj.result_msg);
                 }
+                $(".backL").css("display", "none");
             }
         };
         xhr.open("POST", "/member_insert");

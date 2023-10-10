@@ -57,17 +57,23 @@
         <div class="wh100">
             <div class="join-box">
                 <div class="1 join-email-box">
+                    <div class="join-bar">
+                        <div class="whole-bar"></div>
+                        <div class="current-bar" style="left: 0;"></div>
+                    </div>
                     <div class="join-email-title-box">
                         <h1 class="join-email-title">계정 생성</h1>
                     </div>
                     <div class="join-email-input-box">
                         <h3 class="join-email-input-title">이메일을 입력해주세요.</h3>
-                        <div class="join-email-input-value-box">
-                            <input class="join-email-input-value input-focus input-value" id="member_id" type="email" placeholder="AlphaRaffle@example.com">
-                            <button type="button" class="input-icon-close" id="email_close_btn"></button>
-                        </div>
-                        <div class="duplicate-btn-box">
-                            <button class="duplicate-btn disabled" id="idcheck_btn" disabled="disabled">중복확인</button>
+                        <div style="display: flex;">
+                            <div class="join-email-input-value-box">
+                                <input class="join-email-input-value input-focus input-value" id="member_id" type="email" placeholder="AlphaRaffle@example.com">
+                                <button type="button" class="input-icon-close" id="email_close_btn"></button>
+                            </div>
+                            <div class="duplicate-btn-box">
+                                <button class="duplicate-btn disabled" id="idcheck_btn" disabled="disabled">중복확인</button>
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -79,13 +85,14 @@
                     <div class="login-link-box">
                         <h6 class="login-title">이미 회원이신가요?<a class="login-link" href="{% url 'draw:로그인' %}">로그인하기</a></h6>
                     </div>
-                    <div class="join-bar">
-                        <div class="whole-bar"></div>
-                        <div class="current-bar" style="left: 0;"></div>
-                    </div>
+                    
                 </div>
 
-                <div class="2 join-password-box">
+                <div class="2 join-password-box" style="display: none;">
+                    <div class="join-bar">
+                        <div class="whole-bar"></div>
+                        <div class="current-bar" style="left: 100px;"></div>
+                    </div>
                     <div class="join-password-title-box">
                         <h1 class="join-password-title">암호 생성</h1>
                     </div>
@@ -117,14 +124,14 @@
                     <div class="back-btn-box">
                         <a class="back-btn">뒤로가기</a>
                     </div>
-                    <div class="join-bar">
-                        <div class="whole-bar"></div>
-                        <div class="current-bar" style="left: 100px;"></div>
-                    </div>
                 </div>
 
 
-                <div class="3 join-profile-box">
+                <div class="3 join-profile-box" style="display: none;">
+                    <div class="join-bar">
+                        <div class="whole-bar"></div>
+                        <div class="current-bar" style="left: 200px;"></div>
+                    </div>
                     <div class="join-profile-title-box">
                         <h1 class="join-profile-title">프로필 생성</h1>
                     </div>
@@ -201,13 +208,9 @@
                     <div class="back-btn-2-box">
                         <a class="back-btn-2">뒤로가기</a>
                     </div>
-                    <div class="join-bar">
-                        <div class="whole-bar"></div>
-                        <div class="join-bar" style="left: 200px;"></div>
-                    </div>
                 </div>
 
-                <div class="4 join-complete-box">
+                <div class="4 join-complete-box" style="display: none;">
                     <div class="logo-box">
                         <img class="logo-img" src="{% static 'draw/necessary/logo(grey).avif' %}">
                         <svg class="check" width="100" height="70" xmlns="http://w3.org/2000/svg" version="1.1" viewbox="0 0 80 40">

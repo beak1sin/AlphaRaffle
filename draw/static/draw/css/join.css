@@ -84,10 +84,10 @@ input::placeholder {
 
 .join-box .join-email-box {
     max-width: 560px;
-    height: 576px;
+    height: auto;
     margin: 25vh auto;
     background-color: white;
-    padding: 15px 45px 15px 45px;
+    padding: 35px 45px 15px 45px;
     border-radius: 20px;
     box-shadow: 4px 4px 8px 0px #969696;
     /* display: inline-block; */
@@ -105,7 +105,8 @@ input::placeholder {
 }
 
 .join-email-box .join-email-input-box {
-    height: 105px;
+    display: flex;
+    flex-direction: column;
     padding: 30px 0px 0px 0px;
 }
 
@@ -228,21 +229,26 @@ input::placeholder {
 
 .join-box .join-password-box, .join-box .join-complete-box {
     max-width: 560px;
-    height: 576px;
+    height: auto;
     margin: 25vh auto;
     background-color: white;
-    padding: 15px 45px 15px 45px;
+    padding: 35px 45px 15px 45px;
     border-radius: 20px;
     box-shadow: 4px 4px 8px 0px #969696;
     /* display: inline-block; */
     display: none;
 }
 
+.join-box .join-complete-box {
+    display: flex;
+    flex-direction: column;
+}
+
 .join-box .join-profile-box {
     max-width: 560px;
     margin: 175px auto;
     background-color: white;
-    padding: 15px 45px 15px 45px;
+    padding: 35px 45px 15px 45px;
     border-radius: 20px;
     box-shadow: 4px 4px 8px 0px #969696;
     /* display: inline-block; */
@@ -250,7 +256,8 @@ input::placeholder {
 }
 
 .join-password-box .join-password-input-box, .join-password-box .join-password2-input-box, .join-profile-box .join-name-input-box, .join-profile-box .join-nickname-input-box, .join-profile-box .join-birth-input-box, .join-profile-box .join-phonenumber-input-box, .join-profile-box .join-nikeid-input-box {
-    height: 92px;
+    display: flex;
+    flex-direction: column;
     padding-top: 20px;
 }
 
@@ -323,8 +330,9 @@ input::placeholder {
 
 .join-complete-box .logo-box {
     text-align: center;
-    padding-top: 160px;
+    padding: 80px 0;
     position: relative;
+    margin: 0;
 }
 
 .logo-box .logo-img {
@@ -333,8 +341,9 @@ input::placeholder {
 
 .logo-box .check {
     position: absolute;
-    top: 65%;
-    left: 43%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-40%,-70%);
 }
 
 .join-complete-box .complete-title-box {
@@ -377,15 +386,15 @@ input::placeholder {
 }
 
 .join-bar {
-    width: 300px; height: 5px; position: relative; margin: 0 auto;
+    width: 300px; height: 10px; position: relative; margin: 0 auto;
 }
 
 .join-bar .whole-bar {
-    width: 300px; height: 5px; left: 0px; top: 0px; position: absolute; background: #C8C8C8; border-radius: 10px;
+    width: 300px; height: 10px; left: 0px; top: 0px; position: absolute; background: #C8C8C8; border-radius: 10px;
 }
 
 .join-bar .current-bar {
-    width: 100px; height: 5px; top: 0px; position: absolute; background: #777777; border-radius: 10px;
+    width: 100px; height: 10px; top: 0px; position: absolute; background: #333333; border-radius: 10px;
 }
 
 @media (max-height: 1080px) {
@@ -410,8 +419,72 @@ input::placeholder {
     .join-box .join-email-box, .join-box .join-password-box, .join-box .join-complete-box, .join-box .join-profile-box {
         margin-left: 20px !important;
         margin-right: 20px !important;
-        display: flex;
-        flex-direction: column;
+    }
+}
+
+@media (max-width: 575px) {
+    .join-email-box .join-email-title-box, .join-password-box .join-password-title-box, .join-profile-box .join-profile-title-box {
+        padding: 10px 0;
+    }
+
+    .join-email-title-box .join-email-title, .join-password-title-box .join-password-title, .join-profile-title-box .join-profile-title {
+        font-size: 30px;
+    }
+
+    .join-email-box .join-email-input-box {
+        padding-top: 10px;
+    }
+    .join-email-input-box .join-email-input-title {
+        font-size: 16px;
+    }
+
+    .duplicate-btn-box .duplicate-btn.disabled, .duplicate-btn-box .duplicate-btn.abled, .nickname-duplicate-btn.disabled, .nickname-duplicate-btn.abled {
+        width: 60px;
+        font-size: 12px;
+    }
+
+    .join-email-box .login-link-box {
+        padding: 20px 0;
+    }
+
+    .login-link-box .login-title {
+        font-size: 12px;
+    }
+
+    .login-title .login-link {
+        font-size: 12px;
+    }
+
+    .next-btn-box .next-btn.disabled, .next-btn-box .next-btn.abled, .next-btn-2-box .next-btn-2.disabled, .next-btn-3-box .next-btn-3.disabled {
+        height: 60px;
+        font-size: 20px;
+    }
+
+    .join-password-input-box .join-password-input-title, .join-password2-input-box .join-password2-input-title, .join-name-input-box .join-name-input-title, .join-nickname-input-box .join-nickname-input-title, .join-birth-input-box .join-birth-input-title, .join-phonenumber-input-box .join-phonenumber-input-title, .join-nikeid-input-box .join-nikeid-input-title {
+        font-size: 16px;
+    }
+
+    .join-password-box .back-btn-box, .join-profile-box .back-btn-2-box {
+        padding: 20px 0;
+    }
+
+    .join-complete-box .logo-box {
+        padding: 20px 0 0 0;
+    }
+    .logo-box .check {
+        top: 50%;
+        left: 50%;
+        transform: translate(-40%, -50%);
+    }
+
+    .complete-title-box .complete-title {
+        font-size: 24px;
+    }
+
+    .draw-btn-box .draw-btn {
+        height: 60px;
+        font-size: 20px;
+
     }
 }
 

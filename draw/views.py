@@ -60,6 +60,11 @@ def member_idcheck(request):
     bodyjson = json.loads(bodydata)
     memberid = bodyjson['member_id']
 
+    try:
+        member_id = Member.objects.get(member_id=memberid)
+    except:
+        return JsonResponse(context, content_type="application/json")
+
     rs = Member.objects.filter(member_id=memberid)
 
     if (len(rs)) > 0:
@@ -78,6 +83,11 @@ def member_nicknamecheck(request):
     bodydata = request.body.decode('utf-8')
     bodyjson = json.loads(bodydata)
     membernickname = bodyjson['member_nickname']
+
+    try:
+        member_nickname = Member.objects.get(member_nickname=membernickname)
+    except:
+        return JsonResponse(context, content_type="application/json")
 
     rs = Member.objects.filter(member_nickname=membernickname)
 
@@ -105,6 +115,12 @@ def member_insert(request):
     memberbirth = bodyjson['member_birth']
     membernikeid = bodyjson['member_nikeid']
     memberphonenumber = bodyjson['member_phonenumber']
+
+    try:
+        member = Member.objects.get(member_id=memberid, member_pwd=memberpwd, member_nickname=membernickname)
+    except:
+        return JsonResponse(context, content_type="application/json")
+
     try:
         existing_member = Member.objects.get(member_id=memberid)
         context['flag'] = '0'
@@ -414,7 +430,10 @@ def new_password(request):
     bodyjson = json.loads(bodydata)
     memberid = bodyjson['memberid']
     pwdencryted = bodyjson['pwdencrypted']
-    member = Member.objects.get(member_id=memberid)
+    try:
+        member = Member.objects.get(member_id=memberid)
+    except:
+        return JsonResponse(context, content_type="application/json")
 
     if member:
         member.member_pwd = pwdencryted
@@ -672,11 +691,6 @@ def details(request):
 
     context = {}
 
-    if Shoe.objects.filter(serialno=pk).exists():
-        print("The serialno already exists in the database.")
-    else:
-        print("The serialno does not exist in the database.")
-
     shoe = get_object_or_404(Shoe, serialno=pk) 
     #site = Shoesite.objects.filter(Q(serialno=pk)&Q(Published_date__gte=start_date, Published_date__lte=end_date))
     site = Shoesite.objects.filter(serialno=pk)
@@ -711,12 +725,12 @@ def details(request):
     context['recent_searches'] = recent_searches
 
     # 댓글
-    comment = Comment.objects.filter(serialno=pk)
+    comment = Comment.objects.filter(serialno=pk).order_by('-created_date')
     comment_count = comment.count()
     if comment.values():
         for com in comment:
             com.profile_img_url = Member.objects.get(member_nickname=com.member_nickname).profile_img_url
-        paginator = Paginator(comment, 1)
+        paginator = Paginator(comment, 5)
         page = request.GET.get('page')
         try:
             comments = paginator.page(page)
