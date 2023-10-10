@@ -31,13 +31,16 @@ class Shoe(models.Model):
 	shoename = models.CharField(max_length=200) 		# 신발명
 	shoeengname = models.CharField(max_length=200) 		# 신발영어명	
 	shoebrand = models.CharField(max_length=200)		# 신발브랜드
-	serialno = models.CharField(max_length=50,unique=True, default= None)			# 발매사이트
+	serialno = models.CharField(max_length=50,unique=True, default= None)			# 제품번호
 	pubdate = models.CharField(max_length=200)			# 발매일
 	shoeprice = models.CharField(max_length=200)		# 발매가
 	shoedetail = models.TextField(default = '-')		# 신발 설명
 	shoelikecount = models.IntegerField(default=0)  # 좋아요 개수
 	likes = models.ManyToManyField(Member, related_name='liked_posts')
 	views = models.PositiveBigIntegerField(default = 0)
+
+	def __str__(self):
+		return "제품코드: " + self.serialno + "      ,     신발명 : " + self.shoename
 	
 	def increase_views(self):
 		self.views += 1
@@ -66,6 +69,9 @@ class Shoesite(models.Model):
 	end_date = models.DateTimeField('date end', null=True, blank=True)
 	sitelink = models.CharField(max_length=200)
 	shoesiteunique = models.CharField(max_length=255,unique=True)
+
+	def __str__(self):
+		return "제품코드: " + self.serialno + " , 사이트 : " + self.sitename
 
 
 class Comment(models.Model):

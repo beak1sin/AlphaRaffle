@@ -30,7 +30,7 @@ input::placeholder {
 .password-icon-hide {
     position: absolute;
     top: 19%;
-    left: 92%;
+    right: 0;
     width: 24.96px;
     height: 24.96px;
     background-color: white;
@@ -54,7 +54,7 @@ input::placeholder {
     display: block;
     position: absolute;
     top: 19%;
-    left: 85%;
+    right: 30px;
     width: 24.96px;
     height: 24.96px;
     background-color: white;
@@ -83,14 +83,14 @@ input::placeholder {
 }
 
 .join-box .join-email-box {
-    width: 560px;
+    max-width: 560px;
     height: 576px;
     margin: 25vh auto;
     background-color: white;
     padding: 15px 45px 15px 45px;
     border-radius: 20px;
     box-shadow: 4px 4px 8px 0px #969696;
-    display: inline-block;
+    /* display: inline-block; */
 }
 
 .join-email-box .join-email-title-box, .join-password-box .join-password-title-box, .join-profile-box .join-profile-title-box {
@@ -227,25 +227,25 @@ input::placeholder {
 }
 
 .join-box .join-password-box, .join-box .join-complete-box {
-    width: 560px;
+    max-width: 560px;
     height: 576px;
     margin: 25vh auto;
     background-color: white;
     padding: 15px 45px 15px 45px;
     border-radius: 20px;
     box-shadow: 4px 4px 8px 0px #969696;
-    display: inline-block;
+    /* display: inline-block; */
     display: none;
 }
 
 .join-box .join-profile-box {
-    width: 560px;
+    max-width: 560px;
     margin: 175px auto;
     background-color: white;
     padding: 15px 45px 15px 45px;
     border-radius: 20px;
     box-shadow: 4px 4px 8px 0px #969696;
-    display: inline-block;
+    /* display: inline-block; */
     display: none;
 }
 
@@ -319,9 +319,6 @@ input::placeholder {
     margin: 0px !important;
     color: red;
     font-size: 12px;
-    position: absolute;
-    right: 0px;
-    top:0px;
 }
 
 .join-complete-box .logo-box {
@@ -379,6 +376,18 @@ input::placeholder {
     cursor: pointer;
 }
 
+.join-bar {
+    width: 300px; height: 5px; position: relative; margin: 0 auto;
+}
+
+.join-bar .whole-bar {
+    width: 300px; height: 5px; left: 0px; top: 0px; position: absolute; background: #C8C8C8; border-radius: 10px;
+}
+
+.join-bar .current-bar {
+    width: 100px; height: 5px; top: 0px; position: absolute; background: #777777; border-radius: 10px;
+}
+
 @media (max-height: 1080px) {
     .join-box .join-email-box, .join-box .join-password-box, .join-box .join-complete-box {
         margin: 20vh auto !important;
@@ -397,9 +406,22 @@ input::placeholder {
     }
 }
 
-@media (max-width: 575px) {
+@media (max-width: 600px) {
     .join-box .join-email-box, .join-box .join-password-box, .join-box .join-complete-box, .join-box .join-profile-box {
-        width: 450px !important;
+        margin-left: 20px !important;
+        margin-right: 20px !important;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 430px) {
+    .join-bar, .join-bar .whole-bar {
+        width: 100%;
+    }
+
+    .join-bar .current-bar {
+        width: 33.33%;
     }
 }
 

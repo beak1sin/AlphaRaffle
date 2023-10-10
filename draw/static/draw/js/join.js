@@ -504,7 +504,7 @@ $(document).ready( () => {
 
     });
 
-    // birth focus
+    // phonenumber focus
     $('#member_phonenumber').focus( (e) => {
         let $phonenumber = $('#member_phonenumber').val();
         let targetParent = e.target.parentElement.parentElement;

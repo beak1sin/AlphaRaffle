@@ -282,27 +282,31 @@
                     </div>
                 </div>
 
-                <div style="display: flex; flex-direction: column;">
+                <div class="info" style="display: flex; flex-direction: column;">
                     <p style="margin: 0; font-size: 24px; font-weight: 900; color: #333;">응모 정보</p>
                     <div style="margin-top: 10px;">
                         <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left; width: 150px;">이름</p>
-                        <p class="info" style="margin: 0; font-size: 20px; font-weight: 500; color: #333; float: left;">{{member.member_realname}}</p>
-                        <input class="info-input" style="height: 32px; display: none;" value="{{member.member_realname}}">
+                        <p class="info-value realname" style="margin: 0; font-size: 20px; font-weight: 500; color: #333; float: left;">{{member.member_realname}}</p>
+                        <input class="info-input" id="member_realname" value="{{member.member_realname}}" maxlength="10">
+                        <p style="font-size: 12px; color: red; margin: 0px; float: left; margin-left: 10px; line-height: 32px;"></p>
                     </div>
                     <div style="margin-top: 10px;">
                         <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left; width: 150px;">휴대폰 번호</p>
-                        <p class="info" style="margin: 0; font-size: 20px; font-weight: 500; color: #333; float: left;">{{member.member_phonenumber}}</p>
-                        <input class="info-input" style="height: 32px; display: none;" value="{{member.member_phonenumber}}">
+                        <p class="info-value phonenumber" style="margin: 0; font-size: 20px; font-weight: 500; color: #333; float: left;">{{member.member_phonenumber}}</p>
+                        <input class="info-input" id="member_phonenumber" value="{{member.member_phonenumber}}" maxlength="11">
+                        <p style="font-size: 12px; color: red; margin: 0px; float: left; margin-left: 10px; line-height: 32px;"></p>
                     </div>
                     <div style="margin-top: 10px;">
                         <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left; width: 150px;">생년월일</p>
-                        <p class="info" style="margin: 0; font-size: 20px; font-weight: 500; color: #333; float: left;">{{member.member_birth}}</p>
-                        <input class="info-input" style="height: 32px; display: none;" value="{{member.member_birth}}">
+                        <p class="info-value birth" style="margin: 0; font-size: 20px; font-weight: 500; color: #333; float: left;">{{member.member_birth}}</p>
+                        <input class="info-input" id="member_birth" value="{{member.member_birth}}" maxlength="6">
+                        <p style="font-size: 12px; color: red; margin: 0px; float: left; margin-left: 10px; line-height: 32px;"></p>
                     </div>
                     <div style="margin-top: 10px;">
                         <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left; width: 150px;">나이키 ID</p>
-                        <p class="info" style="margin: 0; font-size: 20px; font-weight: 500; color: #333; float: left;">{{member.member_nikeid}}</p>
-                        <input class="info-input" style="height: 32px; display: none;" value="{{member.member_nikeid}}">
+                        <p class="info-value nikeid" style="margin: 0; font-size: 20px; font-weight: 500; color: #333; float: left;">{{member.member_nikeid}}</p>
+                        <input class="info-input" id="member_nikeid" value="{{member.member_nikeid}}" maxlength="50">
+                        <p style="font-size: 12px; color: red; margin: 0px; float: left; margin-left: 10px; line-height: 32px;"></p>
                     </div>
                 </div>
 
@@ -324,7 +328,7 @@
                     </div>
                 </div>
 
-                <div style="display: flex; justify-content: space-between; width: 600px; margin-bottom: 40px;">
+                <div style="display: flex; justify-content: space-between; max-width: 600px; margin-bottom: 40px;">
                     <div id="left-btns" style="display: flex;">
                         <div class="profile-change-btn">변경</div>
                     </div>

@@ -469,32 +469,35 @@ def member_update(request):
     bodydata = request.body.decode('utf-8')
     bodyjson = json.loads(bodydata)
 
-    membernickname = bodyjson['member_nickname']
-    memberbirth = bodyjson['member_birth']
-    membernikeid = bodyjson['member_nikeid']
-    memberphonenumber = bodyjson['member_phonenumber']
+    memberrealname = bodyjson['realnameAJAX']
+    memberbirth = bodyjson['birthAJAX']
+    membernikeid = bodyjson['nikeidAJAX']
+    memberphonenumber = bodyjson['phonenumberAJAX']
 
     if 'member_no' in request.session:
         memberno = request.session['member_no']
-        rsMember = Member.objects.get(member_no=memberno)
+        isMem = Member.objects.filter(member_no=memberno, member_realname=memberrealname, member_birth=memberbirth, member_nikeid=membernikeid, member_phonenumber=memberphonenumber)
+        if isMem:
+            context['flag'] = '0'
+            context['result_msg'] = '수정된 사항이 없습니다.'
+            return JsonResponse(context, content_type="application/json")
+        else:
+            rsMember = Member.objects.get(member_no=memberno)
 
-        rsMember.member_nickname = membernickname
-        rsMember.member_birth = memberbirth
-        rsMember.member_nikeid = membernikeid
-        rsMember.member_phonenumber = memberphonenumber
-        rsMember.save()
-
-        context['flag'] = '0'
-        context['result_msg'] = '정보 변경되었습니다'
-
-        return JsonResponse(context, content_type="application/json")
-        # return redirect('/')
-
+            rsMember.member_realname = memberrealname
+            rsMember.member_birth = memberbirth
+            rsMember.member_nikeid = membernikeid
+            rsMember.member_phonenumber = memberphonenumber
+            rsMember.save()
+            
+            context = {'memberrealname': memberrealname, 'memberbirth': memberbirth, 'membernikeid': membernikeid, 'memberphonenumber': memberphonenumber}
+            context['flag'] = '1'
+            context['result_msg'] = '정보 변경되었습니다'
     else:
-        context['flag'] = '1'
+        context['flag'] = '0'
         context['result_msg'] = '회원 정보가 없습니다.'
 
-        return JsonResponse(context, content_type="application/json")
+    return JsonResponse(context, content_type="application/json")
     
 import oci
 import environ

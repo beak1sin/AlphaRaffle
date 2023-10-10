@@ -214,7 +214,7 @@ $(document).ready(function() {
 
     $('#left-btns').on('click', '.profile-change-btn', function(){
         $(this).removeClass('profile-change-btn').addClass('profile-save-btn').text('저장');
-        $('.info').hide();
+        $('.info-value').hide();
         $('.info-input').show();
         if ($('.profile-cancel-btn').length === 0) {
             $('#left-btns').append('<div class="profile-cancel-btn" style="margin-left: 20px;">취소</div>');
@@ -224,12 +224,248 @@ $(document).ready(function() {
     $('#left-btns').on('click', '.profile-cancel-btn', function(){
         $('.profile-save-btn').removeClass('profile-save-btn').addClass('profile-change-btn').text('변경');
         $('.info-input').hide();
-        $('.info').show();
+        $('.info-value').show();
         $(this).remove();
     });
 
     $('#left-btns').on('click', '.profile-save-btn', function(){
-        alert('안녕');
+        let $realname = $('#member_realname').val();
+        let $phonenumber = $('#member_phonenumber').val();
+        let $birth = $('#member_birth').val(); 
+        let $nikeid = $('#member_nikeid').val();
+        if (!nameRegEx.test($realname) || !phonenumberRegEx.test($phonenumber) || !birthRegEx.test($birth) || !nikeidRegEx.test($nikeid)) {
+            return false;
+        }
+        var data = {realnameAJAX: $realname, phonenumberAJAX: $phonenumber, birthAJAX: $birth, nikeidAJAX: $nikeid};
+        var datastr = JSON.stringify(data);
+        
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                var data = xhr.responseText;
+                var obj = JSON.parse(data);
+                if(obj.flag == '0') {
+                    alert(obj.result_msg);
+                } else {
+                    alert(obj.result_msg);
+                    $('.profile-save-btn').removeClass('profile-save-btn').addClass('profile-change-btn').text('변경');
+                    $('.info-input').hide();
+                    $('.info-value').show();
+                    $('.profile-cancel-btn').remove();
+                    $('.realname').text(obj.memberrealname)
+                    $('.phonenumber').text(obj.memberphonenumber);
+                    $('.birth').text(obj.memberbirth);
+                    $('.nikeid').text(obj.membernikeid);
+                }
+            }
+        };
+        xhr.open("POST", "member_update");
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.send(datastr);
+    });
+
+    // 이름 정규식
+    const nameRegEx = /^[가-힣]{2,10}$/;
+
+    $("#member_realname").keyup(function() {
+        let $name = $('#member_realname').val();
+        if (!nameRegEx.test($name)) {
+            $(this).next().text('2 ~ 10자로 입력해주세요.')
+            $(this).css({'border-bottom': '2px solid red'});
+            $(this).prev().prev().css({'color': 'red'});
+        } else {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '2px solid black'});
+            $(this).prev().prev().css({'color': 'black'});
+        }
+        if ($name.length == 0) {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '2px solid black'});
+            $(this).prev().prev().css({'color': 'black'});
+        }
+
+    });
+
+    // name focus
+    $('#member_realname').focus(function() {
+        let $name = $('#member_realname').val();
+        if (!nameRegEx.test($name)) {
+            $(this).css({'border-bottom': '2px solid red'});
+        } else {
+            $(this).css({'border-bottom': '2px solid black'});
+        }
+        if ($name.length == 0) {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '2px solid black'});
+            $(this).prev().prev().css({'color': 'black'});
+        }
+    });
+
+    $('#member_realname').blur(function() {
+        let $name = $('#member_realname').val();
+        if (!nameRegEx.test($name)) {
+            $(this).css({'border-bottom': '1px solid red'});
+        } else {
+            $(this).css({'border-bottom': '1px solid #F5F5F5'});
+        }
+        if ($name.length == 0) {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '1px solid #F5F5F5'});
+            $(this).prev().prev().css({'color': 'black'});
+        }
+    });
+
+    // 전화번호 정규식
+    const phonenumberRegEx = /\d{11}/;
+
+    $("#member_phonenumber").keyup(function() {
+        let $phonenumber = $('#member_phonenumber').val();
+        if (!phonenumberRegEx.test($phonenumber)) {
+            $(this).next().text('전화번호 11자리를 입력해주세요. ( - 하이픈 제외)')
+            $(this).css({'border-bottom': '2px solid red'});
+            $(this).prev().prev().css({'color': 'red'});
+        } else {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '2px solid black'});
+            $(this).prev().prev().css({'color': 'black'});
+        }
+        if ($phonenumber.length == 0) {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '2px solid black'});
+            $(this).prev().prev().css({'color': 'black'});
+        }
+
+    });
+
+    // phonenumber focus
+    $('#member_phonenumber').focus(function() {
+        let $phonenumber = $('#member_phonenumber').val();
+        if (!phonenumberRegEx.test($phonenumber)) {
+            $(this).css({'border-bottom': '2px solid red'});
+        } else {
+            $(this).css({'border-bottom': '2px solid black'});
+        }
+        if ($phonenumber.length == 0) {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '2px solid black'});
+            $(this).prev().prev().css({'color': 'black'});
+        }
+    });
+
+    $('#member_phonenumber').blur(function() {
+        let $phonenumber = $('#member_phonenumber').val();
+        if (!phonenumberRegEx.test($phonenumber)) {
+            $(this).css({'border-bottom': '1px solid red'});
+        } else {
+            $(this).css({'border-bottom': '1px solid #F5F5F5'});
+        }
+        if ($phonenumber.length == 0) {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '1px solid #F5F5F5'});
+            $(this).prev().prev().css({'color': 'black'});
+        }
+    });
+
+    // 생일 정규식
+    const birthRegEx = /([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))/;
+
+    $("#member_birth").keyup(function() {
+        let $birth = $('#member_birth').val();
+        if (!birthRegEx.test($birth)) {
+            $(this).next().text('생년월일 6자리를 입력해주세요.')
+            $(this).css({'border-bottom': '2px solid red'});
+            $(this).prev().prev().css({'color': 'red'});
+        } else {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '2px solid black'});
+            $(this).prev().prev().css({'color': 'black'});
+        }
+        if ($birth.length == 0) {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '2px solid black'});
+            $(this).prev().prev().css({'color': 'black'});
+        }
+
+    });
+
+    // birth focus
+    $('#member_birth').focus(function() {
+        let $birth = $('#member_birth').val();
+        if (!birthRegEx.test($birth)) {
+            $(this).css({'border-bottom': '2px solid red'});
+        } else {
+            $(this).css({'border-bottom': '2px solid black'});
+        }
+        if ($birth.length == 0) {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '2px solid black'});
+            $(this).prev().prev().css({'color': 'black'});
+        }
+    });
+
+    $('#member_birth').blur(function() {
+        let $birth = $('#member_birth').val();
+        if (!birthRegEx.test($birth)) {
+            $(this).css({'border-bottom': '1px solid red'});
+        } else {
+            $(this).css({'border-bottom': '1px solid #F5F5F5'});
+        }
+        if ($birth.length == 0) {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '1px solid #F5F5F5'});
+            $(this).prev().prev().css({'color': 'black'});
+        }
+    });
+
+    // 나이키id 정규식
+    const nikeidRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
+
+    $("#member_nikeid").keyup(function() {
+        let $name = $('#member_nikeid').val();
+        if (!nikeidRegEx.test($nikeid)) {
+            $(this).next().text('이메일 형식이 아닙니다.')
+            $(this).css({'border-bottom': '2px solid red'});
+            $(this).prev().prev().css({'color': 'red'});
+        } else {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '2px solid black'});
+            $(this).prev().prev().css({'color': 'black'});
+        }
+        if ($nikeid.length == 0) {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '2px solid black'});
+            $(this).prev().prev().css({'color': 'black'});
+        }
+
+    });
+
+    // nikeid focus
+    $('#member_nikeid').focus(function() {
+        let $nikeid = $('#member_nikeid').val();
+        if (!nikeidRegEx.test($nikeid)) {
+            $(this).css({'border-bottom': '2px solid red'});
+        } else {
+            $(this).css({'border-bottom': '2px solid black'});
+        }
+        if ($nikeid.length == 0) {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '2px solid black'});
+            $(this).prev().prev().css({'color': 'black'});
+        }
+    });
+
+    $('#member_nikeid').blur(function() {
+        let $nikeid = $('#member_nikeid').val();
+        if (!nikeidRegEx.test($nikeid)) {
+            $(this).css({'border-bottom': '1px solid red'});
+        } else {
+            $(this).css({'border-bottom': '1px solid #F5F5F5'});
+        }
+        if ($nikeid.length == 0) {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '1px solid #F5F5F5'});
+            $(this).prev().prev().css({'color': 'black'});
+        }
     });
 
 });
