@@ -386,7 +386,10 @@ $(document).ready(function() {
 
     function addParamToURL(url, paramName, paramValue) {
         const urlParams = new URLSearchParams(window.location.search);
-        urlParams.set(paramName, paramValue);
+        urlParams.delete('serialnum');
+        if (paramName != "serialnum") {
+            urlParams.set(paramName, paramValue);
+        }
       
         // 기존 URL의 경로와 파라미터를 유지하면서 새로운 파라미터를 덧붙임
         const newURL = `${url.split('?')[0]}?${urlParams}`;

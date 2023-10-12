@@ -56,7 +56,8 @@ urlpatterns = [
     path('main/likeCancel', views.likeCancel, name='좋아요취소'),
 
     # path('crawl', views.crawl, name='crawl'),
-    
+    path('auth/mypage/nickname_duplicate', views.nickname_duplicate, name='nickname_duplicate'),
+    path('auth/mypage/nickname_save', views.nickname_save, name='nickname_save'),
     path('auth/mypage/member_update', views.member_update, name='member_update'),
     path('auth/mypage/upload', views.upload, name='upload'),
     path('auth/mypage/comment_delete', views.comment_delete, name='comment_delete'),

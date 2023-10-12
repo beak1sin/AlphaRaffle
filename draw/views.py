@@ -293,7 +293,7 @@ def member_login(request):
     if 'member_no' in request.session:
         context['flag'] = '1'
         context['result_msg'] = 'Already Login 되어 있습니다.'
-        return redirect('/main/')
+        return redirect('/')
     else:
 
         rsTmp = Member.objects.filter(member_id=memberid, member_pwd=memberpwd)
@@ -348,7 +348,7 @@ def login(request):
         if request.GET.get('autoClick') == 'true':
             return render(request, 'draw/login.html', context)
         else:
-            return redirect('/main/')
+            return redirect('/')
 
     else:
         member_no = None
@@ -512,6 +512,55 @@ def member_update(request):
             context = {'memberrealname': memberrealname, 'memberbirth': memberbirth, 'membernikeid': membernikeid, 'memberphonenumber': memberphonenumber}
             context['flag'] = '1'
             context['result_msg'] = '정보 변경되었습니다'
+    else:
+        context['flag'] = '0'
+        context['result_msg'] = '회원 정보가 없습니다.'
+
+    return JsonResponse(context, content_type="application/json")
+
+# mypage 닉네임 중복확인
+@csrf_protect
+def nickname_duplicate(request):
+    context = {}
+
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+
+    membernickname = bodyjson['nicknameAJAX'] 
+
+    if 'member_no' in request.session:
+        if Member.objects.filter(member_nickname=membernickname).exists():
+            context['flag'] = '0'
+            context['result_msg'] = '중복된 닉네임입니다.'
+        else:
+            context['flag'] = '1'
+            context['result_msg'] = '사용 가능한 닉네임입니다.'
+    else:
+        context['flag'] = '0'
+        context['result_msg'] = '회원 정보가 없습니다.'
+
+    return JsonResponse(context, content_type="application/json")
+
+# mypage 닉네임 수정
+@csrf_protect
+def nickname_save(request):
+    context = {}
+
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+
+    membernickname = bodyjson['nicknameAJAX'] 
+
+    if 'member_no' in request.session:
+        memberno = request.session['member_no']
+        if Member.objects.filter(member_nickname=membernickname).exists():
+            context['flag'] = '0'
+            context['result_msg'] = '중복된 닉네임입니다.'
+        else:
+            Member.objects.filter(member_no=memberno).update(member_nickname=membernickname)
+            context['new_nickname'] = membernickname
+            context['flag'] = '1'
+            context['result_msg'] = '닉네임을 변경하였습니다.'
     else:
         context['flag'] = '0'
         context['result_msg'] = '회원 정보가 없습니다.'
@@ -722,7 +771,6 @@ def details(request):
         member_no = None
         member = None
         recent_searches = None
-    context['recent_searches'] = recent_searches
 
     # 댓글
     comment = Comment.objects.filter(serialno=pk).order_by('-created_date')
@@ -835,7 +883,7 @@ def details(request):
         # print(site.is_valid_date)
 
     context["member_no"] = member_no
-    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'offlineSite': offlineSite, 'googleSiteOnly': googleSiteOnly, 'comment': comments, 'comment_count': comment_count, 'serialnoSlash': serialnoSlash, 'shoenameSlash': shoenameSlash, 'shoeengnameSlash': shoeengnameSlash,'start_page': start_page, 'end_page': end_page, 'page_numbers': page_numbers, 'previous_page': previous_page, 'next_page': next_page }
+    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'offlineSite': offlineSite, 'googleSiteOnly': googleSiteOnly, 'comment': comments, 'comment_count': comment_count, 'serialnoSlash': serialnoSlash, 'shoenameSlash': shoenameSlash, 'shoeengnameSlash': shoeengnameSlash, 'recent_searches': recent_searches, 'start_page': start_page, 'end_page': end_page, 'page_numbers': page_numbers, 'previous_page': previous_page, 'next_page': next_page }
     #print(shoe.serialno)
     return render(request, 'draw/details.html', context)
     #return JsonResponse(context, content_type="application/json")
@@ -957,7 +1005,6 @@ def full(request):
                 shoe = Shoe.objects.all().order_by('-id')[0:12]
                 shoe_count = Shoe.objects.all().count()
             else:
-                print('패스안됨')
                 recent = SearchTerm.objects.filter(term=term,member_no=member_no)
                 if recent !=None:
                     recent.delete()
@@ -1000,6 +1047,58 @@ def full(request):
         elif 'comments' in sort:
             shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[0:12]
         shoe_count = Shoe.objects.filter(shoebrand__in=brandList).count()
+
+    # 검색, 필터링 기준
+    if request.method == 'GET' and 'search_term' in request.GET and 'brand' in request.GET:
+        term = request.GET.get("search_term")
+        brandList = request.GET.get("brand").split(',')
+        if term == '':
+            shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[0:12]
+            shoe_count = Shoe.objects.filter(shoebrand__in=brandList).count()
+        else:
+            recent = SearchTerm.objects.filter(term=term,member_no=member_no)
+            if recent !=None:
+                recent.delete()
+            try: 
+                SearchTerm.objects.create(term=term,member_no=member_no)
+            except:
+                pass
+            shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in = brandList).order_by('-id')[0:12]
+            shoe_count = Shoe.objects.filter(shoename__contains = term, shoebrand__in = brandList).count()
+
+    # 검색, 정렬, 필터링 기준
+    if request.method == 'GET' and 'search_term' in request.GET and 'sort' in request.GET and 'brand' in request.GET:
+        term = request.GET.get("search_term")
+        sort = request.GET.get("sort")
+        brandList = request.GET.get("brand").split(',')
+        if term == '':
+            if 'latest' in sort:
+                shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[0:12]
+            elif 'bookmark' in sort:
+                shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-shoelikecount')[0:12]
+            elif 'views' in sort:
+                shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-views')[0:12]
+            elif 'comments' in sort:
+                shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[0:12]
+            shoe_count = Shoe.objects.filter(shoebrand__in=brandList).count()
+        else:
+            if 'latest' in sort:
+                shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in = brandList).order_by('-id')[0:12]
+            elif 'bookmark' in sort:
+                shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in = brandList).order_by('-shoelikecount')[0:12]
+            elif 'views' in sort:
+                shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in = brandList).order_by('-views')[0:12]
+            elif 'comments' in sort:
+                shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in = brandList).order_by('-id')[0:12]
+            shoe_count = Shoe.objects.filter(shoename__contains = term, shoebrand__in = brandList).count()
+            
+            recent = SearchTerm.objects.filter(term=term,member_no=member_no)
+            if recent !=None:
+                recent.delete()
+            try: 
+                SearchTerm.objects.create(term=term,member_no=member_no)
+            except:
+                pass
 
     context = {'shoe': shoe, 'member': member, 'shoe_count': shoe_count ,'recent_searches': recent_searches}  # member 객체를 context에 추가
 
@@ -1064,7 +1163,22 @@ def full(request):
                 shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-views')[start_index:end_index]
             elif 'comments' in sort:
                 shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[start_index:end_index]
-            
+
+        # 검색, 필터링 기준
+        if term != None and brandList != None:
+            shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in = brandList).order_by('-id')[start_index:end_index]
+            shoe_count = Shoe.objects.filter(shoename__contains = term, shoebrand__in = brandList).count()
+
+        # 검색, 정렬, 필터링 기준
+        if term != None and sort != None and brandList != None:
+            if 'latest' in sort:
+                shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in=brandList).order_by('-id')[start_index:end_index]
+            elif 'bookmark' in sort:
+                shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in=brandList).order_by('-shoelikecount')[start_index:end_index]
+            elif 'views' in sort:
+                shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in=brandList).order_by('-views')[start_index:end_index]
+            elif 'comments' in sort:
+                shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in=brandList).order_by('-id')[start_index:end_index]
 
         shoes = serializers.serialize('json', shoe)
         likes = []  # 멤버별 신발 좋아요 여부를 저장할 리스트

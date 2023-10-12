@@ -11,7 +11,6 @@ $(document).ready(function() {
                 $('.checked-content').hide();
                 $('.comment-content').hide();
                 $('.setting-content').hide();
-                $('.setting-content').removeClass('on');
                 $('.delete-content').hide();
                 $('#delete_tab').hide();
                 $('#checked_tab').removeClass('checked');
@@ -28,7 +27,6 @@ $(document).ready(function() {
                 $('.checked-content').show();
                 $('.comment-content').hide();
                 $('.setting-content').hide();
-                $('.setting-content').removeClass('on');
                 $('.delete-content').hide();
                 $('#delete_tab').hide();
                 $('#bookmark_tab').removeClass('checked');
@@ -45,7 +43,6 @@ $(document).ready(function() {
                 $('.checked-content').hide();
                 $('.comment-content').show();
                 $('.setting-content').hide();
-                $('.setting-content').removeClass('on');
                 $('.delete-content').hide();
                 $('#delete_tab').hide();
                 $('#bookmark_tab').removeClass('checked');
@@ -61,7 +58,7 @@ $(document).ready(function() {
                 $('.bookmark-content').hide();
                 $('.checked-content').hide();
                 $('.comment-content').hide();
-                $('.setting-content').addClass('on');
+                $('.setting-content').show();
                 $('.delete-content').hide();
                 $('#delete_tab').show();
                 $('#bookmark_tab').removeClass('checked');
@@ -210,6 +207,82 @@ $(document).ready(function() {
         } else {   
             $(this).addClass('checked');
         }
+    });
+    
+    $('#profile_nick_btns').on('click', '.nickname-change-btn', function(){
+        $(this).removeClass('nickname-change-btn').addClass('nickname-duplicate-btn').text('중복확인');
+        $('.nickname-value').hide();
+        $('.nickname-input').show();
+        $('.nickname-error-msg').text('동일한 닉네임입니다.');
+        if ($('.nickname-cancel-btn').length === 0) {
+            $('#profile_nick_btns').append('<div class="nickname-cancel-btn" style="margin-left: 5px;">취소</div>');
+        }
+    });
+
+    $('#profile_nick_btns').on('click', '.nickname-cancel-btn', function(){
+        $('.nickname-save-btn').removeClass('nickname-save-btn').addClass('nickname-change-btn').text('닉네임 변경');
+        $('.nickname-duplicate-btn').removeClass('nickname-duplicate-btn').addClass('nickname-change-btn').text('닉네임 변경');
+        $('.nickname-input').hide().attr('readonly', false).val($('.nickname-value').text()).css({'border-bottom': '2px solid red'});
+        $('.nickname-value').show();
+        $('.nickname-error-msg').text('').css({'color': 'red'});
+        $(this).remove();
+    });
+
+    $('#profile_nick_btns').on('click', '.nickname-duplicate-btn', function(){
+        let $nickname = $('#member_nickname').val();
+        if (!nicknameRegEx.test($nickname) || $nickname == $('.nickname-value').text()) {
+            return false;
+        }
+        var data = {nicknameAJAX: $nickname};
+        var datastr = JSON.stringify(data);
+        
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                var data = xhr.responseText;
+                var obj = JSON.parse(data);
+                if(obj.flag == '0') {
+                    $('.nickname-error-msg').text(obj.result_msg);
+                } else {
+                    $('.nickname-duplicate-btn').removeClass('nickname-duplicate-btn').addClass('nickname-save-btn').text('변경');
+                    $('.nickname-input').attr('readonly', true);
+                    $('.nickname-error-msg').css({'color': 'black'}).text(obj.result_msg);
+                }
+            }
+        };
+        xhr.open("POST", "nickname_duplicate");
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.send(datastr);
+    });
+
+    $('#profile_nick_btns').on('click', '.nickname-save-btn', function(){
+        let $nickname = $('#member_nickname').val();
+        if (!nicknameRegEx.test($nickname) || $nickname == $('.nickname-value').text()) {
+            return false;
+        }
+        var data = {nicknameAJAX: $nickname};
+        var datastr = JSON.stringify(data);
+        
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                var data = xhr.responseText;
+                var obj = JSON.parse(data);
+                if(obj.flag == '0') {
+                    $('.nickname-error-msg').text(obj.result_msg);
+                } else {
+                    $('.nickname-save-btn').removeClass('nickname-save-btn').addClass('nickname-change-btn').text('닉네임 변경');
+                    $('.nickname-input').hide().attr('readonly', false).val(obj.new_nickname).css({'border-bottom': '2px solid red'});
+                    $('.nickname-value').show().text(obj.new_nickname);
+                    $('.nickname-error-msg').css({'color': 'black'}).text(obj.result_msg);
+                    $('.main-nickname').text(obj.new_nickname);
+                    $('.nickname-cancel-btn').remove();
+                }
+            }
+        };
+        xhr.open("POST", "nickname_save");
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.send(datastr);
     });
 
     $('#left-btns').on('click', '.profile-change-btn', function(){
@@ -421,7 +494,7 @@ $(document).ready(function() {
     const nikeidRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
 
     $("#member_nikeid").keyup(function() {
-        let $name = $('#member_nikeid').val();
+        let $nikeid = $('#member_nikeid').val();
         if (!nikeidRegEx.test($nikeid)) {
             $(this).next().text('이메일 형식이 아닙니다.')
             $(this).css({'border-bottom': '2px solid red'});
@@ -465,6 +538,68 @@ $(document).ready(function() {
             $(this).next().text('')
             $(this).css({'border-bottom': '1px solid #F5F5F5'});
             $(this).prev().prev().css({'color': 'black'});
+        }
+    });
+
+    // 닉네임 정규식
+    const nicknameRegEx = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,20}$/;
+
+    $("#member_nickname").keyup(function() {
+        let $nickname = $('#member_nickname').val();
+        if (!nicknameRegEx.test($nickname)) {
+            $(this).next().text('한글, 영문, 숫자를 조합해서 입력해주세요. (2-20자)')
+            $(this).css({'border-bottom': '2px solid red'});
+            // $(this).prev().prev().css({'color': 'red'});
+        } else {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '2px solid black'});
+            // $(this).prev().prev().css({'color': 'black'});
+        }
+        if ($nickname.length == 0) {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '2px solid black'});
+            // $(this).prev().prev().css({'color': 'black'});
+        }
+
+        if ($nickname == $('.nickname-value').text()) {
+            $(this).next().text('동일한 닉네임입니다.');
+            $(this).css({'border-bottom': '2px solid red'});
+        }
+
+    });
+
+    // nickname focus
+    $('#member_nickname').focus(function() {
+        let $nickname = $('#member_nickname').val();
+        if (!nicknameRegEx.test($nickname)) {
+            $(this).css({'border-bottom': '2px solid red'});
+        } else {
+            $(this).css({'border-bottom': '2px solid black'});
+        }
+        if ($nickname.length == 0) {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '2px solid black'});
+            // $(this).prev().prev().css({'color': 'black'});
+        }
+        if ($nickname == $('.nickname-value').text()) {
+            $(this).css({'border-bottom': '2px solid red'});
+        }
+    });
+
+    $('#member_nickname').blur(function() {
+        let $nickname = $('#member_nickname').val();
+        if (!nicknameRegEx.test($nickname)) {
+            $(this).css({'border-bottom': '1px solid red'});
+        } else {
+            $(this).css({'border-bottom': '1px solid #F5F5F5'});
+        }
+        if ($nickname.length == 0) {
+            $(this).next().text('')
+            $(this).css({'border-bottom': '1px solid #F5F5F5'});
+            // $(this).prev().prev().css({'color': 'black'});
+        }
+        if ($nickname == $('.nickname-value').text()) {
+            $(this).css({'border-bottom': '1px solid red'});
         }
     });
 

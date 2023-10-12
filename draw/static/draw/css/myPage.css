@@ -292,14 +292,10 @@ input[type="checkbox"] {
 /* ----------비밀번호 x버튼 기능 */
 
 .setting-content {
-  width: calc(100vw - 300px); left: 300px; height: 100%; float: left; position: relative; padding: 50px 100px 0px;  display: none;
+  width: calc(100vw - 300px); left: 300px; height: 100%; float: left; position: relative; padding: 50px 100px 0px; display: flex; flex-direction: column; justify-content: space-between;
 }
 
-.setting-content.on {
-  display: flex !important; flex-direction: column; justify-content: space-between;
-}
-
-.profile-img-change-btn, .nickname-change-btn, .profile-change-btn, .member-delete-btn, .profile-save-btn, .profile-cancel-btn {
+.profile-img-change-btn, .nickname-change-btn, .profile-change-btn, .member-delete-btn, .profile-save-btn, .profile-cancel-btn, .nickname-save-btn, .nickname-duplicate-btn,.nickname-cancel-btn {
   width: 120px;
   height: 40px;
   border-radius: 10px;
@@ -328,7 +324,7 @@ input[type="checkbox"] {
   float: left;
 }
 
-.profile-img-change-btn:hover, .profile-change-btn:hover, .nickname-change-btn:hover, .password-change-btn:hover, .member-delete-btn:hover, .profile-save-btn:hover, .profile-cancel-btn:hover {
+.profile-img-change-btn:hover, .profile-change-btn:hover, .nickname-change-btn:hover, .password-change-btn:hover, .member-delete-btn:hover, .profile-save-btn:hover, .profile-cancel-btn:hover, .nickname-save-btn:hover, .nickname-duplicate-btn:hover, .nickname-cancel-btn:hover {
   color: #EEE;
   background: #333;
 }
@@ -347,4 +343,8 @@ input[type="checkbox"] {
 
 .info-input {
   height: 32px; border: none; border-bottom: 1px solid #F5F5F5; display: none; float: left;
+}
+
+.nickname-input {
+  height: 52px; border: none; border-bottom: 2px solid red; display: none; margin-bottom: 5px; font-size: 32px;
 }
