@@ -10,8 +10,12 @@ section > *, header > *, footer > *, .u-sheet > *, .u-section-row > * {
 
 html {
   font-family: 'Pretendard' !important;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
+  /* -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; */
+  -webkit-text-size-adjust : none;  /* 크롬, 사파리, 오페라(신) */
+  -ms-text-size-adjust : none;  /* IE */
+  -moz-text-size-adjust : none;  /* 파이어폭스 */
+  -o-text-size-adjust : none;  /* 오페라(구)*/
 }
 
 /* 크롬 자동완성 파란색 없애기 */
