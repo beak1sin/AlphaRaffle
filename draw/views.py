@@ -711,7 +711,7 @@ def correct_image_orientation(image):
         return image
 
 @csrf_protect
-def comment_delete(request):
+def comment_delete_mypage(request):
     context = {}
     if request.method == 'POST':
         if request.session.has_key('member_no'):
@@ -920,6 +920,34 @@ def update_views(request):
 
     shoe = get_object_or_404(Shoe, serialno=pk) 
     shoe.increase_views()
+    return JsonResponse(context, content_type="application/json")
+
+@csrf_protect
+def comment_delete_details(request):
+    context = {}
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+
+    nickname = bodyjson['nicknameAJAX']
+    pk = bodyjson['pkAJAX']
+
+    if request.method == 'POST':
+        if request.session.has_key('member_no'):
+            memberno = request.session['member_no']
+            comment_memberno = Member.objects.get(member_nickname=nickname).member_no
+            print(type(memberno), type(comment_memberno))
+            if memberno == comment_memberno:
+                Comment.objects.filter(pk=pk, member_nickname=nickname).delete()
+                context['flag'] = '1'
+                context['result_msg'] = '댓글 삭제를 완료하였습니다.'
+            else:
+                context['flag'] = '0'
+                context['result_msg'] = '본인 댓글이 아닙니다.'
+
+        else:
+            context['flag'] = '0'
+            context['result_msg'] = '로그인 후 이용바랍니다.'
+
     return JsonResponse(context, content_type="application/json")
     
 @csrf_protect

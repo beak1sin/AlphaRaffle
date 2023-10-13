@@ -499,7 +499,7 @@
                     
                     {% if comment.serialno != '' %}
                     {% for comment in comment %}
-                    <div class="comment-list-box">
+                    <div class="comment-list-box" data-value="{{comment.id}}">
                         <div style="height: 36px; width: 36px; float: left;">
                             {% if comment.profile_img_url == '-' %}
                             <img style="width: 36px; height: 36px; border-radius: 50px;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
@@ -515,6 +515,10 @@
                                     <label class="comment-option-icon-label">
                                         <span class="icon"></span>
                                     </label>
+                                </div>
+                                <div class="comment-option" style="width: 50px; height: auto; position: absolute; top: 0; right: 0;border: 1px solid black; display: none; text-align: center;">
+                                    <p class="comment-option-delete" style="margin: 0; cursor: pointer;">삭제</p>
+                                    <p class="comment-option-cancel" style="margin: 0; border-top: 1px solid black; cursor: pointer;">취소</p>
                                 </div>
                             </div>
                             <div style="padding: 10px 0px;">

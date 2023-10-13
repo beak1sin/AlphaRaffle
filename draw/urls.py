@@ -60,11 +60,12 @@ urlpatterns = [
     path('auth/mypage/nickname_save', views.nickname_save, name='nickname_save'),
     path('auth/mypage/member_update', views.member_update, name='member_update'),
     path('auth/mypage/upload', views.upload, name='upload'),
-    path('auth/mypage/comment_delete', views.comment_delete, name='comment_delete'),
+    path('auth/mypage/comment_delete_mypage', views.comment_delete_mypage, name='comment_delete_mypage'),
 
     path('auth/details/', views.details, name='상세정보'),
     path('auth/details/update_views', views.update_views, name='조회수 증가'),
     path('auth/details/comment', views.comment, name='코멘트'),
+    path('auth/details/comment_delete_details', views.comment_delete_details, name='comment_delete_details'),
     path('auth/details/reportLayer', views.reportLayer, name='신고'),
     path('auth/details/report', views.report, name='신고전송'),
     path('auth/details/map/', views.map, name='map'),

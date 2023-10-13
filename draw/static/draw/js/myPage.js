@@ -130,7 +130,7 @@ $(document).ready(function() {
         let shoename = $(this).parent().parent().children(':nth-child(2)').children(':nth-child(3)').text();
         const data = {'pk': pk,'comment': comment, 'created_date': created_date, 'shoename': shoename};
 
-        fetch('comment_delete', {
+        fetch('comment_delete_mypage', {
             method: 'POST',
             headers: {
                 'X-CSRFToken': getCookie('csrftoken')

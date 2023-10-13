@@ -233,8 +233,41 @@ $(document).ready(function() {
         alert('로그인 후에 이용이 가능합니다.');
     });
 
-    
-    
+    $('.comment-option-icon-label').click(function() {
+        $(this).parent().next().show();
+        $(this).parent().hide();
+    });
+
+    $('.comment-option-cancel').click(function() {
+        $(this).parent().prev().show();
+        $(this).parent().hide();
+    });
+
+    $('.comment-option-delete').click(function() {
+        let $nickname = $(this).parent().parent().children('span:eq(0)').text();
+        let $pk = $(this).parent().parent().parent().parent().attr('data-value');
+        let self = this;
+
+        var data = {nicknameAJAX: $nickname, pkAJAX: $pk};
+        var datastr = JSON.stringify(data);
+
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                var data = xhr.responseText;
+                var obj = JSON.parse(data);
+                if (obj.flag == "0") {
+                    alert(obj.result_msg);
+                } else {
+                    $(self).parent().parent().parent().parent().css({'text-align': 'center'});
+                    $(self).parent().parent().parent().parent().html(obj.result_msg);
+                }
+            }
+        };
+        xhr.open("POST", "comment_delete_details");
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.send(datastr);
+    }); 
 });
 
 document.addEventListener('DOMContentLoaded', function() {
