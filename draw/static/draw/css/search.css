@@ -16,7 +16,7 @@ input::placeholder {
     display: block;
     position: absolute;
     top: 50%;
-    left: 96%;
+    right: 0;
     width: 24.96px;
     height: 24.96px;
     background-color: #FBFBFB;

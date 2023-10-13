@@ -6,7 +6,9 @@ section > *, header > *, footer > *, .u-sheet > *, .u-section-row > * {
   position: relative;
 }
 
-
+button {
+  padding: 0;
+}
 
 html {
   font-family: 'Pretendard' !important;
