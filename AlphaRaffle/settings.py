@@ -231,13 +231,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # ]
 
 if DEBUG == False:
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static')
-   ]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
     STATICFILES_DIRS = []
-
+else:
+    # STATIC_ROOT = os.path.join(BASE_DIR, 'draw/static')
+    STATICFILES_DIRS = [BASE_DIR / "draw/static"]
+print(STATIC_ROOT)
+print(STATICFILES_DIRS)
 # if DEBUG:
 #     STATIC_ROOT = os.path.join(BASE_DIR, 'draw', 'static')
 #     STATICFILES_DIRS = []
