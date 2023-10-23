@@ -37,7 +37,6 @@ import environ
 environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
 
 DEBUG = bool(1 if os.environ.get('DJANGO_DEBUG') == 'True' else 0)
-print(DEBUG)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -235,7 +234,7 @@ if DEBUG == False:
 else:
     # STATIC_ROOT = os.path.join(BASE_DIR, 'draw/static')
     STATICFILES_DIRS = [BASE_DIR / "draw/static"]
-    
+
 # if DEBUG:
 #     STATIC_ROOT = os.path.join(BASE_DIR, 'draw', 'static')
 #     STATICFILES_DIRS = []
