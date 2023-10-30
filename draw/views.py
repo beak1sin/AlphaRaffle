@@ -864,23 +864,33 @@ def details(request):
             site.is_valid_date = site.pub_date <= current_time <= site.end_date 
         # print(site.is_valid_date)
 
+    # for site in offlineSite:
+        
+    #     if site.pub_date == None and site.end_date != None:
+    #         # print(site.end_date , current_time)
+    #         site.is_valid_date = site.end_date > current_time
+
+    #     if site.end_date == None and site.pub_date != None:
+    #         # print(site.pub_date, current_time)
+    #         site.is_valid_date = site.pub_date > current_time  
+
+    #     if site.end_date == None and site.pub_date == None:
+    #         site.is_valid_date = True
+        
+    #     if site.pub_date != None and site.end_date != None:
+    #         # print(site.pub_date, current_time, site.end_date)
+    #         site.is_valid_date = site.pub_date <= current_time <= site.end_date 
+    #     # print(site.is_valid_date)
+    
     for site in offlineSite:
-        
-        if site.pub_date == None and site.end_date != None:
-            # print(site.end_date , current_time)
-            site.is_valid_date = site.end_date > current_time
-
+        if site.end_date != None:
+            site.is_valid_date = False
         if site.end_date == None and site.pub_date != None:
-            # print(site.pub_date, current_time)
-            site.is_valid_date = site.pub_date > current_time  
-
-        if site.end_date == None and site.pub_date == None:
-            site.is_valid_date = True
-        
-        if site.pub_date != None and site.end_date != None:
-            # print(site.pub_date, current_time, site.end_date)
-            site.is_valid_date = site.pub_date <= current_time <= site.end_date 
-        # print(site.is_valid_date)
+            # 오프라인 발매 시간에 이틀이 지날때까지는 true
+            if site.pub_date + datetime.timedelta(days=2) > current_time:
+                site.is_valid_date = True
+            else:
+                site.is_valid_date = False
 
     context["member_no"] = member_no
     context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'offlineSite': offlineSite, 'googleSiteOnly': googleSiteOnly, 'comment': comments, 'comment_count': comment_count, 'serialnoSlash': serialnoSlash, 'shoenameSlash': shoenameSlash, 'shoeengnameSlash': shoeengnameSlash, 'recent_searches': recent_searches, 'start_page': start_page, 'end_page': end_page, 'page_numbers': page_numbers, 'previous_page': previous_page, 'next_page': next_page }
