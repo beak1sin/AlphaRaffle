@@ -736,7 +736,7 @@ def comment_delete_mypage(request):
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 @csrf_protect
 def details(request):
-    pk = request.GET['serialnum']
+    pk = request.GET['serialnum'].replace(' ','')
 
     context = {}
 
