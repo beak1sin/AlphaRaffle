@@ -138,17 +138,9 @@
                         {% csrf_token %}
                         {% for shoe in shoe %}
                         <div class="grid-box" data-value="{{shoe.serialno}}">
-                            <div class="grid-container">
+                            <div class="grid-container" onclick="window.open(STATIC_FULL_URL + '{{shoe.serialno}}', '_blank')">
                                 <div class="grid-img-box">
-                                    <div class="comment-icon">
-                                        <label class="comment-icon-label">
-                                            <span class="icon"></span>
-                                        </label>
-                                    </div>
-                                    <div class="commentCount-box">
-                                        <p class="commentCount">0</p>
-                                    </div>
-                                    <div class="img-box" onclick="window.open(STATIC_FULL_URL + '{{shoe.serialno}}', '_blank')">
+                                    <div class="img-box">
                                         <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.avif">
                                     </div>
                                     <div class="bookmark-icon">
@@ -162,18 +154,12 @@
                                         </label>
                                         {% endif %}
                                     </div>
-                                    <div class="shoelikecount-box">
-                                        <p class="shoelikecount">{{shoe.shoelikecount}}</p>
-                                    </div>
                                 </div>
                                 <div class="grid-shoename-box">
                                     <p class="shoename">{{shoe.shoename}}</p>
                                 </div>
                                 <div class="grid-pubdate-box">
-                                    <p class="pubdate">{{shoe.pubdate}}</p>
-                                </div>
-                                <div class="grid-goBtn-box">
-                                    <button class="goBtn" onclick="window.open(STATIC_FULL_URL + '{{shoe.serialno}}', '_blank')">바로가기</button>
+                                    <p class="pubdate">{{shoe.pubdate}} 발매</p>
                                 </div>
                             </div>
                         </div>

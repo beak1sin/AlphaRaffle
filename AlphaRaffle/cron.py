@@ -341,6 +341,19 @@ def luckd_crowler(no):
                     
                 Shoesite.objects.filter(shoesiteunique = shoeunique).update(pub_date = pub_date_datetime)
 
+        # 오프라인인 경우 주소 추가
+        if 'offline' in sitelink:
+            # print(sitelink)
+            offline_url = 'https://www.luck-d.com' + sitelink
+            offline_html = requests.get(offline_url).text
+            offline_soup = BeautifulSoup(offline_html,'html.parser')
+            time.sleep(0.01)
+
+            address = offline_soup.select('div.agent_site_info > label > .agent_site_info_data')[1].text.strip()
+            normalized_address = unicodedata.normalize('NFC', address)
+
+            Shoesite.objects.filter(shoesiteunique = shoeunique).update(address = normalized_address)
+
 def entrycrawl(url):
     # url = 'https://docs.google.com/forms/d/e/1FAIpQLSeD5cUf-XH9Q5lxF3_EQurNnnXNolM-oARjVxnW7XP2QVx9sA/viewform'
     # url = 'https://docs.google.com/forms/d/e/1FAIpQLSc_RlwPQjfqI7DRfEf9CFzNTQbI6pmqOkI26FfJ5kvj7V6A5g/viewform'
@@ -735,7 +748,6 @@ def luckd_crowler_test(no):
         # urllib.request.urlretrieve('https://static.luck-d.com/agent_site/'+quote(logo_file[leng:]), logo_name)
         
         sitelink = sitecard[i].a['href']
-        print(sitelink)
         
 
         if "docs.google.com" in sitelink:
@@ -853,6 +865,17 @@ def luckd_crowler_test(no):
 
                 # Shoesite.objects.filter(shoesiteunique = shoeunique).update(pub_date = pub_date_datetime)
 
+        if 'offline' in sitelink:
+            # print(sitelink)
+            offline_url = 'https://www.luck-d.com' + sitelink
+            offline_html = requests.get(offline_url).text
+            offline_soup = BeautifulSoup(offline_html,'html.parser')
+            time.sleep(0.01)
+
+            address = offline_soup.select('div.agent_site_info > label > .agent_site_info_data')[1].text.strip()
+            normalized_address = unicodedata.normalize('NFC', address)
+
+            # Shoesite.objects.filter(shoesiteunique = shoeunique).update(address = normalized_address)
 def crawl2(request):
     telegram_crawl = Telegram_crawl()
     try:
@@ -1064,3 +1087,4 @@ def changeavif3(size):
 
     # 이미지를 PNG로 저장
     final_img.save(f'/Users/jb/Downloads/알파래플_핸드오프_Folder/SVG/apple-touch-icon-{size}x{size}.png', format='PNG')
+

@@ -69,6 +69,7 @@ class Shoesite(models.Model):
 	end_date = models.DateTimeField('date end', null=True, blank=True)
 	sitelink = models.CharField(max_length=200)
 	shoesiteunique = models.CharField(max_length=255,unique=True)
+	address = models.CharField(max_length=100, blank=True, null=True)
 
 	def __str__(self):
 		return "제품코드: " + self.serialno + " , 사이트 : " + self.sitename

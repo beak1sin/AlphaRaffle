@@ -530,10 +530,15 @@ p {
   background: url(../necessary/like.svg) no-repeat center center/24px auto;
   position: relative;
   z-index: 1;
+  transition: all 0.5s;
 }
 
 .details-bookmark-icon-label.on .icon {
-background: url(../necessary/like_fill.svg) no-repeat center center/24px auto;
+  background: url(../necessary/like_fill.svg) no-repeat center center/24px auto;
+}
+
+.details-bookmark-icon-label:hover .icon {
+  background: url(../necessary/like_fill.svg) no-repeat center center/24px auto;
 }
 
 .wrapper {
@@ -548,15 +553,19 @@ background: url(../necessary/like_fill.svg) no-repeat center center/24px auto;
 }
 
 .wrapper-items {
-  width: 160px; height: 220px; background: white; border-radius: 20px; border: 0.30px #777777 solid; margin-right: 20px; margin-bottom: 20px; flex-direction: column;
+  width: 160px; height: 220px; background: white; border-radius: 5px; border: 0.30px #777777 solid; margin-right: 20px; margin-bottom: 20px; flex-direction: column; transition: all 0.5s; cursor: pointer;
+}
+
+.wrapper-items:hover {
+  background: #333333;
 }
 
 .wrapper-items-blur {
-  width: 160px; height: 220px;  margin-right: 20px; margin-bottom: 20px; flex-direction: column;
+  width: 160px; height: 220px;  margin-right: 20px; margin-bottom: 5px; flex-direction: column;
 }
 
 .wrapper-items-blur-box {
-  filter: blur(4px); background: rgba(119, 119, 119, 0.70); width: 100%; height: 100%; border-radius: 20px; border: 0.30px #777777 solid;
+  filter: blur(4px); background: rgba(119, 119, 119, 0.70); width: 100%; height: 100%; border-radius: 5px; border: 0.30px #777777 solid;
 }
 
 .wrapper-items-None {
@@ -564,6 +573,16 @@ background: url(../necessary/like_fill.svg) no-repeat center center/24px auto;
   height: 240px;
   display: table;
   text-align: center;
+}
+.text-sitename {
+  font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;
+}
+.text-date {
+  font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;
+}
+
+.wrapper-items:hover .text-date, .wrapper-items:hover .text-sitename {
+  color: #ffffff;
 }
 
 /* 위아래 화살표 아이콘 */

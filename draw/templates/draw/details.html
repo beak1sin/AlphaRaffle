@@ -231,14 +231,14 @@
                         {% if googleSite %}
                         {% for site in googleSite %}
                             {% if site.is_valid_date %}
-                            <div class="wrapper-items">
-                                <div style="height: 50%; position: relative; border-bottom: 0.30px #777777 solid;">
-                                    <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                            <div class="wrapper-items" onclick="window.open('{{site.sitelink}}')">
+                                <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
+                                    <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
                                 </div>
-                                <div style="height: 50%;">
-                                    <div style="height: 40%; text-align: center; display: table; width: 100%;"><p style="font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;">{{site.sitename}}</p></div>
-                                    <div style="height: 20%; text-align: center; display: table; width: 100%;">
-                                        <p style="font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;">
+                                <div style="height: 60px;">
+                                    <div style="height: 50%; text-align: center; display: table; width: 100%;"><p class="text-sitename">{{site.sitename}}</p></div>
+                                    <div style="height: 50%; text-align: center; display: table; width: 100%;">
+                                        <p class="text-date">
                                             {% if site.pub_date == None and site.end_date != None %}
                                                 ~ {{ site.end_date }} 까지
                                             {% endif %}
@@ -253,21 +253,18 @@
                                             {% endif %}  
                                         </p>
                                     </div>
-                                    <div style="height: 40%; position: relative;">
-                                        <button onclick="window.open('{{site.sitelink}}')" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #FBFBFB; border: 0.30px #777777 solid; border-radius: 20px; font-size: 12px; color: black; cursor: pointer;">응모</button>
-                                    </div>
                                 </div>
                             </div>
                             {% else %}
                             <div class="wrapper-items-blur" style=" position: relative; ">
-                                <div class="wrapper-items-blur-box" style="">
-                                    <div style="height: 50%; position: relative; border-bottom: 0.30px #777777 solid;">
-                                        <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                                <div class="wrapper-items-blur-box">
+                                    <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
+                                        <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
                                     </div>
-                                    <div style="height: 50%;">
-                                        <div style="height: 40%; text-align: center; display: table; width: 100%;"><p style="font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;">{{site.sitename}}</p></div>
-                                        <div style="height: 20%; text-align: center; display: table; width: 100%;">
-                                            <p style="font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;">
+                                    <div style="height: 60px;">
+                                        <div style="height: 50%; text-align: center; display: table; width: 100%;"><p class="text-sitename">{{site.sitename}}</p></div>
+                                        <div style="height: 50%; text-align: center; display: table; width: 100%;">
+                                            <p class="text-date">
                                                 {% if site.pub_date == None and site.end_date != None %}
                                                     ~ {{ site.end_date }} 까지
                                                 {% endif %}
@@ -281,9 +278,6 @@
                                                     {{ site.pub_date }} ~ {{ site.end_date }} 까지
                                                 {% endif %}  
                                             </p>
-                                        </div>
-                                        <div style="height: 40%; position: relative;">
-                                            <button style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(238, 238, 238, 0.70);  border: 0.30px #777777 solid; border-radius: 20px; font-size: 12px; color: black;">응모</button>
                                         </div>
                                     </div>
                                 </div>
@@ -308,14 +302,14 @@
                         {% if notGoogleSite %}
                         {% for site in notGoogleSite %}
                             {% if site.is_valid_date %}
-                            <div class="wrapper-items no-margin">
-                                <div style="height: 50%; position: relative; border-bottom: 0.30px #777777 solid;">
-                                    <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                            <div class="wrapper-items no-margin" onclick="window.open('{{site.sitelink}}')">
+                                <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
+                                    <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
                                 </div>
-                                <div style="height: 50%;">
-                                    <div style="height: 40%; text-align: center; display: table; width: 100%;"><p style="font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;">{{site.sitename}}</p></div>
-                                    <div style="height: 20%; text-align: center; display: table; width: 100%;">
-                                        <p style="font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;">
+                                <div style="height: 60px;">
+                                    <div style="height: 50%; text-align: center; display: table; width: 100%;"><p class="text-sitename">{{site.sitename}}</p></div>
+                                    <div style="height: 50%; text-align: center; display: table; width: 100%;">
+                                        <p class="text-date">
                                             {% if site.pub_date == None and site.end_date != None %}
                                                 ~ {{ site.end_date }} 까지
                                             {% endif %}
@@ -330,21 +324,18 @@
                                             {% endif %}   
                                         </p>
                                     </div>
-                                    <div style="height: 40%; position: relative;">
-                                        <button onclick="window.open('{{site.sitelink}}')" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #FBFBFB; border: 0.30px #777777 solid; border-radius: 20px; font-size: 12px; color: black; cursor: pointer;">응모</button>
-                                    </div>
                                 </div>
                             </div>
                             {% else %}
                             <div class="wrapper-items-blur no-margin" style=" position: relative; ">
                                 <div class="wrapper-items-blur-box" style="">
-                                    <div style="height: 50%; position: relative; border-bottom: 0.30px #777777 solid;">
-                                        <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                                    <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
+                                        <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
                                     </div>
-                                    <div style="height: 50%;">
-                                        <div style="height: 40%; text-align: center; display: table; width: 100%;"><p style="font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;">{{site.sitename}}</p></div>
-                                        <div style="height: 20%; text-align: center; display: table; width: 100%;">
-                                            <p style="font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;">
+                                    <div style="height: 60px;">
+                                        <div style="height: 50%; text-align: center; display: table; width: 100%;"><p class="text-sitename">{{site.sitename}}</p></div>
+                                        <div style="height: 50%; text-align: center; display: table; width: 100%;">
+                                            <p class="text-date">
                                                 {% if site.pub_date == None and site.end_date != None %}
                                                     ~ {{ site.end_date }} 까지
                                                 {% endif %}
@@ -358,9 +349,6 @@
                                                     {{ site.pub_date }} ~ {{ site.end_date }} 까지
                                                 {% endif %}  
                                             </p>
-                                        </div>
-                                        <div style="height: 40%; position: relative;">
-                                            <button style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(238, 238, 238, 0.70);  border: 0.30px #777777 solid; border-radius: 20px; font-size: 12px; color: black;">응모</button>
                                         </div>
                                     </div>
                                 </div>
@@ -388,14 +376,14 @@
                         {% if offlineSite %}
                         {% for site in offlineSite %}
                             {% if site.is_valid_date %}
-                            <div class="wrapper-items no-margin">
-                                <div style="height: 50%; position: relative; border-bottom: 0.30px #777777 solid;">
-                                    <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                            <div class="wrapper-items no-margin" onclick="window.open(STATIC_FULL_URL + '{{shoe.serialno}}', '_blank')">
+                                <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
+                                    <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
                                 </div>
-                                <div style="height: 50%;">
-                                    <div style="height: 40%; text-align: center; display: table; width: 100%;"><p style="font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;">{{site.sitename}}</p></div>
-                                    <div style="height: 20%; text-align: center; display: table; width: 100%;">
-                                        <p style="font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;">
+                                <div style="height: 60px;">
+                                    <div style="height: 50%; text-align: center; display: table; width: 100%;"><p class="text-sitename">{{site.sitename}}</p></div>
+                                    <div style="height: 50%; text-align: center; display: table; width: 100%;">
+                                        <p class="text-date">
                                             {% if site.pub_date == None and site.end_date != None %}
                                                 ~ {{ site.end_date }} 까지
                                             {% endif %}
@@ -410,21 +398,18 @@
                                             {% endif %}  
                                         </p>
                                     </div>
-                                    <div style="height: 40%; position: relative;">
-                                        <button onclick="window.open(STATIC_FULL_URL + '{{shoe.serialno}}', '_blank')" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #FBFBFB; border: 0.30px #777777 solid; border-radius: 20px; font-size: 12px; color: black; cursor: pointer;">응모</button>
-                                    </div>
                                 </div>
                             </div>
                             {% else %}
                             <div class="wrapper-items-blur no-margin" style=" position: relative; ">
                                 <div class="wrapper-items-blur-box">
-                                    <div style="height: 50%; position: relative; border-bottom: 0.30px #777777 solid;">
-                                        <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                                    <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
+                                        <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
                                     </div>
-                                    <div style="height: 50%;">
-                                        <div style="height: 40%; text-align: center; display: table; width: 100%;"><p style="font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;">{{site.sitename}}</p></div>
-                                        <div style="height: 20%; text-align: center; display: table; width: 100%;">
-                                            <p style="font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;">
+                                    <div style="height: 60px;">
+                                        <div style="height: 50%; text-align: center; display: table; width: 100%;"><p class="text-sitename">{{site.sitename}}</p></div>
+                                        <div style="height: 50%; text-align: center; display: table; width: 100%;">
+                                            <p class="text-date">
                                                 {% if site.pub_date == None and site.end_date != None %}
                                                     ~ {{ site.end_date }} 까지
                                                 {% endif %}
@@ -438,9 +423,6 @@
                                                     {{ site.pub_date }} ~ {{ site.end_date }} 까지
                                                 {% endif %}  
                                             </p>
-                                        </div>
-                                        <div style="height: 40%; position: relative;">
-                                            <button style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(238, 238, 238, 0.70);  border: 0.30px #777777 solid; border-radius: 20px; font-size: 12px; color: black;">응모</button>
                                         </div>
                                     </div>
                                 </div>
