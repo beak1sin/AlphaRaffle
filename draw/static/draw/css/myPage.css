@@ -35,9 +35,46 @@ input:focus {
   transition: all 0.5s ease;
 }
 
-.tab.checked, .tab:hover {
+.tab.checked {
   background-color: #F4F4F4;
   border-left: 10px solid #EEEEEE;
+}
+
+@media(hover: hover) and (pointer: fine) {
+  .tab:hover {
+    background-color: #F4F4F4;
+    border-left: 10px solid #EEEEEE;
+  }
+
+  .tab:hover .icon {
+    background: url(../necessary/bookmark_checked.svg) no-repeat center center/18px auto;
+  }
+
+  .tab:hover .icon2 {
+    background: url(../necessary/checked_shoe_checked.svg) no-repeat center center/24px auto;
+  }
+
+  .tab:hover .icon3 {
+    background: url(../necessary/commented_checked.svg) no-repeat center center/24px auto;
+  }
+
+  .tab:hover .icon4 {
+    background: url(../necessary/setting_checked.svg) no-repeat center center/24px auto;
+  }
+
+  .tab:hover .title {
+    font-weight: 600;
+    color: rgba(34, 34, 34, 1);
+  }
+
+  .delete-tab:hover .icon5 {
+    background: url(../necessary/unhappy_checked.svg) no-repeat center center/24px auto;
+  }
+
+  .delete-tab:hover .title {
+    font-weight: 600;
+    color: red;
+  }
 }
 
 .tab .icon-box {
@@ -56,7 +93,7 @@ input:focus {
   background: url(../necessary/bookmark.svg) no-repeat center center/18px auto;
 }
 
-.tab.checked .icon, .tab:hover .icon {
+.tab.checked .icon {
   background: url(../necessary/bookmark_checked.svg) no-repeat center center/18px auto;
 }
 
@@ -68,7 +105,7 @@ input:focus {
   background: url(../necessary/checked_shoe.svg) no-repeat center center/24px auto;
 }
 
-.tab.checked .icon2, .tab:hover .icon2 {
+.tab.checked .icon2 {
   background: url(../necessary/checked_shoe_checked.svg) no-repeat center center/24px auto;
 }
 
@@ -80,7 +117,7 @@ input:focus {
   background: url(../necessary/commented.svg) no-repeat center center/24px auto;
 }
 
-.tab.checked .icon3, .tab:hover .icon3 {
+.tab.checked .icon3 {
   background: url(../necessary/commented_checked.svg) no-repeat center center/24px auto;
 }
 
@@ -92,7 +129,7 @@ input:focus {
   background: url(../necessary/setting.svg) no-repeat center center/24px auto;
 }
 
-.tab.checked .icon4, .tab:hover .icon4 {
+.tab.checked .icon4 {
   background: url(../necessary/setting_checked.svg) no-repeat center center/24px auto;
 }
 
@@ -115,7 +152,7 @@ input:focus {
 
 
 
-.tab.checked .title, .tab:hover .title {
+.tab.checked .title {
   font-weight: 600;
   color: rgba(34, 34, 34, 1);
 }
@@ -160,11 +197,11 @@ input:focus {
   background: url(../necessary/unhappy.svg) no-repeat center center/24px auto;
 }
 
-.delete-tab.checked .icon5, .delete-tab:hover .icon5 {
+.delete-tab.checked .icon5 {
   background: url(../necessary/unhappy_checked.svg) no-repeat center center/24px auto;
 }
 
-.delete-tab.checked .title, .delete-tab:hover .title {
+.delete-tab.checked .title {
   font-weight: 600;
   color: red;
 }
@@ -323,12 +360,12 @@ input[type="checkbox"] {
   transition: all 0.5s;
   float: left;
 }
-
-.profile-img-change-btn:hover, .profile-change-btn:hover, .nickname-change-btn:hover, .password-change-btn:hover, .member-delete-btn:hover, .profile-save-btn:hover, .profile-cancel-btn:hover, .nickname-save-btn:hover, .nickname-duplicate-btn:hover, .nickname-cancel-btn:hover {
-  color: #EEE;
-  background: #333;
+@media(hover: hover) and (pointer: fine) {
+  .profile-img-change-btn:hover, .profile-change-btn:hover, .nickname-change-btn:hover, .password-change-btn:hover, .member-delete-btn:hover, .profile-save-btn:hover, .profile-cancel-btn:hover, .nickname-save-btn:hover, .nickname-duplicate-btn:hover, .nickname-cancel-btn:hover {
+    color: #EEE;
+    background: #333;
+  }
 }
-
 .fileUpload-msg {
   margin: 0 !important; color: #333; font-size: 10px; font-weight: 500;
 }
