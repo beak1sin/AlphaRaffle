@@ -376,7 +376,7 @@
                         {% if offlineSite %}
                         {% for site in offlineSite %}
                             {% if site.is_valid_date %}
-                            <div class="wrapper-items no-margin" onclick="window.open(STATIC_FULL_URL + '{{shoe.serialno}}', '_blank')">
+                            <div class="wrapper-items no-margin" onclick="window.open(STATIC_FULL_URL + '{{shoe.serialno}}' + '&sitename={{site.sitename}}', '_blank')">
                                 <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
                                     <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
                                 </div>

@@ -71,48 +71,19 @@
                 <div class="shoe-display" style="display: flex; justify-content: space-between;">
                     <div class="map" id="map" style="width:50%; height:500px; padding-right: 20px;"></div>
                     <div class="address" style="display: flex; flex-direction: column; width: 50%; padding-left: 20px;">
-                        <div class="address-items on">
-                            <p class="big-text">나이키 압구정 로데오</p>
+                        {% for site in shoesite %}
+                        <div class="address-items {% if forloop.first %}on{% endif %}">
+                            <p class="big-text">{{site.sitename}}</p>
                             <div>
-                                <p class="small-text">~23-04-14 16:00까지</p>
-                                <p class="small-text">서울 강남구 선릉로 831</p>
+                                {% if site.pub_date %}
+                                <p class="small-text">{{site.pub_date}} 발매</p>
+                                {% else %}
+                                <p class="small-text">~ {{site.end_date}} 종료</p>
+                                {% endif %}
+                                <p class="small-text">{{site.address}}</p>
                             </div>
                         </div>
-                        <div class="address-items">
-                            <p class="big-text">나이키 부산대</p>
-                            <div>
-                                <p class="small-text">~23-04-14 16:00까지</p>
-                                <p class="small-text">부산 금정구 부산대학로 37</p>
-                            </div>
-                        </div>
-                        <div class="address-items">
-                            <p class="big-text">프레이트 더현대서울</p>
-                            <div>
-                                <p class="small-text">~23-04-14 16:00까지</p>
-                                <p class="small-text">서울 영등포구 여의대로 108 더현대서울 3층</p>
-                            </div>
-                        </div>
-                        <div class="address-items">
-                            <p class="big-text">나이키 압구정 로데오</p>
-                            <div>
-                                <p class="small-text">~23-04-14 16:00까지</p>
-                                <p class="small-text">서울 강남구 선릉로 831</p>
-                            </div>
-                        </div>
-                        <div class="address-items">
-                            <p class="big-text">나이키 압구정 로데오</p>
-                            <div>
-                                <p class="small-text">~23-04-14 16:00까지</p>
-                                <p class="small-text">서울 강남구 선릉로 831</p>
-                            </div>
-                        </div>
-                        <div class="address-items">
-                            <p class="big-text">나이키 압구정 로데오</p>
-                            <div>
-                                <p class="small-text">~23-04-14 16:00까지</p>
-                                <p class="small-text">서울 강남구 선릉로 831</p>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

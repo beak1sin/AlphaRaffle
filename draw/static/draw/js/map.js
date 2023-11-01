@@ -26,7 +26,7 @@ $(document).ready(function() {
             //     map: map
             // });
             var currentHost = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-            placeImageMarker(x, y, currentHost + '/static/draw/images/jordan1OFF.jpeg');
+            placeImageMarker(x, y, currentHost + '/static/draw/images/jordan1OFF.avif');
             map.setCenter(location); // 해당 위치로 지도 중심 이동
             // // map.panTo(location);
             map.setZoom(17); // 지도 확대 수준 설정
@@ -98,7 +98,7 @@ $(document).ready(function() {
                 //     map: map
                 // });
                 var currentHost = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-                placeImageMarker(x, y, currentHost + '/static/draw/images/jordan1OFF.jpeg');
+                placeImageMarker(x, y, currentHost + '/static/draw/images/jordan1OFF.avif');
                 map.setCenter(location); // 해당 위치로 지도 중심 이동
                 // map.panTo(location);
                 map.setZoom(17); // 지도 확대 수준 설정

@@ -555,11 +555,15 @@ p {
 .wrapper-items {
   width: 160px; height: 220px; background: white; border-radius: 5px; border: 0.30px #777777 solid; margin-right: 20px; margin-bottom: 20px; flex-direction: column; transition: all 0.5s; cursor: pointer;
 }
+@media(hover: hover) and (pointer: fine) {
+  .wrapper-items:hover {
+    background: #333333;
+  }
 
-.wrapper-items:hover {
-  background: #333333;
+  .wrapper-items:hover .text-date, .wrapper-items:hover .text-sitename {
+    color: #ffffff;
+  }
 }
-
 .wrapper-items-blur {
   width: 160px; height: 220px;  margin-right: 20px; margin-bottom: 5px; flex-direction: column;
 }
@@ -581,9 +585,7 @@ p {
   font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;
 }
 
-.wrapper-items:hover .text-date, .wrapper-items:hover .text-sitename {
-  color: #ffffff;
-}
+
 
 /* 위아래 화살표 아이콘 */
 .details-viewSort-icon {

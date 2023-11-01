@@ -887,7 +887,7 @@ def details(request):
             site.is_valid_date = False
         if site.end_date == None and site.pub_date != None:
             # 오프라인 발매 시간에 이틀이 지날때까지는 true
-            if site.pub_date + datetime.timedelta(days=2) > current_time:
+            if site.pub_date + datetime.timedelta(days=5) > current_time:
                 site.is_valid_date = True
             else:
                 site.is_valid_date = False
@@ -901,6 +901,25 @@ def details(request):
 @csrf_protect
 def map(request):
     context = {}
+    serialno = request.GET['serialnum']
+    sitename = request.GET['sitename']
+    if serialno and sitename:
+        # 주어진 serialno를 가지며, address가 null이 아닌 Shoesite 객체들을 필터링
+        shoesite_queryset = Shoesite.objects.filter(serialno=serialno, address__isnull=False)
+
+        # sitename이 URL 파라미터로 전달된 값을 포함하는 객체를 필터링
+        matching_sitename = shoesite_queryset.filter(sitename__icontains=sitename)
+        print(matching_sitename)
+        # 위에서 선택한 객체를 제외한 나머지 객체
+        other_sites = shoesite_queryset.exclude(sitename__icontains=sitename)
+
+        # 두 쿼리셋을 합침 (먼저 matching_sitename, 그다음 other_sites)
+        shoesite_list = list(matching_sitename) + list(other_sites)
+        
+        # 컨텍스트에 결과 리스트를 추가
+        context['shoesite'] = shoesite_list
+    else:
+        context['error'] = "Serial number or site name is missing."
     return render(request, 'draw/map.html', context)
 
 def get_geocode(request):
@@ -1050,8 +1069,8 @@ def full(request):
                     SearchTerm.objects.create(term=term,member_no=member_no)
                 except:
                     pass
-                shoe = Shoe.objects.filter(shoename__contains = term).order_by('-id')[0:12]
-                shoe_count = Shoe.objects.filter(shoename__contains = term).count()
+                shoe = Shoe.objects.filter(Q(Q(shoename__contains = term) | Q(serialno__contains = term)) | Q(serialno__contains = term)).order_by('-id')[0:12]
+                shoe_count = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term)).count()
         else:
             shoe = Shoe.objects.all().order_by('-id')[0:12]
             shoe_count = Shoe.objects.all().count()
@@ -1063,14 +1082,14 @@ def full(request):
         sort = request.GET.get("sort")
         term = request.GET.get("search_term")
         if 'latest' in sort:
-            shoe = Shoe.objects.filter(shoename__contains = term).order_by('-id')[0:12]
+            shoe = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term)).order_by('-id')[0:12]
         elif 'bookmark' in sort:
-            shoe = Shoe.objects.filter(shoename__contains = term).order_by('-shoelikecount')[0:12]
+            shoe = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term)).order_by('-shoelikecount')[0:12]
         elif 'views' in sort:
-            shoe = Shoe.objects.filter(shoename__contains = term).order_by('-views')[0:12]
+            shoe = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term)).order_by('-views')[0:12]
         elif 'comments' in sort:
-            shoe = Shoe.objects.filter(shoename__contains = term).order_by('-id')[0:12]
-        shoe_count = Shoe.objects.filter(shoename__contains = term).count()
+            shoe = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term)).order_by('-id')[0:12]
+        shoe_count = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term)).count()
     
     # 필터링, 정렬 기준
     if request.method == 'GET' and 'brand' in request.GET and 'sort' in request.GET:
@@ -1101,8 +1120,8 @@ def full(request):
                 SearchTerm.objects.create(term=term,member_no=member_no)
             except:
                 pass
-            shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in = brandList).order_by('-id')[0:12]
-            shoe_count = Shoe.objects.filter(shoename__contains = term, shoebrand__in = brandList).count()
+            shoe = Shoe.objects.filter(Q(Q(shoename__contains = term) | Q(serialno__contains = term)) | Q(serialno__contains = term), shoebrand__in = brandList).order_by('-id')[0:12]
+            shoe_count = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term), shoebrand__in = brandList).count()
 
     # 검색, 정렬, 필터링 기준
     if request.method == 'GET' and 'search_term' in request.GET and 'sort' in request.GET and 'brand' in request.GET:
@@ -1121,14 +1140,14 @@ def full(request):
             shoe_count = Shoe.objects.filter(shoebrand__in=brandList).count()
         else:
             if 'latest' in sort:
-                shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in = brandList).order_by('-id')[0:12]
+                shoe = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term), shoebrand__in = brandList).order_by('-id')[0:12]
             elif 'bookmark' in sort:
-                shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in = brandList).order_by('-shoelikecount')[0:12]
+                shoe = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term), shoebrand__in = brandList).order_by('-shoelikecount')[0:12]
             elif 'views' in sort:
-                shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in = brandList).order_by('-views')[0:12]
+                shoe = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term), shoebrand__in = brandList).order_by('-views')[0:12]
             elif 'comments' in sort:
-                shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in = brandList).order_by('-id')[0:12]
-            shoe_count = Shoe.objects.filter(shoename__contains = term, shoebrand__in = brandList).count()
+                shoe = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term), shoebrand__in = brandList).order_by('-id')[0:12]
+            shoe_count = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term), shoebrand__in = brandList).count()
             
             recent = SearchTerm.objects.filter(term=term,member_no=member_no)
             if recent !=None:
@@ -1165,8 +1184,8 @@ def full(request):
         # 검색
         term = request.GET.get("search_term")
         if term != None:
-            shoe = Shoe.objects.filter(shoename__contains = term).order_by('-id')[start_index:end_index]
-            shoe_count = Shoe.objects.filter(shoename__contains = term).count()
+            shoe = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term)).order_by('-id')[start_index:end_index]
+            shoe_count = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term)).count()
 
         # 정렬 기준
         sort = request.GET.get("sort")
@@ -1183,13 +1202,13 @@ def full(request):
         # 검색, 정렬 기준
         if term != None and sort != None:
             if 'latest' in sort:
-                shoe = Shoe.objects.filter(shoename__contains = term).order_by('-id')[start_index:end_index]
+                shoe = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term)).order_by('-id')[start_index:end_index]
             elif 'bookmark' in sort:
-                shoe = Shoe.objects.filter(shoename__contains = term).order_by('-shoelikecount')[start_index:end_index]
+                shoe = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term)).order_by('-shoelikecount')[start_index:end_index]
             elif 'views' in sort:
-                shoe = Shoe.objects.filter(shoename__contains = term).order_by('-views')[start_index:end_index]
+                shoe = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term)).order_by('-views')[start_index:end_index]
             elif 'comments' in sort:
-                shoe = Shoe.objects.filter(shoename__contains = term).order_by('-id')[start_index:end_index]
+                shoe = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term)).order_by('-id')[start_index:end_index]
         
         # 필터링, 정렬 기준
         if brandList != None and sort != None:
@@ -1204,19 +1223,19 @@ def full(request):
 
         # 검색, 필터링 기준
         if term != None and brandList != None:
-            shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in = brandList).order_by('-id')[start_index:end_index]
-            shoe_count = Shoe.objects.filter(shoename__contains = term, shoebrand__in = brandList).count()
+            shoe = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term), shoebrand__in = brandList).order_by('-id')[start_index:end_index]
+            shoe_count = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term), shoebrand__in = brandList).count()
 
         # 검색, 정렬, 필터링 기준
         if term != None and sort != None and brandList != None:
             if 'latest' in sort:
-                shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in=brandList).order_by('-id')[start_index:end_index]
+                shoe = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term), shoebrand__in=brandList).order_by('-id')[start_index:end_index]
             elif 'bookmark' in sort:
-                shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in=brandList).order_by('-shoelikecount')[start_index:end_index]
+                shoe = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term), shoebrand__in=brandList).order_by('-shoelikecount')[start_index:end_index]
             elif 'views' in sort:
-                shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in=brandList).order_by('-views')[start_index:end_index]
+                shoe = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term), shoebrand__in=brandList).order_by('-views')[start_index:end_index]
             elif 'comments' in sort:
-                shoe = Shoe.objects.filter(shoename__contains = term, shoebrand__in=brandList).order_by('-id')[start_index:end_index]
+                shoe = Shoe.objects.filter(Q(shoename__contains = term) | Q(serialno__contains = term), shoebrand__in=brandList).order_by('-id')[start_index:end_index]
 
         shoes = serializers.serialize('json', shoe)
         likes = []  # 멤버별 신발 좋아요 여부를 저장할 리스트
@@ -1485,26 +1504,6 @@ def all_recent_delete(request):
 
     return JsonResponse(context, content_type="application/json")
 
-'''
-@csrf_protect
-def search(request):
-    context = {}
-
-    if request.session.has_key('member_no'):
-        member_no = request.session['member_no']
-        member = Member.objects.get(pk= member_no)
-        #print(member_no)
-        
-    else:
-        member_no = None
-        member = None
-
-    context["member_no"] = member_no
-    context = {'member':member }
-    
-    return render(request, 'draw/search.html', context)
-'''
-
 def naverSearch(request):
     return render(request, 'draw/naver07438b501f2bcdb23c19460dc9cca09d.html')
 
@@ -1525,6 +1524,12 @@ class customHandler500(View):
     def get(self, request):
         context = {}
         return render(request, "draw/errors/500.html",context)
+    
+def custom_404(request, exception):
+    return render(request, 'draw/errors/404.html', {}, status=404)
+
+def custom_500(request):
+    return render(request, 'draw/errors/500.html', status=500)
 
 def googleCrawl(request):
     url = 'https://docs.google.com/forms/d/e/1FAIpQLSe7DmdJZaJUIAtg-78n6VTASTqCd_ueLeG3CzoHoyfALYQIHg/closedform?pli=1'

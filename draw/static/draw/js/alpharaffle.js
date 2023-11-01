@@ -398,7 +398,7 @@ $(document).ready(function() {
     }
 
     $('.recent-searches-value').click(function() {
-        const url = window.location.href;
+        const url = window.location.protocol + '//' + window.location.host + '/full/';
         const paramName = 'search_term';
         const paramValue = $(this).text();
         const newURL = addParamToURL(url, paramName, paramValue);
