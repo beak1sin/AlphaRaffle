@@ -3,7 +3,7 @@ from django.contrib import auth
 from urllib.parse import quote
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
-from draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg, Comment, SearchTerm, VerificationCode
+from draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg, Comment, SearchTerm, VerificationCode, Banner
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_protect
 from datetime import timedelta, datetime
@@ -276,6 +276,9 @@ def home(request):
                 likes.append(member in shoe.likes.all())
         context2 = {'shoes': shoes, 'likes': likes}
         return JsonResponse(context2, content_type="application/json")
+
+    banner = Banner.objects.filter().order_by('-id')
+    context['banner'] = banner
 
     return render(request, "draw/main.html", context)
 

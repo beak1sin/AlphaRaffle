@@ -1088,3 +1088,12 @@ def changeavif3(size):
     # 이미지를 PNG로 저장
     final_img.save(f'/Users/jb/Downloads/알파래플_핸드오프_Folder/SVG/apple-touch-icon-{size}x{size}.png', format='PNG')
 
+def debuging():
+    shoesite = Shoesite.objects.filter(end_date='2023-12-31 12:59:59')
+    end_date = datetime.datetime.now()
+    # end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
+    end_date_datetime = end_date.strftime('%Y-%m-%d %H:%M:%S')
+    for site in shoesite:
+        site.end_date = end_date_datetime
+        site.save()
+

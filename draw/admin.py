@@ -1,6 +1,6 @@
 
 from django.contrib import admin
-from .models import Shoe, Member, Shoeimg, Shoesiteimg, Shoesite, Comment, SearchTerm, VerificationCode
+from .models import Shoe, Member, Shoeimg, Shoesiteimg, Shoesite, Comment, SearchTerm, VerificationCode, Banner
 
 # Register your models here.
 admin.site.register(Shoe)
@@ -11,3 +11,4 @@ admin.site.register(Shoesite)
 admin.site.register(Comment)
 admin.site.register(SearchTerm)
 admin.site.register(VerificationCode)
+admin.site.register(Banner)

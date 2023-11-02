@@ -92,6 +92,53 @@ class VerificationCode(models.Model):
 	code = models.CharField(max_length=6)
 	expiry_time = models.DateTimeField()
 
+from django.core.exceptions import ValidationError
+import os
+	
+def validate_image_extension(value):
+    ext = os.path.splitext(value.name)[1]
+    valid_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.svg']
+    if not ext.lower() in valid_extensions:
+        raise ValidationError(u'.png .jpeg .jpg .gif .svg만 업로드 가능')
+
+def validate_avif_extension(value):
+    ext = os.path.splitext(value.name)[1]
+    valid_extensions = ['.avif']
+    if not ext.lower() in valid_extensions:
+        raise ValidationError(u'.avif만 업로드 가능')
+
+class Banner(models.Model):
+	title = models.CharField(max_length=100)
+	image = models.ImageField(upload_to='bannerimg/', blank=True, null=True, help_text='.png .jpeg .jpg .gif .svg만 업로드 가능', validators=[validate_image_extension])
+	avifimage = models.FileField(upload_to='bannerimg/', blank=True, null=True, help_text='.avif만 업로드 가능', validators=[validate_avif_extension])
+
+	def clean(self):
+		# image와 avifimage 둘 다 값이 있거나 둘 다 없는 경우 ValidationError 발생
+		if (self.image and self.avifimage) or (not self.image and not self.avifimage):
+			raise ValidationError('image와 avifimage 둘 중 하나만 업로드해야 합니다.')
+
+	def save(self, *args, **kwargs):
+		self.full_clean()
+		super(Banner, self).save(*args, **kwargs)
+		
+	def __str__(self):
+		return "제목: " + self.title
+
+from django.dispatch import receiver
+from django.db.models.signals import pre_delete
+
+@receiver(pre_delete, sender=Banner)
+def delete_files(sender, instance, **kwargs):
+    if instance.image:
+        print('Deleting image file:', instance.image.path)
+        if os.path.isfile(instance.image.path):
+            os.remove(instance.image.path)
+
+    if instance.avifimage:
+        print('Deleting AVIF file:', instance.avifimage.path)
+        if os.path.isfile(instance.avifimage.path):
+            os.remove(instance.avifimage.path)
+
 # 색인
 from django.contrib.sitemaps import Sitemap
 

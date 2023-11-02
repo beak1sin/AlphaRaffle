@@ -64,48 +64,28 @@
                     <div class="wrapper">
                         <div id="slider-wrap">
                             <ul id="slider">
-                               <li id="slider_list">
+                                {% for banner in banner %}
+                                <li id="slider_list">
+                                    <div>
+                                        <button>바로가기</button>
+                                    </div>
+                                    {% if banner.image %}         
+                                    <img src="{{banner.image.url}}">
+                                    {% else %}
+                                    <img src="{{banner.avifimage.url}}">
+                                    {% endif %}
+                                 </li>
+                                {% endfor %}
+                               <!-- <li id="slider_list">
                                   <div>
-                                      <!-- <h3>STUSSY X MARTIN ROSE</h3>
-                                      <span>2023.04.15 10AM</span> -->
+
+                                      <h3>STUSSY X MARTIN ROSE</h3>
+                                      <span>2023.04.15 10AM</span>
                                       <button>바로가기</button>
                                   </div>                
                   <img src="{% static 'draw/necessary/banner-1.avif' %}">
                                </li>
-                               
-                               <!-- <li id="slider_list">
-                                  <div>
-                                      <h3>Slide #2</h3>
-                                      <span>Sub-title #2</span>
-                                  </div>
-                  <img src="https://fakeimg.pl/350x200/D27328/000?text=22222">
-                               </li> -->
-                               
-                               <!-- <li id="slider_list">
-                                  <div>
-                                      <h3>Slide #3</h3>
-                                      <span>Sub-title #3</span>
-                                  </div>
-                  <img src="https://fakeimg.pl/350x200/FF607F/000?text=33333">
-                               </li> -->
-                               
-                               <!-- <li id="slider_list">
-                                  <div>
-                                      <h3>Slide #4</h3>
-                                      <span>Sub-title #4</span>
-                                  </div>
-                  <img src="https://fakeimg.pl/350x200/0A6E0A/000?text=44444">
-                               </li> -->
-                               
-                               <!-- <li id="slider_list">
-                                  <div>
-                                      <h3>Slide #5</h3>
-                                      <span>Sub-title #5</span>
-                                  </div>
-                  <img src="https://fakeimg.pl/350x200/0064CD/000?text=55555">
-                               </li>
                                 -->
-                               
                             </ul>
                             
                              <!--controls-->
