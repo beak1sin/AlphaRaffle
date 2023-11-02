@@ -45,7 +45,7 @@ if settings.DEBUG:
 # from django.conf.urls import handler404
 # handler404 = 'draw.views.custom_404'
 # urls.py
-from django.conf.urls import handler404, handler500
+# from django.conf.urls import handler404, handler500
 
-handler404 = 'draw.views.custom_404'
-handler500 = 'draw.views.custom_500'
+# handler404 = 'draw.views.custom_404'
+# handler500 = 'draw.views.custom_500'
