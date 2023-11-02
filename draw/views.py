@@ -909,7 +909,6 @@ def map(request):
 
         # sitename이 URL 파라미터로 전달된 값을 포함하는 객체를 필터링
         matching_sitename = shoesite_queryset.filter(sitename__icontains=sitename)
-        print(matching_sitename)
         # 위에서 선택한 객체를 제외한 나머지 객체
         other_sites = shoesite_queryset.exclude(sitename__icontains=sitename)
 
