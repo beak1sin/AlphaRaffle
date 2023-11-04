@@ -38,6 +38,7 @@ class Shoe(models.Model):
 	shoelikecount = models.IntegerField(default=0)  # 좋아요 개수
 	likes = models.ManyToManyField(Member, related_name='liked_posts')
 	views = models.PositiveBigIntegerField(default = 0)
+	product_no = models.CharField(max_length=10, blank=True, null=True)
 
 	def __str__(self):
 		return "제품코드: " + self.serialno + "      ,     신발명 : " + self.shoename

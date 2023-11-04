@@ -139,7 +139,7 @@ def luckd_crowler(no):
     imgDownload = False
     try:
         Shoe.objects.create(shoename = shoename , shoeengname = subname, serialno = serialno,
-                        shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, shoeprice = shoeprice)
+                        shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, shoeprice = shoeprice, product_no = no)
         imgDownload = True
     except Exception as e:
         print(f"An error occurred {no}: {e}")
@@ -271,7 +271,7 @@ def luckd_crowler(no):
 
         # 종료일이 미정일 경우
         if '미정' in end_date:
-            end_date = '2023-12-31 12:59:59'
+            end_date = '2024-12-31 23:59:59'
             end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
             Shoesite.objects.filter(shoesiteunique = shoeunique).update(end_date = end_date_datetime)
             return
@@ -592,6 +592,14 @@ class Telegram_crawl:
             print('텔레그램 오류')
             print(f"An error occurred: {e}")
         return
+    
+    def mijungCheck_msg(self):
+        try:
+            asyncio.run(self.bot.send_message(self.chat_id, '종료미정 체크'))
+        except Exception as e:
+            print('종료미정 체크 실패')
+            print(f"An error occurred: {e}")
+        return
 
 def run_in_new_loop(coroutine):
     """새로운 이벤트 루프에서 코루틴을 실행하는 도우미 함수"""
@@ -795,7 +803,7 @@ def luckd_crowler_test(no):
 
         # 종료일이 미정일 경우
         if '미정' in end_date:
-            end_date = '2023-12-31 12:59:59'
+            end_date = '2024-12-31 23:59:59'
             end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
             # Shoesite.objects.filter(shoesiteunique = shoeunique).update(end_date = end_date_datetime)
             return
@@ -929,6 +937,59 @@ def daily_verification_delete_crontab():
         print(f'An error occurred: {e}')
 
     telegram_crawl.daily_verificationCode_delete()
+
+def mijungCheck():
+    telegram_crawl = Telegram_crawl()
+    try:
+        shoesite1231 = Shoesite.objects.filter(end_date='2024-12-31 23:59:59')
+        shoelist = []
+        for site in shoesite1231:
+            shoe = Shoe.objects.get(serialno=site.serialno)
+            shoelist.append(shoe)
+        product_no_list = []
+        for shoe in shoelist:
+            # 각 Shoe 객체의 product_no 필드에 접근
+            product_no_list.append(shoe.product_no)
+        for i in range(len(shoelist)):
+            no = int(product_no_list[i])
+            url = 'https://www.luck-d.com/release/product/%d/'%no
+            html = requests.get(url).text
+            soup = BeautifulSoup(html,'html.parser')
+            time.sleep(0.1)
+
+            detail_info = soup.select('ul.detail_info>li')
+            # print(detail_info)
+            for j in range(len(detail_info)):
+                detail_info_find = soup.select('ul.detail_info>li')[j].text
+                if '제품 코드' in detail_info_find:
+                    serialno = detail_info_find[6:].replace('/', '_').strip()
+                
+            #사이트별       
+            sitecard = soup.select('div.release_card')    
+
+            end_date = str(datetime.datetime.now().replace(microsecond=0))
+            end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
+            site.end_date = end_date_datetime
+            site.save()
+            for k in range(len(sitecard)):
+                #사이트명
+                sitename = soup.select('div.release_card_header > span')[k].text
+
+                sitelink = sitecard[k].a['href']
+
+                shoeunique = serialno+sitename+sitelink
+
+                if site.shoesiteunique == shoeunique:
+                    end_date = soup.select('li.release_time > label > span')[k].text.strip()
+                    if '미정' in end_date:
+                        end_date = '2024-12-31 23:59:59'
+                        end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
+                        site.end_date = end_date_datetime
+                        site.save()
+    except Exception as e:
+        print(f'An error occurred: {e}')
+        
+    telegram_crawl.mijungCheck_msg()
 
 import os
 import re
@@ -1089,7 +1150,7 @@ def changeavif3(size):
     final_img.save(f'/Users/jb/Downloads/알파래플_핸드오프_Folder/SVG/apple-touch-icon-{size}x{size}.png', format='PNG')
 
 def debuging():
-    shoesite = Shoesite.objects.filter(end_date='2023-12-31 12:59:59')
+    shoesite = Shoesite.objects.filter(end_date='2024-12-31 23:59:59')
     end_date = datetime.datetime.now()
     # end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
     end_date_datetime = end_date.strftime('%Y-%m-%d %H:%M:%S')
