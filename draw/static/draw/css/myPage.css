@@ -389,6 +389,50 @@ input[type="checkbox"] {
   margin: 0px; font-size: 40px; font-weight: 700;
 }
 
+.nickname-profile-box {
+  margin-left: 50px; float: left; display: flex; flex-direction: column;
+}
+
+.nickname {
+  margin: 0; color: #333; font-size: 32px; font-weight: 500;
+}
+
+.nickname-error-msg {
+  font-size: 12px; color: red; margin: 0px; float: left; margin-left: 10px; line-height: 14px;
+}
+
+.flex-column {
+  display: flex; flex-direction: column;
+}
+
+.info-text {
+  margin: 0; font-size: 20px; font-weight: 500; color: #333; float: left;
+}
+
+.marketing-agree-text {
+  float: left; margin: 0; font-size: 12px; font-weight: 300; color: #333; margin-left: 100px; margin-top: 10px;
+}
+
+.tos-agree-text {
+  float: left; margin: 0; font-size: 12px; font-weight: 300; color: #201DB1; margin-left: 10px; margin-top: 10px; text-decoration-line: underline; cursor: pointer;
+}
+
+.flex-column-text {
+  margin: 0; font-size: 24px; font-weight: 900; color: #333;
+}
+
+.info-subject {
+  margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left;
+}
+
+.info-subject.width150 {
+  width: 150px;
+}
+
+.info-input-error-msg {
+  font-size: 12px; color: red; margin: 0px; float: left; margin-left: 10px; line-height: 32px;
+}
+
 @media (max-width: 991px) {
   .mypage-nav-box {
     display: none;
@@ -405,12 +449,104 @@ input[type="checkbox"] {
   .content {
     width: 100vw;
     left: 0;
+    padding: 50px 10px 0 10px;
+  }
+
+  .bookmark-content {
+    width: 100vw;
+    left: 0;
     padding: 50px 0 0 0;
+  }
+
+  .nickname-profile-content {
+    max-width: 600px;
   }
 
   .content-title {
     font-size: 20px;
     margin-left: 40px;
+  }
+  
+  .nickname-profile-box {
+    max-width: 290px;
+    margin-left: 0;
+    float: right;
+  }
+
+  .nickname {
+    font-size: 20px;
+    text-align: right;
+  }
+
+  .nickname-input {
+    height: 40px;
+    font-size: 20px;
+    text-align: right;
+  }
+
+  .nickname-error-msg {
+    text-align: right;
+  }
+
+  .profile-img-change-btn {
+    margin-left: auto;
+  }
+
+  .fileUpload-msg {
+    text-align: right;
+  }
+
+  .profile-img-change-btn, .nickname-change-btn, .profile-change-btn, .member-delete-btn, .profile-save-btn, .profile-cancel-btn, .nickname-save-btn, .nickname-duplicate-btn, .nickname-cancel-btn {
+    width: 80px;
+    font-size: 14px;
+  }
+
+  .password-change-btn {
+    font-size: 14px;
+    float: right;
+  }
+
+  .flex-column {
+    max-width: 600px;
+  }
+
+  .info-text {
+    float: right;
+    font-size: 16px;
+  }
+
+  .marketing-tos-agree-text-box {
+    float: right;
+  }
+
+  .marketing-agree-text, .tos-agree-text {
+    margin-left: 0;
+  }
+
+  .flex-column-text {
+    font-size: 20px;
+  }
+
+  .info-subject {
+    font-size: 16px;
+  }
+
+  .info-subject.width150 {
+    width: auto;
+  }
+
+  .checkbox-circle-btn {
+    width: 16px; height: 16px; margin: 5px 0 0 15px; cursor: pointer; background: url('../necessary/checkbox_circle.svg') no-repeat center center/16px auto;
+  }
+
+  .info-input {
+    text-align: right;
+    float: right;
+    height: auto;
+  }
+
+  .info-input-error-msg {
+    line-height: 25.59px;
   }
 
   .mypage-mobile-section {

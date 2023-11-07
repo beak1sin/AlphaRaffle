@@ -185,6 +185,13 @@ $(document).ready(function() {
 
     $('#left-btns').on('click', '.profile-cancel-btn', function(){
         $('.profile-save-btn').removeClass('profile-save-btn').addClass('profile-change-btn').text('변경');
+        $('#member_realname').val($('.realname').text());
+        $('#member_phonenumber').val($('.phonenumber').text());
+        $('#member_birth').val($('.birth').text());
+        $('#member_nikeid').val($('.nikeid').text());
+        $('.info-subject').css({'color': 'black'});
+        $('.info-input-error-msg').text('');
+        $('.info-input').css({'border-bottom': '1px solid #F5F5F5'});
         $('.info-input').hide();
         $('.info-value').show();
         $(this).remove();

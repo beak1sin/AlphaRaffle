@@ -115,11 +115,11 @@
                 </div>
             </div>
 
-            <div class="setting-content">
+            <div class="setting-content content">
                 <!-- <div style="width: 100%;">
                     <p style="margin: 0px; font-size: 40px; font-weight: 700;">가입한 정보</p>
                 </div> -->
-                <div>
+                <div class="nickname-profile-content">
                     <div style="width: 100px; height: 100px; float: left;">
                         {% if member.profile_img_url == '-' %}
                         <img id="profile_img_2" style="width: 100px; height: 100px; border: 1px solid black; border-radius: 50%;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
@@ -127,10 +127,10 @@
                         <img id="profile_img_2" style="width: 100px; height: 100px; border: 1px solid black; border-radius: 50%;" src="{{member.profile_img_url}}">
                         {% endif %}
                     </div>
-                    <div style="margin-left: 50px; float: left; display: flex; flex-direction: column;">
-                        <p class="nickname-value" style="margin: 0; color: #333; font-size: 32px; font-weight: 500;">{{member.member_nickname}}</p>
+                    <div class="nickname-profile-box">
+                        <p class="nickname-value nickname">{{member.member_nickname}}</p>
                         <input class="nickname-input" id="member_nickname" value="{{member.member_nickname}}" maxlength="20">
-                        <p class="nickname-error-msg" style="font-size: 12px; color: red; margin: 0px; float: left; margin-left: 10px; line-height: 14px;"></p>
+                        <p class="nickname-error-msg"></p>
                         <div id="profile_nick_btns" style="display: flex;">
                             <div class="profile-img-change-btn">사진 변경</div>
                             <input type="file" id="upload" style="display: none;" accept=".jpg, .jpeg, .png, .gif, .webp, .avif">
@@ -140,59 +140,61 @@
                     </div>
                 </div>
                 
-                <div style="display: flex; flex-direction: column;">
-                    <p style="margin: 0; font-size: 24px; font-weight: 900; color: #333;">가입 정보</p>
+                <div class="flex-column">
+                    <p class="flex-column-text">가입 정보</p>
                     <div style="margin-top: 10px;">
-                        <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left; width: 150px;">이메일</p>
-                        <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left;">{{member.member_id}}</p>
+                        <p class="info-subject width150">이메일</p>
+                        <p class="info-text">{{member.member_id}}</p>
                     </div>
                     <div style="margin-top: 10px;">
-                        <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left; width: 150px;">비밀번호</p>
+                        <p class="info-subject width150">비밀번호</p>
                         <div id="redirectAndClick" class="password-change-btn">&nbsp;&nbsp;비밀번호 변경하기&nbsp;&nbsp;</div>
                     </div>
                 </div>
 
-                <div class="info" style="display: flex; flex-direction: column;">
-                    <p style="margin: 0; font-size: 24px; font-weight: 900; color: #333;">응모 정보</p>
+                <div class="info flex-column">
+                    <p class="flex-column-text">응모 정보</p>
                     <div style="margin-top: 10px;">
-                        <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left; width: 150px;">이름</p>
-                        <p class="info-value realname" style="margin: 0; font-size: 20px; font-weight: 500; color: #333; float: left;">{{member.member_realname}}</p>
+                        <p class="info-subject width150">이름</p>
+                        <p class="info-value realname info-text">{{member.member_realname}}</p>
                         <input class="info-input" id="member_realname" value="{{member.member_realname}}" maxlength="10">
-                        <p style="font-size: 12px; color: red; margin: 0px; float: left; margin-left: 10px; line-height: 32px;"></p>
+                        <p class="info-input-error-msg"></p>
                     </div>
                     <div style="margin-top: 10px;">
-                        <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left; width: 150px;">휴대폰 번호</p>
-                        <p class="info-value phonenumber" style="margin: 0; font-size: 20px; font-weight: 500; color: #333; float: left;">{{member.member_phonenumber}}</p>
+                        <p class="info-subject width150">휴대폰 번호</p>
+                        <p class="info-value phonenumber info-text">{{member.member_phonenumber}}</p>
                         <input class="info-input" id="member_phonenumber" value="{{member.member_phonenumber}}" maxlength="11">
-                        <p style="font-size: 12px; color: red; margin: 0px; float: left; margin-left: 10px; line-height: 32px;"></p>
+                        <p class="info-input-error-msg"></p>
                     </div>
                     <div style="margin-top: 10px;">
-                        <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left; width: 150px;">생년월일</p>
-                        <p class="info-value birth" style="margin: 0; font-size: 20px; font-weight: 500; color: #333; float: left;">{{member.member_birth}}</p>
+                        <p class="info-subject width150">생년월일</p>
+                        <p class="info-value birth info-text">{{member.member_birth}}</p>
                         <input class="info-input" id="member_birth" value="{{member.member_birth}}" maxlength="6">
-                        <p style="font-size: 12px; color: red; margin: 0px; float: left; margin-left: 10px; line-height: 32px;"></p>
+                        <p class="info-input-error-msg"></p>
                     </div>
                     <div style="margin-top: 10px;">
-                        <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left; width: 150px;">나이키 ID</p>
-                        <p class="info-value nikeid" style="margin: 0; font-size: 20px; font-weight: 500; color: #333; float: left;">{{member.member_nikeid}}</p>
+                        <p class="info-subject width150">나이키 ID</p>
+                        <p class="info-value nikeid info-text">{{member.member_nikeid}}</p>
                         <input class="info-input" id="member_nikeid" value="{{member.member_nikeid}}" maxlength="50">
-                        <p style="font-size: 12px; color: red; margin: 0px; float: left; margin-left: 10px; line-height: 32px;"></p>
+                        <p class="info-input-error-msg"></p>
                     </div>
                 </div>
 
-                <div style="display: flex; flex-direction: column;">
+                <div class="flex-column">
                     <div>
-                        <p style="float: left; margin: 0; font-size: 24px; font-weight: 900; color: #333;">수신 정보</p>
-                        <p style="float: left; margin: 0; font-size: 12px; font-weight: 300; color: #333; margin-left: 100px; margin-top: 10px;">마케팅 활용과 광고 수신에 동의합니다.</p>
-                        <p style="float: left; margin: 0; font-size: 12px; font-weight: 300; color: #201DB1; margin-left: 10px; margin-top: 10px; text-decoration-line: underline; cursor: pointer;">이용 약관 보기</p>
+                        <p style="float: left;" class="flex-column-text">수신 정보</p>
+                        <div class="marketing-tos-agree-text-box">
+                            <p class="marketing-agree-text">마케팅 활용과 광고 수신에 동의합니다.</p>
+                            <p class="tos-agree-text">이용 약관 보기</p>
+                        </div>
                     </div>
                     <div style="width: 300px; margin-top: 20px; display: flex; justify-content: space-between;">
                         <div style="display: flex;">
-                            <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left;">SMS 수신</p>
+                            <p class="info-subject">SMS 수신</p>
                             <div class="checkbox-circle-btn"></div>
                         </div>
                         <div style="display: flex;">
-                            <p style="margin: 0; font-size: 20px; font-weight: 200; color: #333; float: left;">이메일 수신</p>
+                            <p class="info-subject">이메일 수신</p>
                             <div class="checkbox-circle-btn checked"></div>
                         </div>
                     </div>
@@ -207,64 +209,6 @@
             </div>
         </div>
         <script>const STATIC_FULL_URL = "{% url 'draw:상세정보' %}?serialnum=";const STATIC_IMAGES_URL = "{% static 'draw/images/' %}";</script>
-    </section>
-
-    <section class="mypage-mobile-section" style="width: 100vw; height: 100vh;">
-        <div style="width: 100vw; height: calc(100vh - 84px); top: 84px;">
-            <div style="width: 100%; text-align: center; padding: 20px 0;">
-                <p style="font-size: 20px; color: #333; font-weight: 900; margin: 0;">마이페이지</p>
-            </div>
-            <div style="width: 100%; display: flex; flex-direction: column;">
-                <div style="width: 100%; height: 50px; border-left: 10px solid #777777; background-color: #EEE; padding: 10px 0;">
-                    <div style="height: 30px; width: 30px; margin-left: 30px; position: relative; float: left;">
-                        <div class="mypage-bookmark-icon"></div>
-                    </div>
-                    <div style="height: 30px; margin-left: 18px; float: left;">
-                        <p style="line-height: 30px; font-size: 20px; margin: 0; font-weight: 400; color: #333;">북마크 관리</p>
-                    </div>
-                </div>
-                <div style="width: 100%; height: 50px; padding: 10px 0;">
-                    <div style="height: 30px; width: 30px; margin-left: 30px; position: relative; float: left;">
-                        <div class="mypage-draw-icon"></div>
-                    </div>
-                    <div style="height: 30px; margin-left: 18px; float: left;">
-                        <p style="line-height: 30px; font-size: 20px; margin: 0; font-weight: 400; color: #333;">응모 내역</p>
-                    </div>
-                </div>
-                <div style="width: 100%; height: 50px; padding: 10px 0;">
-                    <div style="height: 30px; width: 30px; margin-left: 30px; position: relative; float: left;">
-                        <div class="mypage-comment-icon"></div>
-                    </div>
-                    <div style="height: 30px; margin-left: 18px; float: left;">
-                        <p style="line-height: 30px; font-size: 20px; margin: 0; font-weight: 400; color: #333;">작성한 댓글</p>
-                    </div>
-                </div>
-                <div style="width: 100%; height: 50px; padding: 10px 0;">
-                    <div style="height: 30px; width: 30px; margin-left: 30px; position: relative; float: left;">
-                        <div class="mypage-board-icon"></div>
-                    </div>
-                    <div style="height: 30px; margin-left: 18px; float: left;">
-                        <p style="line-height: 30px; font-size: 20px; margin: 0; font-weight: 400; color: #333;">작성한 게시물</p>
-                    </div>
-                </div>
-                <div style="width: 100%; height: 50px; padding: 10px 0;">
-                    <div style="height: 30px; width: 30px; margin-left: 30px; position: relative; float: left;">
-                        <div class="mypage-review-icon"></div>
-                    </div>
-                    <div style="height: 30px; margin-left: 18px; float: left;">
-                        <p style="line-height: 30px; font-size: 20px; margin: 0; font-weight: 400; color: #333;">작성한 리뷰</p>
-                    </div>
-                </div>
-                <div style="width: 100%; height: 50px; padding: 10px 0;">
-                    <div style="height: 30px; width: 30px; margin-left: 30px; position: relative; float: left;">
-                        <div class="mypage-settings-icon"></div>
-                    </div>
-                    <div style="height: 30px; margin-left: 18px; float: left;">
-                        <p style="line-height: 30px; font-size: 20px; margin: 0; font-weight: 400; color: #333;">개인정보 관리</p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
 
     {% include 'draw/search.html' %}
