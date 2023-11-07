@@ -28,7 +28,6 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="{% static 'draw/css/normalize.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'draw/css/myPage.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/myPage2.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
     
 
@@ -65,7 +64,7 @@
                     <p class="main-nickname" style="margin: 0px; padding-top: 10px; font-size: 28px; font-weight: 500; line-height: 30px; border-bottom: 2px solid black;">{{member.member_nickname}}</p>
                 </div>
                 <div style="width: 100%; height: 43%;">
-                    <div class="tab checked">
+                    <div class="tab" onclick="location.href = `{% url 'draw:마이페이지북마크' %}`">
                         <div class="icon-box">
                             <span class="icon"></span>
                         </div>
@@ -73,7 +72,7 @@
                             <p class="title">북마크 관리</p>
                         </div>
                     </div>
-                    <div class="tab" onclick="location.href = `{% url 'draw:마이페이지응모' %}`">
+                    <div class="tab checked">
                         <div class="icon-box">
                             <span class="icon2"></span>
                         </div>
@@ -115,9 +114,12 @@
                     </div>
                 </div>
             </div>
-            <div class="bookmark-content" style="width: calc(100vw - 300px); left: 300px; height: 100%; float: left; position: relative; padding: 50px 100px 0px 100px;">
+            <div class="bookmark-content content">
                 <div style="width: 100%;">
-                    <p style="margin: 0px; font-size: 40px; font-weight: 700;">찜한 신발</p>
+                    <div>
+                        <div class="left-arrow" onclick="location.href = `{% url 'draw:마이페이지' %}`"></div>
+                        <p class="content-title">찜한 신발</p>
+                    </div>
                     <div class="grid-wrapper">
                         {% for shoe in liked_shoes %}
                         <div class="grid-box" data-value="{{shoe.serialno}}">
@@ -154,64 +156,6 @@
             </div>
         </div>
         <script>const STATIC_FULL_URL = "{% url 'draw:상세정보' %}?serialnum=";const STATIC_IMAGES_URL = "{% static 'draw/images/' %}";</script>
-    </section>
-
-    <section class="mypage-mobile-section" style="width: 100vw; height: 100vh;">
-        <div style="width: 100vw; height: calc(100vh - 84px); top: 84px;">
-            <div style="width: 100%; text-align: center; padding: 20px 0;">
-                <p style="font-size: 20px; color: #333; font-weight: 900; margin: 0;">마이페이지</p>
-            </div>
-            <div style="width: 100%; display: flex; flex-direction: column;">
-                <div style="width: 100%; height: 50px; border-left: 10px solid #777777; background-color: #EEE; padding: 10px 0;">
-                    <div style="height: 30px; width: 30px; margin-left: 30px; position: relative; float: left;">
-                        <div class="mypage-bookmark-icon"></div>
-                    </div>
-                    <div style="height: 30px; margin-left: 18px; float: left; cursor: pointer;" onclick="location.href = `{% url 'draw:마이페이지북마크' %}`">
-                        <p style="line-height: 30px; font-size: 20px; margin: 0; font-weight: 400; color: #333;">북마크 관리</p>
-                    </div>
-                </div>
-                <div style="width: 100%; height: 50px; padding: 10px 0;">
-                    <div style="height: 30px; width: 30px; margin-left: 30px; position: relative; float: left;">
-                        <div class="mypage-draw-icon"></div>
-                    </div>
-                    <div style="height: 30px; margin-left: 18px; float: left; cursor: pointer;" onclick="location.href = `{% url 'draw:마이페이지응모' %}`">
-                        <p style="line-height: 30px; font-size: 20px; margin: 0; font-weight: 400; color: #333;">응모 내역</p>
-                    </div>
-                </div>
-                <div style="width: 100%; height: 50px; padding: 10px 0;">
-                    <div style="height: 30px; width: 30px; margin-left: 30px; position: relative; float: left;">
-                        <div class="mypage-comment-icon"></div>
-                    </div>
-                    <div style="height: 30px; margin-left: 18px; float: left; cursor: pointer;" onclick="location.href = `{% url 'draw:마이페이지댓글' %}`">
-                        <p style="line-height: 30px; font-size: 20px; margin: 0; font-weight: 400; color: #333;">작성한 댓글</p>
-                    </div>
-                </div>
-                <div style="width: 100%; height: 50px; padding: 10px 0;">
-                    <div style="height: 30px; width: 30px; margin-left: 30px; position: relative; float: left;">
-                        <div class="mypage-board-icon"></div>
-                    </div>
-                    <div style="height: 30px; margin-left: 18px; float: left; cursor: pointer;" onclick="location.href = `{% url 'draw:마이페이지게시물' %}`">
-                        <p style="line-height: 30px; font-size: 20px; margin: 0; font-weight: 400; color: #333;">작성한 게시물</p>
-                    </div>
-                </div>
-                <div style="width: 100%; height: 50px; padding: 10px 0;">
-                    <div style="height: 30px; width: 30px; margin-left: 30px; position: relative; float: left;">
-                        <div class="mypage-review-icon"></div>
-                    </div>
-                    <div style="height: 30px; margin-left: 18px; float: left; cursor: pointer;" onclick="location.href = `{% url 'draw:마이페이지리뷰' %}`">
-                        <p style="line-height: 30px; font-size: 20px; margin: 0; font-weight: 400; color: #333;">작성한 리뷰</p>
-                    </div>
-                </div>
-                <div style="width: 100%; height: 50px; padding: 10px 0;">
-                    <div style="height: 30px; width: 30px; margin-left: 30px; position: relative; float: left;">
-                        <div class="mypage-settings-icon"></div>
-                    </div>
-                    <div style="height: 30px; margin-left: 18px; float: left; cursor: pointer;" onclick="location.href = `{% url 'draw:마이페이지개인정보' %}`">
-                        <p style="line-height: 30px; font-size: 20px; margin: 0; font-weight: 400; color: #333;">개인정보 관리</p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
 
     {% include 'draw/search.html' %}

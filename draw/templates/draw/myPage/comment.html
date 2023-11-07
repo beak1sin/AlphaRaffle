@@ -28,7 +28,6 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="{% static 'draw/css/normalize.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'draw/css/myPage.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/myPage2.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
     
 
@@ -65,7 +64,7 @@
                     <p class="main-nickname" style="margin: 0px; padding-top: 10px; font-size: 28px; font-weight: 500; line-height: 30px; border-bottom: 2px solid black;">{{member.member_nickname}}</p>
                 </div>
                 <div style="width: 100%; height: 43%;">
-                    <div class="tab checked">
+                    <div class="tab" onclick="location.href = `{% url 'draw:마이페이지북마크' %}`">
                         <div class="icon-box">
                             <span class="icon"></span>
                         </div>
@@ -81,7 +80,7 @@
                             <p class="title">응모 내역</p>
                         </div>
                     </div>
-                    <div class="tab" onclick="location.href = `{% url 'draw:마이페이지댓글' %}`">
+                    <div class="tab checked">
                         <div class="icon-box">
                             <span class="icon3"></span>
                         </div>
@@ -115,41 +114,44 @@
                     </div>
                 </div>
             </div>
-            <div class="bookmark-content" style="width: calc(100vw - 300px); left: 300px; height: 100%; float: left; position: relative; padding: 50px 100px 0px 100px;">
+            <div class="comment-content" style="width: calc(100vw - 300px); left: 300px; height: 100%; float: left; position: relative; padding: 50px 100px 0px 100px;">
                 <div style="width: 100%;">
-                    <p style="margin: 0px; font-size: 40px; font-weight: 700;">찜한 신발</p>
-                    <div class="grid-wrapper">
-                        {% for shoe in liked_shoes %}
-                        <div class="grid-box" data-value="{{shoe.serialno}}">
-                            <div class="grid-container" onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}', '_blank';">
-                                <div class="grid-img-box">
-                                    <div class="img-box">
-                                        <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.avif">
-                                    </div>
-                                    <div class="bookmark-icon">
-                                        {% if member in shoe.likes.all %}
-                                        <label class="bookmark-icon-label on">
-                                            <span class="icon"></span>
-                                        </label>
-                                        {% else %}
-                                        <label class="bookmark-icon-label">
-                                            <span class="icon"></span>
-                                        </label>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                                <div class="grid-shoename-box">
-                                    <p class="shoename">{{shoe.shoename}}</p>
-                                </div>
-                                <div class="grid-pubdate-box">
-                                    <p class="pubdate">{{shoe.pubdate}} 발매</p>
-                                </div>
-                            </div>
+                    <p style="margin: 0px; font-size: 40px; font-weight: 700;">작성한 댓글</p>
+                </div>
+                <div style="width: 100%;">
+                    <p style="margin: 0px; font-size: 20px; font-weight: 700; color: #777777; font-weight: 500;">총 {{comment_count}}개의 댓글이 있습니다.</p>
+                </div>
+                <div style="width: 100%; margin-top: 50px; height: auto;">
+                    {% for comment in comment %}
+                    {% if comment.serialno != None %}
+                    <div style="width: 100%; height: auto; margin-bottom: 40px; display: inline-block;" data-value="{{comment.id}}">
+                        <div style="float: left; width: 80px; height: 80px; cursor: pointer;" onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}', '_blank';">
+                            <img style="width: 80px; height: 80px; border-radius: 4px; border: 0.6px solid #C8C8C8;" src="{% static 'draw/images/' %}{{comment.serialno}}0.avif">
                         </div>
-                        {% endfor %}
-
+                        <div style="max-width: 500px; float: left; margin-left: 20px;">
+                            <p style="margin: 0; color: #333; font-size: 22px;">{{comment.comment}}</p>
+                            <p style="margin: 0; color: #777; font-size: 14px; font-weight: 200;">{{comment.created_date}}</p>
+                            <p style="margin: 0; color: #777; font-size: 14px; font-weight: 500;">{{comment.shoename}}</p>
+                        </div>
+                        <div style="float: right; margin-top: 40px;">
+                            <p style="margin: 0; color: #777; font-size: 16px; font-weight: 700; float: left;">답글</p>
+                            <p style="margin: 0; color: #777; font-size: 16px; font-weight: 700; float: left; margin-left: 10px;">1</p>
+                            <div style="float: left; width: 20px; height: 20px; background-image: url('../../../static/draw/necessary/comment_fill_like_btn.svg'); margin-left: 20px;">
+                                <!-- <span style="background: url('../../static/draw/necessary/Group.svg') no-repeat center center/20px auto; width: 20px; height: 20px; display: inline;"></span> -->
+                            </div>
+                            <p style="margin: 0; color: #F00; font-size: 16px; font-weight: 700; float: left; margin-left: 10px;">232</p>
+                            <div style="float: left; width: 20px; height: 20px; background-image: url('../../../static/draw/necessary/comment_fill_hate_btn.svg'); margin-left: 20px;">
+                            </div>
+                            <p style="margin: 0; color: #777; font-size: 16px; font-weight: 700; float: left; margin-left: 10px;">0</p>
+                            <p class="comment-delete-btn" style="margin: 0; color: #777; font-size: 16px; font-weight: 400; float: left; margin-left: 50px; cursor: pointer;">삭제</p>
+                        </div>
                     </div>
-                    
+                    {% else %}
+                    <div style="width: 100%; height: 200px; display: table; text-align: center;">
+                        <p style="margin: 0; display: table-cell; vertical-align: middle;">댓글이 존재하지 않습니다.</p>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -166,7 +168,7 @@
                     <div style="height: 30px; width: 30px; margin-left: 30px; position: relative; float: left;">
                         <div class="mypage-bookmark-icon"></div>
                     </div>
-                    <div style="height: 30px; margin-left: 18px; float: left; cursor: pointer;" onclick="location.href = `{% url 'draw:마이페이지북마크' %}`">
+                    <div style="height: 30px; margin-left: 18px; float: left;">
                         <p style="line-height: 30px; font-size: 20px; margin: 0; font-weight: 400; color: #333;">북마크 관리</p>
                     </div>
                 </div>
@@ -174,7 +176,7 @@
                     <div style="height: 30px; width: 30px; margin-left: 30px; position: relative; float: left;">
                         <div class="mypage-draw-icon"></div>
                     </div>
-                    <div style="height: 30px; margin-left: 18px; float: left; cursor: pointer;" onclick="location.href = `{% url 'draw:마이페이지응모' %}`">
+                    <div style="height: 30px; margin-left: 18px; float: left;">
                         <p style="line-height: 30px; font-size: 20px; margin: 0; font-weight: 400; color: #333;">응모 내역</p>
                     </div>
                 </div>
@@ -182,7 +184,7 @@
                     <div style="height: 30px; width: 30px; margin-left: 30px; position: relative; float: left;">
                         <div class="mypage-comment-icon"></div>
                     </div>
-                    <div style="height: 30px; margin-left: 18px; float: left; cursor: pointer;" onclick="location.href = `{% url 'draw:마이페이지댓글' %}`">
+                    <div style="height: 30px; margin-left: 18px; float: left;">
                         <p style="line-height: 30px; font-size: 20px; margin: 0; font-weight: 400; color: #333;">작성한 댓글</p>
                     </div>
                 </div>
@@ -190,7 +192,7 @@
                     <div style="height: 30px; width: 30px; margin-left: 30px; position: relative; float: left;">
                         <div class="mypage-board-icon"></div>
                     </div>
-                    <div style="height: 30px; margin-left: 18px; float: left; cursor: pointer;" onclick="location.href = `{% url 'draw:마이페이지게시물' %}`">
+                    <div style="height: 30px; margin-left: 18px; float: left;">
                         <p style="line-height: 30px; font-size: 20px; margin: 0; font-weight: 400; color: #333;">작성한 게시물</p>
                     </div>
                 </div>
@@ -198,7 +200,7 @@
                     <div style="height: 30px; width: 30px; margin-left: 30px; position: relative; float: left;">
                         <div class="mypage-review-icon"></div>
                     </div>
-                    <div style="height: 30px; margin-left: 18px; float: left; cursor: pointer;" onclick="location.href = `{% url 'draw:마이페이지리뷰' %}`">
+                    <div style="height: 30px; margin-left: 18px; float: left;">
                         <p style="line-height: 30px; font-size: 20px; margin: 0; font-weight: 400; color: #333;">작성한 리뷰</p>
                     </div>
                 </div>
@@ -206,7 +208,7 @@
                     <div style="height: 30px; width: 30px; margin-left: 30px; position: relative; float: left;">
                         <div class="mypage-settings-icon"></div>
                     </div>
-                    <div style="height: 30px; margin-left: 18px; float: left; cursor: pointer;" onclick="location.href = `{% url 'draw:마이페이지개인정보' %}`">
+                    <div style="height: 30px; margin-left: 18px; float: left;">
                         <p style="line-height: 30px; font-size: 20px; margin: 0; font-weight: 400; color: #333;">개인정보 관리</p>
                     </div>
                 </div>

@@ -60,9 +60,10 @@ $(document).ready(function() {
 
     var xhr;
 
-    $('.bookmark-icon-label').click(function() {
+    $('.bookmark-icon-label').click(function(event) {
+        event.stopPropagation();
         let $serialno = $(this).parent().parent().parent().parent().attr('data-value');
-  
+        
         var $this = $(this);
         var $count = $(this).parent().next().children();
   

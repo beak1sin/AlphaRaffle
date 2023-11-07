@@ -33,14 +33,14 @@
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8749708053944720"
      crossorigin="anonymous"></script>
-     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D6Q3RQNTG2"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FKLV3QNRNC"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'G-D6Q3RQNTG2');
+    gtag('config', 'G-FKLV3QNRNC');
     </script>
 
     <meta property="og:title" content="AlphaRaffle | {{shoe.shoename}}">
@@ -81,13 +81,13 @@
                                 {% if forloop.counter == 1 %}
                                 <div class="u-active u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter0}}">
                                     <div class="u-back-slide u-back-slide-1">
-                                        <img class="u-back-image u-expanded" src="{% static 'draw/images/' %}{{img.serialno}}{{forloop.counter0}}.avif">
+                                        <img class="u-back-image u-expanded" src="{% static 'draw/images/' %}{{img.serialno}}{{forloop.counter0}}.avif" alt="{{shoe.shoeengname}}-{{forloop.counter}}">
                                     </div>
                                 </div>
                                 {% else %}
                                 <div class="u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter0}}">
                                     <div class="u-back-slide">
-                                        <img class="u-back-image u-expanded" src="{% static 'draw/images/' %}{{img.serialno}}{{forloop.counter0}}.avif">
+                                        <img class="u-back-image u-expanded" src="{% static 'draw/images/' %}{{img.serialno}}{{forloop.counter0}}.avif" alt="{{shoe.shoeengname}}-{{forloop.counter}}">
                                     </div>
                                 </div>
                                 {% endif %}
@@ -170,6 +170,14 @@
                                 </div>
                                 <div style="float: right;">
                                     <span class="shoeprice">{{shoe.shoeprice}}</span>
+                                </div>
+                            </div>
+                            <div style="padding: 10px 0px; height: auto; overflow: hidden;">
+                                <div style="float: left;">
+                                    <span class="title">설명</span>
+                                </div>
+                                <div style="float: right;">
+                                    <span class="shoedetail">{{shoe.shoedetail}}</span>
                                 </div>
                             </div>
                         </div>
@@ -376,7 +384,7 @@
                         {% if offlineSite %}
                         {% for site in offlineSite %}
                             {% if site.is_valid_date %}
-                            <div class="wrapper-items no-margin" onclick="window.open(STATIC_FULL_URL + '{{shoe.serialno}}' + '&sitename={{site.sitename}}', '_blank')">
+                            <div class="wrapper-items no-margin" onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}' + '&sitename={{site.sitename}}', '_blank';">
                                 <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
                                     <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
                                 </div>

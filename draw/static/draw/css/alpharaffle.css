@@ -674,8 +674,8 @@ header {
 }
 
 .grid-shoename-box .shoename {
-  font-size: 18px;
-  line-height: 18px;
+  font-size: 14px;
+  line-height: 14px;
   font-weight: 500;
   margin: 0px;
   display: table-cell;
@@ -693,8 +693,8 @@ header {
 }
 
 .grid-pubdate-box .pubdate {
-  font-size: 14px;
-  line-height: 14px;
+  font-size: 12px;
+  line-height: 12px;
   font-weight: 200;
   margin: 0px;
   display: table-cell;

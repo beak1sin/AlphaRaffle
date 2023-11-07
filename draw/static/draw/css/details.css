@@ -926,6 +926,10 @@ p {
     font-size: 20px !important;
   }
 
+  .shoedetail {
+    font-size: 14px;
+  }
+
   .box2, .box3 {
     height: auto;
     display: flex;

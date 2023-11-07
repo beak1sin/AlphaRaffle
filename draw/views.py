@@ -1266,12 +1266,7 @@ def like_shoe(request):
         member_no_obj = Member.objects.get(member_no=member_no)
         context['flag'] = '1'
         context['result_msg'] = '로그인 되어 있는 상태'
-        # if member_no in shoe.likes.all():
-        #     shoe.likes.remove(member_no)
-        #     liked = False
-        # else:
-        #     shoe.likes.add(member_no)
-        #     liked = True
+
         if Member.objects.filter(member_no=member_no, liked_posts=shoe).exists():
             # 이미 좋아요한 경우
             shoe.likes.remove(member_no)
@@ -1980,4 +1975,113 @@ def sendmail(request):
               fail_silently=False)
 
     return redirect('/auth/practice')
-    
+
+@csrf_protect
+class Mypage():
+    def bookmark(request):
+        context = {}
+        if request.session.has_key('member_no'):
+            member_no = request.session['member_no']
+            member = Member.objects.get(pk=member_no)
+            recent_searches = SearchTerm.objects.filter(member_no=member_no).order_by('-created_at')[:10]
+
+            context['flag'] = "0"
+            context['result_msg'] = "Member read..."
+
+            liked_shoes = member.liked_posts.all()
+
+            context = {'member':member ,'liked_shoes':liked_shoes, 'recent_searches': recent_searches}
+            return render(request, "draw/myPage/bookmark.html", context)
+
+        else:
+            return redirect('/auth/login/')
+        
+    def draw(request):
+        context = {}
+        if request.session.has_key('member_no'):
+            member_no = request.session['member_no']
+            member = Member.objects.get(pk=member_no)
+            recent_searches = SearchTerm.objects.filter(member_no=member_no).order_by('-created_at')[:10]
+
+            context['flag'] = "0"
+            context['result_msg'] = "Member read..."
+
+            liked_shoes = member.liked_posts.all()
+
+            context = {'member':member ,'liked_shoes':liked_shoes, 'recent_searches': recent_searches}
+            return render(request, "draw/myPage/draw.html", context)
+
+        else:
+            return redirect('/auth/login/')
+
+    def comment(request):
+        context = {}
+        if request.session.has_key('member_no'):
+            member_no = request.session['member_no']
+            member = Member.objects.get(pk=member_no)
+            recent_searches = SearchTerm.objects.filter(member_no=member_no).order_by('-created_at')[:10]
+
+            context['flag'] = "0"
+            context['result_msg'] = "Member read..."
+
+
+            comment = Comment.objects.filter(member_nickname=member.member_nickname)
+            comment_count = comment.count()
+            for com in comment:
+                com.shoename = Shoe.objects.get(serialno=com.serialno).shoename
+
+            context = {'member':member , 'comment': comment, 'comment_count': comment_count, 'recent_searches': recent_searches}
+            return render(request, "draw/myPage/comment.html", context)
+
+        else:
+            return redirect('/auth/login/')
+        
+    def board(request):
+        context = {}
+        if request.session.has_key('member_no'):
+            member_no = request.session['member_no']
+            member = Member.objects.get(pk=member_no)
+            recent_searches = SearchTerm.objects.filter(member_no=member_no).order_by('-created_at')[:10]
+
+            context = {'member':member, 'recent_searches': recent_searches}
+            return render(request, "draw/myPage/board.html", context)
+
+        else:
+            return redirect('/auth/login/')
+        
+    def review(request):
+        context = {}
+        if request.session.has_key('member_no'):
+            member_no = request.session['member_no']
+            member = Member.objects.get(pk=member_no)
+            recent_searches = SearchTerm.objects.filter(member_no=member_no).order_by('-created_at')[:10]
+
+            context = {'member':member, 'recent_searches': recent_searches}
+            return render(request, "draw/myPage/review.html", context)
+
+        else:
+            return redirect('/auth/login/')
+        
+    def settings(request):
+        context = {}
+        if request.session.has_key('member_no'):
+            member_no = request.session['member_no']
+            member = Member.objects.get(pk=member_no)
+            recent_searches = SearchTerm.objects.filter(member_no=member_no).order_by('-created_at')[:10]
+
+            context['member_no'] = member.member_no
+            context['member_id'] = member.member_id
+            context['member_realname'] = member.member_realname
+            context['member_nickname'] = member.member_nickname
+            context['member_phonenumber'] = member.member_phonenumber
+            context['member_nikeid'] = member.member_nikeid
+            context['member_birth'] = member.member_birth
+
+            context['flag'] = "0"
+            context['result_msg'] = "Member read..."
+
+            context = {'member':member, 'recent_searches': recent_searches}
+            return render(request, "draw/myPage/settings.html", context)
+
+        else:
+            return redirect('/auth/login/')

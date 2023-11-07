@@ -36,30 +36,14 @@ input:focus {
 }
 
 .tab.checked {
-  background-color: #F4F4F4;
-  border-left: 10px solid #EEEEEE;
+  background-color: #EEE;
+  border-left: 10px solid #777777;
 }
 
 @media(hover: hover) and (pointer: fine) {
   .tab:hover {
-    background-color: #F4F4F4;
-    border-left: 10px solid #EEEEEE;
-  }
-
-  .tab:hover .icon {
-    background: url(../necessary/bookmark_checked.svg) no-repeat center center/18px auto;
-  }
-
-  .tab:hover .icon2 {
-    background: url(../necessary/checked_shoe_checked.svg) no-repeat center center/24px auto;
-  }
-
-  .tab:hover .icon3 {
-    background: url(../necessary/commented_checked.svg) no-repeat center center/24px auto;
-  }
-
-  .tab:hover .icon4 {
-    background: url(../necessary/setting_checked.svg) no-repeat center center/24px auto;
+    background-color: #EEE;
+    border-left: 10px solid #777777;
   }
 
   .tab:hover .title {
@@ -90,11 +74,7 @@ input:focus {
   height: 24px;
   left: 50px;
   position: absolute;
-  background: url(../necessary/bookmark.svg) no-repeat center center/18px auto;
-}
-
-.tab.checked .icon {
-  background: url(../necessary/bookmark_checked.svg) no-repeat center center/18px auto;
+  background: url('../necessary/mypage_bookmark.svg') no-repeat center center/22px auto;
 }
 
 .tab .icon2 {
@@ -102,11 +82,7 @@ input:focus {
   height: 24px;
   left: 50px;
   position: absolute;
-  background: url(../necessary/checked_shoe.svg) no-repeat center center/24px auto;
-}
-
-.tab.checked .icon2 {
-  background: url(../necessary/checked_shoe_checked.svg) no-repeat center center/24px auto;
+  background: url('../necessary/mypage_draw.svg') no-repeat center center/22px auto;
 }
 
 .tab .icon3 {
@@ -114,11 +90,7 @@ input:focus {
   height: 24px;
   left: 50px;
   position: absolute;
-  background: url(../necessary/commented.svg) no-repeat center center/24px auto;
-}
-
-.tab.checked .icon3 {
-  background: url(../necessary/commented_checked.svg) no-repeat center center/24px auto;
+  background: url('../necessary/mypage_comment.svg') no-repeat center center/22px auto;
 }
 
 .tab .icon4 {
@@ -126,13 +98,24 @@ input:focus {
   height: 24px;
   left: 50px;
   position: absolute;
-  background: url(../necessary/setting.svg) no-repeat center center/24px auto;
+  background: url('../necessary/mypage_board.svg') no-repeat center center/22px auto;
 }
 
-.tab.checked .icon4 {
-  background: url(../necessary/setting_checked.svg) no-repeat center center/24px auto;
+.tab .icon5 {
+  width: 24px;
+  height: 24px;
+  left: 50px;
+  position: absolute;
+  background: url('../necessary/mypage_review.svg') no-repeat center center/22px auto;
 }
 
+.tab .icon6 {
+  width: 24px;
+  height: 24px;
+  left: 50px;
+  position: absolute;
+  background: url('../necessary/mypage_settings.svg') no-repeat center center/22px auto;
+}
 
 
 .tab .title-box {
@@ -384,4 +367,77 @@ input[type="checkbox"] {
 
 .nickname-input {
   height: 52px; border: none; border-bottom: 2px solid red; display: none; margin-bottom: 5px; font-size: 32px;
+}
+
+.content {
+  width: calc(100vw - 300px); left: 300px; height: 100%; float: left; position: relative; padding: 50px 100px 0px 100px;
+}
+.mypage-mobile-section {
+  display: none;
+}
+.left-arrow {
+  width: 24px;
+  height: 32px;
+  background: url('../necessary/left-arrow.svg') no-repeat center center/22px auto;
+  cursor: pointer;
+  display: none;
+  float: left;
+  margin-left: 10px;
+}
+
+.content-title {
+  margin: 0px; font-size: 40px; font-weight: 700;
+}
+
+@media (max-width: 991px) {
+  .mypage-nav-box {
+    display: none;
+  }
+
+  .grid-wrapper{
+    width: 100vw !important;
+  }
+
+  .left-arrow {
+    display: block;
+  }
+
+  .content {
+    width: 100vw;
+    left: 0;
+    padding: 50px 0 0 0;
+  }
+
+  .content-title {
+    font-size: 20px;
+    margin-left: 40px;
+  }
+
+  .mypage-mobile-section {
+    display: block;
+  }
+
+  .mypage-bookmark-icon {
+    position: absolute; width: 24px; height: 24px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: url('../necessary/mypage_bookmark.svg') no-repeat center center/22px auto; cursor: pointer; transition: all 0.1s;
+  }
+
+  .mypage-draw-icon {
+    position: absolute; width: 24px; height: 24px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: url('../necessary/mypage_draw.svg') no-repeat center center/22px auto; cursor: pointer; transition: all 0.1s;
+  }
+
+  .mypage-comment-icon {
+    position: absolute; width: 24px; height: 24px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: url('../necessary/mypage_comment.svg') no-repeat center center/22px auto; cursor: pointer; transition: all 0.1s;
+  }
+
+  .mypage-board-icon {
+    position: absolute; width: 24px; height: 24px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: url('../necessary/mypage_board.svg') no-repeat center center/22px auto; cursor: pointer; transition: all 0.1s;
+  }
+
+  .mypage-review-icon {
+    position: absolute; width: 24px; height: 24px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: url('../necessary/mypage_review.svg') no-repeat center center/22px auto; cursor: pointer; transition: all 0.1s;
+  }
+
+  .mypage-settings-icon {
+    position: absolute; width: 24px; height: 24px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: url('../necessary/mypage_settings.svg') no-repeat center center/22px auto; cursor: pointer; transition: all 0.1s;
+  }
 }
