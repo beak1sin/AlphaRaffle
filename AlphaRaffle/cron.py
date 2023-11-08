@@ -447,19 +447,33 @@ def entrycrawl(url):
             #     nameentry = None
                 
             if '연락처' in googleEntry[i][0] or '전화번호' in googleEntry[i][0] or '휴대폰' in googleEntry[i][0] or '핸드폰' in googleEntry[i][0]:
-                if '11' in googleEntry[i][5]:
+
+                if googleEntry[i][5] is None:
                     phoneentry = [googleEntry[i][3],11]
-                    
                 else:
-                    phoneentry = [googleEntry[i][3],'-']
+                    if '11' in googleEntry[i][5]:
+                        phoneentry = [googleEntry[i][3],11]
+                        
+                    else:
+                        phoneentry = [googleEntry[i][3],'-']
             # else :
             #     phoneentry = None
 
             if '생년월일' in googleEntry[i][0] or '생일' in googleEntry[i][0]:
-                if '6' in googleEntry[i][5]:
-                    birthentry = [ googleEntry[i][3], 6 ]
+                # if googleEntry[i][5] is not None and ('6' in googleEntry[i][5] or '6' in googleEntry[i][0]):
+                #     birthentry = [ googleEntry[i][3], 6]
+                # elif googleEntry[i][5] is not None and ('8' in googleEntry[i][5] or '8' in googleEntry[i][0]):
+                #     birthentry = [ googleEntry[i][3], 8]
+                if googleEntry[i][5] is None:
+                    if '6' in googleEntry[i][0]:
+                        birthentry = [ googleEntry[i][3], 6]
+                    elif '8' in googleEntry[i][0]:
+                        birthentry = [ googleEntry[i][3], 8]
                 else:
-                    birthentry = [ googleEntry[i][3], 8 ]
+                    if '6' in googleEntry[i][5]:
+                        birthentry = [ googleEntry[i][3], 6]
+                    elif '8' in googleEntry[i][5]:
+                        birthentry = [ googleEntry[i][3], 8]
             # else :
             #     birthentry = None
 
@@ -625,10 +639,10 @@ def crawl_test():
             link = sitecard[i].attrs['onclick']
             shoenum.append(link[39:].split('/')[0].replace("'",""))
 
-        # shoenum = sorted(list(set(shoenum)), reverse=True)
+        shoenum = sorted(list(set(shoenum)), reverse=True)
         # shoenum = ['8034', '8033', '8032', '8031', '8030', '8029', '8028', '8027', '8026', '8022', '8021', '8020', '8019', '8018', '7988', '7987', '7986', '7985', '7984', '7977', '7974', '7973', '7972', '7971', '7970', '7969', '7949', '7938', '7937', '7926', '7925', '7924', '7894', '774', '7697', '7696', '7687', '7681', '7639', '7574', '7568', '7567', '7506', '7498', '7311', '7303', '7301', '7270', '7182', '7059', '7043', '7013', '7005', '6795', '6721', '6663', '6572', '6316', '6315', '6077', '5736', '5733', '5732', '5731', '5729', '5728', '5607', '5606', '5605', '5604', '5603', '5602', '5601', '5567', '5493', '5406', '5314', '5302', '5249', '5027', '5004', '4903', '4870', '4797', '4769', '4768', '4754', '4432', '3999', '3994', '3993', '3992', '3638', '3453', '3395', '3319', '3125', '2709', '2708', '2401', '2265']
         # shoenum = ['8205', '8196', '8195', '8194', '8193', '8192', '8191', '8190', '8189', '8188', '8182', '8177', '8176', '8157', '8156', '8155', '8154', '8153', '8152', '8151', '8127', '8126', '8123', '8122', '8118', '8101', '8100', '8099', '8098', '8038', '8022', '8021', '8020', '7506', '7306', '7303', '7301', '7272', '7270', '7234', '7223', '7005', '6874', '6796', '6721', '6534', '6426', '6213', '5394', '5252', '5251', '5249', '5248', '5062', '5061', '4133', '3783', '2264', '1896']
-        shoenum = ['8022']
+        # shoenum = ['8022']
         # print(len(shoenum),shoenum)
 
         for num in shoenum:
@@ -1157,4 +1171,3 @@ def debuging():
     for site in shoesite:
         site.end_date = end_date_datetime
         site.save()
-
