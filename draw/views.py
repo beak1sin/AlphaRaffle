@@ -980,24 +980,6 @@ def comment_delete_details(request):
             context['result_msg'] = '로그인 후 이용바랍니다.'
 
     return JsonResponse(context, content_type="application/json")
-    
-@csrf_protect
-def delete(request):
-    context = {}
-    shoe = Shoe.objects.all()
-    
-    if request.session.has_key('member_no'):
-        member_no = request.session['member_no']
-        member = Member.objects.get(pk= member_no)
-        print(member_no)
-
-    else:
-        member_no = None
-        member = None
-
-    context["member_no"] = member_no
-    context = {'shoe':shoe, 'member':member }
-    return render(request, "draw/delete.html", context)
 
 @csrf_protect
 def member_delete(request):
@@ -2085,3 +2067,39 @@ class Mypage():
 
         else:
             return redirect('/auth/login/')
+        
+    def delete(request):
+        context = {}
+        if request.session.has_key('member_no'):
+            member_no = request.session['member_no']
+            member = Member.objects.get(pk= member_no)
+
+        else:
+            return redirect('/auth/login/')
+
+        context["member_no"] = member_no
+        context = {'member':member }
+        return render(request, "draw/myPage/delete.html", context)
+    
+    def password_check(request):
+        context = {}
+        if request.session.has_key('member_no'):
+            bodydata = request.body.decode('utf-8')
+            bodyjson = json.loads(bodydata)
+
+            memberpwd = bodyjson['member_pwd']
+
+            memberno = request.session['member_no']
+            rsMember = Member.objects.get(member_no=memberno)
+
+            if (rsMember.member_pwd == memberpwd):
+                context['flag'] = '1'
+                context['result_msg'] = '비밀번호가 일치합니다.'
+            else:
+                context['flag'] = '0'
+                context['result_msg'] = '비밀번호가 일치하지 않습니다.'
+            return JsonResponse(context, content_type="application/json")
+        else:
+            return redirect('/auth/login/')
+
+        

@@ -250,10 +250,19 @@ def luckd_crowler(no):
             else:
                 try:
                     nameentry, phoneentrylen, birthentrylen,  nikeidentry = entrycrawl(sitelink)
-                    birthentry = birthentrylen[0]
-                    birthlen = birthentrylen[1] # 생년월일 길이
-                    phoneentry = phoneentrylen[0]
-                    phonehyphen = phoneentrylen[1] # 폰 하이픈 여부
+                    if birthentrylen is None:
+                        birthentry = None
+                        birthlen = None
+                    else:
+                        birthentry = birthentrylen[0]
+                        birthlen = birthentrylen[1] # 생년월일 길이
+
+                    if phoneentrylen is None:
+                        phoneentry = None
+                        phonehyphen = None
+                    else:
+                        phoneentry = phoneentrylen[0]
+                        phonehyphen = phoneentrylen[1] # 폰 하이픈 여부
 
                     Shoesite.objects.filter(shoesiteunique = shoeunique).update(nameentry = nameentry, birthentry = birthentry, phoneentry = phoneentry, nikeidentry = nikeidentry)
                     telegram_crawl.crawl_entry_msg(nameentry, birthentry, phoneentry, nikeidentry)
@@ -786,10 +795,19 @@ def luckd_crowler_test(no):
             else:
                 try:
                     nameentry, phoneentrylen, birthentrylen,  nikeidentry = entrycrawl(sitelink)
-                    birthentry = birthentrylen[0]
-                    birthlen = birthentrylen[1] # 생년월일 길이
-                    phoneentry = phoneentrylen[0]
-                    phonehyphen = phoneentrylen[1] # 폰 하이픈 여부
+                    if birthentrylen is None:
+                        birthentry = None
+                        birthlen = None
+                    else:
+                        birthentry = birthentrylen[0]
+                        birthlen = birthentrylen[1] # 생년월일 길이
+
+                    if phoneentrylen is None:
+                        phoneentry = None
+                        phonehyphen = None
+                    else:
+                        phoneentry = phoneentrylen[0]
+                        phonehyphen = phoneentrylen[1] # 폰 하이픈 여부
                     print(nameentry, birthentry, birthlen, phoneentry, phonehyphen, nikeidentry)
                     # Shoesite.objects.filter(shoesiteunique = shoeunique).update(nameentry = nameentry, birthentry = birthentry, phoneentry = phoneentry, nikeidentry = nikeidentry )
                     # telegram_crawl.crawl_entry_msg(nameentry, birthentry, phoneentry, nikeidentry)

@@ -26,11 +26,11 @@ input::placeholder {
     transform: translate(0, -50%);
 }
 /* ------------input x버튼 기능 */
-ol {
+ol.search-ol {
     column-count: 2;
     margin-top: 10px;
 }
-ol > li {
+ol.search-ol > li{
     font-size: 26px;
     margin-left: 12px;
     font-weight: 500;
