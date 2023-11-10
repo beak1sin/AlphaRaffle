@@ -93,8 +93,13 @@ input::placeholder {
     /* display: inline-block; */
 }
 
-.join-email-box .join-email-title-box, .join-password-box .join-password-title-box, .join-profile-box .join-profile-title-box {
+.join-email-box .join-email-title-box, .join-password-box .join-password-title-box {
     padding: 50px 0px 50px 0px;
+    text-align: center;
+}
+
+.join-profile-box .join-profile-title-box {
+    padding: 20px 0px 20px 0px;
     text-align: center;
 }
 

@@ -27,7 +27,7 @@ $(document).ready(function() {
   });
 
   $('.next-btn-1').click(function () {
-      memberpwd = document.getElementById("member_pwd").value;
+      let memberpwd = document.getElementById("member_pwd").value;
       if(memberpwd == "") {
         $('.password-error-msg').text('비밀번호를 입력하세요.');
         return false;
@@ -82,7 +82,7 @@ $(document).ready(function() {
     }
   });
 
-  $('.next-btn-2').click(function() {
+  function validateCheckboxes() {
     var isChecked = false;
     var isOthersChecked = $('#others').is(':checked');
     var othersText = $('#others_textarea').val().trim();
@@ -91,28 +91,99 @@ $(document).ready(function() {
     $('.checkbox-box input[type="checkbox"]').each(function() {
       if (this.checked) {
         isChecked = true;
-        // "기타"가 체크되었는지 여부와 텍스트 영역의 내용도 여기서 검사
         if (isOthersChecked && othersText === '') {
-          
-          isChecked = false; // 필수 조건을 충족하지 않으므로 다시 false로 설정
-          return false; // each 반복 중단
+          isChecked = false;
+          return false;
         }
       }
     });
 
-    // 체크박스가 하나도 선택되지 않았을 경우
     if (!isChecked) {
       $('.checkbox-error-msg').text('하나 이상의 체크박스를 선택해주세요.');
+      $('.checkbox-error-msg-2').text('하나 이상의 체크박스를 선택해주세요.');
       if (isOthersChecked && othersText === '') {
         $('.checkbox-error-msg').text('기타 항목에 텍스트를 입력해주세요.');
+        $('.checkbox-error-msg-2').text('기타 항목에 텍스트를 입력해주세요.');
       }
       return false;
     }
 
-    // 모든 조건을 충족한 경우 추가 작업 수행
     $('.checkbox-error-msg').text('');
-    $('.delete-content-2').hide();
-    $('.delete-content-3').show();
+    $('.checkbox-error-msg-2').text('');
+    return true;
+  }
+
+
+  $('.next-btn-2').click(function() {
+    if (validateCheckboxes()) {
+      $('.checkbox-error-msg').text('');
+      $('.delete-content-2').hide();
+      $('.delete-content-3').show();
+    }
+  });
+
+  function validateAndSendData() {
+    var checkedOptions = [];
+  
+    // 체크박스가 하나라도 선택되어 있는지 확인
+    $('.checkbox-box input[type="checkbox"]').each(function() {
+      if (this.checked) {
+        if (this.name == 'others') {
+          var othersList = [];
+          othersList.push(this.name);
+          othersList.push($('#others_textarea').val());
+          checkedOptions.push(othersList);
+        } else {
+          checkedOptions.push(this.name); // 체크된 체크박스의 이름을 배열에 추가
+        }
+      }
+    });
+    return checkedOptions;
+  }
+
+  $('.delete-btn').click(function() {
+    let allRequiredChecked = $('#delete_agree_1').is(':checked') && $('#delete_agree_2').is(':checked');
+    if (validateCheckboxes()) {
+      if (!allRequiredChecked) {
+        $('.checkbox-error-msg-2').text('모든 필수 항목을 체크해주세요.');
+        return false;
+      }
+
+      $('.checkbox-error-msg-2').text('');
+      let memberpwd = document.getElementById("member_pwd").value;
+      if(memberpwd == "") {
+        $('.password-error-msg').text('비밀번호를 입력하세요.');
+        $('.checkbox-error-msg-2').text('비밀번호 확인을 해주세요.');
+        return false;
+      }
+      pwdencrypted = hex_sha1(memberpwd);
+
+      console.log(validateAndSendData());
+
+      var data = {member_pwd: pwdencrypted, checkboxList: validateAndSendData()};
+      var datastr = JSON.stringify(data);
+
+      xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4) {
+              var data = xhr.responseText;
+
+              var obj = JSON.parse(data);
+
+              if(obj.flag == "0"){
+                $('.checkbox-error-msg-2').text(obj.result_msg);
+              } else {
+                // 일치
+                $('.checkbox-error-msg-2').text(obj.result_msg);
+                $('.delete-content-3').hide();
+                $('.delete-content-4').show();
+              }
+          }
+      };
+      xhr.open("POST", "/auth/mypage/delete/member_delete");
+      xhr.setRequestHeader("X-CSRFToken", csrftoken);
+      xhr.send(datastr);
+    }
   });
   
   

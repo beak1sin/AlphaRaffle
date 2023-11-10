@@ -3,7 +3,7 @@ from django.contrib import auth
 from urllib.parse import quote
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
-from draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg, Comment, SearchTerm, VerificationCode, Banner
+from draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg, Comment, SearchTerm, VerificationCode, Banner, DeletionReason
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_protect
 from datetime import timedelta, datetime
@@ -60,14 +60,7 @@ def member_idcheck(request):
     bodyjson = json.loads(bodydata)
     memberid = bodyjson['member_id']
 
-    try:
-        member_id = Member.objects.get(member_id=memberid)
-    except:
-        return JsonResponse(context, content_type="application/json")
-
-    rs = Member.objects.filter(member_id=memberid)
-
-    if (len(rs)) > 0:
+    if Member.objects.filter(member_id=memberid).exists():
         context['flag'] = '1'
         context['result_msg'] = '이미 존재하는 아이디입니다.'
     else:
@@ -84,14 +77,7 @@ def member_nicknamecheck(request):
     bodyjson = json.loads(bodydata)
     membernickname = bodyjson['member_nickname']
 
-    try:
-        member_nickname = Member.objects.get(member_nickname=membernickname)
-    except:
-        return JsonResponse(context, content_type="application/json")
-
-    rs = Member.objects.filter(member_nickname=membernickname)
-
-    if (len(rs)) > 0:
+    if Member.objects.filter(member_nickname=membernickname).exists():
         context['flag'] = '1'
         context['result_msg'] = '이미 존재하는 닉네임입니다.'
     else:
@@ -116,16 +102,10 @@ def member_insert(request):
     membernikeid = bodyjson['member_nikeid']
     memberphonenumber = bodyjson['member_phonenumber']
 
-    try:
-        member = Member.objects.get(member_id=memberid, member_pwd=memberpwd, member_nickname=membernickname)
-    except:
-        return JsonResponse(context, content_type="application/json")
-
-    try:
-        existing_member = Member.objects.get(member_id=memberid)
-        context['flag'] = '0'
-        context['result_msg'] = '이미 존재하는 회원입니다.'
-    except Member.DoesNotExist:
+    if Member.objects.filter(Q(member_id=memberid) | Q(member_nickname=membernickname)).exists():
+        context['flag'] = '1'
+        context['result_msg'] = '이미 존재하는 회원이거나 중복된 닉네임입니다..'
+    else:
         rs = Member.objects.create(member_id=memberid,
                                 member_pwd=memberpwd,
                                 member_realname=memberrealname,
@@ -154,11 +134,8 @@ def member_insert(request):
             [user_email],
             html_message=message,
         )
-
-        context['flag'] = '1'
-        # context['result_msg'] = '회원가입 인증메일을 보냈습니다. 인증 후 로그인 바랍니다.'
-        context['result_msg'] = '회원가입이 완료되었습니다.'
-
+        context['flag'] = '0'
+        context['result_msg'] = '사용 가능한 회원 입니다.'
     return JsonResponse(context, content_type="application/json")
 
 # 메일 인증
@@ -978,29 +955,6 @@ def comment_delete_details(request):
         else:
             context['flag'] = '0'
             context['result_msg'] = '로그인 후 이용바랍니다.'
-
-    return JsonResponse(context, content_type="application/json")
-
-@csrf_protect
-def member_delete(request):
-    context = {}
-
-    bodydata = request.body.decode('utf-8')
-    bodyjson = json.loads(bodydata)
-
-    memberpwd = bodyjson['member_pwd']
-
-    memberno = request.session['member_no']
-    rsMember = Member.objects.get(member_no=memberno)
-
-    if (rsMember.member_pwd == memberpwd):
-        Member.objects.get(member_no=memberno).delete()
-        request.session.flush()
-        context['flag'] = '1'
-        context['result_msg'] = '회원 탈퇴 완료하였습니다.'
-    else:
-        context['flag'] = '0'
-        context['result_msg'] = '비밀번호가 일치하지 않습니다.'
 
     return JsonResponse(context, content_type="application/json")
     
@@ -2095,6 +2049,41 @@ class Mypage():
             if (rsMember.member_pwd == memberpwd):
                 context['flag'] = '1'
                 context['result_msg'] = '비밀번호가 일치합니다.'
+            else:
+                context['flag'] = '0'
+                context['result_msg'] = '비밀번호가 일치하지 않습니다.'
+            return JsonResponse(context, content_type="application/json")
+        else:
+            return redirect('/auth/login/')
+        
+    def member_delete(request):
+        context = {}
+        if request.session.has_key('member_no'):
+            bodydata = request.body.decode('utf-8')
+            bodyjson = json.loads(bodydata)
+
+            memberpwd = bodyjson['member_pwd']
+
+            memberno = request.session['member_no']
+            rsMember = Member.objects.get(member_no=memberno)
+
+            if (rsMember.member_pwd == memberpwd):
+                checkboxList = bodyjson['checkboxList']
+                model_instance = DeletionReason()
+                for item in checkboxList:
+                    if isinstance(item, list) and item[0] == 'others':
+                        # '기타' 항목 처리
+                        setattr(model_instance, 'others', item[1])
+                    elif hasattr(model_instance, item):
+                        # 해당 item 이름을 가진 필드가 모델에 존재하는 경우
+                        setattr(model_instance, item, True)
+                model_instance.save()
+                    
+                    
+                Member.objects.get(member_no=memberno).delete()
+                request.session.flush()
+                context['flag'] = '1'
+                context['result_msg'] = '회원 탈퇴 완료하였습니다.'
             else:
                 context['flag'] = '0'
                 context['result_msg'] = '비밀번호가 일치하지 않습니다.'

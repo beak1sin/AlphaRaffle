@@ -53,7 +53,7 @@ $(document).ready( () => {
         $('.duplicate-btn').attr('disabled', true);
     })
 
-    $("#member_id").keyup( () => {
+    $("#member_id").keyup( (e) => {
         let $id = $('#member_id').val();
         if (!emailRegEx.test($id)) {
             $('.email-error-box').html('이메일 형식이 아닙니다.');
@@ -202,6 +202,12 @@ $(document).ready( () => {
             $('.next-btn-2').removeClass('abled');
             $('.next-btn-2').addClass('disabled');
             $('.next-btn-2').attr('disabled', true);
+        }
+        if (e.keyCode == 13) {
+            if ($pwd == $pwd2) {
+                e.preventDefault();
+                $('.next-btn-2').click();
+            }
         }
 
     });
@@ -660,17 +666,17 @@ $(document).ready( () => {
     // 새로운 회원가입
     $('#join_btn').click( () => {
         $(".backL").css("display", "");
-        memberid = document.getElementById("member_id").value;
+        memberid = document.getElementById("member_id").value.trim();
     
-        memberpwd = document.getElementById("member_pwd").value;
+        memberpwd = document.getElementById("member_pwd").value.trim();
     
         pwdencrypted = hex_sha1(memberpwd);
     
-        memberrealname = document.getElementById("member_realname").value;
-        membernickname = document.getElementById("member_nickname").value;
-        memberbirth = document.getElementById("member_birth").value;
-        membernikeid = document.getElementById("member_nikeid").value;
-        memberphonenumber = document.getElementById("member_phonenumber").value;
+        memberrealname = document.getElementById("member_realname").value.trim();
+        membernickname = document.getElementById("member_nickname").value.trim();
+        memberbirth = document.getElementById("member_birth").value.trim();
+        membernikeid = document.getElementById("member_nikeid").value.trim();
+        memberphonenumber = document.getElementById("member_phonenumber").value.trim();
     
     
         var data = { member_id: memberid, member_pwd: pwdencrypted, member_realname: memberrealname, member_nickname: membernickname, member_birth: memberbirth, member_nikeid: membernikeid, member_phonenumber: memberphonenumber};
@@ -684,10 +690,11 @@ $(document).ready( () => {
     
                 var obj = JSON.parse(data);
                 if(obj.flag == "1"){
+                    $('.join-error-msg').text(obj.result_msg);
+                } else {
                     $('.3').hide();
                     $('.4').show();
-                } else {
-                    alert(obj.result_msg);
+                    $('.join-error-msg').text(obj.result_msg);
                 }
                 $(".backL").css("display", "none");
             }
@@ -700,7 +707,7 @@ $(document).ready( () => {
     // 아이디 중복확인
     $('#idcheck_btn').click( () => {
 
-        memberidcheck = document.getElementById("member_id").value;
+        memberidcheck = document.getElementById("member_id").value.trim();
     
         var data = { member_id: memberidcheck};
         var datastr = JSON.stringify(data);
@@ -713,13 +720,14 @@ $(document).ready( () => {
                 var obj = JSON.parse(data);
                 if(obj.flag == "0"){
                     // $('#member_id').attr('readonly', true);
+                    $('.email-error-box').text(obj.result_msg);
                     $('.next-btn').removeClass('disabled');
                     $('.next-btn').addClass('abled');
                     $('.next-btn').attr('disabled', false);
                     $('#member_id').attr("readonly",true); 
                     $('#email_close_btn').removeClass('active');
                 } else {
-                    alert(obj.result_msg);
+                    $('.email-error-box').text(obj.result_msg);
                 }
             }
         };
@@ -732,7 +740,7 @@ $(document).ready( () => {
     // 중복확인
     $('#nicknamecheck_btn').click( () => {
 
-        membernicknamecheck = document.getElementById("member_nickname").value;
+        membernicknamecheck = document.getElementById("member_nickname").value.trim();
 
         var data = { member_nickname: membernicknamecheck};
         var datastr = JSON.stringify(data);

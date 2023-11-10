@@ -93,6 +93,15 @@ class VerificationCode(models.Model):
 	code = models.CharField(max_length=6)
 	expiry_time = models.DateTimeField()
 
+class DeletionReason(models.Model):
+	quality = models.BooleanField(default=False)
+	difficult = models.BooleanField(default=False)
+	comfortable = models.BooleanField(default=False)
+	service = models.BooleanField(default=False)
+	bug = models.BooleanField(default=False)
+	feedback = models.BooleanField(default=False)
+	others = models.TextField(blank=True, null=True)
+
 from django.core.exceptions import ValidationError
 import os
 	

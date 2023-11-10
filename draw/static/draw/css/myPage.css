@@ -206,27 +206,43 @@ input:focus {
   cursor: pointer;
 }
 
-.delete-box .delete-box-logo {
-  text-align: center;
-  padding-bottom: 50px;
+.delete-box {
+  max-width: 560px; margin: 10vh auto; background-color: white; border-radius: 20px; box-shadow: 4px 4px 8px rgba(150, 150, 150, 0.25); padding: 45px;
 }
 
-.delete-box-logo .delete-box-logo-image {
-  width: 120px;
+.delete-box-2 {
+  max-width: 560px; margin: 5vh auto; background-color: white; border-radius: 20px; box-shadow: 4px 4px 8px rgba(150, 150, 150, 0.25); padding: 45px;
 }
 
-.delete-btn {
-  width: 100%;
-  height: 70px;
-  background-color: black;
-  color: #fff;
-  border: 1px solid black;
-  border-radius: 10px;
-  font-size: 32px;
-  cursor: pointer;
+.delete-title {
+  margin: 0px; font-weight: 800; font-size: 40px; color: #333;
 }
 
-.next-btn-1, .next-btn-2 {
+.password-box {
+  padding: 50px 70px 0px 70px; text-align: center;
+}
+
+.password-title {
+  font-weight: 500; font-size: 20px; color: #333;
+}
+
+.back-btn {
+  font-weight: 500; font-size: 18px; color: #777; cursor: pointer;
+}
+
+.delete-reason-title {
+  font-weight: 500; font-size: 22px; color: #333;
+}
+
+.delete-reason-select-title {
+  margin: 0px; font-weight: 500; font-size: 16px; color: #777; float: left;
+}
+
+.back-btn-box {
+  padding-top: 50px; text-align: center;
+}
+
+.next-btn-1, .next-btn-2, .delete-btn, .home-btn {
   width: 100%;
   height: 70px;
   background-color: #333;
@@ -237,9 +253,29 @@ input:focus {
   cursor: pointer;
 }
 
+.warning-icon {
+  width: 32px; height: 32px; cursor: pointer; background: url('../necessary/warning.svg') no-repeat center center/32px auto;
+}
 
+.warning-title {
+  font-weight: 500; font-size: 28px; color: #333; margin-left: 5px; line-height: 32px;
+}
 
+.warning-title-2 {
+  font-weight: 200; font-size: 16px; color: #333;
+}
 
+.agree-checkbox-box {
+  list-style-type: none; padding-left: 80px; padding-top: 30px;
+}
+
+.delete-complete-title {
+  font-weight: 900; font-size: 40px; color: #333; margin-left: 5px; line-height: 32px;
+}
+
+.delete-complete-title-2 {
+  font-weight: 500; font-size: 20px; color: #333;
+}
 
 /* 탈퇴 시 체크 */
 .checkbox-icon {
@@ -584,5 +620,79 @@ input[type="checkbox"] {
 
   .mypage-settings-icon {
     position: absolute; width: 24px; height: 24px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: url('../necessary/mypage_settings.svg') no-repeat center center/22px auto; cursor: pointer; transition: all 0.1s;
+  }
+}
+
+@media (max-width: 600px){
+  .delete-box, .delete-box-2 {
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+    padding: 10px;
+  }
+
+  .delete-title {
+    font-size: 30px;
+  }
+
+  .password-title {
+    font-size: 16px;
+  }
+
+  .password-box {
+    padding: 50px 0 0 0;
+  }
+
+  .next-btn-1, .next-btn-2, .delete-btn, .home-btn {
+    height: 60px;
+    font-size: 20px;
+  }
+
+  .back-btn {
+    font-size: 12px;
+  }
+
+  .delete-reason-title {
+    font-size: 14px;
+  }
+
+  .delete-reason-select-title {
+    font-size: 12px;
+  }
+
+  .checkbox-box {
+    font-size: 12px;
+  }
+
+  #others_textarea {
+    font-size: 12px;
+  }
+
+  .back-btn-box {
+    padding-top: 20px;
+  }
+
+  .warning-icon {
+    width: 20px; height: 20px; background: url('../necessary/warning.svg') no-repeat center center/20px auto;
+  }
+  
+  .warning-title {
+   font-size: 20px; line-height: 20px;
+  }
+
+  .warning-title-2 {
+    font-size: 14px;
+  }
+
+  .agree-checkbox-box {
+    padding-left: 30px;
+    font-size: 12px;
+  }
+
+  .delete-complete-title {
+    font-size: 32px;
+  }
+
+  .delete-complete-title-2 {
+    font-size: 16px;
   }
 }
