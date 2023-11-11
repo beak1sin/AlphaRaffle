@@ -23,6 +23,7 @@ from django.conf import settings
 urlpatterns = [
     path(r'admin/', admin.site.urls),
     path(r'',include('draw.urls')),
+    path('',include('pwa.urls')),
 ] 
 
 if settings.DEBUG:

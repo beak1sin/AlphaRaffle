@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html style="font-size: 16px;">
-
+{% load pwa %}
 {% load static %}
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +30,8 @@
     <link rel="stylesheet" href="{% static 'draw/css/myPage.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'draw/css/myPage2.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
-    
+
+    {% progressive_web_app_meta %}
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FKLV3QNRNC"></script>

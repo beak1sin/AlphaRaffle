@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+{% load pwa %}
 {% load static %}
 <html style="font-size: 16px;" lang="ko">
 
@@ -32,6 +32,9 @@
     <link rel="stylesheet" href="{% static 'draw/css/main.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
 
+    <!-- <link rel="manifest" href="{% static 'draw/manifest.json' %}"> -->
+    {% progressive_web_app_meta %}
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8749708053944720"
      crossorigin="anonymous"></script>
     <!-- Google tag (gtag.js) -->
@@ -53,7 +56,6 @@
 <body class="" style="margin: 0; background-color: #f5f5f5;">
 
     {% include 'draw/header.html' %}
-
     <section id="scroll-container" class="u-section-1" style="width: 100vw; height: 100vh;">
         <div style="width: 100vw; height: calc(100vh - 126px); top: 126px;">
             <div id="banner_box" class="banner-box">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+{% load pwa %}
 {% load static %}
 <html style="font-size: 16px;" lang="ko">
 
@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="{% static 'draw/css/normalize.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'draw/css/full.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
-
+    {% progressive_web_app_meta %}
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8749708053944720"
      crossorigin="anonymous"></script>
     <!-- Google tag (gtag.js) -->
