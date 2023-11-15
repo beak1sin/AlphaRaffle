@@ -758,7 +758,7 @@ p {
 }
 
 .details-box {
-  width: 100vw; height: calc(100vh - 84px); top: 84px; position: relative; padding: 0 17.5vw;
+  width: 100vw; height: calc(100vh - 64px); top: 64px; position: relative; padding: 0 17.5vw;
 }
 
 .whole-box {
@@ -766,7 +766,7 @@ p {
 }
 
 .box1 {
-  height: calc(80vh - 84px); padding-bottom: 20vh; padding-top: 10px;
+  height: calc(80vh - 64px); padding-bottom: 20vh; padding-top: 10px;
 }
 
 .box1-items-1 {
@@ -793,7 +793,7 @@ p {
 }
 
 .box2, .box3 {
-  height: calc(100vh - 84px);
+  height: calc(100vh - 64px);
 }
 
 .box-title {
@@ -816,8 +816,36 @@ p {
   width: 100%; padding: 20px 50px; background: #EEEEEE; border-radius: 10px; margin-top: 30px;
 }
 
+.member-nickname-text {
+  font-size: 20px; font-weight: 500; line-height: 36px; margin-left: 10px;
+}
+
 .comment-list-box {
   padding: 20px 50px; height: auto; overflow: hidden;
+}
+
+.comment-member-nickname-text {
+  font-size: 16px; font-weight: 500;
+}
+
+.comment-created-text {
+  font-size: 14px; font-weight: 500; color: #C8C8C8; margin-left: 15px;
+}
+
+.comment-comment {
+  font-size: 16px; font-weight: 200;
+}
+
+.comment-reply-logout, .comment-reply {
+  font-size: 14px; font-weight: 400; color: #777777; cursor: pointer;
+}
+
+.comment-like-length {
+  position: absolute; margin: 0; font-size: 14px; font-weight: 700; color: #3E3E3E; right: 56px; top: 50%; transform: translateY(-50%);
+}
+
+.comment-hate-length {
+  position: absolute; margin: 0; font-size: 14px; font-weight: 700; color: #3E3E3E; right: 0px; top: 50%; transform: translateY(-50%);
 }
 
 .current {
@@ -906,7 +934,8 @@ p {
   }
   .box1-items-2 {
     width: 100%;
-    padding-right: 50px;
+    padding-right: 20px;
+    padding-left: 20px;
     margin-top: 50px;
   }
 
@@ -934,7 +963,7 @@ p {
     height: auto;
     display: flex;
     flex-direction: column;
-    padding: 0 50px;
+    padding: 0 20px;
   }
 
   .box-title {
@@ -968,6 +997,101 @@ p {
   .no-margin {
     margin: 0;
   }
+
+  .comment-write-box {
+    padding: 20px;
+  }
+
+  .comment-list-box {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 575px) {
+  .details-box {
+    height: calc(100vh - 56px); top: 56px;
+  }
+
+  .shoename {
+    font-size: 20px;
+  }
+  
+  .shoeengname {
+    font-size: 14px;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+
+  .serialno, .serialnoSlash, .pubdate, .shoeprice {
+    font-size: 14px !important;
+  }
+
+  .shoedetail {
+    font-size: 12px;
+  }
+
+  .box-title {
+    font-size: 20px;
+  }
+
+  .box-title-comment {
+    font-size: 14px;
+  }
+
+  .comment-count {
+    left: 50px; font-size: 14px; line-height: 32px;
+  }
+
+  .details-viewSort-title {
+    font-size: 14px;
+  }
+
+  .details-viewSort-icon-label .icon {
+    background: url(../necessary/Group.svg) no-repeat center center/20px auto;
+  }
+
+  .comment-send-icon-label .icon {
+    background: url(../necessary/send_btn.svg) no-repeat center center/20px auto;
+  }
+
+  .member-nickname-text {
+    font-size: 16px;
+  }
+
+  .commentArea {
+    font-size: 14px;
+  }
+
+  .comment-member-nickname-text {
+    font-size: 14px;
+  }
+
+  .comment-created-text {
+    font-size: 12px;
+  }
+
+  .comment-write-box > p {
+    font-size: 14px;
+  }
+
+  .comment-comment {
+    font-size: 14px;
+  }
+
+  .comment-reply-logout, .comment-reply {
+    font-size: 12px; 
+  }
+
+  .comment-like-icon-label .icon {
+    background: url(../necessary/comment_like_btn.svg) no-repeat center center/16px auto;
+  }
+  
+  .comment-hate-icon-label .icon {
+    background: url(../necessary/comment_hate_btn.svg) no-repeat center center/16px auto;
+  }
+
 }
 
 @media (max-width: 430px) {
@@ -985,6 +1109,10 @@ p {
 
   .comment-list-box {
     padding: 20px 0px;
+  }
+
+  .comment-like-length, .comment-hate-length {
+    font-size: 12px;
   }
 
 }

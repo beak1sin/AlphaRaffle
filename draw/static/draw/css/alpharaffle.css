@@ -171,7 +171,7 @@ footer {
 .menu-icon-label .icon {
   display: block;
   height: 100%;
-  background: url(../necessary/menu-line.svg) no-repeat center center/24px auto;
+  background: url(../necessary/menu-line.svg) no-repeat center center/20px auto;
   position: relative;
   z-index: 1;
 }
@@ -195,26 +195,26 @@ footer {
 .viewSort-icon-label .icon {
   display: block;
   height: 100%;
-  background: url(../necessary/Group.svg) no-repeat center center/24px auto;
+  background: url(../necessary/Group.svg) no-repeat center center/20px auto;
   position: relative;
   z-index: 1;
 }
 
 /* 검색 아이콘 */
 .search-icon {
-  position: absolute; width: 24px; height: 24px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: url('../necessary/search.svg') no-repeat center center/22px auto; cursor: pointer; transition: all 0.1s;
+  position: absolute; width: 24px; height: 24px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: url('../necessary/search.svg') no-repeat center center/16px auto; cursor: pointer; transition: all 0.1s;
 }
 
 @media(hover: hover) and (pointer: fine) {
   .search-icon:hover {
-    background: url('../necessary/search_hover.svg') no-repeat center center/22px auto;
+    background: url('../necessary/search_hover.svg') no-repeat center center/16px auto;
   }
   .notification-icon:hover {
-    background: url('../necessary/notification_hover.svg') no-repeat center center/22px auto;
+    background: url('../necessary/notification_hover.svg') no-repeat center center/16px auto;
   }
 }
 .notification-icon {
-  position: absolute; width: 24px; height: 24px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: url('../necessary/notification.svg') no-repeat center center/22px auto; cursor: pointer; transition: all 0.1s;
+  position: absolute; width: 24px; height: 24px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: url('../necessary/notification.svg') no-repeat center center/16px auto; cursor: pointer; transition: all 0.1s;
 }
 
 .mypage-title, .logout-title {
@@ -222,7 +222,7 @@ footer {
 }
 
 .mypage-icon {
-  position: absolute; width: 24px; height: 24px; top: 50%; left: 20%; transform: translate(-20%, -50%); background: url('../necessary/mypage.svg') no-repeat center center/22px auto; cursor: pointer; transition: all 0.1s;
+  position: absolute; width: 24px; height: 24px; top: 50%; left: 20%; transform: translate(-20%, -50%); background: url('../necessary/mypage.svg') no-repeat center center/16px auto; cursor: pointer; transition: all 0.1s;
 }
 @media(hover: hover) and (pointer: fine) {
   .mypage:hover, .logout:hover {
@@ -230,11 +230,11 @@ footer {
   }
 
   .mypage:hover .mypage-icon {
-    background: url('../necessary/mypage_hover.svg') no-repeat center center/22px auto !important;
+    background: url('../necessary/mypage_hover.svg') no-repeat center center/16px auto !important;
   }
 
   .logout:hover .logout-icon {
-    background: url('../necessary/logout_hover.svg') no-repeat center center/22px auto !important;
+    background: url('../necessary/logout_hover.svg') no-repeat center center/16px auto !important;
   }
 
   .mypage:hover .mypage-title, .logout:hover .logout-title {
@@ -242,51 +242,48 @@ footer {
   }
 }
 .logout-icon {
-  position: absolute; width: 24px; height: 24px; top: 50%; left: 20%; transform: translate(-20%, -50%); background: url('../necessary/logout.svg') no-repeat center center/22px auto; cursor: pointer; transition: all 0.1s;
+  position: absolute; width: 24px; height: 24px; top: 50%; left: 20%; transform: translate(-20%, -50%); background: url('../necessary/logout.svg') no-repeat center center/16px auto; cursor: pointer; transition: all 0.1s;
 }
 
 .profile-list.on {
-  position: fixed; right: 0; top: 84px; background-color: #FFFFFF; z-index: 1; display: flex; flex-direction: column; border: 0.4px solid #C8C8C8; border-top: none;
+  position: fixed; right: 0; top: 64px; background-color: #FFFFFF; z-index: 1; display: flex; flex-direction: column; border: 0.4px solid #C8C8C8; border-top: none;
 }
 
 .profile-list.off {
   position: fixed; right: 0; top: 0; background-color: #FFFFFF; z-index: 1; flex-direction: column; border: 0.4px solid #C8C8C8; border-top: none; display: none;;
 }
 
+@media (max-width: 575px) {
+  .search-icon {
+    background: url('../necessary/search.svg') no-repeat center center/12px auto;
+  }
 
-/* .search-icon {
-  position: absolute;
-  bottom: 0px;
-  left: 50%;
-  width: 18px;
-  height: 18px;
-  transform: translate(-50%, 0);
-  
+  .notification-icon {
+    background: url('../necessary/notification.svg') no-repeat center center/12px auto;
+  }
+
+  .logout-icon {
+    background: url('../necessary/logout.svg') no-repeat center center/12px auto;
+  }
+
+  .mypage-icon {
+    background: url('../necessary/mypage.svg') no-repeat center center/12px auto;
+  }
+
+  .menu-icon-label .icon {
+    background: url(../necessary/menu-line.svg) no-repeat center center/16px auto;
+  }
+
+  .viewSort-icon-label .icon {
+    background: url(../necessary/Group.svg) no-repeat center center/16px auto;
+  }
+
+  .profile-list.on {
+    top: 56px;
+  }
+
 }
 
-.search-icon-label {
-  width: 18px;
-  height: 18px;
-  display: inline-block;
-}
-
-.search-icon-label .icon {
-  display: block;
-  height: 100%;
-  background: url(../necessary/search.svg) no-repeat center center/17px auto;
-  position: relative;
-  z-index: 1;
-  cursor: pointer;
-  transition: all 0.1s;
-}
-
-.search-icon-label .icon:hover, .search-link:hover .search-icon-label .icon {
-  background: url(../necessary/search_hover.svg) no-repeat center center/17px auto;
-}
-
-.search-link {
-  transition: all 0.1s;
-} */
 
 .u-section-1.blurOn {
     filter: blur(4px);
@@ -370,77 +367,18 @@ header {
   /* border-bottom-style: solid; */
   /* border-bottom-color: black; */
   position: fixed;
-  height: 84px;
+  height: 64px;
 }
 
-.u-header {
-    background-image: none;
+@media (max-width: 575px) {
+  header {
+    height: 56px;
   }
+}
   
-  .u-header .u-sheet-1 {
-    min-height: 84rpx;
-  }
-  
-  .u-header .u-image-1 {
-    width: 112px;
-    height: 70px;
-    margin: 7px auto 0 22px;
-  }
-  
-  .u-header .u-logo-image-1 {
-    width: 100%;
-    height: 100%;
-  }
-
-  .u-header .u-nav-link{
-    margin-top: 14px;
-  }
-  
-  .u-header .u-menu-1 {
-    margin: -68px 0 25px auto;
-  }
-  
-  .u-header .u-nav-1 {
-    font-size: 1rem;
-    letter-spacing: normal;
-  }
-  
-  .u-header .u-nav-2 {
-    font-size: 1rem;
-    letter-spacing: 0px;
-  }
-  @media (max-width: 1199px) {
-    .u-header .u-menu-1 {
-      width: auto;
-    }
-  }
-  
-  
-  
-   .u-footer {
-    background-image: none;
-  }
-  
-  .u-footer .u-sheet-1 {
-    min-height: 120px;
-  }
-  
-  .u-footer .u-text-1 {
-    width: 417px;
-    margin: 49px auto;
-  }
-  
-  
-  
-  @media (max-width: 575px) {
-    .u-footer .u-text-1 {
-      width: 340px;
-    }
-  }
-  
-   /*begin-variables base-font-size*/ 
-   html { font-size: 16px; }
-   /*end-variables base-font-size*/
+/*begin-variables base-font-size*/ 
+html { font-size: 16px; }
+/*end-variables base-font-size*/
 
 .grid-wrapper-box {
     width: 100vw;
@@ -580,7 +518,7 @@ header {
 
 .shoebar .shoebar-text {
   margin: 0px;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
   color: #777777;
 }
@@ -772,4 +710,28 @@ header {
   position: relative;
   z-index: 1;
   cursor: pointer;
+}
+
+.main-box {
+  height: calc(100vh - 96px); top: 96px;
+}
+
+.full-box, .map-box, .mypage-box {
+  height: calc(100vh - 64px); top: 64px;
+}
+
+@media (max-width: 575px) {
+  .main-box {
+    height: calc(100vh - 84px); top: 84px;
+  }
+  
+  .full-box, .map-box, .mypage-box {
+    height: calc(100vh - 56px); top: 56px;
+  }
+
+  .shoebar .shoebar-text {
+    font-size: 12px;
+  }
+
+  
 }

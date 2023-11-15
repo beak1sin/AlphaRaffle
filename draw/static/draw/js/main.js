@@ -228,7 +228,7 @@ $(document).ready(function(){
       xhr.send(datastr);
   }
 
-  var bannerBoxBottom = $('.banner-box').offset().top + $('.banner-box').height() - 42;
+  var bannerBoxBottom = $('.banner-box').offset().top + $('.banner-box').height() - 32;
   var adBox = $('.ad-box');
   var adBoxPos = $('.ad-box-pos');
 

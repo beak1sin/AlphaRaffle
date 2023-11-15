@@ -7,8 +7,14 @@ input:focus {
 }
 
 .mypage-box.nav-up {
-  width: 100vw; height: calc(100vh - 84px); top: 84px;
+  width: 100vw; height: calc(100vh - 64px); top: 64px;
   transition: all 0.2s;
+}
+
+@media (max-width: 600px){
+  .mypage-box.nav-up {
+    height: calc(100vh - 56px); top: 56px;
+  }
 }
 
 .mypage-box.nav-down {
@@ -17,7 +23,7 @@ input:focus {
 }
 
 .mypage-nav-box.nav-up {
-  width: 300px; float: left; height: calc(100vh - 84px); position: fixed; box-shadow: 4px 0px 5px 2px rgba(135, 135, 135, 0.12); top: 84px;
+  width: 300px; float: left; height: calc(100vh - 64px); position: fixed; box-shadow: 4px 0px 5px 2px rgba(135, 135, 135, 0.12); top: 64px;
   transition: all 0.2s;
 }
 

@@ -155,12 +155,12 @@ ol.search-ol > li{
         font-size: 22px;
     }
 
-    ol {
+    ol.search-ol {
         column-count: 1;
         padding-left: 10px;
     }
 
-    ol > li {
+    ol.search-ol > li {
         font-size: 18px;
     }
 

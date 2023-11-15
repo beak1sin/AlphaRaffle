@@ -2,8 +2,7 @@
 <header class="nav-down" style="border-bottom: 1px solid #C8C8C8;">
     <div class="logo-box" style="">
         <a href="{% url 'draw:홈' %}">
-            <!-- <img style="width: 120px; height: 60px; cursor: pointer; margin-top: 6px;" data-src="{% static 'draw/necessary/ar(black).avif' %}" class="lazyload logo"> -->
-            <img style="width: 120px; height: 60px; cursor: pointer; margin-top: 6px;" data-src="{% static 'draw/necessary/ar01_edit.svg' %}" class="lazyload logo">
+            <img class="lazyload logo logo-img" style="cursor: pointer; margin-top: 6px;" data-src="{% static 'draw/necessary/ar01_edit.svg' %}">
         </a>
     </div>
     <div class="menu-box">
@@ -11,28 +10,28 @@
             <div class="search-icon"></div>
         </div>
         {% if member.member_no == None %}
-        <div style="width: 120px; height: 84px; position: relative;">
-            <a id="btn" href="{% url 'draw:로그인' %}" style="position: absolute; width: 120px; top: 50%; left: 50%; transform: translate(-50%, -50%);">로그인/회원가입</a>
+        <div class="menu-items-login-join">
+            <a class="menu-items-login" id="btn" href="{% url 'draw:로그인' %}">로그인/회원가입</a>
         </div>
         {% else %}
         <div class="menu-items">
             <div class="notification-icon"></div>
         </div>
         <div class="menu-items">
-            <div style="position: absolute; width: 50px; height: 50px; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <div style="position: absolute; width: 30px; height: 30px; top: 50%; left: 50%; transform: translate(-50%, -50%);">
                 {% if member.profile_img_url == '-' %}
-                <img id="header_profile_img" class="profile-img off" style="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%; cursor: pointer;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
+                <img id="header_profile_img" class="profile-img off" style="width: 30px; height: 30px; border: 1px solid black; border-radius: 50%; cursor: pointer;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
                 {% else %}
-                <img id="header_profile_img" class="profile-img off" style="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%; cursor: pointer;" src="{{member.profile_img_url}}">
+                <img id="header_profile_img" class="profile-img off" style="width: 30px; height: 30px; border: 1px solid black; border-radius: 50%; cursor: pointer;" src="{{member.profile_img_url}}">
                 {% endif %}
             </div>
         </div>
         <div id="profile_list" class="profile-list off">
-            <div class="mypage" style="width: 150px; height: 84px; position: relative; transition: all 0.2s; cursor: pointer;" onclick="location.href = `{% url 'draw:마이페이지' %}`">
+            <div class="mypage" style="width: 150px; height: 64px; position: relative; transition: all 0.2s; cursor: pointer;" onclick="location.href = `{% url 'draw:마이페이지' %}`">
                 <div class="mypage-icon"></div>
                 <p class="mypage-title">마이페이지</p>
             </div>
-            <div class="logout" style="width: 150px; height: 84px; position: relative; transition: all 0.2s; cursor: pointer;" onclick="location.href = `{% url 'draw:로그아웃' %}`">
+            <div class="logout" style="width: 150px; height: 64px; position: relative; transition: all 0.2s; cursor: pointer;" onclick="location.href = `{% url 'draw:로그아웃' %}`">
                 <div class="logout-icon"></div>
                 <p class="logout-title">로그아웃</p>
             </div>
@@ -40,16 +39,16 @@
         {% endif %}
     </div>
     {% if request.path == '/' %}
-    <div style="width: 100vw; height: 42px; background-color: black; display: inline-block;">
+    <div class="main-header">
         <div class="main-header-1"></div>
         <div class="main-header-2">
-            <div style="width: 33.33%; height: 100%; float: left; padding: 5px 20px; text-align: center;">
+            <div style="width: 33.33%; height: 100%; float: left; padding: 0px 20px; text-align: center;">
                 <a class="dropped-tab" style="font-weight: 500; color: #FFFFFF;">진행 중</a>
             </div>
-            <div style="width: 33.33%; height: 100%; float: left; padding: 5px 20px; text-align: center;">
+            <div style="width: 33.33%; height: 100%; float: left; padding: 0px 20px; text-align: center;">
                 <a class="full-tab" style="font-weight: 300; color: rgba(255, 255, 255, 0.7);">예정</a>
             </div>
-            <div style="width: 33.33%; height: 100%; float: left; padding: 5px 20px; text-align: center;">
+            <div style="width: 33.33%; height: 100%; float: left; padding: 0px 20px; text-align: center;">
                 <a class="end-tab" style="font-weight: 300; color: rgba(255, 255, 255, 0.7);">종료</a>
             </div>
         </div>
@@ -59,9 +58,9 @@
                 <!-- <div style="width: 33.33%; height: 100%; float: left; text-align: center; padding-top: 6px; padding-right: 0.35vw;">
                     <img style="width: 20px; height: 20px; cursor: pointer;"></img>
                 </div> -->
-                <div style="height: 100%; float: left; text-align: center; padding-top: 6px; padding-right: 0.35vw; float: right;">
+                <!-- <div style="height: 100%; float: left; text-align: center; padding-top: 6px; padding-right: 0.35vw; float: right;">
                     <img src="{% static 'draw/necessary/icon_grid_two_up.avif' %}" style="width: 20px; height: 20px; cursor: pointer;"></img>
-                </div>
+                </div> -->
                 <!-- <div style="width: 33.33%; height: 100%; float: left; text-align: center; padding-top: 6px; padding-right: 0.35vw;">
                     <img style="width: 20px; height: 20px; cursor: pointer;"></img>
                 </div> -->
@@ -109,11 +108,31 @@
     }
 
     .menu-items {
-        width: 84px; height: 84px; position: relative;
+        width: 84px; height: 64px; position: relative;
+    }
+
+    .menu-items-login-join {
+        width: 120px; height: 64px; position: relative;
+    }
+
+    .menu-items-login {
+        position: absolute; width: 120px; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px;
     }
 
     .dropped-tab, .full-tab, .end-tab {
-        font-size: 20px; line-height: 32px; cursor: pointer;
+        font-size: 18px; line-height: 32px; cursor: pointer;
+    }
+
+    .nav-up {
+        top: -64px;
+    }
+
+    .logo-img {
+        width: 80px; height: 40px; 
+    }
+
+    .main-header {
+        width: 100vw; height: 32px; background-color: black; display: inline-block;
     }
 
     @media (max-width: 767px) {
@@ -145,15 +164,37 @@
 
         .menu-items {
             width: 50px;
+            height: 56px;
         }
         .dropped-tab, .full-tab, .end-tab {
-            font-size: 18px;
+            font-size: 14px;
+            line-height: 28px;
+        }
+
+        .logo-img {
+            width: 64px; height: 32px;
+        }
+
+        .main-header {
+            height: 28px;
+        }
+
+        .nav-up {
+            top: -56px;
+        }
+
+        .menu-items-login-join {
+            width: 90px;
+            height: 56px;
+        }
+
+        .menu-items-login {
+            font-size: 12px;
+            width: 90px;
         }
     }
 
-    .nav-up {
-        top: -84px;
-    }
+
 
 </style>
 <script type="text/javascript">

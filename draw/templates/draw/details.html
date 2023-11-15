@@ -473,7 +473,7 @@
                             <img style="width: 36px; height: 36px; border-radius: 50px;" src="{{member.profile_img_url}}">
                             {% endif %}
                         </div>
-                        <span style="font-size: 20px; font-weight: 500; line-height: 36px; margin-left: 10px;">{{member.member_nickname}}</span>
+                        <span class="member-nickname-text">{{member.member_nickname}}</span>
                         {% endif %}
                         <div style="width: 100%; position: relative; margin-top: 10px;">
                             <input class="commentArea" style="width: 97%; height: 38px; border: none; border-bottom: 1px solid black;  background: #EEEEEE;" placeholder="댓글을 입력해주세요." maxlength="200">
@@ -500,8 +500,8 @@
                         </div>
                         <div style="width: calc(100% - 50px); float: left; padding-left: 10px;">
                             <div style="position: relative;">
-                                <span style="font-size: 16px; font-weight: 500; ">{{comment.member_nickname}}</span>
-                                <span style="font-size: 14px; font-weight: 500; color: #C8C8C8; margin-left: 15px;" >{{comment.created_date}}</span>
+                                <span class="comment-member-nickname-text">{{comment.member_nickname}}</span>
+                                <span class="comment-created-text">{{comment.created_date}}</span>
                                 <div class="comment-option-icon">
                                     <label class="comment-option-icon-label">
                                         <span class="icon"></span>
@@ -513,26 +513,26 @@
                                 </div>
                             </div>
                             <div style="padding: 10px 0px;">
-                                <span style="font-size: 16px; font-weight: 200;">{{comment.comment}}</span>
+                                <span class="comment-comment">{{comment.comment}}</span>
                             </div>
                             <div style="position: relative;">
                                 {% if member.member_no == None %}
-                                <span class="comment-reply-logout off" style="font-size: 14px; font-weight: 400; color: #777777; cursor: pointer;">답글 달기</span>
+                                <span class="comment-reply-logout off">답글 달기</span>
                                 {% else %}
-                                <span class="comment-reply off" style="font-size: 14px; font-weight: 400; color: #777777; cursor: pointer;">답글 달기</span>
+                                <span class="comment-reply off">답글 달기</span>
                                 {% endif %}
                                 <div class="comment-like-icon">
                                     <label class="comment-like-icon-label">
                                         <span class="icon"></span>
                                     </label>
                                 </div>
-                                <p style="position: absolute; margin: 0; font-size: 14px; font-weight: 700; color: #3E3E3E; right: 56px; top: 50%; transform: translateY(-50%);">0</p>
+                                <p class="comment-like-length">0</p>
                                 <div class="comment-hate-icon">
                                     <label class="comment-hate-icon-label">
                                         <span class="icon"></span>
                                     </label>
                                 </div>
-                                <p style="position: absolute; margin: 0; font-size: 14px; font-weight: 700; color: #3E3E3E; right: 0px; top: 50%; transform: translateY(-50%);">0</p>
+                                <p class="comment-hate-length">0</p>
                             </div>
                         </div>
                         
