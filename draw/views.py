@@ -1390,7 +1390,7 @@ def comment(request):
         context['result_msg'] = '로그인 되어 있는 상태'
     else :
         context['flag'] = '0'
-        context['result_msg'] = '로그인 안되어 있는 상태'
+        context['result_msg'] = '로그인 후 이용바랍니다.'
 
     return JsonResponse(context, content_type="application/json")
 

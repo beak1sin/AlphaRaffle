@@ -268,12 +268,6 @@ def luckd_crowler(no):
                     telegram_crawl.crawl_entry_msg(nameentry, birthentry, phoneentry, nikeidentry)
                 except Exception as e:
                     telegram_crawl.crawl_entry_error_msg(e)
-        # if 'luck-d' in sitelink:
-        #     response = requests.get(sitelink)
-        #     html = response.text
-        #     soup = BeautifulSoup(html,'html.parser')
-        #     matched = re.search(r'let link = decodeURIComponent\(\'(.*?)\'\);', html, re.S)
-        #     sitelink = matched.group(1)
 
         # #종료일
         end_date = soup.select('li.release_time > label > span')[i].text.strip()
@@ -283,7 +277,19 @@ def luckd_crowler(no):
             end_date = '2024-12-31 23:59:59'
             end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
             Shoesite.objects.filter(shoesiteunique = shoeunique).update(end_date = end_date_datetime)
-            return
+            # 오프라인인 경우 주소 추가    
+            if 'offline' in sitelink:
+                # print(sitelink)
+                offline_url = 'https://www.luck-d.com' + sitelink
+                offline_html = requests.get(offline_url).text
+                offline_soup = BeautifulSoup(offline_html,'html.parser')
+                time.sleep(0.01)
+
+                address = offline_soup.select('div.agent_site_info > label > .agent_site_info_data')[1].text.strip()
+                normalized_address = unicodedata.normalize('NFC', address)
+
+                Shoesite.objects.filter(shoesiteunique = shoeunique).update(address = normalized_address)
+            continue
 
         # #시간이 종료일 경우
         if '종료' in end_date:
@@ -648,10 +654,8 @@ def crawl_test():
             link = sitecard[i].attrs['onclick']
             shoenum.append(link[39:].split('/')[0].replace("'",""))
 
-        shoenum = sorted(list(set(shoenum)), reverse=True)
-        # shoenum = ['8034', '8033', '8032', '8031', '8030', '8029', '8028', '8027', '8026', '8022', '8021', '8020', '8019', '8018', '7988', '7987', '7986', '7985', '7984', '7977', '7974', '7973', '7972', '7971', '7970', '7969', '7949', '7938', '7937', '7926', '7925', '7924', '7894', '774', '7697', '7696', '7687', '7681', '7639', '7574', '7568', '7567', '7506', '7498', '7311', '7303', '7301', '7270', '7182', '7059', '7043', '7013', '7005', '6795', '6721', '6663', '6572', '6316', '6315', '6077', '5736', '5733', '5732', '5731', '5729', '5728', '5607', '5606', '5605', '5604', '5603', '5602', '5601', '5567', '5493', '5406', '5314', '5302', '5249', '5027', '5004', '4903', '4870', '4797', '4769', '4768', '4754', '4432', '3999', '3994', '3993', '3992', '3638', '3453', '3395', '3319', '3125', '2709', '2708', '2401', '2265']
-        # shoenum = ['8205', '8196', '8195', '8194', '8193', '8192', '8191', '8190', '8189', '8188', '8182', '8177', '8176', '8157', '8156', '8155', '8154', '8153', '8152', '8151', '8127', '8126', '8123', '8122', '8118', '8101', '8100', '8099', '8098', '8038', '8022', '8021', '8020', '7506', '7306', '7303', '7301', '7272', '7270', '7234', '7223', '7005', '6874', '6796', '6721', '6534', '6426', '6213', '5394', '5252', '5251', '5249', '5248', '5062', '5061', '4133', '3783', '2264', '1896']
-        # shoenum = ['8022']
+        # shoenum = sorted(list(set(shoenum)), reverse=True)
+        shoenum = ['8263']
         # print(len(shoenum),shoenum)
 
         for num in shoenum:
@@ -814,12 +818,6 @@ def luckd_crowler_test(no):
                 except Exception as e:
                     # telegram_crawl.crawl_entry_error_msg(e)
                     print('error:'+e)
-        # if 'luck-d' in sitelink:
-        #     response = requests.get(sitelink)
-        #     html = response.text
-        #     soup = BeautifulSoup(html,'html.parser')
-        #     matched = re.search(r'let link = decodeURIComponent\(\'(.*?)\'\);', html, re.S)
-        #     sitelink = matched.group(1)
 
         shoeunique = serialno+sitename+sitelink
 
@@ -838,8 +836,18 @@ def luckd_crowler_test(no):
             end_date = '2024-12-31 23:59:59'
             end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
             # Shoesite.objects.filter(shoesiteunique = shoeunique).update(end_date = end_date_datetime)
-            return
+            if 'offline' in sitelink:       
+                # print(sitelink)
+                offline_url = 'https://www.luck-d.com' + sitelink
+                offline_html = requests.get(offline_url).text
+                offline_soup = BeautifulSoup(offline_html,'html.parser')
+                time.sleep(0.01)
 
+                address = offline_soup.select('div.agent_site_info > label > .agent_site_info_data')[1].text.strip()
+                normalized_address = unicodedata.normalize('NFC', address)
+
+                # Shoesite.objects.filter(shoesiteunique = shoeunique).update(address = normalized_address)
+            continue
         # #시간이 종료일 경우
         if '종료' in end_date:
             end_date = str(datetime.datetime.now().replace(microsecond=0))
@@ -916,6 +924,7 @@ def luckd_crowler_test(no):
             normalized_address = unicodedata.normalize('NFC', address)
 
             # Shoesite.objects.filter(shoesiteunique = shoeunique).update(address = normalized_address)
+        
 def crawl2(request):
     telegram_crawl = Telegram_crawl()
     try:

@@ -137,7 +137,8 @@ $(document).ready(function() {
             alert('댓글을 입력해주세요.');
             $comment.val("");
             $comment.focus();
-            return
+            $(".backL").css("display", "none");
+            return false;
         }
         
         var $serialno =  $('.serialno').text();
@@ -152,6 +153,7 @@ $(document).ready(function() {
                 var obj = JSON.parse(data);
                 if (obj.flag == "0") {
                     alert(obj.result_msg);
+                    $(".backL").css("display", "none");
                 } else {
                     // 현재경로 + 공백추가 필수!!
                     $('.box3').load(location.href + " .box3", function() {
