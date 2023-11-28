@@ -382,9 +382,7 @@ html { font-size: 16px; }
 
 .grid-wrapper-box {
     width: 100vw;
-    /* height: 33vh; */
-    /* height: 30%; */
-    float: left;
+    display: flex;
     background-color: #FBFBFB;
     position: relative;
     /* display: flex;
@@ -392,13 +390,14 @@ html { font-size: 16px; }
 }
 
 .grid-wrapper-box2 {
-  width: 65vw; float: left;
+  max-width: 1080px;
+  margin: 0 auto;
 }
 
 .ad-box {
-    width: 17.5vw;
+    /* width: 17.5vw; */
     height: 33vh;
-    float: left;
+    /* float: left; */
     position: -webkit-sticky;
     position: sticky;
     
@@ -414,86 +413,19 @@ html { font-size: 16px; }
 
 /* grid */
 .grid-wrapper {
-  float: left;
-  width: 65vw;
+  /* float: left; */
+  max-width: 1080px;
   /* height: 33vh; */
   display: grid;
   /* grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); */
   /* grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); */
-  grid-template-columns: repeat(5, 20%);
+  grid-template-columns: repeat(4, 270px);
   /* overflow-x: auto; */
   /* grid-auto-rows: 410px; */
-  grid-auto-rows: 360px;
+  grid-auto-rows: 353px;
   column-gap: 0px;
   row-gap: 0px;
   position: relative;
-}
-
-@media (max-width:1919px) {
-  .grid-wrapper {
-    grid-template-columns: repeat(4, 25%);
-  }
-}
-
-@media (max-width:1365px) {
-  .grid-wrapper {
-    grid-template-columns: repeat(3, 33.33%);
-  }
-}
-
-@media (max-width:1023px) {
-  .grid-wrapper {
-    grid-template-columns: repeat(2, 50%);
-  }
-}
-
-@media (max-width:575px) {
-  .ad-box {
-    display: none;
-  }
-
-  .grid-wrapper-box2 {
-    width: 100vw;
-  }
-  .grid-wrapper {
-    width: 100vw;
-    grid-auto-rows: 300px;
-    grid-template-columns: repeat(2, 50%);
-  }
-
-  .grid-shoename-box .shoename {
-    font-size: 14px !important;
-    line-height: 14px !important;
-  } 
-
-  .grid-pubdate-box {
-    height: 5% !important;
-  }
-
-  .grid-goBtn-box .goBtn {
-    font-size: 12px !important;
-    width: 70px !important;
-  }
-/* 
-  .grid-container .bookmark-icon {
-    bottom: 4px;
-    left: 4px;
-  } */
-
-  .grid-container .shoelikecount-box {
-    bottom: 3px;
-    left: 28px;
-  }
-
-  .grid-container .comment-icon {
-    bottom: 4px;
-    left: 56px;
-  }
-
-  .grid-container .commentCount-box {
-    bottom: 3px;
-    left: 80px;
-  }
 }
 
 .shoebar {
@@ -553,7 +485,7 @@ html { font-size: 16px; }
 }
 .grid-img-box {
   width: 100%;
-  height: 70%;
+  height: 250px;
   float: left;
   cursor: pointer;
 }
@@ -603,7 +535,7 @@ html { font-size: 16px; }
 
 .grid-shoename-box {
   width: 100%;
-  height: 15%;
+  height: 60px;
   float: left;
   padding: 2px 5px;
   display: table;
@@ -617,12 +549,12 @@ html { font-size: 16px; }
   font-weight: 500;
   margin: 0px;
   display: table-cell;
-  vertical-align: middle;
+  vertical-align: top;
 }
 
 .grid-pubdate-box {
   width: 100%;
-  height: 15%;
+  height: 23px;
   float: left;
   /* text-align: center; */
   text-align: left;
@@ -656,6 +588,82 @@ html { font-size: 16px; }
   border: 0.5px solid rgba(200, 200, 200, 1);
   border-radius: 10px;
   cursor: pointer;
+}
+
+
+@media (max-width:1080px) {
+  .grid-wrapper {
+    grid-template-columns: repeat(3, 270px);
+  }
+}
+
+@media (max-width:810px) {
+  .grid-wrapper {
+    grid-template-columns: repeat(3, 180px);
+    grid-auto-rows: 226px;
+  }
+
+  .grid-img-box {
+    height: 160px;
+  }
+
+  .grid-shoename-box {
+    height: 30px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .grid-shoename-box .shoename {
+    display: block;
+  }
+
+
+  .grid-pubdate-box {
+    height: 16px;
+  }
+
+}
+
+@media (max-width:540px) {
+  .ad-box {
+    display: none;
+  }
+
+  .grid-wrapper {
+    grid-template-columns: repeat(2, 180px);
+  }
+
+  .grid-shoename-box .shoename {
+    font-size: 14px !important;
+    line-height: 14px !important;
+  } 
+
+  .grid-goBtn-box .goBtn {
+    font-size: 12px !important;
+    width: 70px !important;
+  }
+/* 
+  .grid-container .bookmark-icon {
+    bottom: 4px;
+    left: 4px;
+  } */
+
+  .grid-container .shoelikecount-box {
+    bottom: 3px;
+    left: 28px;
+  }
+
+  .grid-container .comment-icon {
+    bottom: 4px;
+    left: 56px;
+  }
+
+  .grid-container .commentCount-box {
+    bottom: 3px;
+    left: 80px;
+  }
 }
    
 /* ------------ grid */

@@ -1,2 +1,4 @@
-# robots.txt file of https://example.com/
+User-agent: *
+Allow: /
+Disallow: /auth/mypage/
 Sitemap: https://alpharaffle.com/sitemap.xml

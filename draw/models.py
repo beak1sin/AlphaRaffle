@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Member(models.Model):
 	member_no = models.AutoField(db_column='member_no', primary_key=True)
@@ -52,6 +53,15 @@ class Shoe(models.Model):
 		cleaned_serialno = ''.join(char for char in self.serialno if ord(char) > 31)
 		return f'/auth/details/?serialnum={cleaned_serialno}'
 
+	def calculate_average_overall_rating(self):
+		return self.ratings.aggregate(models.Avg('overall_rating'))['overall_rating__avg'] or 0
+
+	def calculate_average_comfort(self):
+		return self.ratings.aggregate(models.Avg('comfort'))['comfort__avg'] or 0
+
+	def calculate_average_size_fit(self):
+		return self.ratings.aggregate(models.Avg('size_fit'))['size_fit__avg'] or 0
+
 class Shoeimg(models.Model):
 	serialno = models.CharField(max_length=50, default= None)
 	shoeimg = models.CharField(max_length=200, unique=True)	
@@ -75,6 +85,15 @@ class Shoesite(models.Model):
 	def __str__(self):
 		return "제품코드: " + self.serialno + " , 사이트 : " + self.sitename
 
+
+class Rating(models.Model):
+    shoe = models.ForeignKey(Shoe, on_delete=models.CASCADE, related_name='ratings')
+    user = models.ForeignKey(Member, on_delete=models.CASCADE)
+    overall_rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])  # 총 평가
+    comfort = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])  # 체감 편의성
+    size_fit = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])  # 체감 사이즈
+    
+    created_at = models.DateTimeField(auto_now_add=True)
 
 class Comment(models.Model):
 	serialno = models.CharField(max_length=200, db_column='serialno')

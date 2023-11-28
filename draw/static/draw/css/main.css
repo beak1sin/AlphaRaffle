@@ -1,14 +1,14 @@
 .banner-box {
     width: 100vw;
-    height: 54.4vh;
-    float: left;
+    height: 400px;
     background-color: black;
+    position: relative;
 }
 
 .banner {
-    width: 65vw;
+    max-width: 1080px;
     height: 100%;
-    float: left;
+    margin: 0 auto;
     /* background-color: bisque; */
 }
 
@@ -26,7 +26,7 @@
 #slider-wrap{
   /* width:600px; */
   /* width: 100%; */
-  width: 65vw;
+  max-width: 1080px;
   height: 100%;
   /* height:400px; */
   position:relative;
@@ -51,7 +51,7 @@
   /* width:600px; */
   /* height:400px;  */
   /* width: 100%; */
-  width: 65vw;
+  width: 100%;
   height: 100%;
 }
 
@@ -90,7 +90,7 @@
   display:block;
   /* width:100%; */
   /* height: 100%; */
-  width: 65vw;
+  width: 100%;
   height: 100%;
   /* float: left; */
 }
@@ -122,12 +122,12 @@
   transition: all 0.1s ease;
 } */
 
-.btns-box {
+/* .btns-box {
   width: 17.5vw;
   height: 100%;
   float: left;
   position: relative;
-}
+} */
 
 #previous::after {
   position: absolute;
@@ -141,6 +141,7 @@
   transform: rotate(45deg) translateY(-50%); /* 각도 */
   cursor: pointer;
   transition: all 0.5s ease;
+  z-index: 1;
 }
 #previous:hover::after {
   border-left: 5px solid white; /* 선 두께 */
@@ -180,7 +181,7 @@
 #pagination-wrap{
   min-width:20px;
   /* margin-top:350px; */
-  margin-top: 51vh;
+  margin-top: 375px;
   margin-left: auto; 
   margin-right: auto;
   height:15px;
@@ -245,13 +246,30 @@
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
 }
 
+@media (max-width: 810px) {
+  .banner-box {
+    height: 250px;
+  }
+
+  #pagination-wrap{
+    margin-top: 225px;
+  }
+
+  #counter {
+    top: 10px;
+    right: 15px;
+    font-size: 14px;
+  }
+
+  #pagination-wrap ul li.active{
+    width:9px;
+    height:9px;
+  }
+}
+
 @media (max-width: 767px) {
   .ad-box > * {
     display: none;
-  }
-
-  .banner-box {
-    height: 30vh;
   }
 
   .mobile-ad-box {
@@ -282,6 +300,25 @@
   #previous:hover::after {
     border-bottom: 3px solid white;
     border-left: 3px solid white;
+  }
+}
+
+@media (max-width: 540px) {
+  .banner-box {
+    height: 200px;
+  }
+
+  #pagination-wrap{
+    margin-top: 175px;
+  }
+
+  #counter {
+    font-size: 12px;
+  }
+
+  #pagination-wrap ul li.active{
+    width:6px;
+    height:6px;
   }
 }
 

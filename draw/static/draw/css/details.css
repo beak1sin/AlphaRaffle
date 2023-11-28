@@ -543,7 +543,7 @@ p {
 
 .wrapper {
   float: left;
-  width: 65vw;
+  width: 100%;
   display: flex;
   
   flex-wrap: wrap;
@@ -750,19 +750,19 @@ p {
 }
 
 .left-ad-box {
-  width: 17.5vw; position: fixed; left: 0; top: 50%; transform: translateY(-50%);
+  position: fixed; left: 0; top: 50%; transform: translateY(-50%);
 }
 
 .right-ad-box {
-  width: 17.5vw; position: fixed; right: 0; top: 50%; transform: translateY(-50%);
+  position: fixed; right: 0; top: 50%; transform: translateY(-50%);
 }
 
 .details-box {
-  width: 100vw; height: calc(100vh - 64px); top: 64px; position: relative; padding: 0 17.5vw;
+  width: 100vw; height: calc(100vh - 64px); top: 64px; position: relative;
 }
 
 .whole-box {
-  width: 65vw; float: left; padding: 0 10px;
+  max-width: 1080px; padding: 0 10px; margin: 0 auto;
 }
 
 .box1 {
