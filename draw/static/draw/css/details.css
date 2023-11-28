@@ -792,6 +792,20 @@ p {
   font-size: 24px; font-weight: 700;
 }
 
+.serialno-duplicate-icon {
+  width: 24px; height: 38.4px; cursor: pointer; transition: all 0.2s; background: url('../necessary/copy_line.svg') no-repeat center; margin-left: 5px;
+}
+
+.serialno-duplicate-icon.duplicated {
+  background: url('../necessary/copy_line_fill.svg') no-repeat center;
+}
+
+@media(hover: hover) and (pointer: fine) {
+  .serialno-duplicate-icon:hover {
+    background: url('../necessary/copy_line_fill.svg') no-repeat center;
+  }
+}
+
 .box2, .box3 {
   height: calc(100vh - 64px);
 }
@@ -955,6 +969,10 @@ p {
     font-size: 20px !important;
   }
 
+  .serialno-duplicate-icon {
+    height: 32px;
+  }
+
   .shoedetail {
     font-size: 14px;
   }
@@ -1026,6 +1044,10 @@ p {
 
   .serialno, .serialnoSlash, .pubdate, .shoeprice {
     font-size: 14px !important;
+  }
+
+  .serialno-duplicate-icon {
+    height: 24px;
   }
 
   .shoedetail {

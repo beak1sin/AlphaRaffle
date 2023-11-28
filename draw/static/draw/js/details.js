@@ -270,6 +270,17 @@ $(document).ready(function() {
         xhr.setRequestHeader("X-CSRFToken", csrftoken);
         xhr.send(datastr);
     }); 
+
+    $('.serialno-duplicate-icon').click(function() {
+        var textToCopy = $('.serialno').text();
+
+        navigator.clipboard.writeText(textToCopy).then(function() {
+            $('.serialno-duplicate-icon').addClass('duplicated');
+            alert('텍스트가 복사되었습니다: ' + textToCopy);
+        }).catch(function(error) {
+            console.error('복사 실패:', error);
+        });
+    });
 });
 
 // document.addEventListener('DOMContentLoaded', function() {

@@ -5,8 +5,21 @@
             <img class="lazyload logo logo-img" style="cursor: pointer; margin-top: 6px;" data-src="{% static 'draw/necessary/ar01_edit.svg' %}" alt="logo">
         </a>
     </div>
+    {% if request.path == '/' %}
+    <div class="main-header">
+        <div class="dropped-box">
+            <a class="dropped-tab active">진행 중</a>
+        </div>
+        <div class="plan-box">
+            <a class="full-tab">발매 예정</a>
+        </div>
+        <div class="end-box">
+            <a class="end-tab">발매 종료</a>
+        </div>
+    </div>
+    {% endif %}
     <div class="menu-box">
-        <div class="menu-items">
+        <div class="menu-items main-search-box">
             <div class="search-icon"></div>
         </div>
         {% if member.member_no == None %}
@@ -14,7 +27,7 @@
             <a class="menu-items-login" id="btn" href="{% url 'draw:로그인' %}">로그인/회원가입</a>
         </div>
         {% else %}
-        <div class="menu-items">
+        <div class="menu-items notification-box">
             <div class="notification-icon"></div>
         </div>
         <div class="menu-items">
@@ -38,49 +51,12 @@
         </div>
         {% endif %}
     </div>
-    {% if request.path == '/' %}
-    <div class="main-header">
-        <div class="main-header-1"></div>
-        <div class="main-header-2">
-            <div style="width: 33.33%; height: 100%; float: left; padding: 0px 20px; text-align: center;">
-                <a class="dropped-tab" style="font-weight: 500; color: #FFFFFF;">진행 중</a>
-            </div>
-            <div style="width: 33.33%; height: 100%; float: left; padding: 0px 20px; text-align: center;">
-                <a class="full-tab" style="font-weight: 300; color: rgba(255, 255, 255, 0.7);">예정</a>
-            </div>
-            <div style="width: 33.33%; height: 100%; float: left; padding: 0px 20px; text-align: center;">
-                <a class="end-tab" style="font-weight: 300; color: rgba(255, 255, 255, 0.7);">종료</a>
-            </div>
-        </div>
-        <div class="main-header-3">
-            <div class="main-header-3-1"></div>
-            <div class="main-header-3-2">
-                <!-- <div style="width: 33.33%; height: 100%; float: left; text-align: center; padding-top: 6px; padding-right: 0.35vw;">
-                    <img style="width: 20px; height: 20px; cursor: pointer;"></img>
-                </div> -->
-                <!-- <div style="height: 100%; float: left; text-align: center; padding-top: 6px; padding-right: 0.35vw; float: right;">
-                    <img src="{% static 'draw/necessary/icon_grid_two_up.avif' %}" style="width: 20px; height: 20px; cursor: pointer;"></img>
-                </div> -->
-                <!-- <div style="width: 33.33%; height: 100%; float: left; text-align: center; padding-top: 6px; padding-right: 0.35vw;">
-                    <img style="width: 20px; height: 20px; cursor: pointer;"></img>
-                </div> -->
-            </div>
-        </div>
-    </div>
-    {% endif %}
+
 </header>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <style type="text/css">
     header {
         transition: top 0.2s ease-in-out;
-    }
-    #btn {
-        transition-duration: 0.2s;
-        color: #B0B0B0;
-    }
-
-    #btn:hover {
-        color: black;
     }
 
     .main-header-1, .main-header-3 {
@@ -112,15 +88,20 @@
     }
 
     .menu-items-login-join {
-        width: 120px; height: 64px; position: relative;
+        width: 100px; height: 64px; display: table; text-align: right;
     }
 
     .menu-items-login {
-        position: absolute; width: 120px; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px;
+        width: 100px;  font-size: 14px; display: table-cell; vertical-align: middle; transition-duration: 0.2s; color: #B0B0B0;
     }
 
     .dropped-tab, .full-tab, .end-tab {
-        font-size: 18px; line-height: 32px; cursor: pointer;
+        font-size: 14px; cursor: pointer; display: table-cell; vertical-align: middle; transition-duration: 0.2s; color: #C8C8C8; font-weight: 300;
+    }
+
+    .dropped-tab.active, .full-tab.active, .end-tab.active {
+        color: #333;
+        font-weight: 500;
     }
 
     .nav-up {
@@ -132,28 +113,58 @@
     }
 
     .main-header {
-        width: 100vw; height: 32px; background-color: black; display: inline-block;
+        display: flex;
+        float: left;
+        margin-left: 40px;
     }
 
-    @media (max-width: 767px) {
-        .main-header-1, .main-header-3 {
-            width: 10vw;
-        }
-
-        .main-header-3-1 {
-            width: 0%;
-        }
-
-        .main-header-3-2 {
-            width: 100%;
-        }
-
-        .main-header-2 {
-            width: 80vw;
-        }
+    .dropped-box {
+        width: 60px; height: 64px; float: left; text-align: center; display: table;
     }
 
-    @media (max-width: 575px) {
+    .plan-box, .end-box {
+        width: 70px; height: 64px; float: left; text-align: center; margin-left: 40px; display: table;
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+        .menu-items-login:hover {
+            color: black;
+        }
+
+        .dropped-tab:hover, .full-tab:hover, .end-tab:hover {
+            color: #333;
+        }
+        
+    }
+
+    @media (max-width: 810px) {
+        .main-header {
+            margin-left: 20px;
+        }
+
+        .plan-box, .end-box {
+            margin-left: 20px;
+        }
+
+        .menu-box {
+            margin-right: 20px;
+        }
+
+        .notification-box, .main-search-box {
+            margin-right: 20px;
+        }
+
+        .logo-box {
+            margin: 5px 0 0 20px;
+        }
+
+        .menu-items {
+            width: 34px;
+        }
+
+    }
+
+    @media (max-width: 540px) {
         .logo-box {
             margin: 5px 0 0 5px;
         }
@@ -163,12 +174,26 @@
         }
 
         .menu-items {
-            width: 50px;
+            width: 24px;
             height: 56px;
         }
+
+        .notification-box, .main-search-box {
+            margin-right: 10px;
+        }
+
+        .dropped-box {
+            width: 35px;
+            height: 56px;
+        }
+
+        .plan-box, .end-box {
+            width: 45px;
+            height: 56px;
+            margin-left: 10px;
+        }
         .dropped-tab, .full-tab, .end-tab {
-            font-size: 14px;
-            line-height: 28px;
+            font-size: 12px;
         }
 
         .logo-img {

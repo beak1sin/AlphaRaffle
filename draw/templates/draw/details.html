@@ -147,12 +147,13 @@
                                 <div style="float: left;">
                                     <span class="title">제품코드</span>
                                 </div>
-                                <div style="float: right;">
+                                <div style="float: right; display: flex;">
                                     {% if serialnoSlash == None %}
                                     <span class="serialno">{{shoe.serialno}}</span>
                                     {% else %}
                                     <span class="serialnoSlash">{{serialnoSlash}}</span>
                                     {% endif %}
+                                    <div class="serialno-duplicate-icon"></div>
                                 </div>
                             </div>
                             <div style="padding: 10px 0px; height: auto; overflow: hidden;">

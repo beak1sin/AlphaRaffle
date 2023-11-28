@@ -253,7 +253,7 @@ footer {
   position: fixed; right: 0; top: 0; background-color: #FFFFFF; z-index: 1; flex-direction: column; border: 0.4px solid #C8C8C8; border-top: none; display: none;;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 540px) {
   .search-icon {
     background: url('../necessary/search.svg') no-repeat center center/12px auto;
   }
@@ -370,7 +370,7 @@ header {
   height: 64px;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 540px) {
   header {
     height: 56px;
   }
@@ -721,16 +721,16 @@ html { font-size: 16px; }
 }
 
 .main-box {
-  height: calc(100vh - 96px); top: 96px;
+  height: calc(100vh - 64px); top: 64px;
 }
 
 .full-box, .map-box, .mypage-box {
   height: calc(100vh - 64px); top: 64px;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 540px) {
   .main-box {
-    height: calc(100vh - 84px); top: 84px;
+    height: calc(100vh - 56px); top: 56px;
   }
   
   .full-box, .map-box, .mypage-box {
