@@ -228,7 +228,12 @@
                         </div>
                     </div>
                 </div>
+                {% if googleSite and notGoogleSite %}
                 <div class="box2">
+                {% else %}
+                <div class="box2" style="height: auto;">
+                {% endif %}
+                    {% if googleSite %}
                     <div>
                         <span class="box-title">자동 응모 서비스</span>
                     </div>
@@ -236,7 +241,7 @@
                         <span class="box-title-comment">클릭하면 구글폼에 개인 정보를 자동 입력하여 응모합니다.</span>
                     </div>
                     <div class="wrapper">
-                        {% if googleSite %}
+                        
                         {% for site in googleSite %}
                             {% if site.is_valid_date %}
                             <div class="wrapper-items" onclick="window.open('{{site.sitelink}}')">
@@ -294,12 +299,10 @@
                             </div>
                             {% endif %}
                         {% endfor %}
-                        {% else %}
-                        <div class="wrapper-items-None">
-                            <p style="margin: 0; display: table-cell; vertical-align: middle;">존재하지 않습니다.</p>
-                        </div>
-                        {% endif %}
                     </div>
+                    {% endif %}
+
+                    {% if notGoogleSite %}
                     <div>
                         <span class="box-title">응모 링크</span>
                     </div>
@@ -307,7 +310,7 @@
                         <span class="box-title-comment">클릭하면 응모 페이지로 자동 연결합니다.</span>
                     </div>
                     <div class="wrapper">
-                        {% if notGoogleSite %}
+                        
                         {% for site in notGoogleSite %}
                             {% if site.is_valid_date %}
                             <div class="wrapper-items no-margin" onclick="window.open('{{site.sitelink}}')">
@@ -365,15 +368,12 @@
                             </div>
                             {% endif %}
                         {% endfor %}
-                        {% else %}
-                        <div class="wrapper-items-None">
-                            <p style="margin: 0; display: table-cell; vertical-align: middle;">존재하지 않습니다.</p>
-                        </div>
-                        {% endif %}
                     </div>
+                    {% endif %}
                 </div>
 
                 <div class="box3">
+                    {% if offlineSite %}
                     <div>
                         <span class="box-title">오프라인 응모</span>
                     </div>
@@ -381,7 +381,7 @@
                         <span class="box-title-comment">응모 정보와 매장 위치를 확인하세요.</span>
                     </div>
                     <div class="wrapper">
-                        {% if offlineSite %}
+                        
                         {% for site in offlineSite %}
                             {% if site.is_valid_date %}
                             <div class="wrapper-items no-margin" onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}' + '&sitename={{site.sitename}}', '_blank';">
@@ -439,13 +439,8 @@
                             </div>
                             {% endif %}
                         {% endfor %}
-                        {% else %}
-                        <div class="wrapper-items-None">
-                            <p style="margin: 0; display: table-cell; vertical-align: middle;">존재하지 않습니다.</p>
-                        </div>
-                        {% endif %}
                     </div>
-
+                    {% endif %}
                     <div class="bottom-ad-box" style="position: relative;">
                         <div class="bottom-ad-box-js" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
                         </div>
@@ -486,83 +481,100 @@
                         <span class="commentLength"></span>
                     </div>
 
-                    
-                    {% if comment.serialno != '' %}
-                    {% for comment in comment %}
-                    <div class="comment-list-box" data-value="{{comment.id}}">
-                        <div style="height: 36px; width: 36px; float: left;">
-                            {% if comment.profile_img_url == '-' %}
-                            <img style="width: 36px; height: 36px; border-radius: 50px;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
-                            {% else %}
-                            <img style="width: 36px; height: 36px; border-radius: 50px;" src="{{comment.profile_img_url}}">
-                            {% endif %}
-                        </div>
-                        <div style="width: calc(100% - 50px); float: left; padding-left: 10px;">
-                            <div style="position: relative;">
-                                <span class="comment-member-nickname-text">{{comment.member_nickname}}</span>
-                                <span class="comment-created-text">{{comment.created_date}}</span>
-                                <div class="comment-option-icon">
-                                    <label class="comment-option-icon-label">
-                                        <span class="icon"></span>
-                                    </label>
-                                </div>
-                                <div class="comment-option" style="width: 50px; height: auto; position: absolute; top: 0; right: 0;border: 1px solid black; display: none; text-align: center;">
-                                    <p class="comment-option-delete" style="margin: 0; cursor: pointer;">삭제</p>
-                                    <p class="comment-option-cancel" style="margin: 0; border-top: 1px solid black; cursor: pointer;">취소</p>
-                                </div>
-                            </div>
-                            <div style="padding: 10px 0px;">
-                                <span class="comment-comment">{{comment.comment}}</span>
-                            </div>
-                            <div style="position: relative;">
-                                {% if member.member_no == None %}
-                                <span class="comment-reply-logout off">답글 달기</span>
+                    <div class="comment-box">
+                        {% if comment.serialno != '' %}
+                        {% for comment in comment %}
+                        <div class="comment-list-box" data-value="{{comment.id}}">
+                            <div style="height: 36px; width: 36px; float: left;">
+                                {% if comment.profile_img_url == '-' %}
+                                <img style="width: 36px; height: 36px; border-radius: 50px;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
                                 {% else %}
-                                <span class="comment-reply off">답글 달기</span>
+                                <img style="width: 36px; height: 36px; border-radius: 50px;" src="{{comment.profile_img_url}}">
                                 {% endif %}
-                                <div class="comment-like-icon">
-                                    <label class="comment-like-icon-label">
-                                        <span class="icon"></span>
-                                    </label>
-                                </div>
-                                <p class="comment-like-length">0</p>
-                                <div class="comment-hate-icon">
-                                    <label class="comment-hate-icon-label">
-                                        <span class="icon"></span>
-                                    </label>
-                                </div>
-                                <p class="comment-hate-length">0</p>
                             </div>
+                            <div style="width: calc(100% - 50px); float: left; padding-left: 10px;">
+                                <div style="position: relative;">
+                                    <span class="comment-member-nickname-text">{{comment.member_nickname}}</span>
+                                    <span class="comment-created-text">{{comment.created_date}}</span>
+                                    <div class="comment-option-icon">
+                                        <label class="comment-option-icon-label">
+                                            <span class="icon"></span>
+                                        </label>
+                                    </div>
+                                    <div class="comment-option" style="width: 50px; height: auto; position: absolute; top: 0; right: 0;border: 1px solid black; display: none; text-align: center;">
+                                        <p class="comment-option-delete" style="margin: 0; cursor: pointer;">삭제</p>
+                                        <p class="comment-option-cancel" style="margin: 0; border-top: 1px solid black; cursor: pointer;">취소</p>
+                                    </div>
+                                </div>
+                                <div style="padding: 10px 0px;">
+                                    <span class="comment-comment">{{comment.comment}}</span>
+                                </div>
+                                <div style="position: relative;">
+                                    {% if member.member_no == None %}
+                                    <span class="comment-reply-logout off">답글 달기</span>
+                                    {% else %}
+                                    <span class="comment-reply off">답글 달기</span>
+                                    {% endif %}
+                                    <div class="comment-like-icon">
+                                        <label class="comment-like-icon-label">
+                                            <span class="icon"></span>
+                                        </label>
+                                    </div>
+                                    <p class="comment-like-length">0</p>
+                                    <div class="comment-hate-icon">
+                                        <label class="comment-hate-icon-label">
+                                            <span class="icon"></span>
+                                        </label>
+                                    </div>
+                                    <p class="comment-hate-length">0</p>
+                                </div>
+                            </div>
+                            
                         </div>
-                        
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                     <div class="pagination" style="text-align: center;">
                         <span class="step-links" style="display: flex; justify-content: center; gap: 10px;">
-                            {% if comment.has_previous %}
-                                <a class="page-url" href="?serialnum={{shoe.serialno}}&page=1">
-                                    <div class="page-first-icon page-icon"></div>
-                                </a>
-                                <a class="page-url" href="?serialnum={{shoe.serialno}}&page={{ previous_page }}">
-                                    <div class="page-previous-icon page-icon"></div>
-                                </a>
-                            {% endif %}
-                            {% for num in page_numbers %}
-                                {% if comment.number == num %}
-                                    <span class="current">{{ num }}</span>
-                                {% else %}
-                                    <a class="page-num" href="?serialnum={{shoe.serialno}}&page={{ num }}">{{ num }}</a>
+                            {% if isPage6 %}
+                                {% if comment.has_previous %}
+                                    <!-- <a class="page-url" href="?serialnum={{shoe.serialno}}&page=1"> -->
+                                    <a class="page-url" page-value="1">
+                                        <div class="page-first-icon page-icon"></div>
+                                    </a>
+                                    <!-- <a class="page-url" href="?serialnum={{shoe.serialno}}&page={{ previous_page }}"> -->
+                                    <a class="page-url" page-value="{{previous_page}}">
+                                        <div class="page-previous-icon page-icon"></div>
+                                    </a>
                                 {% endif %}
-                            {% endfor %}
-                            {% if comment.has_next %}
-                                
-                                <a class="page-url" href="?serialnum={{shoe.serialno}}&page={{ next_page }}">
-                                    <div class="page-next-icon page-icon"></div>
-                                </a>
-                                
-                                <a class="page-url" href="?serialnum={{shoe.serialno}}&page={{ comment.paginator.num_pages }}">
-                                    <div class="page-last-icon page-icon"></div>
-                                </a>
+                                {% for num in page_numbers %}
+                                    {% if comment.number == num %}
+                                        <span class="current">{{ num }}</span>
+                                    {% else %}
+                                        <!-- <a class="page-num" href="?serialnum={{shoe.serialno}}&page={{ num }}">{{ num }}</a> -->
+                                        <a class="page-num" page-value="{{num}}">{{ num }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if comment.has_next %}
+                                    
+                                    <!-- <a class="page-url" href="?serialnum={{shoe.serialno}}&page={{ next_page }}"> -->
+                                    <a class="page-url" page-value="{{next_page}}">
+                                        <div class="page-next-icon page-icon"></div>
+                                    </a>
+                                    
+                                    <!-- <a class="page-url" href="?serialnum={{shoe.serialno}}&page={{ comment.paginator.num_pages }}"> -->
+                                    <a class="page-url" page-value="{{comment.paginator.num_pages}}">
+                                        <div class="page-last-icon page-icon"></div>
+                                    </a>
+                                {% endif %}
+                            {% else %}
+                                {% for num in page_numbers %}
+                                    {% if comment.number == num %}
+                                        <span class="current">{{ num }}</span>
+                                    {% else %}
+                                        <!-- <a class="page-num" href="?serialnum={{shoe.serialno}}&page={{ num }}">{{ num }}</a> -->
+                                        <a class="page-num" page-value="{{num}}">{{ num }}</a>
+                                    {% endif %}
+                                {% endfor %}
                             {% endif %}
                             
                         </span>

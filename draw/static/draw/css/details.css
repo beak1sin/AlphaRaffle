@@ -869,6 +869,7 @@ p {
 .page-num {
   color: #C8C8C8; font-weight: 400;
   transition: all 0.2s;
+  cursor: pointer;
 }
 
 .page-num:hover {
@@ -879,6 +880,7 @@ p {
   width: 24px;
   height: 24px;
   position: relative;
+  cursor: pointer;
 }
 
 .page-icon {

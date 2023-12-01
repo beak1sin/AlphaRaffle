@@ -769,15 +769,22 @@ def details(request):
             # 페이지 범위를 벗어난 경우 마지막 페이지 반환
             comments = paginator.page(paginator.num_pages)
         start_page = ((comments.number - 1) // 5) * 5 + 1
-        if start_page == 1:
-            previous_page = 1
-            next_page = 6
-        else:
-            previous_page = start_page - 5
-            next_page = start_page + 5
-        
         end_page = min(start_page + 4, paginator.num_pages)
         page_numbers = list(range(start_page, end_page + 1))
+
+        # 페이지가 6이상인지 확인 (isPage6 true면 이전페이지 다음페이지 생성)
+        if (comment_count / paginator.per_page) >= 6:
+            isPage6 = True
+            if start_page == 1:
+                previous_page = 1
+                next_page = 6
+            else:
+                previous_page = start_page - 5
+                next_page = start_page + 5
+        else:
+            isPage6 = False
+            previous_page = None
+            next_page = None
     else:
         comments = {'serialno': ''}
         start_page = None
@@ -873,10 +880,95 @@ def details(request):
                 site.is_valid_date = False
 
     context["member_no"] = member_no
-    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'offlineSite': offlineSite, 'googleSiteOnly': googleSiteOnly, 'comment': comments, 'comment_count': comment_count, 'serialnoSlash': serialnoSlash, 'shoenameSlash': shoenameSlash, 'shoeengnameSlash': shoeengnameSlash, 'recent_searches': recent_searches, 'start_page': start_page, 'end_page': end_page, 'page_numbers': page_numbers, 'previous_page': previous_page, 'next_page': next_page }
+    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'offlineSite': offlineSite, 'googleSiteOnly': googleSiteOnly, 'comment': comments, 'comment_count': comment_count, 'serialnoSlash': serialnoSlash, 'shoenameSlash': shoenameSlash, 'shoeengnameSlash': shoeengnameSlash, 'recent_searches': recent_searches, 'start_page': start_page, 'end_page': end_page, 'page_numbers': page_numbers, 'previous_page': previous_page, 'next_page': next_page, 'isPage6': isPage6 }
     #print(shoe.serialno)
     return render(request, 'draw/details.html', context)
-    #return JsonResponse(context, content_type="application/json")
+
+@csrf_protect
+class Pagination():
+    def go_page(request):
+        context = {}
+
+        bodydata = request.body.decode('utf-8')
+        bodyjson = json.loads(bodydata)
+        pk = bodyjson['serialnoAJAX']
+        
+
+        # 댓글
+        comment = Comment.objects.filter(serialno=pk).order_by('-created_date')
+        comment_count = comment.count()
+        if comment.values():
+            for com in comment:
+                com.profile_img_url = Member.objects.get(member_nickname=com.member_nickname).profile_img_url
+            paginator = Paginator(comment, 5)
+            page = bodyjson['pageAJAX']
+            try:
+                comments = paginator.page(page)
+            except PageNotAnInteger:
+                # 페이지가 정수가 아닐 경우 첫 번째 페이지 반환
+                comments = paginator.page(1)
+            except EmptyPage:
+                # 페이지 범위를 벗어난 경우 마지막 페이지 반환
+                comments = paginator.page(paginator.num_pages)
+            start_page = ((comments.number - 1) // 5) * 5 + 1
+            end_page = min(start_page + 4, paginator.num_pages)
+            page_numbers = list(range(start_page, end_page + 1))
+
+            # 페이지가 6이상인지 확인 (isPage6 true면 이전페이지 다음페이지 생성)
+            if (comment_count / paginator.per_page) >= 6:
+                isPage6 = True
+                if start_page == 1:
+                    previous_page = 1
+                    next_page = 6
+                else:
+                    previous_page = start_page - 5
+                    next_page = start_page + 5
+            else:
+                isPage6 = False
+                previous_page = None
+                next_page = None
+        else:
+            comments = {'serialno': ''}
+            start_page = None
+            end_page = None
+            page_numbers = None
+            previous_page = None
+            next_page = None
+
+        # profile_img_url를 임의로 추가한거라 json.serialize가 안돼서 리스트화시켜서 append함.
+        comments_json = []
+        for com in comments:
+            created_date = com.created_date
+            am_pm = created_date.strftime("%p")
+            formatted_date = created_date.strftime("%Y년 %-m월 %-d일 %-I:%M")
+
+            if am_pm == 'AM':
+                formatted_date += " 오전"
+            else:
+                formatted_date += " 오후"
+
+            com_data = {
+                "id": com.id,
+                "member_nickname": com.member_nickname,
+                "created_date": formatted_date,
+                "comment": com.comment,
+                "profile_img_url": com.profile_img_url,
+                # 여기에 Comment 모델의 다른 필드들도 추가할 수 있습니다.
+            }
+            comments_json.append(com_data)
+
+        # context['comments'] = comments_json_str
+        if request.session.has_key('member_no'):
+            member_no = request.session['member_no']
+            member = Member.objects.get(pk= member_no)
+        else:
+            member_no = None
+            member = None
+
+        context = {'comment': comments_json, 'comment_count': comment_count, 'member_no': member_no, 'start_page': start_page, 'end_page': end_page, 'page_numbers': page_numbers, 'previous_page': previous_page, 'next_page': next_page, 'isPage6': isPage6, 'has_previous': comments.has_previous(), 'has_next': comments.has_next(), 'current_page': comments.number, 'last_page': comments.paginator.num_pages }
+
+        return JsonResponse(context, content_type="application/json")
+
 
 @csrf_protect
 def map(request):

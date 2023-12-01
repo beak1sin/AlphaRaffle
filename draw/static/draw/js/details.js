@@ -271,6 +271,7 @@ $(document).ready(function() {
         xhr.send(datastr);
     }); 
 
+    // 제품코드 복사기능
     $('.serialno-duplicate-icon').click(function() {
         var textToCopy = $('.serialno').text();
 
@@ -280,6 +281,97 @@ $(document).ready(function() {
         }).catch(function(error) {
             console.error('복사 실패:', error);
         });
+    });
+
+    // 댓글 페이지네이션 ajax
+    $('.step-links').on('click', '.page-num, .page-url', function() {
+        let $serialno = $('.serialno').text();
+        let $page = $(this).attr('page-value');
+
+        var data = {serialnoAJAX: $serialno, pageAJAX: $page};
+        var datastr = JSON.stringify(data);
+
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                var data = xhr.responseText;
+                var obj = JSON.parse(data);
+                var comments = obj.comment;
+                var member_no = obj.member_no;
+
+                var html = '';
+
+                for (var i = 0; i < comments.length; i++) {
+                    var comments1 = comments[i];
+                    html += '<div class="comment-list-box" data-value="' + comments1.id + '">';
+                    html += '<div style="height: 36px; width: 36px; float: left;">';
+                    if (comments1.profile_img_url == '-') {
+                        html += '<img style="width: 36px; height: 36px; border-radius: 50px;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">';
+                    } else {
+                        html += '<img style="width: 36px; height: 36px; border-radius: 50px;" src="' + comments1.profile_img_url + '">';
+                    }
+                    html += '</div>'
+                    html += '<div style="width: calc(100% - 50px); float: left; padding-left: 10px;"><div style="position: relative;">';
+                    html += '<span class="comment-member-nickname-text">' + comments1.member_nickname + '</span>';
+                    html += '<span class="comment-created-text">' + comments1.created_date + '</span>';
+                    html += '<div class="comment-option-icon"><label class="comment-option-icon-label"><span class="icon"></span></label></div>';
+                    html += '<div class="comment-option" style="width: 50px; height: auto; position: absolute; top: 0; right: 0;border: 1px solid black; display: none; text-align: center;"><p class="comment-option-delete" style="margin: 0; cursor: pointer;">삭제</p><p class="comment-option-cancel" style="margin: 0; border-top: 1px solid black; cursor: pointer;">취소</p></div></div>';
+                    html += '<div style="padding: 10px 0px;"><span class="comment-comment">' + comments1.comment + '</span></div>';
+                    html += '<div style="position: relative;">'
+                    if (member_no == null) {
+                        html += '<span class="comment-reply-logout off">답글 달기</span>';
+                    } else {
+                        html += '<span class="comment-reply off">답글 달기</span>';
+                    }
+                    html += '<div class="comment-like-icon"><label class="comment-like-icon-label"><span class="icon"></span></label></div><p class="comment-like-length">0</p>';
+                    html += '<div class="comment-hate-icon"><label class="comment-hate-icon-label"><span class="icon"></span></label></div><p class="comment-hate-length">0</p>';
+                    html += '</div></div></div>';
+                }
+
+                $('.comment-box').empty();
+                $('.comment-box').html(html);
+
+                var page_numbers = obj.page_numbers;
+                var html2 = '';
+                if (obj.isPage6) {
+                    if (obj.has_previous) {
+                        html2 += '<a class="page-url" page-value="1">';
+                        html2 += '<div class="page-first-icon page-icon"></div></a>';
+                        html2 += '<a class="page-url" page-value="'+ obj.previous_page + '">';
+                        html2 += '<div class="page-previous-icon page-icon"></div></a>';
+                    }
+                    for (var j = 0; j < page_numbers.length; j++) {
+                        if (obj.current_page == page_numbers[j]) {
+                            html2 += '<span class="current">' +  page_numbers[j] + '</span>';
+                        } else {
+                            html2 += '<a class="page-num" page-value="' + page_numbers[j] + '">'+  page_numbers[j] + '</a>';
+                        }
+                    }
+                    if (obj.has_next) {
+                        html2 += '<a class="page-url" page-value="' + obj.next_page +'">';
+                        html2 += '<div class="page-next-icon page-icon"></div></a>';
+                        html2 += '<a class="page-url" page-value="' + obj.last_page +'">';
+                        html2 += '<div class="page-last-icon page-icon"></div></a>';
+                    }
+                } else {
+                    for (var k = 0; k < page_numbers.length; k++) {
+                        if (obj.current_page == page_numbers[k]) {
+                            html2 += '<span class="current">' +  page_numbers[k] + '</span>';
+                        } else {
+                            html2 += '<a class="page-num" page-value="' + page_numbers[k] + '">'+  page_numbers[k] + '</a>';
+                        }
+                    }
+                }
+
+                $('.step-links').empty();
+                $('.step-links').html(html2);
+
+            }
+        };
+
+        xhr.open("POST", "go_page");
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.send(datastr);
     });
 });
 

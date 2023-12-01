@@ -73,6 +73,7 @@ urlpatterns = [
     path('auth/details/update_views', views.update_views, name='조회수 증가'),
     path('auth/details/comment', views.comment, name='코멘트'),
     path('auth/details/comment_delete_details', views.comment_delete_details, name='comment_delete_details'),
+    path('auth/details/go_page', views.Pagination.go_page, name='go_page'),
     path('auth/details/reportLayer', views.reportLayer, name='신고'),
     path('auth/details/report', views.report, name='신고전송'),
     path('auth/details/map/', views.map, name='map'),
