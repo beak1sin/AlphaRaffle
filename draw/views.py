@@ -742,7 +742,7 @@ def details(request):
 
     while 'x' in shoebrand:
         shoebrand.remove('x')
-    
+    # print(shoebrand)
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
         member = Member.objects.get(pk= member_no)
@@ -817,40 +817,24 @@ def details(request):
     context["current_time"] = current_time
 
     for site in googleSite:
-        
-        if site.pub_date == None and site.end_date != None:
-            # print(site.end_date , current_time)
-            site.is_valid_date = site.end_date > current_time  
-
-        if site.end_date == None and site.pub_date != None:
-            # print(site.pub_date, current_time)
-            site.is_valid_date = site.pub_date > current_time  
-        
-        if site.end_date == None and site.pub_date == None:
+        if site.end_date == None:
             site.is_valid_date = True
-
-        if site.pub_date != None and site.end_date != None:
-            # print(site.pub_date, current_time, site.end_date)
-            site.is_valid_date = site.pub_date <= current_time <= site.end_date 
-        # print(site.is_valid_date)
+        else:
+            if site.end_date <= current_time:
+                # print(site.pub_date, current_time)
+                site.is_valid_date = False
+            else:
+                site.is_valid_date = True
 
     for site in notGoogleSite:
-        
-        if site.pub_date == None and site.end_date != None:
-            # print(site.end_date , current_time)
-            site.is_valid_date = site.end_date > current_time
-
-        if site.end_date == None and site.pub_date != None:
-            # print(site.pub_date, current_time)
-            site.is_valid_date = site.pub_date > current_time  
-
-        if site.end_date == None and site.pub_date == None:
+        if site.end_date == None:
             site.is_valid_date = True
-        
-        if site.pub_date != None and site.end_date != None:
-            # print(site.pub_date, current_time, site.end_date)
-            site.is_valid_date = site.pub_date <= current_time <= site.end_date 
-        # print(site.is_valid_date)
+        else:
+            if site.end_date <= current_time:
+                # print(site.pub_date, current_time)
+                site.is_valid_date = False
+            else:
+                site.is_valid_date = True
 
     # for site in offlineSite:
         
@@ -935,6 +919,7 @@ class Pagination():
             page_numbers = None
             previous_page = None
             next_page = None
+            isPage6 = None
 
         # profile_img_url를 임의로 추가한거라 json.serialize가 안돼서 리스트화시켜서 append함.
         comments_json = []

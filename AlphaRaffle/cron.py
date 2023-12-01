@@ -65,6 +65,7 @@ import datetime
 from PIL import Image
 import pillow_avif
 import unicodedata
+import traceback
 
 def hello():
     now = datetime.datetime.now()
@@ -115,19 +116,21 @@ def luckd_crowler(no):
     detail_info = soup.select('ul.detail_info>li')
 
     for i in range(len(detail_info)):
+        product_detail = '-'
         detail_info_find = soup.select('ul.detail_info>li')[i].text
         if '제품 코드' in detail_info_find:
             serialno = detail_info_find[6:].replace('/', '_').strip()
         if '발매일' in detail_info_find:
-            shoepubdate = detail_info_find[3:]
+            shoepubdate = detail_info_find[3:].strip()
         if '발매가' in detail_info_find or '가격' in detail_info_find:
-            shoeprice = detail_info_find[3:]
+            shoeprice = detail_info_find[3:].strip()            
+        if '카테고리' in detail_info_find:
+            category = detail_info_find[4:].strip()
+        if '제품 색상' in detail_info_find:
+            product_color = detail_info_find[5:].strip()            
         if '제품 설명' in detail_info_find:
             product_detail = detail_info_find[5:].strip()
-        else:
-            product_detail = '-'
-    
-    
+
     # print(serialno, shoepubdate, shoeprice, product_detail)
 
     if len(serialno) <= 2:
@@ -547,7 +550,7 @@ def crawl():
     except Exception as e:
         print(f"An error occurred: {e}")
         print('에러로 인한 크롤링 중단')
-        telegram_crawl.crawl_error_msg(e)
+        telegram_crawl.crawl_error_msg(traceback.format_exc())
         raise
 
 import telegram
@@ -629,6 +632,30 @@ class Telegram_crawl:
             print('종료미정 체크 실패')
             print(f"An error occurred: {e}")
         return
+    
+    def mijungCheck_error_msg(self, error):
+        try:
+            asyncio.run(self.bot.send_message(self.chat_id, f'종료미정 체크 실패:  {error}'))
+        except Exception as e:
+            print('텔레그램 오류')
+            print(f"An error occurred: {e}")
+        return
+    
+    def nullCheck_msg(self):
+        try:
+            asyncio.run(self.bot.send_message(self.chat_id, '종료 null 체크'))
+        except Exception as e:
+            print('종료미정 체크 실패')
+            print(f"An error occurred: {e}")
+        return
+    
+    def nullCheck_error_msg(self, error):
+        try:
+            asyncio.run(self.bot.send_message(self.chat_id, f'종료 null 체크 실패:  {error}'))
+        except Exception as e:
+            print('텔레그램 오류')
+            print(f"An error occurred: {e}")
+        return
 
 def run_in_new_loop(coroutine):
     """새로운 이벤트 루프에서 코루틴을 실행하는 도우미 함수"""
@@ -655,8 +682,9 @@ def crawl_test():
             shoenum.append(link[39:].split('/')[0].replace("'",""))
 
         # shoenum = sorted(list(set(shoenum)), reverse=True)
-        shoenum = ['8595', '8594', '8593', '8592', '8591', '8590', '8589', '8588', '8582', '8581', '8580', '8573', '8572', '8571', '8568', '8566', '8565', '8558', '8557', '8556', '8555', '8554', '8553', '8552', '8551', '8550', '8539', '8538', '8537', '8531', '8524', '8516', '8515', '8448', '8447', '8446', '8445', '8444', '8443', '8412', '8409', '8402', '8387', '8254', '8111', '8108', '7527', '7456', '7455', '7218', '7194', '5676', '5675', '5250', '4899', '4355', '4080', '3400']
+        # shoenum = ['8595', '8594', '8593', '8592', '8591', '8590', '8589', '8588', '8582', '8581', '8580', '8573', '8572', '8571', '8568', '8566', '8565', '8558', '8557', '8556', '8555', '8554', '8553', '8552', '8551', '8550', '8539', '8538', '8537', '8531', '8524', '8516', '8515', '8448', '8447', '8446', '8445', '8444', '8443', '8412', '8409', '8402', '8387', '8254', '8111', '8108', '7527', '7456', '7455', '7218', '7194', '5676', '5675', '5250', '4899', '4355', '4080', '3400']
         # print(len(shoenum),shoenum)
+        shoenum = ['8595']
 
         for num in shoenum:
             now = datetime.datetime.now()
@@ -705,16 +733,44 @@ def luckd_crowler_test(no):
     for i in range(len(detail_info)):
         detail_info_find = soup.select('ul.detail_info>li')[i].text
         if '제품 코드' in detail_info_find:
-            serialno = detail_info_find[6:]
+            serialno = detail_info_find[6:].replace('/', '_').strip()
         if '발매일' in detail_info_find:
-            shoepubdate = detail_info_find[3:]
+            shoepubdate = detail_info_find[3:].strip()
         if '발매가' in detail_info_find or '가격' in detail_info_find:
-            shoeprice = detail_info_find[3:]
+            shoeprice = detail_info_find[3:].strip()
+        if '카테고리' in detail_info_find:
+            category = detail_info_find[4:].strip()
+        if '제품 색상' in detail_info_find:
+            product_color = detail_info_find[5:].strip()     
         if '제품 설명' in detail_info_find:
             product_detail = detail_info_find[5:].strip()
-        else:
-            product_detail = '-'
-    
+
+    try:
+        soldout_number = None
+        kream_number = None
+        trade_info = soup.select('img.trade_platform_img')
+        print(len(trade_info))
+        for i in range(len(trade_info)):
+            onclick_string = trade_info[i].get('onclick')
+            print(onclick_string)
+            if 'soldout' in onclick_string:
+                # %2f 다음에 오는 숫자 추출
+                number = re.search(r'%2f([0-9]+)', onclick_string)
+                if number:
+                    soldout_number = number.group(1)
+                    print(soldout_number)
+                else:
+                    print("No number found after soldout %2f")
+            if 'kream' in onclick_string:
+                match = re.search(r'products/([0-9]+)', onclick_string)
+                if match:
+                    kream_number = match.group(1)
+                    print(kream_number)
+                else:
+                    print("No number found after kream 'products/'")
+    except:
+        soldout_number = None
+        kream_number = None
         
     # print(serialno, shoepubdate, shoeprice, product_detail)
 
@@ -991,7 +1047,8 @@ def mijungCheck():
         for shoe in shoelist:
             # 각 Shoe 객체의 product_no 필드에 접근
             product_no_list.append(shoe.product_no)
-        for i in range(len(shoelist)):
+
+        for i, site in enumerate(shoesite1231):
             no = int(product_no_list[i])
             url = 'https://www.luck-d.com/release/product/%d/'%no
             html = requests.get(url).text
@@ -1010,6 +1067,7 @@ def mijungCheck():
 
             end_date = str(datetime.datetime.now().replace(microsecond=0))
             end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
+            
             site.end_date = end_date_datetime
             site.save()
             for k in range(len(sitecard)):
@@ -1027,10 +1085,115 @@ def mijungCheck():
                         end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
                         site.end_date = end_date_datetime
                         site.save()
+                    elif '까지' in end_date:
+                        end_date = end_date.replace("월",'-')
+                        end_date = end_date.replace(" ",'')
+                        end_date = end_date.replace("일",' ')
+                        end_date = end_date.replace("까",'')
+                        end_date = end_date.replace("지",'')
+                        # end_date = end_date + ":59"
+                        end_date = "".join(end_date)
+                        end_date = year +'-'+ end_date
+                        if len(end_date) == 11:
+                            end_date = end_date.replace(" ",'')
+                            end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+                        elif len(end_date) == 16:
+                            end_date = end_date + ":59"
+                            end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
+                        site.end_date = end_date_datetime
+                        site.save()
+        telegram_crawl.mijungCheck_msg()
+
     except Exception as e:
         print(f'An error occurred: {e}')
-        
-    telegram_crawl.mijungCheck_msg()
+        telegram_crawl.mijungCheck_error_msg(traceback.format_exc())
+    
+
+def nullCheck():
+    telegram_crawl = Telegram_crawl()
+    try:
+        shoesite1231 = Shoesite.objects.filter(end_date__isnull=True)
+        shoelist = []
+        for site in shoesite1231:
+            try:
+                shoe = Shoe.objects.get(serialno=site.serialno)
+            except:
+                print(f'존재하지않음: {site.serialno} 그래서 삭제함.')
+                site.delete()
+            shoelist.append(shoe)
+        product_no_list = []
+        for shoe in shoelist:
+            # 각 Shoe 객체의 product_no 필드에 접근
+            product_no_list.append(shoe.product_no)
+
+        for i, site in enumerate(shoesite1231):
+            print(f'{i}/{len(shoesite1231)}')
+            no = int(product_no_list[i])
+            url = 'https://www.luck-d.com/release/product/%d/'%no
+            html = requests.get(url).text
+            soup = BeautifulSoup(html,'html.parser')
+            time.sleep(0.1)
+
+            detail_info = soup.select('ul.detail_info>li')
+            # print(detail_info)
+            for j in range(len(detail_info)):
+                detail_info_find = soup.select('ul.detail_info>li')[j].text
+                if '제품 코드' in detail_info_find:
+                    serialno = detail_info_find[6:].replace('/', '_').strip()
+                
+            #사이트별       
+            sitecard = soup.select('div.release_card')    
+
+            end_date = str(datetime.datetime.now().replace(microsecond=0))
+            end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
+            
+            site.end_date = end_date_datetime
+            site.save()
+
+            for k in range(len(sitecard)):
+                #사이트명
+                sitename = soup.select('div.release_card_header > span')[k].text
+
+                sitelink = sitecard[k].a['href']
+
+                shoeunique = serialno+sitename+sitelink
+
+                if site.shoesiteunique == shoeunique:
+                    end_date = soup.select('li.release_time > label > span')[k].text.strip()
+                    if '까지' in end_date:
+                        end_date = end_date.replace("월",'-')
+                        end_date = end_date.replace(" ",'')
+                        end_date = end_date.replace("일",' ')
+                        end_date = end_date.replace("까",'')
+                        end_date = end_date.replace("지",'')
+                        # end_date = end_date + ":59"
+                        end_date = "".join(end_date)
+                        end_date = year +'-'+ end_date
+                        if len(end_date) == 11:
+                            end_date = end_date.replace(" ",'')
+                            end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+                        elif len(end_date) == 16:
+                            end_date = end_date + ":59"
+                            end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
+                        site.end_date = end_date_datetime
+                        site.save()
+                    elif '미정' in end_date:
+                        end_date = '2024-12-31 23:59:59'
+                        end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
+                        site.end_date = end_date_datetime
+                        site.save()
+                    elif '발매' in end_date:
+                        site.end_date = None
+                        site.save()
+                    # 시간이 시작일 경우
+                    elif '시작' in end_date:
+                        site.end_date = None
+                        site.save()
+        telegram_crawl.nullCheck_msg()
+
+    except Exception as e:
+        print(f'An error occurred: {e}')
+        telegram_crawl.nullCheck_error_msg(traceback.format_exc())
 
 import os
 import re

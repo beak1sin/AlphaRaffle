@@ -84,12 +84,14 @@ cronPath = os.path.join(BASE_DIR, 'cron.log')
 cronPath2 = os.path.join(BASE_DIR, 'cron2.log')
 cronPath3 = os.path.join(BASE_DIR, 'cron3.log')
 cronPath4 = os.path.join(BASE_DIR, 'cron4.log')
+cronPath5 = os.path.join(BASE_DIR, 'cron5.log')
 CRONJOBS = [
     # ('10 9,21 * * *', 'crawl', '>> ' + cronPath2),
     # ('*/1 * * * *', 'AlphaRaffle.cron.hello', '>> ' + cronPath),
     ('10 3,9,15,21 * * *', 'AlphaRaffle.cron.crawl', '>> ' + cronPath2),
     ('0 15 * * *', 'AlphaRaffle.cron.daily_verification_delete_crontab', '>> ' + cronPath3),
     ('0 15 * * *', 'AlphaRaffle.cron.mijungCheck', '>> ' + cronPath4),
+    ('0 15 * * *', 'AlphaRaffle.cron.nullCheck', '>> ' + cronPath5),
 ]
 
 # The Debug Toolbar is shown only if your IP is listed in the INTERNAL_IPS setting.
