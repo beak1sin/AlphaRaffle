@@ -792,6 +792,7 @@ def details(request):
         page_numbers = None
         previous_page = None
         next_page = None
+        isPage6 = None
     
     
     
