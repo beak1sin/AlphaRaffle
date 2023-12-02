@@ -858,7 +858,7 @@ def details(request):
                'recent_searches': recent_searches, 'start_page': start_page, 'end_page': end_page, 
                'page_numbers': page_numbers, 'previous_page': previous_page, 'next_page': next_page, 'isPage6': isPage6,
                'anotherBrandShoes': anotherBrandShoes, 'anotherCategoryShoes': anotherCategoryShoes }
-    #print(shoe.serialno)
+
     return render(request, 'draw/details.html', context)
 
 @csrf_protect
