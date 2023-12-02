@@ -821,7 +821,6 @@ def details(request):
             site.is_valid_date = True
         else:
             if site.end_date <= current_time:
-                # print(site.pub_date, current_time)
                 site.is_valid_date = False
             else:
                 site.is_valid_date = True
@@ -831,29 +830,10 @@ def details(request):
             site.is_valid_date = True
         else:
             if site.end_date <= current_time:
-                # print(site.pub_date, current_time)
                 site.is_valid_date = False
             else:
                 site.is_valid_date = True
 
-    # for site in offlineSite:
-        
-    #     if site.pub_date == None and site.end_date != None:
-    #         # print(site.end_date , current_time)
-    #         site.is_valid_date = site.end_date > current_time
-
-    #     if site.end_date == None and site.pub_date != None:
-    #         # print(site.pub_date, current_time)
-    #         site.is_valid_date = site.pub_date > current_time  
-
-    #     if site.end_date == None and site.pub_date == None:
-    #         site.is_valid_date = True
-        
-    #     if site.pub_date != None and site.end_date != None:
-    #         # print(site.pub_date, current_time, site.end_date)
-    #         site.is_valid_date = site.pub_date <= current_time <= site.end_date 
-    #     # print(site.is_valid_date)
-    
     for site in offlineSite:
         if site.end_date != None:
             site.is_valid_date = False
@@ -863,9 +843,21 @@ def details(request):
                 site.is_valid_date = True
             else:
                 site.is_valid_date = False
+    
+    # shoebrand가 같은걸로 필터링한 다른 신발
+    anotherBrandShoes = Shoe.objects.filter(shoebrand=shoe.shoebrand).exclude(id=shoe.id).order_by('-id')[:10]
+
+    # category가 같은걸로 필터링한 다른 신발
+    anotherCategoryShoes = Shoe.objects.filter(category=shoe.category).exclude(id=shoe.id).order_by('-id')[:10]
 
     context["member_no"] = member_no
-    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'offlineSite': offlineSite, 'googleSiteOnly': googleSiteOnly, 'comment': comments, 'comment_count': comment_count, 'serialnoSlash': serialnoSlash, 'shoenameSlash': shoenameSlash, 'shoeengnameSlash': shoeengnameSlash, 'recent_searches': recent_searches, 'start_page': start_page, 'end_page': end_page, 'page_numbers': page_numbers, 'previous_page': previous_page, 'next_page': next_page, 'isPage6': isPage6 }
+    context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 
+               'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'offlineSite': offlineSite, 
+               'googleSiteOnly': googleSiteOnly, 'comment': comments, 'comment_count': comment_count, 
+               'serialnoSlash': serialnoSlash, 'shoenameSlash': shoenameSlash, 'shoeengnameSlash': shoeengnameSlash, 
+               'recent_searches': recent_searches, 'start_page': start_page, 'end_page': end_page, 
+               'page_numbers': page_numbers, 'previous_page': previous_page, 'next_page': next_page, 'isPage6': isPage6,
+               'anotherBrandShoes': anotherBrandShoes, 'anotherCategoryShoes': anotherCategoryShoes }
     #print(shoe.serialno)
     return render(request, 'draw/details.html', context)
 

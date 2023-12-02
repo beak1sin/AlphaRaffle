@@ -156,6 +156,26 @@
                                     <div class="serialno-duplicate-icon"></div>
                                 </div>
                             </div>
+                            {% if shoe.category != None %}
+                            <div style="padding: 10px 0px; height: auto; overflow: hidden;">
+                                <div style="float: left;">
+                                    <span class="title">카테고리</span>
+                                </div>
+                                <div style="float: right;">
+                                    <span class="category">{{shoe.category}}</span>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if shoe.product_color != None %}
+                            <div style="padding: 10px 0px; height: auto; overflow: hidden;">
+                                <div style="float: left;">
+                                    <span class="title">색상</span>
+                                </div>
+                                <div style="float: right;">
+                                    <span class="product-color">{{shoe.product_color}}</span>
+                                </div>
+                            </div>
+                            {% endif %}
                             <div style="padding: 10px 0px; height: auto; overflow: hidden;">
                                 <div style="float: left;">
                                     <span class="title">발매일</span>
@@ -441,6 +461,49 @@
                         {% endfor %}
                     </div>
                     {% endif %}
+
+                    {% if shoe.shoebrand != None and anotherBrandShoes %}
+                    <div>
+                        <span class="box-title">{{shoe.shoebrand}}의 다른 상품</span>
+                    </div>
+                    <div class="wrapper">
+                        {% for anotherBrandShoe in anotherBrandShoes %}
+                        <div class="wrapper-items no-margin" onclick="location.href = DETAILS_URL + '{{anotherBrandShoe.serialno}}', '_blank';">
+                            <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
+                                <img class="lazyload" data-src="{% static 'draw/images/' %}{{anotherBrandShoe.serialno}}0.avif" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                            </div>
+                            <div style="height: auto;">
+                                <div class="details-anotherShoe-shoename-box" style="height: 50%; text-align: center; width: 100%; padding: 0 5px;"><p style="font-size: 12px; font-weight: 500; margin: 0;">{{anotherBrandShoe.shoename}}</p></div>
+                                <div style="height: 50%; text-align: center; display: table; width: 100%; padding: 5px 5px 0 5px;">
+                                    <p class="text-date">{{anotherBrandShoe.pubdate}} 발매</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if shoe.category != None and anotherCategoryShoes %}
+                    <div>
+                        <span class="box-title">{{shoe.category}}의 다른 상품</span>
+                    </div>
+                    <div class="wrapper">
+                        {% for anotherCategoryShoe in anotherCategoryShoes %}
+                        <div class="wrapper-items no-margin" onclick="location.href = DETAILS_URL + '{{anotherCategoryShoe.serialno}}', '_blank';">
+                            <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
+                                <img class="lazyload" data-src="{% static 'draw/images/' %}{{anotherCategoryShoe.serialno}}0.avif" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                            </div>
+                            <div style="height: auto;">
+                                <div class="details-anotherShoe-shoename-box" style="height: 50%; text-align: center; width: 100%; padding: 0 5px;"><p style="font-size: 12px; font-weight: 500; margin: 0;">{{anotherCategoryShoe.shoename}}</p></div>
+                                <div style="height: 50%; text-align: center; display: table; width: 100%; padding: 5px 5px 0 5px;">
+                                    <p class="text-date">{{anotherCategoryShoe.pubdate}} 발매</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
                     <div class="bottom-ad-box" style="position: relative;">
                         <div class="bottom-ad-box-js" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
                         </div>
@@ -619,7 +682,7 @@
 
     {% include 'draw/go_up.html' %}
     
-    <script>const STATIC_FULL_URL = "{% url 'draw:map' %}?serialnum=";const STATIC_IMAGES_URL = "{% static 'draw/images/' %}";</script>
+    <script>const STATIC_FULL_URL = "{% url 'draw:map' %}?serialnum=";const STATIC_IMAGES_URL = "{% static 'draw/images/' %}"; const DETAILS_URL = "{% url 'draw:상세정보' %}?serialnum=";</script>
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>

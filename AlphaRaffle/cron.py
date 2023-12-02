@@ -117,6 +117,8 @@ def luckd_crowler(no):
 
     for i in range(len(detail_info)):
         product_detail = '-'
+        category = '-'
+        product_color = '-'
         detail_info_find = soup.select('ul.detail_info>li')[i].text
         if '제품 코드' in detail_info_find:
             serialno = detail_info_find[6:].replace('/', '_').strip()
@@ -133,6 +135,22 @@ def luckd_crowler(no):
 
     # print(serialno, shoepubdate, shoeprice, product_detail)
 
+    try:
+        soldout_number = None
+        kream_number = None
+        trade_info = soup.select('img.trade_platform_img')
+        for i in range(len(trade_info)):
+            onclick_string = trade_info[i].get('onclick')
+            print(onclick_string)
+            if 'soldout' in onclick_string:
+                soldout_number = onclick_string.lower().split('product%2f')[-1].split("');")[0]
+            if 'kream' in onclick_string:
+                kream_number = onclick_string.lower().split('products/')[-1].split("');")[0]
+    except Exception as e:
+        print(f'soldout, kream 크롤링 실패: {traceback.format_exc()}')
+        soldout_number = None
+        kream_number = None
+
     if len(serialno) <= 2:
         print('no serial number')
         return
@@ -142,7 +160,9 @@ def luckd_crowler(no):
     imgDownload = False
     try:
         Shoe.objects.create(shoename = shoename , shoeengname = subname, serialno = serialno,
-                        shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, shoeprice = shoeprice, product_no = no)
+                        shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, 
+                        shoeprice = shoeprice, category = category, product_color = product_color, 
+                        product_no = no, soldout_number = soldout_number, kream_number = kream_number)
         imgDownload = True
     except Exception as e:
         print(f"An error occurred {no}: {e}")
@@ -682,9 +702,9 @@ def crawl_test():
             shoenum.append(link[39:].split('/')[0].replace("'",""))
 
         # shoenum = sorted(list(set(shoenum)), reverse=True)
-        # shoenum = ['8595', '8594', '8593', '8592', '8591', '8590', '8589', '8588', '8582', '8581', '8580', '8573', '8572', '8571', '8568', '8566', '8565', '8558', '8557', '8556', '8555', '8554', '8553', '8552', '8551', '8550', '8539', '8538', '8537', '8531', '8524', '8516', '8515', '8448', '8447', '8446', '8445', '8444', '8443', '8412', '8409', '8402', '8387', '8254', '8111', '8108', '7527', '7456', '7455', '7218', '7194', '5676', '5675', '5250', '4899', '4355', '4080', '3400']
+        shoenum = ['8595', '8594', '8593', '8592', '8591', '8590', '8589', '8588', '8582', '8581', '8580', '8573', '8572', '8571', '8568', '8566', '8565', '8558', '8557', '8556', '8555', '8554', '8553', '8552', '8551', '8550', '8539', '8538', '8537', '8531', '8524', '8516', '8515', '8448', '8447', '8446', '8445', '8444', '8443', '8412', '8409', '8402', '8387', '8254', '8111', '8108', '7527', '7456', '7455', '7218', '7194', '5676', '5675', '5250', '4899', '4355', '4080', '3400']
         # print(len(shoenum),shoenum)
-        shoenum = ['8595']
+        # shoenum = ['8515']
 
         for num in shoenum:
             now = datetime.datetime.now()
@@ -749,26 +769,15 @@ def luckd_crowler_test(no):
         soldout_number = None
         kream_number = None
         trade_info = soup.select('img.trade_platform_img')
-        print(len(trade_info))
         for i in range(len(trade_info)):
             onclick_string = trade_info[i].get('onclick')
             print(onclick_string)
             if 'soldout' in onclick_string:
-                # %2f 다음에 오는 숫자 추출
-                number = re.search(r'%2f([0-9]+)', onclick_string)
-                if number:
-                    soldout_number = number.group(1)
-                    print(soldout_number)
-                else:
-                    print("No number found after soldout %2f")
+                soldout_number = onclick_string.lower().split('product%2f')[-1].split("');")[0]
             if 'kream' in onclick_string:
-                match = re.search(r'products/([0-9]+)', onclick_string)
-                if match:
-                    kream_number = match.group(1)
-                    print(kream_number)
-                else:
-                    print("No number found after kream 'products/'")
-    except:
+                kream_number = onclick_string.lower().split('products/')[-1].split("');")[0]
+    except Exception as e:
+        print(f'soldout, kream 크롤링 실패: {traceback.format_exc()}')
         soldout_number = None
         kream_number = None
         
@@ -1362,3 +1371,45 @@ def debuging():
         site.end_date = end_date_datetime
         site.save()
 
+def crawl_num():
+    shoes = Shoe.objects.filter()
+    for i, shoe in enumerate(shoes):
+        luckd_no = int(shoe.product_no)
+        url = 'https://www.luck-d.com/release/product/%d/'%luckd_no
+        #print(no)
+        html = requests.get(url).text
+        soup = BeautifulSoup(html,'html.parser')
+        time.sleep(0.01)
+
+        detail_info = soup.select('ul.detail_info>li')
+
+        for j in range(len(detail_info)):
+            category = '-'
+            product_color = '-'
+            detail_info_find = soup.select('ul.detail_info>li')[j].text
+            if '카테고리' in detail_info_find:
+                category = detail_info_find[4:].strip()
+                shoe.category = category
+            if '제품 색상' in detail_info_find:
+                product_color = detail_info_find[5:].strip()
+                shoe.product_color = product_color
+
+        try:
+            soldout_number = None
+            kream_number = None
+            trade_info = soup.select('img.trade_platform_img')
+            for i in range(len(trade_info)):
+                onclick_string = trade_info[i].get('onclick')
+                if 'soldout' in onclick_string:
+                    soldout_number = onclick_string.lower().split('product%2f')[-1].split("');")[0]
+                if 'kream' in onclick_string:
+                    kream_number = onclick_string.split('products/')[-1].split("');")[0]
+        except Exception as e:
+            print(f'soldout, kream 크롤링 실패: {traceback.format_exc()}')
+            soldout_number = None
+            kream_number = None
+        shoe.soldout_number = soldout_number
+        shoe.kream_number = kream_number
+        shoe.save()
+
+        print(f'{i}/{len(shoes)} : {shoe.category}, {shoe.product_color}, {soldout_number}, {kream_number}')

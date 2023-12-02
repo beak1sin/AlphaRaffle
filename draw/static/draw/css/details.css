@@ -788,7 +788,7 @@ p {
   font-size: 24px; font-weight: 500;
 }
 
-.serialno, .serialnoSlash, .pubdate, .shoeprice {
+.serialno, .serialnoSlash, .pubdate, .shoeprice, .category, .product-color {
   font-size: 24px; font-weight: 700;
 }
 
@@ -920,6 +920,14 @@ p {
   background: url('../necessary/page_last_fill_icon.svg') no-repeat center
 }
 
+.details-anotherShoe-shoename-box {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+
 @media (max-width: 767px) {
   .left-ad-box, .right-ad-box {
     display: none;
@@ -967,7 +975,7 @@ p {
     font-size: 20px;
   }
 
-  .serialno, .serialnoSlash, .pubdate, .shoeprice {
+  .serialno, .serialnoSlash, .pubdate, .shoeprice, .category, .product-color {
     font-size: 20px !important;
   }
 
@@ -1044,7 +1052,7 @@ p {
     font-size: 14px;
   }
 
-  .serialno, .serialnoSlash, .pubdate, .shoeprice {
+  .serialno, .serialnoSlash, .pubdate, .shoeprice, .category, .product-color {
     font-size: 14px !important;
   }
 
