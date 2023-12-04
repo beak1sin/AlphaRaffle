@@ -117,8 +117,8 @@ def luckd_crowler(no):
 
     for i in range(len(detail_info)):
         product_detail = '-'
-        category = '-'
-        product_color = '-'
+        category = None
+        product_color = None
         detail_info_find = soup.select('ul.detail_info>li')[i].text
         if '제품 코드' in detail_info_find:
             serialno = detail_info_find[6:].replace('/', '_').strip()
@@ -141,7 +141,6 @@ def luckd_crowler(no):
         trade_info = soup.select('img.trade_platform_img')
         for i in range(len(trade_info)):
             onclick_string = trade_info[i].get('onclick')
-            print(onclick_string)
             if 'soldout' in onclick_string:
                 soldout_number = onclick_string.lower().split('product%2f')[-1].split("');")[0]
             if 'kream' in onclick_string:
@@ -165,7 +164,11 @@ def luckd_crowler(no):
                         product_no = no, soldout_number = soldout_number, kream_number = kream_number)
         imgDownload = True
     except Exception as e:
-        print(f"An error occurred {no}: {e}")
+        Shoe.objects.update(shoename = shoename , shoeengname = subname,
+                shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, 
+                shoeprice = shoeprice, category = category, product_color = product_color, 
+                product_no = no, soldout_number = soldout_number, kream_number = kream_number)
+        print(f"An error occurred {no}: {e}, update complete")
         pass
     
     # shoeDB = Shoe.objects.filter(serialno = serialno)
@@ -752,6 +755,8 @@ def luckd_crowler_test(no):
 
     for i in range(len(detail_info)):
         detail_info_find = soup.select('ul.detail_info>li')[i].text
+        category = None
+        product_color = None
         if '제품 코드' in detail_info_find:
             serialno = detail_info_find[6:].replace('/', '_').strip()
         if '발매일' in detail_info_find:

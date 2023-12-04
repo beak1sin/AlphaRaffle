@@ -560,7 +560,7 @@ p {
     background: #333333;
   }
 
-  .wrapper-items:hover .text-date, .wrapper-items:hover .text-sitename {
+  .wrapper-items:hover .text-date, .wrapper-items:hover .text-sitename, .wrapper-items:hover .text-shoename {
     color: #ffffff;
   }
 }
@@ -578,8 +578,16 @@ p {
   display: table;
   text-align: center;
 }
+
+.wrapper-link {
+  display: flex; flex-direction: column; color: #111111;
+}
 .text-sitename {
   font-size: 14px; font-weight: 500; margin: 0; display: table-cell; vertical-align: middle;
+}
+
+.text-shoename {
+  font-size: 12px; font-weight: 500; margin: 0;
 }
 .text-date {
   font-size: 10px; line-height: 10px; font-weight: 200; margin: 0; display: table-cell; vertical-align: middle;

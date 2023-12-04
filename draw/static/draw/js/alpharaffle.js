@@ -60,9 +60,10 @@ $(document).ready(function() {
 
     var xhr;
 
-    $('.bookmark-icon-label').click(function(event) {
-        event.stopPropagation();
-        let $serialno = $(this).parent().parent().parent().parent().attr('data-value');
+    // 북마크 기능
+    $('.grid-wrapper').on('click', '.bookmark-icon-label', function(event) {
+        event.preventDefault();
+        let $serialno = $(this).parent().parent().parent().parent().parent().attr('data-value');
         
         var $this = $(this);
         var $count = $(this).parent().next().children();
@@ -78,8 +79,6 @@ $(document).ready(function() {
                 var obj = JSON.parse(data);
   
                 if (obj.flag == '0') {
-                    // $('.bookmark-layer').removeClass('off');
-                    // $('.bookmark-layer').addClass('on');
                     location.href = '/auth/login/';
                 } else {
                     if(obj.liked) {
@@ -96,72 +95,13 @@ $(document).ready(function() {
         xhr.send(datastr);
     });
 
-    // 북마크 로그인 여부
-    // $('input[type=checkbox][name=bookmark]').change(function ()  {
-    //     // let $serialno = $(this).parent().parent().parent().parent().next().next().attr('data-value');
-    //     let $serialno = $(this).parent().parent().parent().parent().parent().attr('data-value');
-
-    //     var data = {serialnoAJAX: $serialno};
-    //     var datastr = JSON.stringify(data);
-    //     if ($('.bookmark-icon-label').hasClass('on')) {
-    //         xhr = new XMLHttpRequest();
-    //         xhr.onreadystatechange = function() {
-    //             if (xhr.readyState == 4) {
-    //                 var data = xhr.responseText;
-        
-    //                 var obj = JSON.parse(data);
-    
-    //                 if(obj.flag == "0"){
-    //                     // 로그인 X
-    //                     bookmarkLayerOn();
-    //                     // 레이어 외부 영역, 취소 버튼 클릭 시
-    //                     $('.u-section-1.blurOn, .u-section-2.blurOn, #cancel_btn').click(function () {
-    //                       bookmarkLayerOff();
-    //                     });
-    //                 } else {
-    //                     // 로그인 O
-    //                     alert(obj.result_msg);
-    //                     $('.bookmark-icon-label').removeClass('on');
-    //                 }
-    //             }
-    //         };
-    //         xhr.open("POST", "likeCancel");
-    //         xhr.setRequestHeader("X-CSRFToken", csrftoken);
-    //         xhr.send(datastr);
-    //     } else {
-    //         xhr = new XMLHttpRequest();
-    //         xhr.onreadystatechange = function() {
-    //             if (xhr.readyState == 4) {
-    //                 var data = xhr.responseText;
-        
-    //                 var obj = JSON.parse(data);
-
-    //                 if(obj.flag == "0"){
-    //                     // 로그인 X
-    //                     bookmarkLayerOn();
-    //                     // 레이어 외부 영역, 취소 버튼 클릭 시
-    //                     $('.u-section-1.blurOn, .u-section-2.blurOn, #cancel_btn').click(function () {
-    //                     bookmarkLayerOff();
-    //                     });
-    //                 } else {
-    //                     // 로그인 O
-    //                     alert(obj.result_msg);
-    //                     $('.bookmark-icon-label').addClass('on');
-    //                 }
-    //             }
-    //         };
-    //         xhr.open("POST", "like");
-    //         xhr.setRequestHeader("X-CSRFToken", csrftoken);
-    //         xhr.send(datastr);
-    //     }
-    // });
-    
-
+    // 현재 사용x
     // 북마크확인버튼 클릭 시 로그인페이지로 이동
     $(document).on("click", "#goLogin_btn", function (e){
         location.href = '/auth/login/';
     });
 
+    // 현재 사용x
     // 신고 로그인 여부
     $('.report_btn').click(function () {
       var data = {};
@@ -198,6 +138,7 @@ $(document).ready(function() {
 
   });
 
+    // 현재 사용x
     // 신고 전송하기
   $('#report_btn').click(function () {
     let reportValue = $('.content_area_value').val();

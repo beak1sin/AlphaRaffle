@@ -138,34 +138,36 @@
                         {% csrf_token %}
                         {% for shoe in droppedShoe %}
                         <div class="grid-box" data-value="{{shoe.serialno}}">
-                            <div class="grid-container" onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}', '_blank';">
-                                <div class="grid-img-box">
-                                    <div class="img-box">
-                                        <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.avif" alt="{{shoe.shoeengname}}">
+                            <a class="grid-link" href="{% url 'draw:상세정보' %}?serialnum={{shoe.serialno}}">
+                                <div class="grid-container">
+                                    <div class="grid-img-box">
+                                        <div class="img-box">
+                                            <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.avif" alt="{{shoe.shoeengname}}">
+                                        </div>
+                                        <div class="bookmark-icon">
+                                            {% if member in shoe.likes.all %}
+                                            <label class="bookmark-icon-label on">
+                                                <span class="icon"></span>
+                                            </label>
+                                            {% else %}
+                                            <label class="bookmark-icon-label">
+                                                <span class="icon"></span>
+                                            </label>
+                                            {% endif %}
+                                        </div>
                                     </div>
-                                    <div class="bookmark-icon">
-                                        {% if member in shoe.likes.all %}
-                                        <label class="bookmark-icon-label on">
-                                            <span class="icon"></span>
-                                        </label>
+                                    <div class="grid-shoename-box">
+                                        {% if shoenameSlash == None %}
+                                        <p class="shoename">{{shoe.shoename}}</p>
                                         {% else %}
-                                        <label class="bookmark-icon-label">
-                                            <span class="icon"></span>
-                                        </label>
+                                        <p class="shoename">{{shoenameSlash}}</p>
                                         {% endif %}
                                     </div>
+                                    <div class="grid-pubdate-box">
+                                        <p class="pubdate">{{shoe.pubdate}} 발매</p>
+                                    </div>
                                 </div>
-                                <div class="grid-shoename-box">
-                                    {% if shoenameSlash == None %}
-                                    <p class="shoename">{{shoe.shoename}}</p>
-                                    {% else %}
-                                    <p class="shoename">{{shoenameSlash}}</p>
-                                    {% endif %}
-                                </div>
-                                <div class="grid-pubdate-box">
-                                    <p class="pubdate">{{shoe.pubdate}} 발매</p>
-                                </div>
-                            </div>
+                            </a>
                         </div>
                         {% endfor %}
                     </div>
@@ -174,34 +176,36 @@
                         {% csrf_token %}
                         {% for shoe in upcomingShoe %}
                         <div class="grid-box" data-value="{{shoe.serialno}}">
-                            <div class="grid-container" onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}', '_blank';">
-                                <div class="grid-img-box">
-                                    <div class="img-box">
-                                        <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.avif" alt="{{shoe.shoeengname}}">
+                            <a class="grid-link" href="{% url 'draw:상세정보' %}?serialnum={{shoe.serialno}}">
+                                <div class="grid-container">
+                                    <div class="grid-img-box">
+                                        <div class="img-box">
+                                            <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.avif" alt="{{shoe.shoeengname}}">
+                                        </div>
+                                        <div class="bookmark-icon">
+                                            {% if member in shoe.likes.all %}
+                                            <label class="bookmark-icon-label on">
+                                                <span class="icon"></span>
+                                            </label>
+                                            {% else %}
+                                            <label class="bookmark-icon-label">
+                                                <span class="icon"></span>
+                                            </label>
+                                            {% endif %}
+                                        </div>
                                     </div>
-                                    <div class="bookmark-icon">
-                                        {% if member in shoe.likes.all %}
-                                        <label class="bookmark-icon-label on">
-                                            <span class="icon"></span>
-                                        </label>
+                                    <div class="grid-shoename-box">
+                                        {% if shoenameSlash == None %}
+                                        <p class="shoename">{{shoe.shoename}}</p>
                                         {% else %}
-                                        <label class="bookmark-icon-label">
-                                            <span class="icon"></span>
-                                        </label>
+                                        <p class="shoename">{{shoenameSlash}}</p>
                                         {% endif %}
                                     </div>
+                                    <div class="grid-pubdate-box">
+                                        <p class="pubdate">{{shoe.pubdate}} 발매</p>
+                                    </div>
                                 </div>
-                                <div class="grid-shoename-box">
-                                    {% if shoenameSlash == None %}
-                                    <p class="shoename">{{shoe.shoename}}</p>
-                                    {% else %}
-                                    <p class="shoename">{{shoenameSlash}}</p>
-                                    {% endif %}
-                                </div>
-                                <div class="grid-pubdate-box">
-                                    <p class="pubdate">{{shoe.pubdate}} 발매</p>
-                                </div>
-                            </div>
+                            </a>
                         </div>
                         {% endfor %}
                     </div>
@@ -210,34 +214,36 @@
                         {% csrf_token %}
                         {% for shoe in endShoe %}
                         <div class="grid-box" data-value="{{shoe.serialno}}">
-                            <div class="grid-container">
-                                <div class="grid-img-box" onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}', '_blank';">
-                                    <div class="img-box">
-                                        <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.avif" alt="{{shoe.shoeengname}}">
+                            <a class="grid-link" href="{% url 'draw:상세정보' %}?serialnum={{shoe.serialno}}">
+                                <div class="grid-container">
+                                    <div class="grid-img-box">
+                                        <div class="img-box">
+                                            <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.avif" alt="{{shoe.shoeengname}}">
+                                        </div>
+                                        <div class="bookmark-icon">
+                                            {% if member in shoe.likes.all %}
+                                            <label class="bookmark-icon-label on">
+                                                <span class="icon"></span>
+                                            </label>
+                                            {% else %}
+                                            <label class="bookmark-icon-label">
+                                                <span class="icon"></span>
+                                            </label>
+                                            {% endif %}
+                                        </div>
                                     </div>
-                                    <div class="bookmark-icon">
-                                        {% if member in shoe.likes.all %}
-                                        <label class="bookmark-icon-label on">
-                                            <span class="icon"></span>
-                                        </label>
+                                    <div class="grid-shoename-box">
+                                        {% if shoenameSlash == None %}
+                                        <p class="shoename">{{shoe.shoename}}</p>
                                         {% else %}
-                                        <label class="bookmark-icon-label">
-                                            <span class="icon"></span>
-                                        </label>
+                                        <p class="shoename">{{shoenameSlash}}</p>
                                         {% endif %}
                                     </div>
+                                    <div class="grid-pubdate-box">
+                                        <p class="pubdate">{{shoe.pubdate}} 발매</p>
+                                    </div>
                                 </div>
-                                <div class="grid-shoename-box">
-                                    {% if shoenameSlash == None %}
-                                    <p class="shoename">{{shoe.shoename}}</p>
-                                    {% else %}
-                                    <p class="shoename">{{shoenameSlash}}</p>
-                                    {% endif %}
-                                </div>
-                                <div class="grid-pubdate-box">
-                                    <p class="pubdate">{{shoe.pubdate}} 발매</p>
-                                </div>
-                            </div>
+                            </a>
                         </div>
                         {% endfor %}
                         

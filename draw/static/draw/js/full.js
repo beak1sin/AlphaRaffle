@@ -604,7 +604,8 @@ $(document).ready(function() {
                     var shoe1 = shoe[i].fields;
                     var liked = likes[i];
                     html += '<div class="grid-box" data-value="' + shoe1.serialno + '">';
-                    html += '<div class="grid-container" onclick="location.href = \'' + STATIC_FULL_URL + shoe1.serialno + '\', \'_blank\';"><div class="grid-img-box">';
+                    html += '<a class="grid-link" href="'+ STATIC_FULL_URL + shoe1.serialno +'">';
+                    html += '<div class="grid-container"><div class="grid-img-box">';
                     html += '<div class="img-box">'; 
                     html += '<img class="lazyload shoeimg" data-src="' + STATIC_IMAGES_URL + shoe1.serialno + '0.avif" alt="' + shoe1.shoeengname + '"></div>';
                     html += '<div class="bookmark-icon">';
@@ -613,44 +614,9 @@ $(document).ready(function() {
                     html += '</div>';
                     html += '<div class="grid-shoename-box"><p class="shoename">' + shoe1.shoename + '</p></div>';
                     html += '<div class="grid-pubdate-box"><p class="pubdate">' + shoe1.pubdate + ' 발매' + '</p></div>';
-                    html += '</div></div>';
+                    html += '</div></a></div>';
                 }
                 $('.infinite-container').append(html);
-
-                $('.bookmark-icon-label').click(function(event) {
-                    event.stopPropagation();
-                    let $serialno = $(this).parent().parent().parent().parent().attr('data-value');
-                
-                    var $this = $(this);
-                    var $count = $(this).parent().next().children();
-                
-                    var data = {serialnoAJAX: $serialno};
-                    var datastr = JSON.stringify(data);
-                
-                    xhr = new XMLHttpRequest();
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState == 4) {
-                            var data = xhr.responseText;
-                
-                            var obj = JSON.parse(data);
-                
-                            if (obj.flag == '0') {
-                                alert(obj.result_msg);
-                                location.href = '/auth/login/';
-                            } else {
-                                if(obj.liked) {
-                                    $this.addClass('on');
-                                } else {
-                                    $this.removeClass('on');
-                                }
-                                $count.text(obj.count);
-                            }
-                        }
-                    };
-                    xhr.open("POST", "likeShoe");
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                    xhr.send(datastr);
-                });
 
                 if (typeof callback === 'function') {
                     callback();
