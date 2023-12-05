@@ -164,7 +164,7 @@ def luckd_crowler(no):
                         product_no = no, soldout_number = soldout_number, kream_number = kream_number)
         imgDownload = True
     except Exception as e:
-        Shoe.objects.update(shoename = shoename , shoeengname = subname,
+        Shoe.objects.filter(serialno=serialno).update(shoename = shoename , shoeengname = subname,
                 shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, 
                 shoeprice = shoeprice, category = category, product_color = product_color, 
                 product_no = no, soldout_number = soldout_number, kream_number = kream_number)
@@ -1418,3 +1418,87 @@ def crawl_num():
         shoe.save()
 
         print(f'{i}/{len(shoes)} : {shoe.category}, {shoe.product_color}, {soldout_number}, {kream_number}')
+        
+# 8704
+def sibarjotgatne():
+    for k in range(8705):
+        url = 'https://www.luck-d.com/release/product/%d/'%k
+
+        html = requests.get(url).text
+        soup = BeautifulSoup(html,'html.parser')
+        time.sleep(0.01)
+        #신발 한글이름
+        try:
+            shoename = soup.select("h1.page_title")[0].text.replace('/', '_')
+        except IndexError:
+            print(f'{k}/8705 존재하지 않음 pass')
+            continue
+
+        #신발 영어이름
+        try:
+            subname  = soup.select("h2.sub_title")[0].text
+        except:
+            subname = shoename
+
+        #신발 브랜드
+        try:
+            shoebrandlist = soup.select('h3.brand')[0].text.split()
+            shoebrand = ' '.join(shoebrandlist)
+        except:
+            shoebrand = '-'
+
+        #신발 이미지 링크들
+        imglist = []
+        imglen  = soup.select("div.carousel-inner>div.item")
+
+
+        detail_info = soup.select('ul.detail_info>li')
+
+        for i in range(len(detail_info)):
+            product_detail = '-'
+            category = None
+            product_color = None
+            detail_info_find = soup.select('ul.detail_info>li')[i].text
+            if '제품 코드' in detail_info_find:
+                serialno = detail_info_find[6:].replace('/', '_').strip()
+            if '발매일' in detail_info_find:
+                shoepubdate = detail_info_find[3:].strip()
+            if '발매가' in detail_info_find or '가격' in detail_info_find:
+                shoeprice = detail_info_find[3:].strip()            
+            if '카테고리' in detail_info_find:
+                category = detail_info_find[4:].strip()
+            if '제품 색상' in detail_info_find:
+                product_color = detail_info_find[5:].strip()            
+            if '제품 설명' in detail_info_find:
+                product_detail = detail_info_find[5:].strip()
+
+        # print(serialno, shoepubdate, shoeprice, product_detail)
+
+        try:
+            soldout_number = None
+            kream_number = None
+            trade_info = soup.select('img.trade_platform_img')
+            for i in range(len(trade_info)):
+                onclick_string = trade_info[i].get('onclick')
+                if 'soldout' in onclick_string:
+                    soldout_number = onclick_string.lower().split('product%2f')[-1].split("');")[0]
+                if 'kream' in onclick_string:
+                    kream_number = onclick_string.lower().split('products/')[-1].split("');")[0]
+        except Exception as e:
+            print(f'soldout, kream 크롤링 실패: {traceback.format_exc()}')
+            soldout_number = None
+            kream_number = None
+
+        if len(serialno) <= 2:
+            print('no serial number')
+            continue
+        else:
+            pass
+        
+        Shoe.objects.filter(serialno=serialno).update(shoename = shoename , shoeengname = subname,
+                shoebrand = shoebrand, pubdate = shoepubdate, shoedetail = product_detail, 
+                shoeprice = shoeprice, category = category, product_color = product_color, 
+                product_no = k, soldout_number = soldout_number, kream_number = kream_number)
+
+        print(f'{k}/8705',serialno, shoename, subname, shoebrand, shoepubdate, product_detail, shoeprice, category, product_color, k, soldout_number, kream_number)
+
