@@ -115,10 +115,11 @@ def luckd_crowler(no):
 
     detail_info = soup.select('ul.detail_info>li')
 
+    product_detail = '-'
+    category = None
+    product_color = None
+
     for i in range(len(detail_info)):
-        product_detail = '-'
-        category = None
-        product_color = None
         detail_info_find = soup.select('ul.detail_info>li')[i].text
         if '제품 코드' in detail_info_find:
             serialno = detail_info_find[6:].replace('/', '_').strip()
@@ -752,11 +753,13 @@ def luckd_crowler_test(no):
 
 
     detail_info = soup.select('ul.detail_info>li')
+    product_detail = '-'
+    category = None 
+    product_color = None
 
     for i in range(len(detail_info)):
         detail_info_find = soup.select('ul.detail_info>li')[i].text
-        category = None
-        product_color = None
+
         if '제품 코드' in detail_info_find:
             serialno = detail_info_find[6:].replace('/', '_').strip()
         if '발매일' in detail_info_find:
@@ -1454,10 +1457,11 @@ def sibarjotgatne():
 
         detail_info = soup.select('ul.detail_info>li')
 
+        product_detail = '-'
+        category = None
+        product_color = None
         for i in range(len(detail_info)):
-            product_detail = '-'
-            category = None
-            product_color = None
+
             detail_info_find = soup.select('ul.detail_info>li')[i].text
             if '제품 코드' in detail_info_find:
                 serialno = detail_info_find[6:].replace('/', '_').strip()
@@ -1502,3 +1506,28 @@ def sibarjotgatne():
 
         print(f'{k}/8705',serialno, shoename, subname, shoebrand, shoepubdate, product_detail, shoeprice, category, product_color, k, soldout_number, kream_number)
 
+def categoryNcolor():
+    shoes = Shoe.objects.filter()
+    for i, shoe in enumerate(shoes):
+        luckd_no = int(shoe.product_no)
+        url = 'https://www.luck-d.com/release/product/%d/'%luckd_no
+        #print(no)
+        html = requests.get(url).text
+        soup = BeautifulSoup(html,'html.parser')
+        time.sleep(0.01)
+
+        detail_info = soup.select('ul.detail_info>li')
+        category = None
+        product_color = None
+        for j in range(len(detail_info)):
+            detail_info_find = soup.select('ul.detail_info>li')[j].text
+            if '카테고리' in detail_info_find:
+                category = detail_info_find[4:].strip()
+                shoe.category = category
+            if '제품 색상' in detail_info_find:
+                product_color = detail_info_find[5:].strip()
+                shoe.product_color = product_color
+
+        shoe.save()
+
+        print(f'{i}/{len(shoes)} : {shoe.category}, {shoe.product_color}')

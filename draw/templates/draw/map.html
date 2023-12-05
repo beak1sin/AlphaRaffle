@@ -1,107 +1,59 @@
-<!DOCTYPE html>
+{% extends 'draw/base.html' %}
 {% load pwa %}
 {% load static %}
-<html style="font-size: 16px;" lang="ko">
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta name="keywords" content="AlphaRaffle, 발매정보, 스니커즈, 한정판 신발, 한정판 스니커즈, 나이키, 뉴발란스, 아디다스, 한정판 신발 응모, 한정판 신발 발매 정보, 한정판 거래, 조던, 이지부스트, Sneakers, nike, jordan">
-    <meta name="description" content="AlphaRaffle | {{shoe.shoename}} ({{shoe.shoeengname}}) - {{shoe.serialno}} 오프라인">
-    <title>AlphaRaffle | {{shoe.shoename}} - 오프라인</title>
-    <!-- Apple Touch 아이콘 -->
-    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'draw/necessary/apple-touch-icon-114x114.png' %}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'draw/necessary/apple-touch-icon-120x120.png' %}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'draw/necessary/apple-touch-icon-144x144.png' %}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'draw/necessary/apple-touch-icon-180x180.png' %}"> 
-    <!-- Android/Chrome 아이콘 -->
-    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'draw/necessary/android-chrome-192x192.png' %}">
-    <!-- 일반적인 파비콘 -->
-    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'draw/necessary/favicon-96x96.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'draw/necessary/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'draw/necessary/favicon-16x16.png' %}">
-    <!-- Microsoft 타일 아이콘 -->
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-TileImage" content="{% static 'draw/necessary/mstile-144x144.png' %}">
-    <!-- macOS 탭 핀 -->
-    <link rel="mask-icon" href="{% static 'draw/necessary/ar01.svg' %}">
-    
-    <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" href="{% static 'draw/css/normalize.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/map.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/font.css' %}" media="screen">
+{% block title %}
+<title>AlphaRaffle | {{shoe.shoename}} - 오프라인</title>
+{% endblock %}
 
-    {% progressive_web_app_meta %}
-    
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FKLV3QNRNC"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'draw/css/map.css' %}" media="screen">
+<link rel="stylesheet" href="{% static 'draw/css/font.css' %}" media="screen">
+{% endblock %}
 
-    gtag('config', 'G-FKLV3QNRNC');
-    </script>
-     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=f7pin7r31a"></script>
+{% block meta_title %}
+<meta name="description" content="AlphaRaffle | {{shoe.shoename}} ({{shoe.shoeengname}}) - {{shoe.serialno}} 오프라인">
+<meta property="og:title" content="AlphaRaffle | {{shoe.shoename}}">
+<meta property="og:description" content="AlphaRaffle | {{shoe.shoename}} ({{shoe.shoeengname}}) - {{shoe.serialno}} 오프라인">
+{% endblock %}
 
-    <meta property="og:title" content="AlphaRaffle | {{shoe.shoename}}">
-    <meta property="og:image" content="{% static 'draw/images/ar011.avif' %}">
-    <meta property="og:description" content="AlphaRaffle | {{shoe.shoename}} ({{shoe.shoeengname}}) - {{shoe.serialno}} 오프라인">
-    <meta property="og:type" content="website">
-</head>
-
-<body style="background: #FBFBFB">
-
-    {% include 'draw/header.html' %}
-
-    
-
-    <section style="width: 100vw; height: 100vh;">
-        <div class="map-box" style="width: 100vw;">
-            <div style="width: 17.5vw; height: 100%; float: left;"></div>
-            <div style="width: 65vw; float: left;">
-                <div style="padding-top: 50px;">
-                    <span style="font-size: 36px; font-weight: 900;">오프라인 응모</span>
-                </div>
-                <div style="padding-bottom: 40px;">
-                    <span style="color: #777777; font-size: 24px; font-weight: 400;">응모 정보와 매장 위치를 확인하세요.</span>
-                </div>
-                <div class="shoe-display" style="display: flex; justify-content: space-between;">
-                    <div class="map" id="map" style="width:50%; height:500px; padding-right: 20px;"></div>
-                    <div class="address" style="display: flex; flex-direction: column; width: 50%; padding-left: 20px;">
-                        {% for site in shoesite %}
-                        <div class="address-items {% if forloop.first %}on{% endif %}">
-                            <p class="big-text">{{site.sitename}}</p>
-                            <div>
-                                {% if site.pub_date %}
-                                <p class="small-text">{{site.pub_date}} 발매</p>
-                                {% else %}
-                                <p class="small-text">~ {{site.end_date}} 종료</p>
-                                {% endif %}
-                                <p class="small-text">{{site.address}}</p>
-                            </div>
+{% block content %}
+<section style="width: 100vw; height: 100vh;">
+    <div class="map-box" style="width: 100vw;">
+        <div style="width: 17.5vw; height: 100%; float: left;"></div>
+        <div style="width: 65vw; float: left;">
+            <div style="padding-top: 50px;">
+                <span style="font-size: 36px; font-weight: 900;">오프라인 응모</span>
+            </div>
+            <div style="padding-bottom: 40px;">
+                <span style="color: #777777; font-size: 24px; font-weight: 400;">응모 정보와 매장 위치를 확인하세요.</span>
+            </div>
+            <div class="shoe-display" style="display: flex; justify-content: space-between;">
+                <div class="map" id="map" style="width:50%; height:500px; padding-right: 20px;"></div>
+                <div class="address" style="display: flex; flex-direction: column; width: 50%; padding-left: 20px;">
+                    {% for site in shoesite %}
+                    <div class="address-items {% if forloop.first %}on{% endif %}">
+                        <p class="big-text">{{site.sitename}}</p>
+                        <div>
+                            {% if site.pub_date %}
+                            <p class="small-text">{{site.pub_date}} 발매</p>
+                            {% else %}
+                            <p class="small-text">~ {{site.end_date}} 종료</p>
+                            {% endif %}
+                            <p class="small-text">{{site.address}}</p>
                         </div>
-                        {% endfor %}
                     </div>
+                    {% endfor %}
                 </div>
             </div>
-            <div style="width: 17.5vw; height: 100%; float: left;"></div>
         </div>
-    </section>
-    {% include 'draw/search.html' %}
+        <div style="width: 17.5vw; height: 100%; float: left;"></div>
+    </div>
+</section>
+{% endblock %}
 
-    {% include 'draw/loading.html' %}
-
-    {% include 'draw/go_up.html' %}
-    
-    <script>const STATIC_IMAGES_URL = "{% static 'draw/images/' %}";</script>
-    <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
-    <script src="{% static 'draw/js/map.js' %}"></script>
-    <script src="{% static 'draw/js/alpharaffle.js' %}"></script>
-    <script src="{% static 'draw/js/sha1.js' %}"></script>
-</body>
-
-</html>
+{% block extra_js %}
+<script>const STATIC_IMAGES_URL = "{% static 'draw/images/' %}";</script>
+<script src="{% static 'draw/js/map.js' %}"></script>
+<script src="{% static 'draw/js/sha1.js' %}"></script>
+{% endblock %}

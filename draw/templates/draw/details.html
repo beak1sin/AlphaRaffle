@@ -1,270 +1,267 @@
-<!DOCTYPE html>
+{% extends 'draw/base.html' %}
 {% load pwa %}
 {% load static %}
-<html style="font-size: 16px;" lang="ko">
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta name="keywords" content="AlphaRaffle, 발매정보, 스니커즈, 한정판 신발, 한정판 스니커즈, 나이키, 뉴발란스, 아디다스, 한정판 신발 응모, 한정판 신발 발매 정보, 한정판 거래, 조던, 이지부스트, Sneakers, nike, jordan">
-    <meta name="description" content="지금 당장 {{shoe.shoename}} ({{shoe.shoeengname}}) - {{shoe.serialno}} 의 정보를 확인해보세요!">
-    <title>AlphaRaffle | {{shoe.shoename}}</title>
-    <!-- Apple Touch 아이콘 -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'draw/necessary/apple-touch-icon-180x180.png' %}"> 
-    <!-- Android/Chrome 아이콘 -->
-    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'draw/necessary/android-chrome-192x192.png' %}">
-    <!-- 일반적인 파비콘 -->
-    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'draw/necessary/favicon-96x96.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'draw/necessary/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'draw/necessary/favicon-16x16.png' %}">
-    <!-- Microsoft 타일 아이콘 -->
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-TileImage" content="{% static 'draw/necessary/mstile-144x144.png' %}">
-    <!-- macOS 탭 핀 -->
-    <link rel="mask-icon" href="{% static 'draw/necessary/ar01.svg' %}">
-    
-    <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" href="{% static 'draw/css/normalize.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/nicepage.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/details.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/font.css' %}" media="screen">
+{% block title %}
+<title>AlphaRaffle | {{shoe.shoename}}</title>
+{% endblock %}
 
-    {% progressive_web_app_meta %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'draw/css/nicepage.css' %}" media="screen">
+<link rel="stylesheet" href="{% static 'draw/css/details.css' %}" media="screen">
+<link rel="stylesheet" href="{% static 'draw/css/font.css' %}" media="screen">
+{% endblock %}
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FKLV3QNRNC"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+{% block meta_title %}
+<meta name="description" content="지금 당장 {{shoe.shoename}} ({{shoe.shoeengname}}) - {{shoe.serialno}} 의 정보를 확인해보세요!">
+<meta property="og:title" content="AlphaRaffle | {{shoe.shoename}}">
+<meta property="og:description" content="지금 당장 {{shoe.shoename}} ({{shoe.shoeengname}}) - {{shoe.serialno}} 의 정보를 확인해보세요!">
+{% endblock %}
 
-    gtag('config', 'G-FKLV3QNRNC');
-    </script>
+{% block body_class %}u-body u-xl-mode{% endblock %}
 
-    <meta property="og:title" content="AlphaRaffle | {{shoe.shoename}}">
-    <meta property="og:image" content="{% static 'draw/images/ar011.avif' %}">
-    <meta property="og:description" content="지금 당장 {{shoe.shoename}} ({{shoe.shoeengname}}) - {{shoe.serialno}} 의 정보를 확인해보세요!">
-    <meta property="og:type" content="website">
-</head>
 
-<body class="u-body u-xl-mode" style="background: #FBFBFB">
 
-    {% include 'draw/header.html' %}
-
-    <section style="width: 100vw; height: 100vh;">
-        <div class="details-box">
-            <div class="left-ad-box">
-                <div class="left-ad-box-js" style="left: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%)">
+{% block content %}
+<section style="width: 100vw; height: 100vh;">
+    <div class="details-box">
+        <div class="left-ad-box">
+            <div class="left-ad-box-js" style="left: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%)">
+            </div>
+        </div>
+        <div class="whole-box">
+            <div class="top-ad-box" style="position: relative;">
+                <div class="top-ad-box-js" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
                 </div>
             </div>
-            <div class="whole-box">
-                <div class="top-ad-box" style="position: relative;">
-                    <div class="top-ad-box-js" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+            <div class="box1">
+                <div class="box1-items-1 u-section-1">
+                    <div class="u-carousel u-expanded-width-xs u-gallery u-gallery-slider u-layout-carousel u-lightbox u-no-transition u-show-text-none u-gallery-1" data-interval="5000" data-u-ride="carousel" id="carousel-edf8">
+                        <ol class="u-absolute-hcenter u-carousel-indicators u-carousel-indicators-1">
+                            {% for img in img %}
+                            {% if forloop.counter0 == 0 %}
+                            <li data-u-target="#carousel-edf8" data-u-slide-to="{{forloop.counter0}}" class="u-active u-grey-70 u-shape-circle" style="width: 10px; height: 10px;"></li>
+                            {% else %}
+                            <li data-u-target="#carousel-edf8" data-u-slide-to="{{forloop.counter0}}" class="u-grey-70 u-shape-circle" style="width: 10px; height: 10px;"></li>
+                            {% endif %}
+                            {% endfor %}
+                        </ol>
+                        <div class="u-carousel-inner u-gallery-inner u-radius-50" role="listbox">
+                            {% for img in img %}
+                            {% if forloop.counter == 1 %}
+                            <div class="u-active u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter0}}">
+                                <div class="u-back-slide u-back-slide-1">
+                                    <img class="u-back-image u-expanded" src="{% static 'draw/images/' %}{{img.serialno}}{{forloop.counter0}}.avif" alt="{{shoe.shoeengname}}-{{forloop.counter}}">
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter0}}">
+                                <div class="u-back-slide">
+                                    <img class="u-back-image u-expanded" src="{% static 'draw/images/' %}{{img.serialno}}{{forloop.counter0}}.avif" alt="{{shoe.shoeengname}}-{{forloop.counter}}">
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <a class="u-absolute-vcenter u-carousel-control u-carousel-control-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-carousel-control-1" href="#carousel-edf8" role="button" data-u-slide="prev">
+                            <span aria-hidden="true">
+                                <svg viewBox="0 0 451.847 451.847">
+                                    <path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path>
+                                </svg>
+                            </span>
+                            <span class="sr-only">
+                                <svg viewBox="0 0 451.847 451.847">
+                                    <path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path>
+                                </svg>
+                            </span>
+                        </a>
+                        <a class="u-absolute-vcenter u-carousel-control u-carousel-control-next u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-carousel-control-2" href="#carousel-edf8" role="button" data-u-slide="next">
+                            <span aria-hidden="true">
+                                <svg viewBox="0 0 451.846 451.847">
+                                    <path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path>
+                                </svg>
+                            </span>
+                            <span class="sr-only">
+                                <svg viewBox="0 0 451.846 451.847">
+                                    <path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path>
+                                </svg>
+                            </span>
+                        </a>
                     </div>
                 </div>
-                <div class="box1">
-                    <div class="box1-items-1 u-section-1">
-                        <div class="u-carousel u-expanded-width-xs u-gallery u-gallery-slider u-layout-carousel u-lightbox u-no-transition u-show-text-none u-gallery-1" data-interval="5000" data-u-ride="carousel" id="carousel-edf8">
-                            <ol class="u-absolute-hcenter u-carousel-indicators u-carousel-indicators-1">
-                                {% for img in img %}
-                                {% if forloop.counter0 == 0 %}
-                                <li data-u-target="#carousel-edf8" data-u-slide-to="{{forloop.counter0}}" class="u-active u-grey-70 u-shape-circle" style="width: 10px; height: 10px;"></li>
-                                {% else %}
-                                <li data-u-target="#carousel-edf8" data-u-slide-to="{{forloop.counter0}}" class="u-grey-70 u-shape-circle" style="width: 10px; height: 10px;"></li>
-                                {% endif %}
-                                {% endfor %}
-                            </ol>
-                            <div class="u-carousel-inner u-gallery-inner u-radius-50" role="listbox">
-                                {% for img in img %}
-                                {% if forloop.counter == 1 %}
-                                <div class="u-active u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter0}}">
-                                    <div class="u-back-slide u-back-slide-1">
-                                        <img class="u-back-image u-expanded" src="{% static 'draw/images/' %}{{img.serialno}}{{forloop.counter0}}.avif" alt="{{shoe.shoeengname}}-{{forloop.counter}}">
-                                    </div>
-                                </div>
-                                {% else %}
-                                <div class="u-carousel-item u-gallery-item u-carousel-item-{{forloop.counter0}}">
-                                    <div class="u-back-slide">
-                                        <img class="u-back-image u-expanded" src="{% static 'draw/images/' %}{{img.serialno}}{{forloop.counter0}}.avif" alt="{{shoe.shoeengname}}-{{forloop.counter}}">
-                                    </div>
-                                </div>
-                                {% endif %}
-                                {% endfor %}
-                            </div>
-                            <a class="u-absolute-vcenter u-carousel-control u-carousel-control-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-carousel-control-1" href="#carousel-edf8" role="button" data-u-slide="prev">
-                                <span aria-hidden="true">
-                                    <svg viewBox="0 0 451.847 451.847">
-                                        <path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
-    c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
-    c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path>
-                                    </svg>
-                                </span>
-                                <span class="sr-only">
-                                    <svg viewBox="0 0 451.847 451.847">
-                                        <path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
-    c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
-    c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path>
-                                    </svg>
-                                </span>
-                            </a>
-                            <a class="u-absolute-vcenter u-carousel-control u-carousel-control-next u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-carousel-control-2" href="#carousel-edf8" role="button" data-u-slide="next">
-                                <span aria-hidden="true">
-                                    <svg viewBox="0 0 451.846 451.847">
-                                        <path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
-    L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
-    c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path>
-                                    </svg>
-                                </span>
-                                <span class="sr-only">
-                                    <svg viewBox="0 0 451.846 451.847">
-                                        <path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
-    L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
-    c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path>
-                                    </svg>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
 
-                    <div class="box1-items-2">
-                        <div>
-                            {% if shoenameSlash == None %}
-                            <span class="shoename">{{shoe.shoename}}</span>
-                            {% else %}
-                            <span class="shoename">{{shoenameSlash}}</span>
-                            {% endif %}
+                <div class="box1-items-2">
+                    <div>
+                        {% if shoenameSlash == None %}
+                        <span class="shoename">{{shoe.shoename}}</span>
+                        {% else %}
+                        <span class="shoename">{{shoenameSlash}}</span>
+                        {% endif %}
+                    </div>
+                    <div>
+                        {% if shoeengnameSlash == None %}
+                        <span class="shoeengname">{{shoe.shoeengname}}</span>
+                        {% else %}
+                        <span class="shoeengname">{{shoeengnameSlash}}</span>
+                        {% endif %}
+                    </div>
+                    <div style="padding: 10px 0px; height: auto; overflow: hidden;">
+                        <div style="padding: 10px 0px; height: auto; overflow: hidden;">
+                            <div style="float: left;">
+                                <span class="title">제품코드</span>
+                            </div>
+                            <div style="float: right; display: flex;">
+                                {% if serialnoSlash == None %}
+                                <span class="serialno">{{shoe.serialno}}</span>
+                                {% else %}
+                                <span class="serialnoSlash">{{serialnoSlash}}</span>
+                                {% endif %}
+                                <div class="serialno-duplicate-icon"></div>
+                            </div>
                         </div>
-                        <div>
-                            {% if shoeengnameSlash == None %}
-                            <span class="shoeengname">{{shoe.shoeengname}}</span>
-                            {% else %}
-                            <span class="shoeengname">{{shoeengnameSlash}}</span>
-                            {% endif %}
+                        {% if shoe.category != None %}
+                        <div style="padding: 10px 0px; height: auto; overflow: hidden;">
+                            <div style="float: left;">
+                                <span class="title">카테고리</span>
+                            </div>
+                            <div style="float: right;">
+                                <span class="category">{{shoe.category}}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if shoe.product_color != None %}
+                        <div style="padding: 10px 0px; height: auto; overflow: hidden;">
+                            <div style="float: left;">
+                                <span class="title">색상</span>
+                            </div>
+                            <div style="float: right;">
+                                <span class="product-color">{{shoe.product_color}}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div style="padding: 10px 0px; height: auto; overflow: hidden;">
+                            <div style="float: left;">
+                                <span class="title">발매일</span>
+                            </div>
+                            <div style="float: right;">
+                                <span class="pubdate">{{shoe.pubdate}}</span>
+                            </div>
                         </div>
                         <div style="padding: 10px 0px; height: auto; overflow: hidden;">
-                            <div style="padding: 10px 0px; height: auto; overflow: hidden;">
-                                <div style="float: left;">
-                                    <span class="title">제품코드</span>
-                                </div>
-                                <div style="float: right; display: flex;">
-                                    {% if serialnoSlash == None %}
-                                    <span class="serialno">{{shoe.serialno}}</span>
-                                    {% else %}
-                                    <span class="serialnoSlash">{{serialnoSlash}}</span>
-                                    {% endif %}
-                                    <div class="serialno-duplicate-icon"></div>
-                                </div>
+                            <div style="float: left;">
+                                <span class="title">발매가</span>
                             </div>
-                            {% if shoe.category != None %}
-                            <div style="padding: 10px 0px; height: auto; overflow: hidden;">
-                                <div style="float: left;">
-                                    <span class="title">카테고리</span>
-                                </div>
-                                <div style="float: right;">
-                                    <span class="category">{{shoe.category}}</span>
-                                </div>
-                            </div>
-                            {% endif %}
-                            {% if shoe.product_color != None %}
-                            <div style="padding: 10px 0px; height: auto; overflow: hidden;">
-                                <div style="float: left;">
-                                    <span class="title">색상</span>
-                                </div>
-                                <div style="float: right;">
-                                    <span class="product-color">{{shoe.product_color}}</span>
-                                </div>
-                            </div>
-                            {% endif %}
-                            <div style="padding: 10px 0px; height: auto; overflow: hidden;">
-                                <div style="float: left;">
-                                    <span class="title">발매일</span>
-                                </div>
-                                <div style="float: right;">
-                                    <span class="pubdate">{{shoe.pubdate}}</span>
-                                </div>
-                            </div>
-                            <div style="padding: 10px 0px; height: auto; overflow: hidden;">
-                                <div style="float: left;">
-                                    <span class="title">발매가</span>
-                                </div>
-                                <div style="float: right;">
-                                    <span class="shoeprice">{{shoe.shoeprice}}</span>
-                                </div>
-                            </div>
-                            <div style="padding: 10px 0px; height: auto; overflow: hidden;">
-                                <div style="float: left;">
-                                    <span class="title">설명</span>
-                                </div>
-                                <div style="float: right;">
-                                    <span class="shoedetail">{{shoe.shoedetail}}</span>
-                                </div>
+                            <div style="float: right;">
+                                <span class="shoeprice">{{shoe.shoeprice}}</span>
                             </div>
                         </div>
-                        <div style="display:flex; width: 100%; flex-wrap: wrap;">
-                            <div style="height: 36px; background: #FBFBFB; border-radius: 10px; border: 0.30px #777777 solid; padding: 5px 10px; margin-right: 15px;">
-                                <!-- <div style="width: 100px; height: 30px; left: 0px; top: 0px; position: absolute; background: #FBFBFB; border-radius: 10px; border: 0.30px #777777 solid"></div> -->
-                                {% if 'NIKE' in shoe.shoebrand %}
-                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/NIKE.png' %}">
-                                {% elif 'ADIDAS' in shoe.shoebrand %}
-                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/ADIDAS_ORIGINALS.jpeg' %}">
-                                {% elif 'JORDAN' in shoe.shoebrand %}
-                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/JORDAN.png' %}">
-                                {% elif 'YEEZY' in shoe.shoebrand %}
-                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/ADIDAS_YEEZY.jpg' %}">
-                                {% elif 'CONVERSE' in shoe.shoebrand %}
-                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/CONVERSE.jpeg' %}">
-                                {% elif 'VANS' in shoe.shoebrand %}
-                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/VANS.svg' %}">
-                                {% elif 'NEW BALANCE' in shoe.shoebrand %}
-                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/NEW_BALANCE.png' %}">
-                                {% elif 'PUMA' in shoe.shoebrand %}
-                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/PUMA.png' %}">
-                                {% elif 'REEBOK' in shoe.shoebrand %}
-                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/REEBOK.jpg' %}">
-                                {% elif 'ASICS' in shoe.shoebrand %}
-                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/ASICS.png' %}">
-                                {% elif 'SALOMON' in shoe.shoebrand %}
-                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/SALOMON.jpeg' %}">
-                                {% endif %}
-                                <div style="color: black; font-size: 16px; font-family: Pretendard; font-weight: 700; word-wrap: break-word; float: left; line-height: 25px; margin-left: 10px;">{{shoe.shoebrand}}</div>
+                        <div style="padding: 10px 0px; height: auto; overflow: hidden;">
+                            <div style="float: left;">
+                                <span class="title">설명</span>
+                            </div>
+                            <div style="float: right;">
+                                <span class="shoedetail">{{shoe.shoedetail}}</span>
                             </div>
                         </div>
-                        <div style="padding: 10px 0px; height: auto; overflow: hidden; position: relative;">
-                            <div class="details-bookmark-icon">
-                                {% if member in shoe.likes.all %}
-                                <label class="details-bookmark-icon-label on">
-                                    <span class="icon"></span>
-                                </label>
-                                {% else %}
-                                <label class="details-bookmark-icon-label">
-                                    <span class="icon"></span>
-                                </label>
-                                {% endif %}
-                            </div>
-                            <div style="position: absolute; top: 50%; transform: translateY(-50%); left: 34px;"><p id="shoelikecount" style="margin: 0; color: #121212; font-size: 15px; font-weight: 700;">{{shoe.shoelikecount}}</p></div>
-                            <div style="float: right; height: 36px;">
-                            </div>
+                    </div>
+                    <div style="display:flex; width: 100%; flex-wrap: wrap;">
+                        <div style="height: 36px; background: #FBFBFB; border-radius: 10px; border: 0.30px #777777 solid; padding: 5px 10px; margin-right: 15px;">
+                            <!-- <div style="width: 100px; height: 30px; left: 0px; top: 0px; position: absolute; background: #FBFBFB; border-radius: 10px; border: 0.30px #777777 solid"></div> -->
+                            {% if 'NIKE' in shoe.shoebrand %}
+                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/NIKE.png' %}">
+                            {% elif 'ADIDAS' in shoe.shoebrand %}
+                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/ADIDAS_ORIGINALS.jpeg' %}">
+                            {% elif 'JORDAN' in shoe.shoebrand %}
+                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/JORDAN.png' %}">
+                            {% elif 'YEEZY' in shoe.shoebrand %}
+                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/ADIDAS_YEEZY.jpg' %}">
+                            {% elif 'CONVERSE' in shoe.shoebrand %}
+                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/CONVERSE.jpeg' %}">
+                            {% elif 'VANS' in shoe.shoebrand %}
+                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/VANS.svg' %}">
+                            {% elif 'NEW BALANCE' in shoe.shoebrand %}
+                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/NEW_BALANCE.png' %}">
+                            {% elif 'PUMA' in shoe.shoebrand %}
+                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/PUMA.png' %}">
+                            {% elif 'REEBOK' in shoe.shoebrand %}
+                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/REEBOK.jpg' %}">
+                            {% elif 'ASICS' in shoe.shoebrand %}
+                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/ASICS.png' %}">
+                            {% elif 'SALOMON' in shoe.shoebrand %}
+                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/SALOMON.jpeg' %}">
+                            {% endif %}
+                            <div style="color: black; font-size: 16px; font-family: Pretendard; font-weight: 700; word-wrap: break-word; float: left; line-height: 25px; margin-left: 10px;">{{shoe.shoebrand}}</div>
+                        </div>
+                    </div>
+                    <div style="padding: 10px 0px; height: auto; overflow: hidden; position: relative;">
+                        <div class="details-bookmark-icon">
+                            {% if member in shoe.likes.all %}
+                            <label class="details-bookmark-icon-label on">
+                                <span class="icon"></span>
+                            </label>
+                            {% else %}
+                            <label class="details-bookmark-icon-label">
+                                <span class="icon"></span>
+                            </label>
+                            {% endif %}
+                        </div>
+                        <div style="position: absolute; top: 50%; transform: translateY(-50%); left: 34px;"><p id="shoelikecount" style="margin: 0; color: #121212; font-size: 15px; font-weight: 700;">{{shoe.shoelikecount}}</p></div>
+                        <div style="float: right; height: 36px;">
                         </div>
                     </div>
                 </div>
-                {% if googleSite and notGoogleSite %}
-                <div class="box2">
-                {% else %}
-                <div class="box2" style="height: auto;">
-                {% endif %}
-                    {% if googleSite %}
-                    <div>
-                        <span class="box-title">자동 응모 서비스</span>
-                    </div>
-                    <div>
-                        <span class="box-title-comment">클릭하면 구글폼에 개인 정보를 자동 입력하여 응모합니다.</span>
-                    </div>
-                    <div class="wrapper">
-                        
-                        {% for site in googleSite %}
-                            {% if site.is_valid_date %}
-                            <div class="wrapper-items" onclick="window.open('{{site.sitelink}}')">
+            </div>
+            {% if googleSite and notGoogleSite %}
+            <div class="box2">
+            {% else %}
+            <div class="box2" style="height: auto;">
+            {% endif %}
+                {% if googleSite %}
+                <div>
+                    <span class="box-title">자동 응모 서비스</span>
+                </div>
+                <div>
+                    <span class="box-title-comment">클릭하면 구글폼에 개인 정보를 자동 입력하여 응모합니다.</span>
+                </div>
+                <div class="wrapper">
+                    
+                    {% for site in googleSite %}
+                        {% if site.is_valid_date %}
+                        <div class="wrapper-items" onclick="window.open('{{site.sitelink}}')">
+                            <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
+                                <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                            </div>
+                            <div style="height: 60px;">
+                                <div style="height: 50%; text-align: center; display: table; width: 100%;"><p class="text-sitename">{{site.sitename}}</p></div>
+                                <div style="height: 50%; text-align: center; display: table; width: 100%;">
+                                    <p class="text-date">
+                                        {% if site.pub_date == None and site.end_date != None %}
+                                            ~ {{ site.end_date }} 까지
+                                        {% endif %}
+                                        {% if site.end_date == None and site.pub_date != None %}
+                                            발매 : {{ site.pub_date }} ~ 
+                                        {% endif %}
+                                        {% if site.end_date == None and site.pub_date == None %}
+                                            해당 사항 없음 
+                                        {% endif %}   
+                                        {% if site.end_date != None and site.pub_date != None %}
+                                            {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                        {% endif %}  
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="wrapper-items-blur" style=" position: relative; ">
+                            <div class="wrapper-items-blur-box">
                                 <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
                                     <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
                                 </div>
@@ -288,52 +285,52 @@
                                     </div>
                                 </div>
                             </div>
-                            {% else %}
-                            <div class="wrapper-items-blur" style=" position: relative; ">
-                                <div class="wrapper-items-blur-box">
-                                    <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
-                                        <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
-                                    </div>
-                                    <div style="height: 60px;">
-                                        <div style="height: 50%; text-align: center; display: table; width: 100%;"><p class="text-sitename">{{site.sitename}}</p></div>
-                                        <div style="height: 50%; text-align: center; display: table; width: 100%;">
-                                            <p class="text-date">
-                                                {% if site.pub_date == None and site.end_date != None %}
-                                                    ~ {{ site.end_date }} 까지
-                                                {% endif %}
-                                                {% if site.end_date == None and site.pub_date != None %}
-                                                    발매 : {{ site.pub_date }} ~ 
-                                                {% endif %}
-                                                {% if site.end_date == None and site.pub_date == None %}
-                                                    해당 사항 없음 
-                                                {% endif %}   
-                                                {% if site.end_date != None and site.pub_date != None %}
-                                                    {{ site.pub_date }} ~ {{ site.end_date }} 까지
-                                                {% endif %}  
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <p style="width: 100%; text-align: center; position: absolute; margin: 0; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 16px; color: white; font-weight: 500;">응모가 마감됐습니다.</p>
+                            <p style="width: 100%; text-align: center; position: absolute; margin: 0; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 16px; color: white; font-weight: 500;">응모가 마감됐습니다.</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% if notGoogleSite %}
+                <div>
+                    <span class="box-title">응모 링크</span>
+                </div>
+                <div>
+                    <span class="box-title-comment">클릭하면 응모 페이지로 자동 연결합니다.</span>
+                </div>
+                <div class="wrapper">
+                    
+                    {% for site in notGoogleSite %}
+                        {% if site.is_valid_date %}
+                        <div class="wrapper-items no-margin" onclick="window.open('{{site.sitelink}}')">
+                            <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
+                                <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
                             </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-
-                    {% if notGoogleSite %}
-                    <div>
-                        <span class="box-title">응모 링크</span>
-                    </div>
-                    <div>
-                        <span class="box-title-comment">클릭하면 응모 페이지로 자동 연결합니다.</span>
-                    </div>
-                    <div class="wrapper">
-                        
-                        {% for site in notGoogleSite %}
-                            {% if site.is_valid_date %}
-                            <div class="wrapper-items no-margin" onclick="window.open('{{site.sitelink}}')">
+                            <div style="height: 60px;">
+                                <div style="height: 50%; text-align: center; display: table; width: 100%;"><p class="text-sitename">{{site.sitename}}</p></div>
+                                <div style="height: 50%; text-align: center; display: table; width: 100%;">
+                                    <p class="text-date">
+                                        {% if site.pub_date == None and site.end_date != None %}
+                                            ~ {{ site.end_date }} 까지
+                                        {% endif %}
+                                        {% if site.end_date == None and site.pub_date != None %}
+                                            발매 : {{ site.pub_date }} ~ 
+                                        {% endif %}
+                                        {% if site.end_date == None and site.pub_date == None %}
+                                            해당 사항 없음 
+                                        {% endif %}   
+                                        {% if site.end_date != None and site.pub_date != None %}
+                                            {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                        {% endif %}   
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="wrapper-items-blur no-margin" style=" position: relative; ">
+                            <div class="wrapper-items-blur-box" style="">
                                 <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
                                     <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
                                 </div>
@@ -352,351 +349,315 @@
                                             {% endif %}   
                                             {% if site.end_date != None and site.pub_date != None %}
                                                 {{ site.pub_date }} ~ {{ site.end_date }} 까지
-                                            {% endif %}   
+                                            {% endif %}  
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                            {% else %}
-                            <div class="wrapper-items-blur no-margin" style=" position: relative; ">
-                                <div class="wrapper-items-blur-box" style="">
-                                    <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
-                                        <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
-                                    </div>
-                                    <div style="height: 60px;">
-                                        <div style="height: 50%; text-align: center; display: table; width: 100%;"><p class="text-sitename">{{site.sitename}}</p></div>
-                                        <div style="height: 50%; text-align: center; display: table; width: 100%;">
-                                            <p class="text-date">
-                                                {% if site.pub_date == None and site.end_date != None %}
-                                                    ~ {{ site.end_date }} 까지
-                                                {% endif %}
-                                                {% if site.end_date == None and site.pub_date != None %}
-                                                    발매 : {{ site.pub_date }} ~ 
-                                                {% endif %}
-                                                {% if site.end_date == None and site.pub_date == None %}
-                                                    해당 사항 없음 
-                                                {% endif %}   
-                                                {% if site.end_date != None and site.pub_date != None %}
-                                                    {{ site.pub_date }} ~ {{ site.end_date }} 까지
-                                                {% endif %}  
-                                            </p>
-                                        </div>
+
+                            <p style="width: 100%; text-align: center; position: absolute; margin: 0; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 16px; color: white; font-weight: 500;">응모가 마감됐습니다.</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="box3">
+                {% if offlineSite %}
+                <div>
+                    <span class="box-title">오프라인 응모</span>
+                </div>
+                <div>
+                    <span class="box-title-comment">응모 정보와 매장 위치를 확인하세요.</span>
+                </div>
+                <div class="wrapper">
+                    
+                    {% for site in offlineSite %}
+                        {% if site.is_valid_date %}
+                        <div class="wrapper-items no-margin">
+                            <a class="wrapper-link" href="{% url 'draw:map' %}?serialnum={{shoe.serialno}}&sitename={{site.sitename}}">
+                                <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
+                                    <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                                </div>
+                                <div style="height: 60px;">
+                                    <div style="height: 50%; text-align: center; display: table; width: 100%;"><p class="text-sitename">{{site.sitename}}</p></div>
+                                    <div style="height: 50%; text-align: center; display: table; width: 100%;">
+                                        <p class="text-date">
+                                            {% if site.pub_date == None and site.end_date != None %}
+                                                ~ {{ site.end_date }} 까지
+                                            {% endif %}
+                                            {% if site.end_date == None and site.pub_date != None %}
+                                                발매 : {{ site.pub_date }} ~ 
+                                            {% endif %}
+                                            {% if site.end_date == None and site.pub_date == None %}
+                                                해당 사항 없음 
+                                            {% endif %}   
+                                            {% if site.end_date != None and site.pub_date != None %}
+                                                {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                            {% endif %}  
+                                        </p>
                                     </div>
                                 </div>
-
-                                <p style="width: 100%; text-align: center; position: absolute; margin: 0; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 16px; color: white; font-weight: 500;">응모가 마감됐습니다.</p>
+                            </a>
+                        </div>
+                        {% else %}
+                        <div class="wrapper-items-blur no-margin" style=" position: relative; ">
+                            <div class="wrapper-items-blur-box">
+                                <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
+                                    <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                                </div>
+                                <div style="height: 60px;">
+                                    <div style="height: 50%; text-align: center; display: table; width: 100%;"><p class="text-sitename">{{site.sitename}}</p></div>
+                                    <div style="height: 50%; text-align: center; display: table; width: 100%;">
+                                        <p class="text-date">
+                                            {% if site.pub_date == None and site.end_date != None %}
+                                                ~ {{ site.end_date }} 까지
+                                            {% endif %}
+                                            {% if site.end_date == None and site.pub_date != None %}
+                                                발매 : {{ site.pub_date }} ~ 
+                                            {% endif %}
+                                            {% if site.end_date == None and site.pub_date == None %}
+                                                해당 사항 없음 
+                                            {% endif %}   
+                                            {% if site.end_date != None and site.pub_date != None %}
+                                                {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                            {% endif %}  
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            {% endif %}
-                        {% endfor %}
+
+                            <p style="width: 100%; text-align: center; position: absolute; margin: 0; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 16px; color: white; font-weight: 500;">응모가 마감됐습니다.</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% if shoe.shoebrand != None and anotherBrandShoes %}
+                <div>
+                    <span class="box-title">{{shoe.shoebrand}}의 다른 상품</span>
+                </div>
+                <div class="wrapper">
+                    {% for anotherBrandShoe in anotherBrandShoes %}
+                    <div class="wrapper-items no-margin">
+                        <a class="wrapper-link" href="{% url 'draw:상세정보' %}?serialnum={{anotherBrandShoe.serialno}}">
+                            <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
+                                <img class="lazyload" data-src="{% static 'draw/images/' %}{{anotherBrandShoe.serialno}}0.avif" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                            </div>
+                            <div style="height: auto;">
+                                <div class="details-anotherShoe-shoename-box" style="height: 50%; text-align: center; width: 100%; padding: 0 5px;"><p class="text-shoename">{{anotherBrandShoe.shoename}}</p></div>
+                                <div style="height: 50%; text-align: center; display: table; width: 100%; padding: 5px 5px 0 5px;">
+                                    <p class="text-date">{{anotherBrandShoe.pubdate}} 발매</p>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% if shoe.category != None and anotherCategoryShoes %}
+                <div>
+                    <span class="box-title">{{shoe.category}}의 다른 상품</span>
+                </div>
+                <div class="wrapper">
+                    {% for anotherCategoryShoe in anotherCategoryShoes %}
+                    <div class="wrapper-items no-margin">
+                        <a class="wrapper-link" href="{% url 'draw:상세정보' %}?serialnum={{anotherCategoryShoe.serialno}}">
+                            <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
+                                <img class="lazyload" data-src="{% static 'draw/images/' %}{{anotherCategoryShoe.serialno}}0.avif" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                            </div>
+                            <div style="height: auto;">
+                                <div class="details-anotherShoe-shoename-box" style="height: 50%; text-align: center; width: 100%; padding: 0 5px;"><p class="text-shoename">{{anotherCategoryShoe.shoename}}</p></div>
+                                <div style="height: 50%; text-align: center; display: table; width: 100%; padding: 5px 5px 0 5px;">
+                                    <p class="text-date">{{anotherCategoryShoe.pubdate}} 발매</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="bottom-ad-box" style="position: relative;">
+                    <div class="bottom-ad-box-js" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+                    </div>
                 </div>
 
-                <div class="box3">
-                    {% if offlineSite %}
-                    <div>
-                        <span class="box-title">오프라인 응모</span>
+                <div style="position: relative; clear: both;">
+                    <span class="box-title">댓글</span>
+                    <p class="comment-count">{{comment_count}}개</p>
+                    <p class="details-viewSort-title">좋아요 순</p>
+                    <div class="details-viewSort-icon">
+                        <label class="details-viewSort-icon-label">
+                            <span class="icon"></span>
+                        </label>
                     </div>
-                    <div>
-                        <span class="box-title-comment">응모 정보와 매장 위치를 확인하세요.</span>
+                </div>
+                <div class="comment-write-box">
+                    {% if member.member_no == None %}
+                    <p>로그인 후 이용해주시기 바랍니다.</p>
+                    {% else %}
+                    <div style="height: 36px; width: 36px; float: left;">
+                        {% if member.profile_img_url == '-' %}
+                        <img style="width: 36px; height: 36px; border-radius: 50px;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
+                        {% else %}
+                        <img style="width: 36px; height: 36px; border-radius: 50px;" src="{{member.profile_img_url}}">
+                        {% endif %}
                     </div>
-                    <div class="wrapper">
-                        
-                        {% for site in offlineSite %}
-                            {% if site.is_valid_date %}
-                            <div class="wrapper-items no-margin">
-                                <a class="wrapper-link" href="{% url 'draw:map' %}?serialnum={{shoe.serialno}}&sitename={{site.sitename}}">
-                                    <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
-                                        <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
-                                    </div>
-                                    <div style="height: 60px;">
-                                        <div style="height: 50%; text-align: center; display: table; width: 100%;"><p class="text-sitename">{{site.sitename}}</p></div>
-                                        <div style="height: 50%; text-align: center; display: table; width: 100%;">
-                                            <p class="text-date">
-                                                {% if site.pub_date == None and site.end_date != None %}
-                                                    ~ {{ site.end_date }} 까지
-                                                {% endif %}
-                                                {% if site.end_date == None and site.pub_date != None %}
-                                                    발매 : {{ site.pub_date }} ~ 
-                                                {% endif %}
-                                                {% if site.end_date == None and site.pub_date == None %}
-                                                    해당 사항 없음 
-                                                {% endif %}   
-                                                {% if site.end_date != None and site.pub_date != None %}
-                                                    {{ site.pub_date }} ~ {{ site.end_date }} 까지
-                                                {% endif %}  
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            {% else %}
-                            <div class="wrapper-items-blur no-margin" style=" position: relative; ">
-                                <div class="wrapper-items-blur-box">
-                                    <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
-                                        <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
-                                    </div>
-                                    <div style="height: 60px;">
-                                        <div style="height: 50%; text-align: center; display: table; width: 100%;"><p class="text-sitename">{{site.sitename}}</p></div>
-                                        <div style="height: 50%; text-align: center; display: table; width: 100%;">
-                                            <p class="text-date">
-                                                {% if site.pub_date == None and site.end_date != None %}
-                                                    ~ {{ site.end_date }} 까지
-                                                {% endif %}
-                                                {% if site.end_date == None and site.pub_date != None %}
-                                                    발매 : {{ site.pub_date }} ~ 
-                                                {% endif %}
-                                                {% if site.end_date == None and site.pub_date == None %}
-                                                    해당 사항 없음 
-                                                {% endif %}   
-                                                {% if site.end_date != None and site.pub_date != None %}
-                                                    {{ site.pub_date }} ~ {{ site.end_date }} 까지
-                                                {% endif %}  
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <p style="width: 100%; text-align: center; position: absolute; margin: 0; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 16px; color: white; font-weight: 500;">응모가 마감됐습니다.</p>
-                            </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
+                    <span class="member-nickname-text">{{member.member_nickname}}</span>
                     {% endif %}
-
-                    {% if shoe.shoebrand != None and anotherBrandShoes %}
-                    <div>
-                        <span class="box-title">{{shoe.shoebrand}}의 다른 상품</span>
-                    </div>
-                    <div class="wrapper">
-                        {% for anotherBrandShoe in anotherBrandShoes %}
-                        <div class="wrapper-items no-margin">
-                            <a class="wrapper-link" href="{% url 'draw:상세정보' %}?serialnum={{anotherBrandShoe.serialno}}">
-                                <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
-                                    <img class="lazyload" data-src="{% static 'draw/images/' %}{{anotherBrandShoe.serialno}}0.avif" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
-                                </div>
-                                <div style="height: auto;">
-                                    <div class="details-anotherShoe-shoename-box" style="height: 50%; text-align: center; width: 100%; padding: 0 5px;"><p class="text-shoename">{{anotherBrandShoe.shoename}}</p></div>
-                                    <div style="height: 50%; text-align: center; display: table; width: 100%; padding: 5px 5px 0 5px;">
-                                        <p class="text-date">{{anotherBrandShoe.pubdate}} 발매</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-
-                    {% if shoe.category != None and anotherCategoryShoes %}
-                    <div>
-                        <span class="box-title">{{shoe.category}}의 다른 상품</span>
-                    </div>
-                    <div class="wrapper">
-                        {% for anotherCategoryShoe in anotherCategoryShoes %}
-                        <div class="wrapper-items no-margin">
-                            <a class="wrapper-link" href="{% url 'draw:상세정보' %}?serialnum={{anotherCategoryShoe.serialno}}">
-                                <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
-                                    <img class="lazyload" data-src="{% static 'draw/images/' %}{{anotherCategoryShoe.serialno}}0.avif" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
-                                </div>
-                                <div style="height: auto;">
-                                    <div class="details-anotherShoe-shoename-box" style="height: 50%; text-align: center; width: 100%; padding: 0 5px;"><p class="text-shoename">{{anotherCategoryShoe.shoename}}</p></div>
-                                    <div style="height: 50%; text-align: center; display: table; width: 100%; padding: 5px 5px 0 5px;">
-                                        <p class="text-date">{{anotherCategoryShoe.pubdate}} 발매</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-
-                    <div class="bottom-ad-box" style="position: relative;">
-                        <div class="bottom-ad-box-js" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
-                        </div>
-                    </div>
-
-                    <div style="position: relative; clear: both;">
-                        <span class="box-title">댓글</span>
-                        <p class="comment-count">{{comment_count}}개</p>
-                        <p class="details-viewSort-title">좋아요 순</p>
-                        <div class="details-viewSort-icon">
-                            <label class="details-viewSort-icon-label">
+                    <div style="width: 100%; position: relative; margin-top: 10px;">
+                        <input class="commentArea" style="width: 97%; height: 38px; border: none; border-bottom: 1px solid black;  background: #EEEEEE;" placeholder="댓글을 입력해주세요." maxlength="200">
+                        <div class="comment-send-icon">
+                            <label class="comment-send-icon-label">
                                 <span class="icon"></span>
                             </label>
                         </div>
                     </div>
-                    <div class="comment-write-box">
-                        {% if member.member_no == None %}
-                        <p>로그인 후 이용해주시기 바랍니다.</p>
-                        {% else %}
+                    <span style="font-size: 12px; font-weight: 200; color: #E13030;">악성 댓글과 도배 및 스팸 댓글은 처벌 및 사용 제한 조치를 받을 수 있습니다.</span>
+                    <span class="commentLength"></span>
+                </div>
+
+                <div class="comment-box">
+                    {% if comment.serialno != '' %}
+                    {% for comment in comment %}
+                    <div class="comment-list-box" data-value="{{comment.id}}">
                         <div style="height: 36px; width: 36px; float: left;">
-                            {% if member.profile_img_url == '-' %}
+                            {% if comment.profile_img_url == '-' %}
                             <img style="width: 36px; height: 36px; border-radius: 50px;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
                             {% else %}
-                            <img style="width: 36px; height: 36px; border-radius: 50px;" src="{{member.profile_img_url}}">
+                            <img style="width: 36px; height: 36px; border-radius: 50px;" src="{{comment.profile_img_url}}">
                             {% endif %}
                         </div>
-                        <span class="member-nickname-text">{{member.member_nickname}}</span>
-                        {% endif %}
-                        <div style="width: 100%; position: relative; margin-top: 10px;">
-                            <input class="commentArea" style="width: 97%; height: 38px; border: none; border-bottom: 1px solid black;  background: #EEEEEE;" placeholder="댓글을 입력해주세요." maxlength="200">
-                            <div class="comment-send-icon">
-                                <label class="comment-send-icon-label">
-                                    <span class="icon"></span>
-                                </label>
+                        <div style="width: calc(100% - 50px); float: left; padding-left: 10px;">
+                            <div style="position: relative;">
+                                <span class="comment-member-nickname-text">{{comment.member_nickname}}</span>
+                                <span class="comment-created-text">{{comment.created_date}}</span>
+                                <div class="comment-option-icon">
+                                    <label class="comment-option-icon-label">
+                                        <span class="icon"></span>
+                                    </label>
+                                </div>
+                                <div class="comment-option" style="width: 50px; height: auto; position: absolute; top: 0; right: 0;border: 1px solid black; display: none; text-align: center;">
+                                    <p class="comment-option-delete" style="margin: 0; cursor: pointer;">삭제</p>
+                                    <p class="comment-option-cancel" style="margin: 0; border-top: 1px solid black; cursor: pointer;">취소</p>
+                                </div>
                             </div>
-                        </div>
-                        <span style="font-size: 12px; font-weight: 200; color: #E13030;">악성 댓글과 도배 및 스팸 댓글은 처벌 및 사용 제한 조치를 받을 수 있습니다.</span>
-                        <span class="commentLength"></span>
-                    </div>
-
-                    <div class="comment-box">
-                        {% if comment.serialno != '' %}
-                        {% for comment in comment %}
-                        <div class="comment-list-box" data-value="{{comment.id}}">
-                            <div style="height: 36px; width: 36px; float: left;">
-                                {% if comment.profile_img_url == '-' %}
-                                <img style="width: 36px; height: 36px; border-radius: 50px;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
+                            <div style="padding: 10px 0px;">
+                                <span class="comment-comment">{{comment.comment}}</span>
+                            </div>
+                            <div style="position: relative;">
+                                {% if member.member_no == None %}
+                                <span class="comment-reply-logout off">답글 달기</span>
                                 {% else %}
-                                <img style="width: 36px; height: 36px; border-radius: 50px;" src="{{comment.profile_img_url}}">
+                                <span class="comment-reply off">답글 달기</span>
                                 {% endif %}
+                                <div class="comment-like-icon">
+                                    <label class="comment-like-icon-label">
+                                        <span class="icon"></span>
+                                    </label>
+                                </div>
+                                <p class="comment-like-length">0</p>
+                                <div class="comment-hate-icon">
+                                    <label class="comment-hate-icon-label">
+                                        <span class="icon"></span>
+                                    </label>
+                                </div>
+                                <p class="comment-hate-length">0</p>
                             </div>
-                            <div style="width: calc(100% - 50px); float: left; padding-left: 10px;">
-                                <div style="position: relative;">
-                                    <span class="comment-member-nickname-text">{{comment.member_nickname}}</span>
-                                    <span class="comment-created-text">{{comment.created_date}}</span>
-                                    <div class="comment-option-icon">
-                                        <label class="comment-option-icon-label">
-                                            <span class="icon"></span>
-                                        </label>
-                                    </div>
-                                    <div class="comment-option" style="width: 50px; height: auto; position: absolute; top: 0; right: 0;border: 1px solid black; display: none; text-align: center;">
-                                        <p class="comment-option-delete" style="margin: 0; cursor: pointer;">삭제</p>
-                                        <p class="comment-option-cancel" style="margin: 0; border-top: 1px solid black; cursor: pointer;">취소</p>
-                                    </div>
-                                </div>
-                                <div style="padding: 10px 0px;">
-                                    <span class="comment-comment">{{comment.comment}}</span>
-                                </div>
-                                <div style="position: relative;">
-                                    {% if member.member_no == None %}
-                                    <span class="comment-reply-logout off">답글 달기</span>
-                                    {% else %}
-                                    <span class="comment-reply off">답글 달기</span>
-                                    {% endif %}
-                                    <div class="comment-like-icon">
-                                        <label class="comment-like-icon-label">
-                                            <span class="icon"></span>
-                                        </label>
-                                    </div>
-                                    <p class="comment-like-length">0</p>
-                                    <div class="comment-hate-icon">
-                                        <label class="comment-hate-icon-label">
-                                            <span class="icon"></span>
-                                        </label>
-                                    </div>
-                                    <p class="comment-hate-length">0</p>
-                                </div>
-                            </div>
-                            
                         </div>
-                        {% endfor %}
+                        
                     </div>
-                    <div class="pagination" style="text-align: center;">
-                        <span class="step-links" style="display: flex; justify-content: center; gap: 10px;">
-                            {% if isPage6 %}
-                                {% if comment.has_previous %}
-                                    <!-- <a class="page-url" href="?serialnum={{shoe.serialno}}&page=1"> -->
-                                    <a class="page-url" page-value="1">
-                                        <div class="page-first-icon page-icon"></div>
-                                    </a>
-                                    <!-- <a class="page-url" href="?serialnum={{shoe.serialno}}&page={{ previous_page }}"> -->
-                                    <a class="page-url" page-value="{{previous_page}}">
-                                        <div class="page-previous-icon page-icon"></div>
-                                    </a>
-                                {% endif %}
-                                {% for num in page_numbers %}
-                                    {% if comment.number == num %}
-                                        <span class="current">{{ num }}</span>
-                                    {% else %}
-                                        <!-- <a class="page-num" href="?serialnum={{shoe.serialno}}&page={{ num }}">{{ num }}</a> -->
-                                        <a class="page-num" page-value="{{num}}">{{ num }}</a>
-                                    {% endif %}
-                                {% endfor %}
-                                {% if comment.has_next %}
-                                    
-                                    <!-- <a class="page-url" href="?serialnum={{shoe.serialno}}&page={{ next_page }}"> -->
-                                    <a class="page-url" page-value="{{next_page}}">
-                                        <div class="page-next-icon page-icon"></div>
-                                    </a>
-                                    
-                                    <!-- <a class="page-url" href="?serialnum={{shoe.serialno}}&page={{ comment.paginator.num_pages }}"> -->
-                                    <a class="page-url" page-value="{{comment.paginator.num_pages}}">
-                                        <div class="page-last-icon page-icon"></div>
-                                    </a>
-                                {% endif %}
-                            {% else %}
-                                {% for num in page_numbers %}
-                                    {% if comment.number == num %}
-                                        <span class="current">{{ num }}</span>
-                                    {% else %}
-                                        <!-- <a class="page-num" href="?serialnum={{shoe.serialno}}&page={{ num }}">{{ num }}</a> -->
-                                        <a class="page-num" page-value="{{num}}">{{ num }}</a>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endif %}
-                            
-                        </span>
-                    </div>
-                    {% else %}
-                    <div style="width: 100%; height: 200px; display: table; text-align: center;">
-                        <p style="margin: 0; display: table-cell; vertical-align: middle;">댓글이 존재하지 않습니다.</p>
-                    </div>
-                    {% endif %}
-                    
+                    {% endfor %}
                 </div>
+                <div class="pagination" style="text-align: center;">
+                    <span class="step-links" style="display: flex; justify-content: center; gap: 10px;">
+                        {% if isPage6 %}
+                            {% if comment.has_previous %}
+                                <!-- <a class="page-url" href="?serialnum={{shoe.serialno}}&page=1"> -->
+                                <a class="page-url" page-value="1">
+                                    <div class="page-first-icon page-icon"></div>
+                                </a>
+                                <!-- <a class="page-url" href="?serialnum={{shoe.serialno}}&page={{ previous_page }}"> -->
+                                <a class="page-url" page-value="{{previous_page}}">
+                                    <div class="page-previous-icon page-icon"></div>
+                                </a>
+                            {% endif %}
+                            {% for num in page_numbers %}
+                                {% if comment.number == num %}
+                                    <span class="current">{{ num }}</span>
+                                {% else %}
+                                    <!-- <a class="page-num" href="?serialnum={{shoe.serialno}}&page={{ num }}">{{ num }}</a> -->
+                                    <a class="page-num" page-value="{{num}}">{{ num }}</a>
+                                {% endif %}
+                            {% endfor %}
+                            {% if comment.has_next %}
+                                
+                                <!-- <a class="page-url" href="?serialnum={{shoe.serialno}}&page={{ next_page }}"> -->
+                                <a class="page-url" page-value="{{next_page}}">
+                                    <div class="page-next-icon page-icon"></div>
+                                </a>
+                                
+                                <!-- <a class="page-url" href="?serialnum={{shoe.serialno}}&page={{ comment.paginator.num_pages }}"> -->
+                                <a class="page-url" page-value="{{comment.paginator.num_pages}}">
+                                    <div class="page-last-icon page-icon"></div>
+                                </a>
+                            {% endif %}
+                        {% else %}
+                            {% for num in page_numbers %}
+                                {% if comment.number == num %}
+                                    <span class="current">{{ num }}</span>
+                                {% else %}
+                                    <!-- <a class="page-num" href="?serialnum={{shoe.serialno}}&page={{ num }}">{{ num }}</a> -->
+                                    <a class="page-num" page-value="{{num}}">{{ num }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        
+                    </span>
+                </div>
+                {% else %}
+                <div style="width: 100%; height: 200px; display: table; text-align: center;">
+                    <p style="margin: 0; display: table-cell; vertical-align: middle;">댓글이 존재하지 않습니다.</p>
+                </div>
+                {% endif %}
                 
             </div>
-            <div class="right-ad-box">
-                <div class="right-ad-box-js" style="left: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%)">
-                </div>
+            
+        </div>
+        <div class="right-ad-box">
+            <div class="right-ad-box-js" style="left: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%)">
             </div>
         </div>
-        
-    </section>
-
+    </div>
     
+</section>
 
-    <!-- <div class="bookmark-layer off">
-        <div class="title_area">
-            <p class="title">로그인이 필요합니다.</p>
-        </div>
-        <div class="content_area">북마크에 추가하려면 로그인이 필요합니다.<br>로그인 페이지로 이동하겠습니까?</div>
-        <div class="btn_area">
-            <a id="cancel_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
-                취소
-            </a>
-            <a id="goLogin_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
-                확인
-            </a>
-        </div>
-    </div> -->
 
-    {% include 'draw/search.html' %}
 
-    {% include 'draw/loading.html' %}
+<!-- <div class="bookmark-layer off">
+    <div class="title_area">
+        <p class="title">로그인이 필요합니다.</p>
+    </div>
+    <div class="content_area">북마크에 추가하려면 로그인이 필요합니다.<br>로그인 페이지로 이동하겠습니까?</div>
+    <div class="btn_area">
+        <a id="cancel_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
+            취소
+        </a>
+        <a id="goLogin_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
+            확인
+        </a>
+    </div>
+</div> -->
+{% endblock %}
 
-    {% include 'draw/go_up.html' %}
-    
-    <script>const STATIC_FULL_URL = "{% url 'draw:map' %}?serialnum=";const STATIC_IMAGES_URL = "{% static 'draw/images/' %}"; const DETAILS_URL = "{% url 'draw:상세정보' %}?serialnum=";</script>
-    <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
-    <script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
-    <script src="{% static 'draw/js/details.js' %}"></script>
-    <script src="{% static 'draw/js/alpharaffle.js' %}"></script>
-    <script src="{% static 'draw/js/headerScroll.js' %}"></script>
-    <script src="{% static 'draw/js/sha1.js' %}"></script>
-</body>
-
-</html>
+{% block extra_js %}
+<script>const STATIC_FULL_URL = "{% url 'draw:map' %}?serialnum=";const STATIC_IMAGES_URL = "{% static 'draw/images/' %}"; const DETAILS_URL = "{% url 'draw:상세정보' %}?serialnum=";</script>
+<script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
+<script src="{% static 'draw/js/details.js' %}"></script>
+<script src="{% static 'draw/js/headerScroll.js' %}"></script>
+<script src="{% static 'draw/js/sha1.js' %}"></script>
+{% endblock %}

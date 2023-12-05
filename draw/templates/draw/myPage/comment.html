@@ -1,179 +1,133 @@
-<!DOCTYPE html>
-<html style="font-size: 16px;">
+{% extends 'draw/base.html' %}
 {% load pwa %}
 {% load static %}
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <title>AlphaRaffle</title>
-    <!-- Apple Touch 아이콘 -->
-    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'draw/necessary/apple-touch-icon-114x114.png' %}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'draw/necessary/apple-touch-icon-120x120.png' %}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'draw/necessary/apple-touch-icon-144x144.png' %}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'draw/necessary/apple-touch-icon-180x180.png' %}"> 
-    <!-- Android/Chrome 아이콘 -->
-    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'draw/necessary/android-chrome-192x192.png' %}">
-    <!-- 일반적인 파비콘 -->
-    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'draw/necessary/favicon-96x96.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'draw/necessary/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'draw/necessary/favicon-16x16.png' %}">
-    <!-- Microsoft 타일 아이콘 -->
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-TileImage" content="{% static 'draw/necessary/mstile-144x144.png' %}">
-    <!-- macOS 탭 핀 -->
-    <link rel="mask-icon" href="{% static 'draw/necessary/ar01.svg' %}">
-    
-    <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" href="{% static 'draw/css/normalize.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/myPage.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
 
-    {% progressive_web_app_meta %}
-    
+{% block title %}
+<title>AlphaRaffle</title>
+{% endblock %}
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FKLV3QNRNC"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'draw/css/myPage.css' %}" media="screen">
+{% endblock %}
 
-    gtag('config', 'G-FKLV3QNRNC');
-    </script>
+{% block meta_title %}
+<meta name="description" content="">
+<meta property="og:title" content="myPage">
+<meta property="og:description" content="">
+{% endblock %}
 
-    <meta property="og:title" content="myPage">
-    <meta property="og:description" content="">
-    <meta property="og:type" content="website">
-</head>
-
-<body>
-    <!-- 헤더 -->
-    {% include 'draw/header.html' %}
-    {% csrf_token %}
-    <section class="mypage-section" style="width: 100vw; height: 100vh;">
-        <div id="mypage" class="mypage-box nav-up" style="">
-            <div id="mypage_nav" class="mypage-nav-box nav-up" style="">
-                <div style="width: 100%; height: 22%; padding-bottom: 2vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
-                    <div style="width: 50px; height: 50px;">
-                        {% if member.profile_img_url == '-' %}
-                        <img id="profile_img" style="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.avif">
-                        {% else %}
-                        <img id="profile_img" style="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%;" src="{{member.profile_img_url}}">
-                        {% endif %}
-                    </div>
-                    <p class="main-nickname" style="margin: 0px; padding-top: 10px; font-size: 28px; font-weight: 500; line-height: 30px; border-bottom: 2px solid black;">{{member.member_nickname}}</p>
-                </div>
-                <div style="width: 100%; height: 43%;">
-                    <div class="tab" onclick="location.href = `{% url 'draw:마이페이지북마크' %}`">
-                        <div class="icon-box">
-                            <span class="icon"></span>
-                        </div>
-                        <div class="title-box">
-                            <p class="title">북마크 관리</p>
-                        </div>
-                    </div>
-                    <div class="tab" onclick="location.href = `{% url 'draw:마이페이지응모' %}`">
-                        <div class="icon-box">
-                            <span class="icon2"></span>
-                        </div>
-                        <div class="title-box">
-                            <p class="title">응모 내역</p>
-                        </div>
-                    </div>
-                    <div class="tab checked">
-                        <div class="icon-box">
-                            <span class="icon3"></span>
-                        </div>
-                        <div class="title-box">
-                            <p class="title">작성한 댓글</p>
-                        </div>
-                    </div>
-                    <div class="tab" onclick="location.href = `{% url 'draw:마이페이지게시물' %}`">
-                        <div class="icon-box">
-                            <span class="icon4"></span>
-                        </div>
-                        <div class="title-box">
-                            <p class="title">작성한 게시물</p>
-                        </div>
-                    </div>
-                    <div class="tab" onclick="location.href = `{% url 'draw:마이페이지리뷰' %}`">
-                        <div class="icon-box">
-                            <span class="icon5"></span>
-                        </div>
-                        <div class="title-box">
-                            <p class="title">작성한 리뷰</p>
-                        </div>
-                    </div>
-                    <div class="tab" onclick="location.href = `{% url 'draw:마이페이지개인정보' %}`">
-                        <div class="icon-box">
-                            <span class="icon6"></span>
-                        </div>
-                        <div class="title-box">
-                            <p class="title">개인정보 관리</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="comment-content content">
-                <div>
-                    <div class="left-arrow" onclick="location.href = `{% url 'draw:마이페이지' %}`"></div>
-                    <p class="content-title">작성한 댓글</p>
-                </div>
-                <div style="width: 100%;">
-                    <p style="margin: 0px; font-size: 20px; font-weight: 700; color: #777777; font-weight: 500;">총 {{comment_count}}개의 댓글이 있습니다.</p>
-                </div>
-                <div style="width: 100%; margin-top: 50px; height: auto;">
-                    {% for comment in comment %}
-                    {% if comment.serialno != None %}
-                    <div style="width: 100%; height: auto; margin-bottom: 40px; display: inline-block;" data-value="{{comment.id}}">
-                        <div style="float: left; width: 80px; height: 80px; cursor: pointer;" onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}', '_blank';">
-                            <img style="width: 80px; height: 80px; border-radius: 4px; border: 0.6px solid #C8C8C8;" src="{% static 'draw/images/' %}{{comment.serialno}}0.avif">
-                        </div>
-                        <div style="max-width: 500px; float: left; margin-left: 20px;">
-                            <p style="margin: 0; color: #333; font-size: 22px;">{{comment.comment}}</p>
-                            <p style="margin: 0; color: #777; font-size: 14px; font-weight: 200;">{{comment.created_date}}</p>
-                            <p style="margin: 0; color: #777; font-size: 14px; font-weight: 500;">{{comment.shoename}}</p>
-                        </div>
-                        <div style="float: right; margin-top: 40px;">
-                            <p style="margin: 0; color: #777; font-size: 16px; font-weight: 700; float: left;">답글</p>
-                            <p style="margin: 0; color: #777; font-size: 16px; font-weight: 700; float: left; margin-left: 10px;">1</p>
-                            <div style="float: left; width: 20px; height: 20px; background-image: url('../../../static/draw/necessary/comment_fill_like_btn.svg'); margin-left: 20px;">
-                                <!-- <span style="background: url('../../static/draw/necessary/Group.svg') no-repeat center center/20px auto; width: 20px; height: 20px; display: inline;"></span> -->
-                            </div>
-                            <p style="margin: 0; color: #F00; font-size: 16px; font-weight: 700; float: left; margin-left: 10px;">232</p>
-                            <div style="float: left; width: 20px; height: 20px; background-image: url('../../../static/draw/necessary/comment_fill_hate_btn.svg'); margin-left: 20px;">
-                            </div>
-                            <p style="margin: 0; color: #777; font-size: 16px; font-weight: 700; float: left; margin-left: 10px;">0</p>
-                            <p class="comment-delete-btn" style="margin: 0; color: #777; font-size: 16px; font-weight: 400; float: left; margin-left: 50px; cursor: pointer;">삭제</p>
-                        </div>
-                    </div>
+{% block content %}
+{% csrf_token %}
+<section class="mypage-section" style="width: 100vw; height: 100vh;">
+    <div id="mypage" class="mypage-box nav-up" style="">
+        <div id="mypage_nav" class="mypage-nav-box nav-up" style="">
+            <div style="width: 100%; height: 22%; padding-bottom: 2vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                <div style="width: 50px; height: 50px;">
+                    {% if member.profile_img_url == '-' %}
+                    <img id="profile_img" style="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.avif">
                     {% else %}
-                    <div style="width: 100%; height: 200px; display: table; text-align: center;">
-                        <p style="margin: 0; display: table-cell; vertical-align: middle;">댓글이 존재하지 않습니다.</p>
-                    </div>
+                    <img id="profile_img" style="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%;" src="{{member.profile_img_url}}">
                     {% endif %}
-                    {% endfor %}
+                </div>
+                <p class="main-nickname" style="margin: 0px; padding-top: 10px; font-size: 28px; font-weight: 500; line-height: 30px; border-bottom: 2px solid black;">{{member.member_nickname}}</p>
+            </div>
+            <div style="width: 100%; height: 43%;">
+                <div class="tab" onclick="location.href = `{% url 'draw:마이페이지북마크' %}`">
+                    <div class="icon-box">
+                        <span class="icon"></span>
+                    </div>
+                    <div class="title-box">
+                        <p class="title">북마크 관리</p>
+                    </div>
+                </div>
+                <div class="tab" onclick="location.href = `{% url 'draw:마이페이지응모' %}`">
+                    <div class="icon-box">
+                        <span class="icon2"></span>
+                    </div>
+                    <div class="title-box">
+                        <p class="title">응모 내역</p>
+                    </div>
+                </div>
+                <div class="tab checked">
+                    <div class="icon-box">
+                        <span class="icon3"></span>
+                    </div>
+                    <div class="title-box">
+                        <p class="title">작성한 댓글</p>
+                    </div>
+                </div>
+                <div class="tab" onclick="location.href = `{% url 'draw:마이페이지게시물' %}`">
+                    <div class="icon-box">
+                        <span class="icon4"></span>
+                    </div>
+                    <div class="title-box">
+                        <p class="title">작성한 게시물</p>
+                    </div>
+                </div>
+                <div class="tab" onclick="location.href = `{% url 'draw:마이페이지리뷰' %}`">
+                    <div class="icon-box">
+                        <span class="icon5"></span>
+                    </div>
+                    <div class="title-box">
+                        <p class="title">작성한 리뷰</p>
+                    </div>
+                </div>
+                <div class="tab" onclick="location.href = `{% url 'draw:마이페이지개인정보' %}`">
+                    <div class="icon-box">
+                        <span class="icon6"></span>
+                    </div>
+                    <div class="title-box">
+                        <p class="title">개인정보 관리</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <script>const STATIC_FULL_URL = "{% url 'draw:상세정보' %}?serialnum=";const STATIC_IMAGES_URL = "{% static 'draw/images/' %}";</script>
-    </section>
+        <div class="comment-content content">
+            <div>
+                <div class="left-arrow" onclick="location.href = `{% url 'draw:마이페이지' %}`"></div>
+                <p class="content-title">작성한 댓글</p>
+            </div>
+            <div style="width: 100%;">
+                <p style="margin: 0px; font-size: 20px; font-weight: 700; color: #777777; font-weight: 500;">총 {{comment_count}}개의 댓글이 있습니다.</p>
+            </div>
+            <div style="width: 100%; margin-top: 50px; height: auto;">
+                {% for comment in comment %}
+                {% if comment.serialno != None %}
+                <div style="width: 100%; height: auto; margin-bottom: 40px; display: inline-block;" data-value="{{comment.id}}">
+                    <div style="float: left; width: 80px; height: 80px; cursor: pointer;" onclick="location.href = STATIC_FULL_URL + '{{shoe.serialno}}', '_blank';">
+                        <img style="width: 80px; height: 80px; border-radius: 4px; border: 0.6px solid #C8C8C8;" src="{% static 'draw/images/' %}{{comment.serialno}}0.avif">
+                    </div>
+                    <div style="max-width: 500px; float: left; margin-left: 20px;">
+                        <p style="margin: 0; color: #333; font-size: 22px;">{{comment.comment}}</p>
+                        <p style="margin: 0; color: #777; font-size: 14px; font-weight: 200;">{{comment.created_date}}</p>
+                        <p style="margin: 0; color: #777; font-size: 14px; font-weight: 500;">{{comment.shoename}}</p>
+                    </div>
+                    <div style="float: right; margin-top: 40px;">
+                        <p style="margin: 0; color: #777; font-size: 16px; font-weight: 700; float: left;">답글</p>
+                        <p style="margin: 0; color: #777; font-size: 16px; font-weight: 700; float: left; margin-left: 10px;">1</p>
+                        <div style="float: left; width: 20px; height: 20px; background-image: url('../../../static/draw/necessary/comment_fill_like_btn.svg'); margin-left: 20px;">
+                            <!-- <span style="background: url('../../static/draw/necessary/Group.svg') no-repeat center center/20px auto; width: 20px; height: 20px; display: inline;"></span> -->
+                        </div>
+                        <p style="margin: 0; color: #F00; font-size: 16px; font-weight: 700; float: left; margin-left: 10px;">232</p>
+                        <div style="float: left; width: 20px; height: 20px; background-image: url('../../../static/draw/necessary/comment_fill_hate_btn.svg'); margin-left: 20px;">
+                        </div>
+                        <p style="margin: 0; color: #777; font-size: 16px; font-weight: 700; float: left; margin-left: 10px;">0</p>
+                        <p class="comment-delete-btn" style="margin: 0; color: #777; font-size: 16px; font-weight: 400; float: left; margin-left: 50px; cursor: pointer;">삭제</p>
+                    </div>
+                </div>
+                {% else %}
+                <div style="width: 100%; height: 200px; display: table; text-align: center;">
+                    <p style="margin: 0; display: table-cell; vertical-align: middle;">댓글이 존재하지 않습니다.</p>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script>const STATIC_FULL_URL = "{% url 'draw:상세정보' %}?serialnum=";const STATIC_IMAGES_URL = "{% static 'draw/images/' %}";</script>
+</section>
+{% endblock %}
 
-    {% include 'draw/search.html' %}
-
-    {% include 'draw/loading.html' %}
-
-    {% include 'draw/go_up.html' %}
-
-    
-    <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
-    <script src="{% static 'draw/js/myPage.js' %}"></script>
-    <script src="{% static 'draw/js/alpharaffle.js' %}"></script>
-    
-</body>
-
-</html>
+{% block extra_js %}
+<script src="{% static 'draw/js/myPage.js' %}"></script>
+{% endblock %}

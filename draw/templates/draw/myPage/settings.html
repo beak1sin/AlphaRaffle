@@ -1,231 +1,186 @@
-<!DOCTYPE html>
-<html style="font-size: 16px;">
+{% extends 'draw/base.html' %}
 {% load pwa %}
 {% load static %}
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <title>AlphaRaffle</title>
-    <!-- Apple Touch 아이콘 -->
-    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'draw/necessary/apple-touch-icon-114x114.png' %}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'draw/necessary/apple-touch-icon-120x120.png' %}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'draw/necessary/apple-touch-icon-144x144.png' %}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'draw/necessary/apple-touch-icon-180x180.png' %}"> 
-    <!-- Android/Chrome 아이콘 -->
-    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'draw/necessary/android-chrome-192x192.png' %}">
-    <!-- 일반적인 파비콘 -->
-    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'draw/necessary/favicon-96x96.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'draw/necessary/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'draw/necessary/favicon-16x16.png' %}">
-    <!-- Microsoft 타일 아이콘 -->
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-TileImage" content="{% static 'draw/necessary/mstile-144x144.png' %}">
-    <!-- macOS 탭 핀 -->
-    <link rel="mask-icon" href="{% static 'draw/necessary/ar01.svg' %}">
-    
-    <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" href="{% static 'draw/css/normalize.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/myPage.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
 
-    {% progressive_web_app_meta %}
+{% block title %}
+<title>AlphaRaffle</title>
+{% endblock %}
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FKLV3QNRNC"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'draw/css/myPage.css' %}" media="screen">
+{% endblock %}
 
-    gtag('config', 'G-FKLV3QNRNC');
-    </script>
+{% block meta_title %}
+<meta name="description" content="">
+<meta property="og:title" content="myPage">
+<meta property="og:description" content="">
+{% endblock %}
 
-    <meta property="og:title" content="myPage">
-    <meta property="og:description" content="">
-    <meta property="og:type" content="website">
-</head>
-
-<body>
-    <!-- 헤더 -->
-    {% include 'draw/header.html' %}
-    {% csrf_token %}
-    <section class="mypage-section" style="width: 100vw; height: 100vh;">
-        <div id="mypage" class="mypage-box nav-up" style="">
-            <div id="mypage_nav" class="mypage-nav-box nav-up" style="">
-                <div style="width: 100%; height: 22%; padding-bottom: 2vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
-                    <div style="width: 50px; height: 50px;">
-                        {% if member.profile_img_url == '-' %}
-                        <img id="profile_img" style="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.avif">
-                        {% else %}
-                        <img id="profile_img" style="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%;" src="{{member.profile_img_url}}">
-                        {% endif %}
-                    </div>
-                    <p class="main-nickname" style="margin: 0px; padding-top: 10px; font-size: 28px; font-weight: 500; line-height: 30px; border-bottom: 2px solid black;">{{member.member_nickname}}</p>
+{% block content %}
+{% csrf_token %}
+<section class="mypage-section" style="width: 100vw; height: 100vh;">
+    <div id="mypage" class="mypage-box nav-up" style="">
+        <div id="mypage_nav" class="mypage-nav-box nav-up" style="">
+            <div style="width: 100%; height: 22%; padding-bottom: 2vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                <div style="width: 50px; height: 50px;">
+                    {% if member.profile_img_url == '-' %}
+                    <img id="profile_img" style="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.avif">
+                    {% else %}
+                    <img id="profile_img" style="width: 50px; height: 50px; border: 1px solid black; border-radius: 50%;" src="{{member.profile_img_url}}">
+                    {% endif %}
                 </div>
-                <div style="width: 100%; height: 43%;">
-                    <div class="tab" onclick="location.href = `{% url 'draw:마이페이지북마크' %}`">
-                        <div class="icon-box">
-                            <span class="icon"></span>
-                        </div>
-                        <div class="title-box">
-                            <p class="title">북마크 관리</p>
-                        </div>
-                    </div>
-                    <div class="tab" onclick="location.href = `{% url 'draw:마이페이지응모' %}`">
-                        <div class="icon-box">
-                            <span class="icon2"></span>
-                        </div>
-                        <div class="title-box">
-                            <p class="title">응모 내역</p>
-                        </div>
-                    </div>
-                    <div class="tab" onclick="location.href = `{% url 'draw:마이페이지댓글' %}`">
-                        <div class="icon-box">
-                            <span class="icon3"></span>
-                        </div>
-                        <div class="title-box">
-                            <p class="title">작성한 댓글</p>
-                        </div>
-                    </div>
-                    <div class="tab" onclick="location.href = `{% url 'draw:마이페이지게시물' %}`">
-                        <div class="icon-box">
-                            <span class="icon4"></span>
-                        </div>
-                        <div class="title-box">
-                            <p class="title">작성한 게시물</p>
-                        </div>
-                    </div>
-                    <div class="tab" onclick="location.href = `{% url 'draw:마이페이지리뷰' %}`">
-                        <div class="icon-box">
-                            <span class="icon5"></span>
-                        </div>
-                        <div class="title-box">
-                            <p class="title">작성한 리뷰</p>
-                        </div>
-                    </div>
-                    <div class="tab checked">
-                        <div class="icon-box">
-                            <span class="icon6"></span>
-                        </div>
-                        <div class="title-box">
-                            <p class="title">개인정보 관리</p>
-                        </div>
-                    </div>
-                </div>
+                <p class="main-nickname" style="margin: 0px; padding-top: 10px; font-size: 28px; font-weight: 500; line-height: 30px; border-bottom: 2px solid black;">{{member.member_nickname}}</p>
             </div>
-
-            <div class="setting-content content">
-                <!-- <div style="width: 100%;">
-                    <p style="margin: 0px; font-size: 40px; font-weight: 700;">가입한 정보</p>
-                </div> -->
-                <div class="nickname-profile-content">
-                    <div style="width: 100px; height: 100px; float: left;">
-                        {% if member.profile_img_url == '-' %}
-                        <img id="profile_img_2" style="width: 100px; height: 100px; border: 1px solid black; border-radius: 50%;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
-                        {% else %}
-                        <img id="profile_img_2" style="width: 100px; height: 100px; border: 1px solid black; border-radius: 50%;" src="{{member.profile_img_url}}">
-                        {% endif %}
+            <div style="width: 100%; height: 43%;">
+                <div class="tab" onclick="location.href = `{% url 'draw:마이페이지북마크' %}`">
+                    <div class="icon-box">
+                        <span class="icon"></span>
                     </div>
-                    <div class="nickname-profile-box">
-                        <p class="nickname-value nickname">{{member.member_nickname}}</p>
-                        <input class="nickname-input" id="member_nickname" value="{{member.member_nickname}}" maxlength="20">
-                        <p class="nickname-error-msg"></p>
-                        <div id="profile_nick_btns" style="display: flex;">
-                            <div class="profile-img-change-btn">사진 변경</div>
-                            <input type="file" id="upload" style="display: none;" accept=".jpg, .jpeg, .png, .gif, .webp, .avif">
-                            <div class="nickname-change-btn" style="margin-left: 5px;">닉네임 변경</div>
-                        </div>
-                        <p class="fileUpload-msg">* 파일 확장자는 .jpg .jpeg .png .gif .webp .avif만 추가가 가능합니다. 파일 크기가 200KB 이상일때는 원본 파일을 압축합니다.</p>
+                    <div class="title-box">
+                        <p class="title">북마크 관리</p>
                     </div>
                 </div>
-                
-                <div class="flex-column">
-                    <p class="flex-column-text">가입 정보</p>
-                    <div style="margin-top: 10px;">
-                        <p class="info-subject width150">이메일</p>
-                        <p class="info-text">{{member.member_id}}</p>
+                <div class="tab" onclick="location.href = `{% url 'draw:마이페이지응모' %}`">
+                    <div class="icon-box">
+                        <span class="icon2"></span>
                     </div>
-                    <div style="margin-top: 10px;">
-                        <p class="info-subject width150">비밀번호</p>
-                        <div id="redirectAndClick" class="password-change-btn">&nbsp;&nbsp;비밀번호 변경하기&nbsp;&nbsp;</div>
+                    <div class="title-box">
+                        <p class="title">응모 내역</p>
                     </div>
                 </div>
-
-                <div class="info flex-column">
-                    <p class="flex-column-text">응모 정보</p>
-                    <div style="margin-top: 10px;">
-                        <p class="info-subject width150">이름</p>
-                        <p class="info-value realname info-text">{{member.member_realname}}</p>
-                        <input class="info-input" id="member_realname" value="{{member.member_realname}}" maxlength="10">
-                        <p class="info-input-error-msg"></p>
+                <div class="tab" onclick="location.href = `{% url 'draw:마이페이지댓글' %}`">
+                    <div class="icon-box">
+                        <span class="icon3"></span>
                     </div>
-                    <div style="margin-top: 10px;">
-                        <p class="info-subject width150">휴대폰 번호</p>
-                        <p class="info-value phonenumber info-text">{{member.member_phonenumber}}</p>
-                        <input class="info-input" id="member_phonenumber" value="{{member.member_phonenumber}}" maxlength="11">
-                        <p class="info-input-error-msg"></p>
-                    </div>
-                    <div style="margin-top: 10px;">
-                        <p class="info-subject width150">생년월일</p>
-                        <p class="info-value birth info-text">{{member.member_birth}}</p>
-                        <input class="info-input" id="member_birth" value="{{member.member_birth}}" maxlength="6">
-                        <p class="info-input-error-msg"></p>
-                    </div>
-                    <div style="margin-top: 10px;">
-                        <p class="info-subject width150">나이키 ID</p>
-                        <p class="info-value nikeid info-text">{{member.member_nikeid}}</p>
-                        <input class="info-input" id="member_nikeid" value="{{member.member_nikeid}}" maxlength="50">
-                        <p class="info-input-error-msg"></p>
+                    <div class="title-box">
+                        <p class="title">작성한 댓글</p>
                     </div>
                 </div>
-
-                <div class="flex-column">
-                    <div>
-                        <p style="float: left;" class="flex-column-text">수신 정보</p>
-                        <div class="marketing-tos-agree-text-box">
-                            <p class="marketing-agree-text">마케팅 활용과 광고 수신에 동의합니다.</p>
-                            <p class="tos-agree-text">이용 약관 보기</p>
-                        </div>
+                <div class="tab" onclick="location.href = `{% url 'draw:마이페이지게시물' %}`">
+                    <div class="icon-box">
+                        <span class="icon4"></span>
                     </div>
-                    <div style="width: 300px; margin-top: 20px; display: flex; justify-content: space-between;">
-                        <div style="display: flex;">
-                            <p class="info-subject">SMS 수신</p>
-                            <div class="checkbox-circle-btn"></div>
-                        </div>
-                        <div style="display: flex;">
-                            <p class="info-subject">이메일 수신</p>
-                            <div class="checkbox-circle-btn checked"></div>
-                        </div>
+                    <div class="title-box">
+                        <p class="title">작성한 게시물</p>
                     </div>
                 </div>
-
-                <div style="display: flex; justify-content: space-between; max-width: 600px; margin-bottom: 40px;">
-                    <div id="left-btns" style="display: flex;">
-                        <div class="profile-change-btn">변경</div>
+                <div class="tab" onclick="location.href = `{% url 'draw:마이페이지리뷰' %}`">
+                    <div class="icon-box">
+                        <span class="icon5"></span>
                     </div>
-                    <div class="member-delete-btn" style="margin-left: 5px;" onclick="location.href = `{% url 'draw:회원탈퇴' %}`">회원 탈퇴하기</div>
+                    <div class="title-box">
+                        <p class="title">작성한 리뷰</p>
+                    </div>
+                </div>
+                <div class="tab checked">
+                    <div class="icon-box">
+                        <span class="icon6"></span>
+                    </div>
+                    <div class="title-box">
+                        <p class="title">개인정보 관리</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <script>const STATIC_FULL_URL = "{% url 'draw:상세정보' %}?serialnum=";const STATIC_IMAGES_URL = "{% static 'draw/images/' %}";</script>
-    </section>
 
-    {% include 'draw/search.html' %}
+        <div class="setting-content content">
+            <!-- <div style="width: 100%;">
+                <p style="margin: 0px; font-size: 40px; font-weight: 700;">가입한 정보</p>
+            </div> -->
+            <div class="nickname-profile-content">
+                <div style="width: 100px; height: 100px; float: left;">
+                    {% if member.profile_img_url == '-' %}
+                    <img id="profile_img_2" style="width: 100px; height: 100px; border: 1px solid black; border-radius: 50%;" src="https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnmiqkbsgcj1/b/alpharaffle-storage/o/profiles%2Fdefault.jpeg">
+                    {% else %}
+                    <img id="profile_img_2" style="width: 100px; height: 100px; border: 1px solid black; border-radius: 50%;" src="{{member.profile_img_url}}">
+                    {% endif %}
+                </div>
+                <div class="nickname-profile-box">
+                    <p class="nickname-value nickname">{{member.member_nickname}}</p>
+                    <input class="nickname-input" id="member_nickname" value="{{member.member_nickname}}" maxlength="20">
+                    <p class="nickname-error-msg"></p>
+                    <div id="profile_nick_btns" style="display: flex;">
+                        <div class="profile-img-change-btn">사진 변경</div>
+                        <input type="file" id="upload" style="display: none;" accept=".jpg, .jpeg, .png, .gif, .webp, .avif">
+                        <div class="nickname-change-btn" style="margin-left: 5px;">닉네임 변경</div>
+                    </div>
+                    <p class="fileUpload-msg">* 파일 확장자는 .jpg .jpeg .png .gif .webp .avif만 추가가 가능합니다. 파일 크기가 200KB 이상일때는 원본 파일을 압축합니다.</p>
+                </div>
+            </div>
+            
+            <div class="flex-column">
+                <p class="flex-column-text">가입 정보</p>
+                <div style="margin-top: 10px;">
+                    <p class="info-subject width150">이메일</p>
+                    <p class="info-text">{{member.member_id}}</p>
+                </div>
+                <div style="margin-top: 10px;">
+                    <p class="info-subject width150">비밀번호</p>
+                    <div id="redirectAndClick" class="password-change-btn">&nbsp;&nbsp;비밀번호 변경하기&nbsp;&nbsp;</div>
+                </div>
+            </div>
 
-    {% include 'draw/loading.html' %}
+            <div class="info flex-column">
+                <p class="flex-column-text">응모 정보</p>
+                <div style="margin-top: 10px;">
+                    <p class="info-subject width150">이름</p>
+                    <p class="info-value realname info-text">{{member.member_realname}}</p>
+                    <input class="info-input" id="member_realname" value="{{member.member_realname}}" maxlength="10">
+                    <p class="info-input-error-msg"></p>
+                </div>
+                <div style="margin-top: 10px;">
+                    <p class="info-subject width150">휴대폰 번호</p>
+                    <p class="info-value phonenumber info-text">{{member.member_phonenumber}}</p>
+                    <input class="info-input" id="member_phonenumber" value="{{member.member_phonenumber}}" maxlength="11">
+                    <p class="info-input-error-msg"></p>
+                </div>
+                <div style="margin-top: 10px;">
+                    <p class="info-subject width150">생년월일</p>
+                    <p class="info-value birth info-text">{{member.member_birth}}</p>
+                    <input class="info-input" id="member_birth" value="{{member.member_birth}}" maxlength="6">
+                    <p class="info-input-error-msg"></p>
+                </div>
+                <div style="margin-top: 10px;">
+                    <p class="info-subject width150">나이키 ID</p>
+                    <p class="info-value nikeid info-text">{{member.member_nikeid}}</p>
+                    <input class="info-input" id="member_nikeid" value="{{member.member_nikeid}}" maxlength="50">
+                    <p class="info-input-error-msg"></p>
+                </div>
+            </div>
 
-    {% include 'draw/go_up.html' %}
+            <div class="flex-column">
+                <div>
+                    <p style="float: left;" class="flex-column-text">수신 정보</p>
+                    <div class="marketing-tos-agree-text-box">
+                        <p class="marketing-agree-text">마케팅 활용과 광고 수신에 동의합니다.</p>
+                        <p class="tos-agree-text">이용 약관 보기</p>
+                    </div>
+                </div>
+                <div style="width: 300px; margin-top: 20px; display: flex; justify-content: space-between;">
+                    <div style="display: flex;">
+                        <p class="info-subject">SMS 수신</p>
+                        <div class="checkbox-circle-btn"></div>
+                    </div>
+                    <div style="display: flex;">
+                        <p class="info-subject">이메일 수신</p>
+                        <div class="checkbox-circle-btn checked"></div>
+                    </div>
+                </div>
+            </div>
 
-    
-    <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
-    <script src="{% static 'draw/js/myPage.js' %}"></script>
-    <script src="{% static 'draw/js/settings.js' %}"></script>
-    <script src="{% static 'draw/js/alpharaffle.js' %}"></script>
-    
-</body>
+            <div style="display: flex; justify-content: space-between; max-width: 600px; margin-bottom: 40px;">
+                <div id="left-btns" style="display: flex;">
+                    <div class="profile-change-btn">변경</div>
+                </div>
+                <div class="member-delete-btn" style="margin-left: 5px;" onclick="location.href = `{% url 'draw:회원탈퇴' %}`">회원 탈퇴하기</div>
+            </div>
+        </div>
+    </div>
+    <script>const STATIC_FULL_URL = "{% url 'draw:상세정보' %}?serialnum=";const STATIC_IMAGES_URL = "{% static 'draw/images/' %}";</script>
+</section>
+{% endblock %}
 
-</html>
+{% block extra_js %}
+<script src="{% static 'draw/js/myPage.js' %}"></script>
+<script src="{% static 'draw/js/settings.js' %}"></script>
+{% endblock %}

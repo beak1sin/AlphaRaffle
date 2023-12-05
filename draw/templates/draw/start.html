@@ -1,174 +1,137 @@
-<!DOCTYPE html>
-
+{% extends 'draw/base.html' %}
+{% load pwa %}
 {% load static %}
-<html style="font-size: 16px;" lang="ko">
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta name="keywords" content="AlphaRaffle, 발매정보">
-    <meta name="description" content="">
-    <title>AlphaRaffle</title>
-    <!-- Apple Touch 아이콘 -->
-    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'draw/necessary/apple-touch-icon-114x114.png' %}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'draw/necessary/apple-touch-icon-120x120.png' %}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'draw/necessary/apple-touch-icon-144x144.png' %}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'draw/necessary/apple-touch-icon-180x180.png' %}"> 
-    <!-- Android/Chrome 아이콘 -->
-    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'draw/necessary/android-chrome-192x192.png' %}">
-    <!-- 일반적인 파비콘 -->
-    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'draw/necessary/favicon-96x96.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'draw/necessary/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'draw/necessary/favicon-16x16.png' %}">
-    <!-- Microsoft 타일 아이콘 -->
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-TileImage" content="{% static 'draw/necessary/mstile-144x144.png' %}">
-    <!-- macOS 탭 핀 -->
-    <link rel="mask-icon" href="{% static 'draw/necessary/ar01.svg' %}">
+{% block title %}
+<title>AlphaRaffle</title>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'draw/css/start.css' %}" media="screen">
+{% endblock %}
+
+{% block meta_title %}
+<meta name="description" content="AlphaRaffle | 시작화면입니다.">
+<meta property="og:title" content="AlphaRaffle | 시작">
+<meta property="og:description" content="AlphaRaffle | 시작화면입니다.">
+{% endblock %}
+
+{% block content %}
+
+<section class="content">
+    <div class="box box1">
+        <div class="leftbox">
+            <div class="leftboxPadding">
+                <div class="leftboxPadding-box">
+                    <div class="wh100">
+                        <div class="leftboxPadding-box-1">
+                            <h1 class="bigText text"></h1>
+                        </div>
+                        <div style="width: 100%; height: 100px; float: left;"></div>
+                        <div class="leftboxPadding-box-2">
+                            <h4 class="smallText text2"></h4>
+                            <button class="black-btn" id="main-btn">발매일정 보러 가기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rightbox">
+            <div class="rightboxPadding">
+                <div class="wh100" style="position: relative;">
+                    <img class="wh100" src="{% static 'draw/necessary/start1-1.avif' %}" style="position: absolute;">
+                    <img class="wh80" src="{% static 'draw/necessary/start1.avif' %}" style="position: absolute; left: 50px; top: 50px; filter: drop-shadow(-4px 4px 4px rgba(0, 0, 0, 0.25));">
+                </div>
+            </div>
+            <div class="dotPadding">
+                <div class="wh100">
+                    <div class="dot">
+                        <img class="first-btn dot-btn" src="{% static 'draw/necessary/VectorFill.avif' %}">
+                    </div>
+                    <div class="dot">
+                        <img class="second-btn dot-btn" src="{% static 'draw/necessary/NotVectorFill.avif' %}">
+                    </div>
+                    <div class="dot">
+                        <img class="third-btn dot-btn" src="{% static 'draw/necessary/NotVectorFill.avif' %}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     
-    <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" href="{% static 'draw/css/normalize.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/start.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
+</section>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FKLV3QNRNC"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-FKLV3QNRNC');
-    </script>
-
-    <meta property="og:title" content="AlphaRaffle | 시작">
-    <meta property="og:image" content="{% static 'draw/images/ar011.avif' %}">
-    <meta property="og:description" content="AlphaRaffle | 시작화면입니다.">
-    <meta property="og:type" content="website">
-</head>
-
-<body>
-
-    {% include 'draw/header.html' %}
-    
-    <section class="content">
-        <div class="box box1">
-            <div class="leftbox">
-                <div class="leftboxPadding">
-                    <div class="leftboxPadding-box">
-                        <div class="wh100">
-                            <div class="leftboxPadding-box-1">
-                                <h1 class="bigText text"></h1>
-                            </div>
-                            <div style="width: 100%; height: 100px; float: left;"></div>
-                            <div class="leftboxPadding-box-2">
-                                <h4 class="smallText text2"></h4>
-                                <button class="black-btn" id="main-btn">발매일정 보러 가기</button>
-                            </div>
-                        </div>
-                    </div>
+<section class="content">
+    <div class="box box2">
+        <div class="leftbox">
+            <div class="leftboxPadding wh100">
+                <div class="leftboxPadding-box-1">
+                    <img class="image i2" src="{% static 'draw/necessary/start2-1.avif' %}">
+                    <img class="image i3" src="{% static 'draw/necessary/start2-2.avif' %}">
+                    <img class="image i1" src="{% static 'draw/necessary/start2.avif' %}">
+                    <img class="image i4" src="{% static 'draw/necessary/start2-3.avif' %}">
+                </div>
+                <div class="leftboxPadding-box-2">
+                    <h1 class="bigText text3">클릭 한 번으로 응모해보세요!</h1>
+                </div>
+                <div class="leftboxPadding-box-3">
+                    <h4 class="smallText text4">알파라플만의 간편한 응모 서비스를 경험해보세요.</br>가지고 싶은 만큼 국내부터 해외 발매처까지 골고루 응모하세요!</h4>
                 </div>
             </div>
-            <div class="rightbox">
-                <div class="rightboxPadding">
-                    <div class="wh100" style="position: relative;">
-                        <img class="wh100" src="{% static 'draw/necessary/start1-1.avif' %}" style="position: absolute;">
-                        <img class="wh80" src="{% static 'draw/necessary/start1.avif' %}" style="position: absolute; left: 50px; top: 50px; filter: drop-shadow(-4px 4px 4px rgba(0, 0, 0, 0.25));">
+        </div>
+        <div class="rightbox">
+            <div class="rightboxPadding wh100">
+                <div class="wh100">
+                    <div class="dot">
+                        <img class="first-btn dot-btn" src="{% static 'draw/necessary/NotVectorFill.avif' %}">
                     </div>
-                </div>
-                <div class="dotPadding">
-                    <div class="wh100">
-                        <div class="dot">
-                            <img class="first-btn dot-btn" src="{% static 'draw/necessary/VectorFill.avif' %}">
-                        </div>
-                        <div class="dot">
-                            <img class="second-btn dot-btn" src="{% static 'draw/necessary/NotVectorFill.avif' %}">
-                        </div>
-                        <div class="dot">
-                            <img class="third-btn dot-btn" src="{% static 'draw/necessary/NotVectorFill.avif' %}">
-                        </div>
+                    <div class="dot">
+                        <img class="second-btn dot-btn" src="{% static 'draw/necessary/VectorFill.avif' %}">
+                    </div>
+                    <div class="dot">
+                        <img class="third-btn dot-btn" src="{% static 'draw/necessary/NotVectorFill.avif' %}">
                     </div>
                 </div>
             </div>
         </div>
-        
-    </section>
+    </div>
+</section>
 
-    <section class="content">
-        <div class="box box2">
-            <div class="leftbox">
-                <div class="leftboxPadding wh100">
-                    <div class="leftboxPadding-box-1">
-                        <img class="image i2" src="{% static 'draw/necessary/start2-1.avif' %}">
-                        <img class="image i3" src="{% static 'draw/necessary/start2-2.avif' %}">
-                        <img class="image i1" src="{% static 'draw/necessary/start2.avif' %}">
-                        <img class="image i4" src="{% static 'draw/necessary/start2-3.avif' %}">
-                    </div>
-                    <div class="leftboxPadding-box-2">
-                        <h1 class="bigText text3">클릭 한 번으로 응모해보세요!</h1>
-                    </div>
-                    <div class="leftboxPadding-box-3">
-                        <h4 class="smallText text4">알파라플만의 간편한 응모 서비스를 경험해보세요.</br>가지고 싶은 만큼 국내부터 해외 발매처까지 골고루 응모하세요!</h4>
-                    </div>
+<section class="content snowSection">
+    <div class="box box3">
+        <div class="leftbox">
+            <div class="leftboxPadding wh100">
+                <div class="leftboxPadding-box-1">
+                    <h1 class="bigText text5">지금 바로 시작하세요!!</h1>
+                </div>
+                <div class="leftboxPadding-box-2">
+                    <h4 class="smallText text6">비용 걱정 없이 회원 가입만으로도 이용 가능합니다.</h4>
+                </div>
+                <div class="leftboxPadding-box-3">
+                    <button class="black-btn" id="join-btn">회원가입</button>
                 </div>
             </div>
-            <div class="rightbox">
-                <div class="rightboxPadding wh100">
-                    <div class="wh100">
-                        <div class="dot">
-                            <img class="first-btn dot-btn" src="{% static 'draw/necessary/NotVectorFill.avif' %}">
-                        </div>
-                        <div class="dot">
-                            <img class="second-btn dot-btn" src="{% static 'draw/necessary/VectorFill.avif' %}">
-                        </div>
-                        <div class="dot">
-                            <img class="third-btn dot-btn" src="{% static 'draw/necessary/NotVectorFill.avif' %}">
-                        </div>
+        </div>
+        <div class="rightbox">
+            <div class="rightboxPadding wh100">
+                <div class="wh100">
+                    <div class="dot">
+                        <img class="first-btn dot-btn" src="{% static 'draw/necessary/NotVectorFill.avif' %}">
+                    </div>
+                    <div class="dot">
+                        <img class="second-btn dot-btn" src="{% static 'draw/necessary/NotVectorFill.avif' %}">
+                    </div>
+                    <div class="dot">
+                        <img class="third-btn dot-btn" src="{% static 'draw/necessary/VectorFill.avif' %}">
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+{% endblock %}
 
-    <section class="content snowSection">
-        <div class="box box3">
-            <div class="leftbox">
-                <div class="leftboxPadding wh100">
-                    <div class="leftboxPadding-box-1">
-                        <h1 class="bigText text5">지금 바로 시작하세요!!</h1>
-                    </div>
-                    <div class="leftboxPadding-box-2">
-                        <h4 class="smallText text6">비용 걱정 없이 회원 가입만으로도 이용 가능합니다.</h4>
-                    </div>
-                    <div class="leftboxPadding-box-3">
-                        <button class="black-btn" id="join-btn">회원가입</button>
-                    </div>
-                </div>
-            </div>
-            <div class="rightbox">
-                <div class="rightboxPadding wh100">
-                    <div class="wh100">
-                        <div class="dot">
-                            <img class="first-btn dot-btn" src="{% static 'draw/necessary/NotVectorFill.avif' %}">
-                        </div>
-                        <div class="dot">
-                            <img class="second-btn dot-btn" src="{% static 'draw/necessary/NotVectorFill.avif' %}">
-                        </div>
-                        <div class="dot">
-                            <img class="third-btn dot-btn" src="{% static 'draw/necessary/VectorFill.avif' %}">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <script>const STATIC_NECESSARY = "{% static 'draw/necessary/'%}"</script>
-
-    <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
-    <script src="{% static 'draw/js/start.js' %}"></script>
-</body>
-
-</html>
+{% block extra_js %}
+<script>const STATIC_NECESSARY = "{% static 'draw/necessary/'%}"</script>
+<script src="{% static 'draw/js/start.js' %}"></script>
+{% endblock %}

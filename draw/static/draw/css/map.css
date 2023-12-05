@@ -1,3 +1,7 @@
+body {
+    background: #FBFBFB;
+}
+
 .address-items {
     display: flex;
     justify-content: space-between;

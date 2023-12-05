@@ -1,293 +1,248 @@
-<!DOCTYPE html>
+{% extends 'draw/base.html' %}
 {% load pwa %}
 {% load static %}
-<html style="font-size: 16px;" lang="ko">
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta name="keywords" content="AlphaRaffle, 발매정보, 스니커즈, 한정판 신발, 한정판 스니커즈, 나이키, 뉴발란스, 아디다스, 한정판 신발 응모, 한정판 신발 발매 정보, 한정판 거래, 조던, 이지부스트, Sneakers, nike, jordan">
-    <meta name="description" content="AlphaRaffle | 구글 폼 방식 응모를 자동으로 응모해주고 발매 정보를 실시간으로 제공해주는 플랫폼입니다.">
-    <title>AlphaRaffle</title>
-    <!-- Apple Touch 아이콘 -->
-    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'draw/necessary/apple-touch-icon-114x114.png' %}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'draw/necessary/apple-touch-icon-120x120.png' %}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'draw/necessary/apple-touch-icon-144x144.png' %}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'draw/necessary/apple-touch-icon-180x180.png' %}">
-    <!-- Android/Chrome 아이콘 -->
-    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'draw/necessary/android-chrome-192x192.png' %}">
-    <!-- 일반적인 파비콘 -->
-    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'draw/necessary/favicon-96x96.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'draw/necessary/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'draw/necessary/favicon-16x16.png' %}">
-    <!-- Microsoft 타일 아이콘 -->
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-TileImage" content="{% static 'draw/necessary/mstile-144x144.png' %}">
-    <!-- macOS 탭 핀 -->
-    <link rel="mask-icon" href="{% static 'draw/necessary/ar01.svg' %}">
-    
-    <meta name="theme-color" content="#ffffff">
+{% block title %}
+<title>AlphaRaffle</title>
+{% endblock %}
 
-    <link rel="stylesheet" href="{% static 'draw/css/normalize.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/main.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'draw/css/main.css' %}" media="screen">
+{% endblock %}
 
-    {% progressive_web_app_meta %}
+{% block meta_title %}
+<meta name="description" content="AlphaRaffle | 구글 폼 방식 응모를 자동으로 응모해주고 발매 정보를 실시간으로 제공해주는 플랫폼입니다.">
+<meta property="og:title" content="AlphaRaffle">
+<meta property="og:description" content="AlphaRaffle | 구글 폼 방식 응모를 자동으로 응모해주고 발매 정보를 실시간으로 제공해주는 플랫폼입니다.">
+{% endblock %}
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FKLV3QNRNC"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+{% block content %}
+<section id="scroll-container" class="u-section-1" style="width: 100vw; height: 100vh;">
+    <div class="main-box" style="width: 100vw;">
+        <div id="banner_box" class="banner-box">
+            <div class="btns-box">
+                <div class="btns" id="previous"></div>
+            </div>
+            <div class="banner">
+                <div class="wrapper">
+                    <div id="slider-wrap">
+                        <ul id="slider">
+                            {% for banner in banner %}
+                            <li id="slider_list">
+                                <div>
+                                    <button>바로가기</button>
+                                </div>
+                                {% if banner.image %}       
+                                
+                                
+                                <img src="{{banner.image.url}}" alt="{{banner.title}}">
+                                {% else %}
+                                <img src="{{banner.avifimage.url}}" alt="{{banner.title}}">
+                                {% endif %}
+                                </li>
+                            {% endfor %}
+                            <!-- <li id="slider_list">
+                                <div>
 
-    gtag('config', 'G-FKLV3QNRNC');
-    </script>
-    
-    <meta property="og:title" content="AlphaRaffle">
-    <meta property="og:image" content="{% static 'draw/images/ar011.avif' %}">
-    <meta property="og:description" content="AlphaRaffle | 구글 폼 방식 응모를 자동으로 응모해주고 발매 정보를 실시간으로 제공해주는 플랫폼입니다.">
-    <meta property="og:type" content="website">
-</head>
-
-<body class="" style="margin: 0; background-color: #FBFBFB;">
-
-    {% include 'draw/header.html' %}
-    <section id="scroll-container" class="u-section-1" style="width: 100vw; height: 100vh;">
-        <div class="main-box" style="width: 100vw;">
-            <div id="banner_box" class="banner-box">
-                <div class="btns-box">
-                    <div class="btns" id="previous"></div>
-                </div>
-                <div class="banner">
-                    <div class="wrapper">
-                        <div id="slider-wrap">
-                            <ul id="slider">
-                                {% for banner in banner %}
-                                <li id="slider_list">
-                                    <div>
-                                        <button>바로가기</button>
-                                    </div>
-                                    {% if banner.image %}         
-                                    <img src="{{banner.image.url}}" alt="{{banner.title}}">
-                                    {% else %}
-                                    <img src="{{banner.avifimage.url}}" alt="{{banner.title}}">
-                                    {% endif %}
-                                 </li>
-                                {% endfor %}
-                               <!-- <li id="slider_list">
-                                  <div>
-
-                                      <h3>STUSSY X MARTIN ROSE</h3>
-                                      <span>2023.04.15 10AM</span>
-                                      <button>바로가기</button>
-                                  </div>                
-                  <img src="{% static 'draw/necessary/banner-1.avif' %}">
-                               </li>
-                                -->
+                                    <h3>STUSSY X MARTIN ROSE</h3>
+                                    <span>2023.04.15 10AM</span>
+                                    <button>바로가기</button>
+                                </div>                
+                <img src="{% static 'draw/necessary/banner-1.avif' %}">
+                            </li>
+                            -->
+                        </ul>
+                        
+                            <!--controls-->
+                        <div id="counter"></div>
+                        
+                        <div id="pagination-wrap">
+                            <ul>
                             </ul>
-                            
-                             <!--controls-->
-                            <div id="counter"></div>
-                            
-                            <div id="pagination-wrap">
-                              <ul>
-                              </ul>
-                            </div>
-                            <!--controls-->  
-                                   
                         </div>
-                    
-                     </div>
-                </div>
-                <div class="btns-box">
-                    <div class="btns" id="next">
+                        <!--controls-->  
+                                
                     </div>
+                
+                    </div>
+            </div>
+            <div class="btns-box">
+                <div class="btns" id="next">
                 </div>
             </div>
-            <div class="mobile-ad-box">
-                <div class="mobile-ad-box-js">
+        </div>
+        <div class="mobile-ad-box">
+            <div class="mobile-ad-box-js">
+            </div>
+        </div>
+        <div class="grid-wrapper-box">
+            <div class="ad-box">
+                <div class="ad-box-pos left-ad-box-js">
                 </div>
             </div>
-            <div class="grid-wrapper-box">
-                <div class="ad-box">
-                    <div class="ad-box-pos left-ad-box-js">
+            
+            <div class="grid-wrapper-box2">
+                <div class="shoebar">
+                    <div class="menu-icon">
+                        <label class="menu-icon-label">
+                            <span class="icon"></span>
+                        </label>
                     </div>
+                    <div class="shoeLength">
+                        <p class="shoebar-text droppedShoeLength">{{droppedShoe.count}}개</p>
+                        <p class="shoebar-text upcomingShoeLength" style="display: none;">{{upcomingShoe.count}}개</p>
+                        <p class="shoebar-text endShoeLength" style="display: none;">{{endShoe_count}}개</p>
+                    </div>
+                    <div class="viewSort"><p class="shoebar-text">조회수 순</p></div>
+                    <div class="viewSort-icon">
+                        <label class="viewSort-icon-label">
+                            <span class="icon"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="grid-wrapper droppedShoe-section">
+                    {% csrf_token %}
+                    {% for shoe in droppedShoe %}
+                    <div class="grid-box" data-value="{{shoe.serialno}}">
+                        <a class="grid-link" href="{% url 'draw:상세정보' %}?serialnum={{shoe.serialno}}">
+                            <div class="grid-container">
+                                <div class="grid-img-box">
+                                    <div class="img-box">
+                                        <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.avif" alt="{{shoe.shoeengname}}">
+                                    </div>
+                                    <div class="bookmark-icon">
+                                        {% if member in shoe.likes.all %}
+                                        <label class="bookmark-icon-label on">
+                                            <span class="icon"></span>
+                                        </label>
+                                        {% else %}
+                                        <label class="bookmark-icon-label">
+                                            <span class="icon"></span>
+                                        </label>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="grid-shoename-box">
+                                    {% if shoenameSlash == None %}
+                                    <p class="shoename">{{shoe.shoename}}</p>
+                                    {% else %}
+                                    <p class="shoename">{{shoenameSlash}}</p>
+                                    {% endif %}
+                                </div>
+                                <div class="grid-pubdate-box">
+                                    <p class="pubdate">{{shoe.pubdate}} 발매</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="grid-wrapper full-section" style="display: none;">
+                    {% csrf_token %}
+                    {% for shoe in upcomingShoe %}
+                    <div class="grid-box" data-value="{{shoe.serialno}}">
+                        <a class="grid-link" href="{% url 'draw:상세정보' %}?serialnum={{shoe.serialno}}">
+                            <div class="grid-container">
+                                <div class="grid-img-box">
+                                    <div class="img-box">
+                                        <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.avif" alt="{{shoe.shoeengname}}">
+                                    </div>
+                                    <div class="bookmark-icon">
+                                        {% if member in shoe.likes.all %}
+                                        <label class="bookmark-icon-label on">
+                                            <span class="icon"></span>
+                                        </label>
+                                        {% else %}
+                                        <label class="bookmark-icon-label">
+                                            <span class="icon"></span>
+                                        </label>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="grid-shoename-box">
+                                    {% if shoenameSlash == None %}
+                                    <p class="shoename">{{shoe.shoename}}</p>
+                                    {% else %}
+                                    <p class="shoename">{{shoenameSlash}}</p>
+                                    {% endif %}
+                                </div>
+                                <div class="grid-pubdate-box">
+                                    <p class="pubdate">{{shoe.pubdate}} 발매</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
                 </div>
                 
-                <div class="grid-wrapper-box2">
-                    <div class="shoebar">
-                        <div class="menu-icon">
-                            <label class="menu-icon-label">
-                                <span class="icon"></span>
-                            </label>
-                        </div>
-                        <div class="shoeLength">
-                            <p class="shoebar-text droppedShoeLength">{{droppedShoe.count}}개</p>
-                            <p class="shoebar-text upcomingShoeLength" style="display: none;">{{upcomingShoe.count}}개</p>
-                            <p class="shoebar-text endShoeLength" style="display: none;">{{endShoe_count}}개</p>
-                        </div>
-                        <div class="viewSort"><p class="shoebar-text">조회수 순</p></div>
-                        <div class="viewSort-icon">
-                            <label class="viewSort-icon-label">
-                                <span class="icon"></span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="grid-wrapper droppedShoe-section">
-                        {% csrf_token %}
-                        {% for shoe in droppedShoe %}
-                        <div class="grid-box" data-value="{{shoe.serialno}}">
-                            <a class="grid-link" href="{% url 'draw:상세정보' %}?serialnum={{shoe.serialno}}">
-                                <div class="grid-container">
-                                    <div class="grid-img-box">
-                                        <div class="img-box">
-                                            <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.avif" alt="{{shoe.shoeengname}}">
-                                        </div>
-                                        <div class="bookmark-icon">
-                                            {% if member in shoe.likes.all %}
-                                            <label class="bookmark-icon-label on">
-                                                <span class="icon"></span>
-                                            </label>
-                                            {% else %}
-                                            <label class="bookmark-icon-label">
-                                                <span class="icon"></span>
-                                            </label>
-                                            {% endif %}
-                                        </div>
+                <div class="grid-wrapper infinite-container endShoe-section" style="display: none;">
+                    {% csrf_token %}
+                    {% for shoe in endShoe %}
+                    <div class="grid-box" data-value="{{shoe.serialno}}">
+                        <a class="grid-link" href="{% url 'draw:상세정보' %}?serialnum={{shoe.serialno}}">
+                            <div class="grid-container">
+                                <div class="grid-img-box">
+                                    <div class="img-box">
+                                        <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.avif" alt="{{shoe.shoeengname}}">
                                     </div>
-                                    <div class="grid-shoename-box">
-                                        {% if shoenameSlash == None %}
-                                        <p class="shoename">{{shoe.shoename}}</p>
+                                    <div class="bookmark-icon">
+                                        {% if member in shoe.likes.all %}
+                                        <label class="bookmark-icon-label on">
+                                            <span class="icon"></span>
+                                        </label>
                                         {% else %}
-                                        <p class="shoename">{{shoenameSlash}}</p>
+                                        <label class="bookmark-icon-label">
+                                            <span class="icon"></span>
+                                        </label>
                                         {% endif %}
                                     </div>
-                                    <div class="grid-pubdate-box">
-                                        <p class="pubdate">{{shoe.pubdate}} 발매</p>
-                                    </div>
                                 </div>
-                            </a>
-                        </div>
-                        {% endfor %}
-                    </div>
-
-                    <div class="grid-wrapper full-section" style="display: none;">
-                        {% csrf_token %}
-                        {% for shoe in upcomingShoe %}
-                        <div class="grid-box" data-value="{{shoe.serialno}}">
-                            <a class="grid-link" href="{% url 'draw:상세정보' %}?serialnum={{shoe.serialno}}">
-                                <div class="grid-container">
-                                    <div class="grid-img-box">
-                                        <div class="img-box">
-                                            <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.avif" alt="{{shoe.shoeengname}}">
-                                        </div>
-                                        <div class="bookmark-icon">
-                                            {% if member in shoe.likes.all %}
-                                            <label class="bookmark-icon-label on">
-                                                <span class="icon"></span>
-                                            </label>
-                                            {% else %}
-                                            <label class="bookmark-icon-label">
-                                                <span class="icon"></span>
-                                            </label>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                    <div class="grid-shoename-box">
-                                        {% if shoenameSlash == None %}
-                                        <p class="shoename">{{shoe.shoename}}</p>
-                                        {% else %}
-                                        <p class="shoename">{{shoenameSlash}}</p>
-                                        {% endif %}
-                                    </div>
-                                    <div class="grid-pubdate-box">
-                                        <p class="pubdate">{{shoe.pubdate}} 발매</p>
-                                    </div>
+                                <div class="grid-shoename-box">
+                                    {% if shoenameSlash == None %}
+                                    <p class="shoename">{{shoe.shoename}}</p>
+                                    {% else %}
+                                    <p class="shoename">{{shoenameSlash}}</p>
+                                    {% endif %}
                                 </div>
-                            </a>
-                        </div>
-                        {% endfor %}
+                                <div class="grid-pubdate-box">
+                                    <p class="pubdate">{{shoe.pubdate}} 발매</p>
+                                </div>
+                            </div>
+                        </a>
                     </div>
+                    {% endfor %}
                     
-                    <div class="grid-wrapper infinite-container endShoe-section" style="display: none;">
-                        {% csrf_token %}
-                        {% for shoe in endShoe %}
-                        <div class="grid-box" data-value="{{shoe.serialno}}">
-                            <a class="grid-link" href="{% url 'draw:상세정보' %}?serialnum={{shoe.serialno}}">
-                                <div class="grid-container">
-                                    <div class="grid-img-box">
-                                        <div class="img-box">
-                                            <img class="lazyload shoeimg" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.avif" alt="{{shoe.shoeengname}}">
-                                        </div>
-                                        <div class="bookmark-icon">
-                                            {% if member in shoe.likes.all %}
-                                            <label class="bookmark-icon-label on">
-                                                <span class="icon"></span>
-                                            </label>
-                                            {% else %}
-                                            <label class="bookmark-icon-label">
-                                                <span class="icon"></span>
-                                            </label>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                    <div class="grid-shoename-box">
-                                        {% if shoenameSlash == None %}
-                                        <p class="shoename">{{shoe.shoename}}</p>
-                                        {% else %}
-                                        <p class="shoename">{{shoenameSlash}}</p>
-                                        {% endif %}
-                                    </div>
-                                    <div class="grid-pubdate-box">
-                                        <p class="pubdate">{{shoe.pubdate}} 발매</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        {% endfor %}
-                        
-                    </div>
                 </div>
-                <div class="ad-box">
-                    <div class="ad-box-pos right-ad-box-js">
-                    </div>
+            </div>
+            <div class="ad-box">
+                <div class="ad-box-pos right-ad-box-js">
                 </div>
             </div>
         </div>
-        <script>const STATIC_FULL_URL = "{% url 'draw:상세정보' %}?serialnum=";const STATIC_IMAGES_URL = "{% static 'draw/images/' %}";</script>
-        
-    </section>
-
-    <div class="bookmark-layer off">
-        <div class="title_area">
-            <p class="title">로그인이 필요합니다.</p>
-        </div>
-        <div class="content_area">북마크에 추가하려면 로그인이 필요합니다.<br>로그인 페이지로 이동하겠습니까?</div>
-        <div class="btn_area">
-            <a id="cancel_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
-                취소
-            </a>
-            <a id="goLogin_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
-                확인
-            </a>
-        </div>
     </div>
-
-    {% include 'draw/search.html' %}
-
-    {% include 'draw/loading.html' %}
-
-    {% include 'draw/go_up.html' %}
+    <script>const STATIC_FULL_URL = "{% url 'draw:상세정보' %}?serialnum=";const STATIC_IMAGES_URL = "{% static 'draw/images/' %}";</script>
     
-    
-    <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
-    <script src="{% static 'draw/js/main.js' %}"></script>
-    <script src="{% static 'draw/js/alpharaffle.js' %}"></script>
-    <script src="{% static 'draw/js/headerScroll.js' %}"></script>
-    <script src="{% static 'draw/js/sha1.js' %}"></script>
-</body>
+</section>
 
-</html>
+<div class="bookmark-layer off">
+    <div class="title_area">
+        <p class="title">로그인이 필요합니다.</p>
+    </div>
+    <div class="content_area">북마크에 추가하려면 로그인이 필요합니다.<br>로그인 페이지로 이동하겠습니까?</div>
+    <div class="btn_area">
+        <a id="cancel_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
+            취소
+        </a>
+        <a id="goLogin_btn" class="u-border-2 u-border-grey-80 u-btn u-btn-round u-button-style u-hover-grey-80 u-none u-product-control u-radius-50 u-text-grey-80 u-text-hover-white u-btn-2">
+            확인
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'draw/js/main.js' %}"></script>
+<script src="{% static 'draw/js/headerScroll.js' %}"></script>
+<script src="{% static 'draw/js/sha1.js' %}"></script>
+{% endblock %}

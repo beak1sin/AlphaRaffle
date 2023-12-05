@@ -1,207 +1,163 @@
-<!DOCTYPE html>
-<html style="font-size: 16px;">
+{% extends 'draw/base.html' %}
 {% load pwa %}
 {% load static %}
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <title>AlphaRaffle</title>
-    <!-- Apple Touch 아이콘 -->
-    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'draw/necessary/apple-touch-icon-114x114.png' %}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'draw/necessary/apple-touch-icon-120x120.png' %}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'draw/necessary/apple-touch-icon-144x144.png' %}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'draw/necessary/apple-touch-icon-180x180.png' %}"> 
-    <!-- Android/Chrome 아이콘 -->
-    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'draw/necessary/android-chrome-192x192.png' %}">
-    <!-- 일반적인 파비콘 -->
-    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'draw/necessary/favicon-96x96.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'draw/necessary/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'draw/necessary/favicon-16x16.png' %}">
-    <!-- Microsoft 타일 아이콘 -->
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-TileImage" content="{% static 'draw/necessary/mstile-144x144.png' %}">
-    <!-- macOS 탭 핀 -->
-    <link rel="mask-icon" href="{% static 'draw/necessary/ar01.svg' %}">
-    
-    <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" href="{% static 'draw/css/normalize.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/myPage.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
-    
-    {% progressive_web_app_meta %}
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FKLV3QNRNC"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+{% block title %}
+<title>AlphaRaffle</title>
+{% endblock %}
 
-    gtag('config', 'G-FKLV3QNRNC');
-    </script>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'draw/css/myPage.css' %}" media="screen">
+{% endblock %}
 
-    <meta property="og:title" content="myPage">
-    <meta property="og:description" content="">
-    <meta property="og:type" content="website">
-</head>
+{% block meta_title %}
+<meta name="description" content="">
+<meta property="og:title" content="myPage">
+<meta property="og:description" content="">
+{% endblock %}
 
-<body>
-    <!-- 헤더 -->
-    {% include 'draw/header.html' %}
-    {% csrf_token %}
-    <section style="width: 100vw; height: 100vh; background-color: #EEEEEE;">
-        <div class="delete-content-1" style="width: calc(100vw); height: calc(100vh - 84px); top: 84px; float: left; position: relative;">
-            <div class="delete-box">
-                <div style="text-align: center; font-size: 24px; font-weight: 400;">
-                        <span class="delete-title">회원 탈퇴</span>
-                </div>
-                <div style="padding-top: 100px; text-align: center;">
-                    <span class="password-title">비밀번호를 입력해주세요.</span>
-                </div>
-                <div class="password-box">
-                    <span style="font-size: 16px; padding-right: 4px;">비밀번호</span>
-                    <span style="position: relative; border-bottom: 1px solid black; display: inline-block;">
-                        <button type="button" class="password-icon-hide"></button>
-                        <input type="password" id="member_pwd" class="password-value" style="width:200px; border: none; line-height: 20px;">
-                        <button type="button" class="password-icon-close"></button>
-                    </span>
-                    <p class="password-error-msg" style="font-size: 12px; color: red; margin: 0px; text-align: center; padding-top: 25px;"></p>
-                </div>
-                <div style="padding-top: 25px;">
-                    <button class="next-btn-1">진행하기</button>
-                </div>
-                <div class="back-btn-box">
-                    <span class="back-btn" onclick="location.href = `{% url 'draw:마이페이지개인정보' %}`">뒤로가기</span>
-                </div>
+{% block content %}
+{% csrf_token %}
+<section style="width: 100vw; height: 100vh; background-color: #EEEEEE;">
+    <div class="delete-content-1" style="width: calc(100vw); height: calc(100vh - 84px); top: 84px; float: left; position: relative;">
+        <div class="delete-box">
+            <div style="text-align: center; font-size: 24px; font-weight: 400;">
+                    <span class="delete-title">회원 탈퇴</span>
+            </div>
+            <div style="padding-top: 100px; text-align: center;">
+                <span class="password-title">비밀번호를 입력해주세요.</span>
+            </div>
+            <div class="password-box">
+                <span style="font-size: 16px; padding-right: 4px;">비밀번호</span>
+                <span style="position: relative; border-bottom: 1px solid black; display: inline-block;">
+                    <button type="button" class="password-icon-hide"></button>
+                    <input type="password" id="member_pwd" class="password-value" style="width:200px; border: none; line-height: 20px;">
+                    <button type="button" class="password-icon-close"></button>
+                </span>
+                <p class="password-error-msg" style="font-size: 12px; color: red; margin: 0px; text-align: center; padding-top: 25px;"></p>
+            </div>
+            <div style="padding-top: 25px;">
+                <button class="next-btn-1">진행하기</button>
+            </div>
+            <div class="back-btn-box">
+                <span class="back-btn" onclick="location.href = `{% url 'draw:마이페이지개인정보' %}`">뒤로가기</span>
             </div>
         </div>
+    </div>
 
-        <div class="delete-content-2" style="width: calc(100vw); height: calc(100vh - 84px); top: 84px; float: left; position: relative; display: none;">
-            <div class="delete-box-2">
-                <div style="text-align: center;">
-                    <span class="delete-title">회원 탈퇴</span>
-                </div>
-                <div style="padding-top: 30px; text-align: center;">
-                    <span class="delete-reason-title">만족스러운 서비스를 제공해드리지 못해 죄송합니다.</br>회원 탈퇴 사유를 모두 골라주세요.</br>서비스 개선을 위해 노력하겠습니다.</span>
-                </div>
-                <div style="padding-top: 20px; text-align: center;">
-                    <span class="delete-reason-select-title">최소 1개 이상 선택해주세요</span>
-                </div>
-                <div class="checkbox-box" style="display: flex; float: left; width: 100%;">
-                    <ul style="list-style-type: none; padding: 0; flex: 1;">
-                        <li>
-                            <input type="checkbox" id="quality" name="quality">
-                            <label for="quality">서비스의 품질이 좋지 않아요</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="difficult" name="difficult">
-                            <label for="difficult">서비스를 이용이 어려워요</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="comfortable" name="comfortable">
-                            <label for="comfortable">서비스가 편리하지 않아요</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="service" name="service">
-                            <label for="service">더 다양한 서비스를 원해요</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="bug" name="bug">
-                            <label for="bug">버그가 많아서 이용이 불편해요</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="feedback" name="feedback">
-                            <label for="feedback">피드백이 느리거나 답답해요</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="others" name="others">
-                            <label for="others">기타</label>
-                        </li>
-                    </ul>
-                    <!-- <ul style="list-style-type: none; padding: 0; flex: 1;">
-                    </ul> -->
-                </div>
-                <textarea name="" id="others_textarea" rows="2" style="resize: none; width: 100%; background-color: #EEEEEE;" readonly="readonly"></textarea>
-                <p class="checkbox-error-msg" style="font-size: 12px; color: red; margin: 0px; text-align: center;"></p>
-                <div style="padding-top: 25px;">
-                    <button class="next-btn-2">진행하기</button>
-                </div>
-                <div class="back-btn-box">
-                    <span class="back-btn" onclick="location.href = `{% url 'draw:마이페이지개인정보' %}`">뒤로가기</span>
-                </div>
+    <div class="delete-content-2" style="width: calc(100vw); height: calc(100vh - 84px); top: 84px; float: left; position: relative; display: none;">
+        <div class="delete-box-2">
+            <div style="text-align: center;">
+                <span class="delete-title">회원 탈퇴</span>
             </div>
-        </div>
-
-        <div class="delete-content-3" style="width: calc(100vw); height: calc(100vh - 84px); top: 84px; float: left; position: relative; display: none;">
-            <div class="delete-box">
-                <div style="text-align: center;">
-                    <span class="delete-title">회원 탈퇴</span>
-                </div>
-                <div style="padding-top: 30px; text-align: center; display: flex; justify-content: center;">
-                    <div class="warning-icon"></div>
-                    <span class="warning-title">탈퇴 시 유의사항</span>
-                </div>
-                <div style="padding-top: 30px; text-align: center;">
-                    <span class="warning-title-2">탈퇴 시 개인정보 및 이용정보를 영구적으로 삭제하며 복구할 수 없습니다.</br>재가입을 진행하더라도 기존에 이용했던 정보는 삭제합니다.</span>
-                </div>
-                <ul class="agree-checkbox-box">
+            <div style="padding-top: 30px; text-align: center;">
+                <span class="delete-reason-title">만족스러운 서비스를 제공해드리지 못해 죄송합니다.</br>회원 탈퇴 사유를 모두 골라주세요.</br>서비스 개선을 위해 노력하겠습니다.</span>
+            </div>
+            <div style="padding-top: 20px; text-align: center;">
+                <span class="delete-reason-select-title">최소 1개 이상 선택해주세요</span>
+            </div>
+            <div class="checkbox-box" style="display: flex; float: left; width: 100%;">
+                <ul style="list-style-type: none; padding: 0; flex: 1;">
                     <li>
-                        <input type="checkbox" id="delete_agree_1" name="delete_agree_1">
-                        <label for="delete_agree_1">탈퇴 시 유의사항에 동의합니다</label>
-                    </li>
-                    <li style="display: flex;">
-                        <input type="checkbox" id="delete_agree_2" name="delete_agree_2">
-                        <label for="delete_agree_2" style="margin-left: 4px; line-height: 25.59px;">탈퇴 시 개인정보 관련 이용 약관에 동의합니다</label>
-                        <p style="margin: 0; font-size: 10px; line-height: 25.59px; text-decoration: underline; color: #201DB1; margin-left: 5px; cursor: pointer;">이용 약관 보기</p>
+                        <input type="checkbox" id="quality" name="quality">
+                        <label for="quality">서비스의 품질이 좋지 않아요</label>
                     </li>
                     <li>
+                        <input type="checkbox" id="difficult" name="difficult">
+                        <label for="difficult">서비스를 이용이 어려워요</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="comfortable" name="comfortable">
+                        <label for="comfortable">서비스가 편리하지 않아요</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="service" name="service">
+                        <label for="service">더 다양한 서비스를 원해요</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="bug" name="bug">
+                        <label for="bug">버그가 많아서 이용이 불편해요</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="feedback" name="feedback">
+                        <label for="feedback">피드백이 느리거나 답답해요</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="others" name="others">
+                        <label for="others">기타</label>
+                    </li>
                 </ul>
-                <p class="checkbox-error-msg-2" style="font-size: 12px; color: red; margin: 0px; text-align: center;"></p>
-                <div>
-                    <button class="delete-btn">탈퇴하기</button>
-                </div>
-                <div class="back-btn-box">
-                    <span class="back-btn" onclick="location.href = `{% url 'draw:마이페이지개인정보' %}`">뒤로가기</span>
-                </div>
+                <!-- <ul style="list-style-type: none; padding: 0; flex: 1;">
+                </ul> -->
             </div>
+            <textarea name="" id="others_textarea" rows="2" style="resize: none; width: 100%; background-color: #EEEEEE;" readonly="readonly"></textarea>
+            <p class="checkbox-error-msg" style="font-size: 12px; color: red; margin: 0px; text-align: center;"></p>
+            <div style="padding-top: 25px;">
+                <button class="next-btn-2">진행하기</button>
+            </div>
+            <div class="back-btn-box">
+                <span class="back-btn" onclick="location.href = `{% url 'draw:마이페이지개인정보' %}`">뒤로가기</span>
+            </div>
+        </div>
+    </div>
 
+    <div class="delete-content-3" style="width: calc(100vw); height: calc(100vh - 84px); top: 84px; float: left; position: relative; display: none;">
+        <div class="delete-box">
+            <div style="text-align: center;">
+                <span class="delete-title">회원 탈퇴</span>
+            </div>
+            <div style="padding-top: 30px; text-align: center; display: flex; justify-content: center;">
+                <div class="warning-icon"></div>
+                <span class="warning-title">탈퇴 시 유의사항</span>
+            </div>
+            <div style="padding-top: 30px; text-align: center;">
+                <span class="warning-title-2">탈퇴 시 개인정보 및 이용정보를 영구적으로 삭제하며 복구할 수 없습니다.</br>재가입을 진행하더라도 기존에 이용했던 정보는 삭제합니다.</span>
+            </div>
+            <ul class="agree-checkbox-box">
+                <li>
+                    <input type="checkbox" id="delete_agree_1" name="delete_agree_1">
+                    <label for="delete_agree_1">탈퇴 시 유의사항에 동의합니다</label>
+                </li>
+                <li style="display: flex;">
+                    <input type="checkbox" id="delete_agree_2" name="delete_agree_2">
+                    <label for="delete_agree_2" style="margin-left: 4px; line-height: 25.59px;">탈퇴 시 개인정보 관련 이용 약관에 동의합니다</label>
+                    <p style="margin: 0; font-size: 10px; line-height: 25.59px; text-decoration: underline; color: #201DB1; margin-left: 5px; cursor: pointer;">이용 약관 보기</p>
+                </li>
+                <li>
+            </ul>
+            <p class="checkbox-error-msg-2" style="font-size: 12px; color: red; margin: 0px; text-align: center;"></p>
+            <div>
+                <button class="delete-btn">탈퇴하기</button>
+            </div>
+            <div class="back-btn-box">
+                <span class="back-btn" onclick="location.href = `{% url 'draw:마이페이지개인정보' %}`">뒤로가기</span>
+            </div>
         </div>
 
-        <div class="delete-content-4" style="width: calc(100vw); height: calc(100vh - 84px); top: 84px; float: left; position: relative; display: none;">
-            <div class="delete-box">
-                <div style="text-align: center; ">
-                    <img style="width: 120px;" src="{% static 'draw/necessary/logo(grey).avif' %}">
-                </div>
-                <div style="padding-top: 30px; text-align: center;">
-                    <span class="delete-complete-title">회원 탈퇴 완료</span>
-                </div>
-                <div style="padding-top: 30px; text-align: center;">
-                    <span class="delete-complete-title-2">그동안 이용해 주셔서 감사합니다.</br>더 나은 서비스를 제공하도록 노력하겠습니다.</span>
-                </div>
-                <div style="padding-top: 30px;">
-                    <button class="home-btn" onclick="location.href = `{% url 'draw:홈' %}`">홈으로</button>
-                </div>
+    </div>
+
+    <div class="delete-content-4" style="width: calc(100vw); height: calc(100vh - 84px); top: 84px; float: left; position: relative; display: none;">
+        <div class="delete-box">
+            <div style="text-align: center; ">
+                <img style="width: 120px;" src="{% static 'draw/necessary/logo(grey).avif' %}">
             </div>
-
+            <div style="padding-top: 30px; text-align: center;">
+                <span class="delete-complete-title">회원 탈퇴 완료</span>
+            </div>
+            <div style="padding-top: 30px; text-align: center;">
+                <span class="delete-complete-title-2">그동안 이용해 주셔서 감사합니다.</br>더 나은 서비스를 제공하도록 노력하겠습니다.</span>
+            </div>
+            <div style="padding-top: 30px;">
+                <button class="home-btn" onclick="location.href = `{% url 'draw:홈' %}`">홈으로</button>
+            </div>
         </div>
-    </section>
 
-    {% include 'draw/search.html' %}
+    </div>
+</section>
+{% endblock %}
 
-    {% include 'draw/loading.html' %}
-
-    {% include 'draw/go_up.html' %}
-
-    
-    <script class="u-script" type="text/javascript" src="{% static 'draw/js/jquery.js' %}" defer=""></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
-    <script src="{% static 'draw/js/myPage.js' %}"></script>
-    <script src="{% static 'draw/js/delete.js' %}"></script>
-    <script src="{% static 'draw/js/alpharaffle.js' %}"></script>
-    <script src="{% static 'draw/js/sha1.js' %}"></script>
-</body>
-
-</html>
+{% block extra_js %}
+<script src="{% static 'draw/js/myPage.js' %}"></script>
+<script src="{% static 'draw/js/delete.js' %}"></script>
+<script src="{% static 'draw/js/sha1.js' %}"></script>
+{% endblock %}
