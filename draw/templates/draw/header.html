@@ -2,7 +2,7 @@
 <header class="nav-down" style="border-bottom: 1px solid #C8C8C8;">
     <div class="logo-box" style="">
         <a href="{% url 'draw:홈' %}" style="display: flex;">
-            <img class="lazyload logo logo-img" style="cursor: pointer; margin-top: 6px;" data-src="{% static 'draw/necessary/ar01_edit.svg' %}" alt="logo">
+            <img class="logo logo-img" style="cursor: pointer; margin-top: 6px;" src="{% static 'draw/necessary/ar01_edit.svg' %}" alt="logo">
         </a>
     </div>
     {% if request.path == '/' %}
