@@ -173,33 +173,39 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                         </div>
                     </div>
                     <div style="display:flex; width: 100%; flex-wrap: wrap;">
+                        {% if shoebrand|length > 0 %}
+                        {% for brand in shoebrand %}
                         <div style="height: 36px; background: #FBFBFB; border-radius: 10px; border: 0.30px #777777 solid; padding: 5px 10px; margin-right: 15px;">
-                            <!-- <div style="width: 100px; height: 30px; left: 0px; top: 0px; position: absolute; background: #FBFBFB; border-radius: 10px; border: 0.30px #777777 solid"></div> -->
-                            {% if 'NIKE' in shoe.shoebrand %}
-                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/NIKE.png' %}">
-                            {% elif 'ADIDAS' in shoe.shoebrand %}
-                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/ADIDAS_ORIGINALS.jpeg' %}">
-                            {% elif 'JORDAN' in shoe.shoebrand %}
-                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/JORDAN.png' %}">
-                            {% elif 'YEEZY' in shoe.shoebrand %}
-                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/ADIDAS_YEEZY.jpg' %}">
-                            {% elif 'CONVERSE' in shoe.shoebrand %}
-                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/CONVERSE.jpeg' %}">
-                            {% elif 'VANS' in shoe.shoebrand %}
-                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/VANS.svg' %}">
-                            {% elif 'NEW BALANCE' in shoe.shoebrand %}
-                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/NEW_BALANCE.png' %}">
-                            {% elif 'PUMA' in shoe.shoebrand %}
-                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/PUMA.png' %}">
-                            {% elif 'REEBOK' in shoe.shoebrand %}
-                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/REEBOK.jpg' %}">
-                            {% elif 'ASICS' in shoe.shoebrand %}
-                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/ASICS.png' %}">
-                            {% elif 'SALOMON' in shoe.shoebrand %}
-                            <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/SALOMON.jpeg' %}">
-                            {% endif %}
-                            <div style="color: black; font-size: 16px; font-family: Pretendard; font-weight: 700; word-wrap: break-word; float: left; line-height: 25px; margin-left: 10px;">{{shoe.shoebrand}}</div>
+                            <a href="{% url 'draw:full' %}?brand={{brand}}" style="display: flex;">
+                                <!-- <div style="width: 100px; height: 30px; left: 0px; top: 0px; position: absolute; background: #FBFBFB; border-radius: 10px; border: 0.30px #777777 solid"></div> -->
+                                {% if 'NIKE' in brand %}
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/NIKE.png' %}">
+                                {% elif 'ADIDAS' in brand %}
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/ADIDAS_ORIGINALS.jpeg' %}">
+                                {% elif 'JORDAN' in brand %}
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/JORDAN.png' %}">
+                                {% elif 'YEEZY' in brand %}
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/ADIDAS_YEEZY.jpg' %}">
+                                {% elif 'CONVERSE' in brand %}
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/CONVERSE.jpeg' %}">
+                                {% elif 'VANS' in brand %}
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/VANS.svg' %}">
+                                {% elif 'NEW BALANCE' in brand %}
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/NEW_BALANCE.png' %}">
+                                {% elif 'PUMA' in brand %}
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/PUMA.png' %}">
+                                {% elif 'REEBOK' in brand %}
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/REEBOK.jpg' %}">
+                                {% elif 'ASICS' in brand %}
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/ASICS.png' %}">
+                                {% elif 'SALOMON' in brand %}
+                                <img class="lazyload product-info-name-logo-img" data-src="{% static 'draw/logoimg/SALOMON.jpeg' %}">
+                                {% endif %}
+                                <div style="color: black; font-size: 16px; font-family: Pretendard; font-weight: 700; word-wrap: break-word; float: left; line-height: 25px; margin-left: 10px;">{{brand}}</div>
+                            </a>
                         </div>
+                        {% endfor %}
+                        {% endif %}
                     </div>
                     <div style="padding: 10px 0px; height: auto; overflow: hidden; position: relative;">
                         <div class="details-bookmark-icon">
@@ -434,6 +440,31 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                     {% endfor %}
                 </div>
                 {% endif %}
+
+                {% for shoes, brand in combined_objects %}
+                    {% if shoes %}
+                        <div>
+                            <span class="box-title">{{brand}}의 다른 상품</span>
+                        </div>
+                        <div class="wrapper">
+                            {% for shoe in shoes %}
+                            <div class="wrapper-items no-margin">
+                                <a class="wrapper-link" href="{% url 'draw:상세정보' %}?serialnum={{shoe.serialno}}">
+                                    <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
+                                        <img class="lazyload" data-src="{% static 'draw/images/' %}{{shoe.serialno}}0.avif" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                                    </div>
+                                    <div style="height: auto;">
+                                        <div class="details-anotherShoe-shoename-box" style="height: 50%; text-align: center; width: 100%; padding: 0 5px;"><p class="text-shoename">{{shoe.shoename}}</p></div>
+                                        <div style="height: 50%; text-align: center; display: table; width: 100%; padding: 5px 5px 0 5px;">
+                                            <p class="text-date">{{shoe.pubdate}} 발매</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
 
                 {% if shoe.shoebrand != None and anotherBrandShoes %}
                 <div>

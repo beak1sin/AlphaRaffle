@@ -738,11 +738,10 @@ def details(request):
         print(googleSiteOnly)
     img = Shoeimg.objects.filter(serialno=pk)
     
-    shoebrand = shoe.shoebrand.split(' ')
+    shoebrand = shoe.shoebrand.split(' x ')
+    if len(shoebrand) > 1:
+        shoebrand.append(shoe.shoebrand)
 
-    while 'x' in shoebrand:
-        shoebrand.remove('x')
-    # print(shoebrand)
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
         member = Member.objects.get(pk= member_no)
@@ -845,11 +844,19 @@ def details(request):
                 site.is_valid_date = False
     
     # shoebrand가 같은걸로 필터링한 다른 신발
-    anotherBrandShoes = Shoe.objects.filter(shoebrand=shoe.shoebrand).exclude(id=shoe.id).order_by('-id')[:10]
+    anotherBrandShoes = Shoe.objects.filter(shoebrand__contains=shoe.shoebrand).exclude(id=shoe.id).order_by('-id')[:10]
 
     # category가 같은걸로 필터링한 다른 신발
-    anotherCategoryShoes = Shoe.objects.filter(category=shoe.category).exclude(id=shoe.id).order_by('-id')[:10]
+    anotherCategoryShoes = Shoe.objects.filter(category__contains=shoe.category).exclude(id=shoe.id).order_by('-id')[:10]
 
+    # x 콜라보 제품 중에 shoebrand 제외한 나머지 shoebrand list 확인.
+    anotherBrandShoesExcludeLast_objects = []
+    if len(shoebrand) > 1:
+        for brand in shoebrand[:-1]:
+            # 첫번째의 값인 anotherBrandShoes를 필터링 시킨 shoe.shoebrand를 제외한 나머지 데이터들 필터링한 다른 신발
+            anotherBrandShoesExcludeLast = Shoe.objects.filter(shoebrand__contains=brand).exclude(id=shoe.id).order_by('-id')[:10]
+            anotherBrandShoesExcludeLast_objects.append(anotherBrandShoesExcludeLast)
+    combined_objects = zip(anotherBrandShoesExcludeLast_objects, shoebrand[:-1])
     context["member_no"] = member_no
     context = {'shoe':shoe, 'member':member, 'site': site, 'img':img, 'shoebrand': shoebrand, 
                'notGoogleSite': notGoogleSite, 'googleSite': googleSite, 'offlineSite': offlineSite, 
@@ -857,7 +864,8 @@ def details(request):
                'serialnoSlash': serialnoSlash, 'shoenameSlash': shoenameSlash, 'shoeengnameSlash': shoeengnameSlash, 
                'recent_searches': recent_searches, 'start_page': start_page, 'end_page': end_page, 
                'page_numbers': page_numbers, 'previous_page': previous_page, 'next_page': next_page, 'isPage6': isPage6,
-               'anotherBrandShoes': anotherBrandShoes, 'anotherCategoryShoes': anotherCategoryShoes }
+               'anotherBrandShoes': anotherBrandShoes, 'anotherCategoryShoes': anotherCategoryShoes, 
+               'combined_objects': combined_objects }
 
     return render(request, 'draw/details.html', context)
 
@@ -1045,8 +1053,12 @@ def full(request):
     # 필터링
     if request.method == 'GET' and 'brand' in request.GET:
         brandList = request.GET.get("brand").split(",")
-        shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[0:12]
-        shoe_count = Shoe.objects.filter(shoebrand__in = brandList).count()
+        if len(brandList) > 1:
+            shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[0:12]
+            shoe_count = Shoe.objects.filter(shoebrand__in = brandList).count()
+        else:
+            shoe = Shoe.objects.filter(shoebrand__contains=brandList[0]).order_by('-id')[0:12]
+            shoe_count = Shoe.objects.filter(shoebrand__contains=brandList[0]).count()
 
     # 정렬
     if request.method == 'GET' and 'sort' in request.GET:
@@ -1186,8 +1198,12 @@ def full(request):
             brandList = None
 
         if brandList != None:
-            shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[start_index:end_index]
-            shoe_count = Shoe.objects.filter(shoebrand__in=brandList).count()
+            if len(brandList) > 1:
+                shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[start_index:end_index]
+                shoe_count = Shoe.objects.filter(shoebrand__in=brandList).count()
+            else:
+                shoe = Shoe.objects.filter(shoebrand__contains=brandList[0]).order_by('-id')[start_index:end_index]
+                shoe_count = Shoe.objects.filter(shoebrand__contains=brandList[0]).count()
 
         # 검색
         term = request.GET.get("search_term")

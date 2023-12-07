@@ -1193,19 +1193,16 @@ def nullCheck():
                             end_date = end_date + ":59"
                             end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
                         site.end_date = end_date_datetime
-                        site.save()
                     elif '미정' in end_date:
                         end_date = '2024-12-31 23:59:59'
                         end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
                         site.end_date = end_date_datetime
-                        site.save()
                     elif '발매' in end_date:
                         site.end_date = None
-                        site.save()
                     # 시간이 시작일 경우
                     elif '시작' in end_date:
                         site.end_date = None
-                        site.save()
+                    site.save()
         telegram_crawl.nullCheck_msg()
 
     except Exception as e:
