@@ -1249,7 +1249,8 @@ def avif():
     # 이미지 폴더 경로 설정
     # image_folder = '/usr/local/share/AlphaRaffle/draw/static/draw/images'
     # image_folder = '/Users/jb/AlphaRaffle/draw/static/draw/images'
-    image_folder = '/Users/jb/AlphaRaffle/draw/static/draw/necessary'
+    # image_folder = '/Users/jb/AlphaRaffle/draw/static/draw/necessary'
+    image_folder = '/Users/jb/Downloads/shoen'
     # print('실행')
     # 파일명 분석을 위한 정규 표현식 패턴
     # shoes = Shoe.objects.filter()
@@ -1269,7 +1270,7 @@ def avif():
                 print(f'error: {e}')
 
     return redirect('/')
-
+    
 def deleteimg():
     # image_folder = '/usr/local/share/AlphaRaffle/draw/static/draw/images'
     # image_folder = '/Users/jb/AlphaRaffle/draw/static/draw/images'
