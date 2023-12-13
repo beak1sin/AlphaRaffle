@@ -195,18 +195,6 @@ input:focus {
   color: red;
 }
 
-.grid-wrapper {
-  float: left;
-  /* width: 65vw; */
-  width: 100%;
-  /* height: 33vh; */
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-  grid-auto-rows: 410px;
-  column-gap: 30px;
-  row-gap: 0px;
-}
-
 .grid-box {
   padding: 15px 5px;
   cursor: pointer;
@@ -489,8 +477,8 @@ input[type="checkbox"] {
     display: none;
   }
 
-  .grid-wrapper{
-    width: 100vw !important;
+  .content-align-center {
+    margin: 0 auto;
   }
 
   .left-arrow {
@@ -507,6 +495,7 @@ input[type="checkbox"] {
     width: 100vw;
     left: 0;
     padding: 50px 0 0 0;
+    display: flex;
   }
 
   .nickname-profile-content {

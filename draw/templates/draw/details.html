@@ -235,36 +235,62 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                     <span class="box-title">자동 응모 서비스</span>
                 </div>
                 <div>
-                    <span class="box-title-comment">클릭하면 구글폼에 개인 정보를 자동 입력하여 응모합니다.</span>
+                    <span class="box-title-comment">클릭하면 구글폼에 개인 정보를 자동 입력하여 응모합니다.</br>(로그인 필수 및 마이페이지에서 이름, 핸드폰번호, 생년월일, nike 아이디 입력 필수)</span>
                 </div>
                 <div class="wrapper">
-                    
                     {% for site in googleSite %}
                         {% if site.is_valid_date %}
-                        <div class="wrapper-items" onclick="window.open('{{site.sitelink}}')">
-                            <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
-                                <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
-                            </div>
-                            <div style="height: 60px;">
-                                <div style="height: 50%; text-align: center; display: table; width: 100%;"><p class="text-sitename">{{site.sitename}}</p></div>
-                                <div style="height: 50%; text-align: center; display: table; width: 100%;">
-                                    <p class="text-date">
-                                        {% if site.pub_date == None and site.end_date != None %}
-                                            ~ {{ site.end_date }} 까지
-                                        {% endif %}
-                                        {% if site.end_date == None and site.pub_date != None %}
-                                            발매 : {{ site.pub_date }} ~ 
-                                        {% endif %}
-                                        {% if site.end_date == None and site.pub_date == None %}
-                                            해당 사항 없음 
-                                        {% endif %}   
-                                        {% if site.end_date != None and site.pub_date != None %}
-                                            {{ site.pub_date }} ~ {{ site.end_date }} 까지
-                                        {% endif %}  
-                                    </p>
+                            {% if member.member_no == None %}
+                                <div class="wrapper-items" onclick="window.open('{{site.sitelink}}')">
+                                    <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
+                                        <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                                    </div>
+                                    <div style="height: 60px;">
+                                        <div style="height: 50%; text-align: center; display: table; width: 100%;"><p class="text-sitename">{{site.sitename}}</p></div>
+                                        <div style="height: 50%; text-align: center; display: table; width: 100%;">
+                                            <p class="text-date">
+                                                {% if site.pub_date == None and site.end_date != None %}
+                                                    ~ {{ site.end_date }} 까지
+                                                {% endif %}
+                                                {% if site.end_date == None and site.pub_date != None %}
+                                                    발매 : {{ site.pub_date }} ~ 
+                                                {% endif %}
+                                                {% if site.end_date == None and site.pub_date == None %}
+                                                    해당 사항 없음 
+                                                {% endif %}   
+                                                {% if site.end_date != None and site.pub_date != None %}
+                                                    {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                                {% endif %}  
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            {% else %}
+                                <div class="wrapper-items" onclick="window.open('{{site.sitelink}}?entry.{{site.nameentry}}={{member.member_realname}}&entry.{{site.birthentry}}={{member.member_birth}}&entry.{{site.phoneentry}}={{member.member_phonenumber}}&entry.{{site.nikeidentry}}={{member.member_nikeid}}')">
+                                    <div style="height: 160px; position: relative; border-bottom: 0.30px #777777 solid;">
+                                        <img class="lazyload" data-src="{% static 'draw/logoimg/' %}{{site.sitename}}.jpeg" style="width: 100%; height: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                                    </div>
+                                    <div style="height: 60px;">
+                                        <div style="height: 50%; text-align: center; display: table; width: 100%;"><p class="text-sitename">{{site.sitename}}</p></div>
+                                        <div style="height: 50%; text-align: center; display: table; width: 100%;">
+                                            <p class="text-date">
+                                                {% if site.pub_date == None and site.end_date != None %}
+                                                    ~ {{ site.end_date }} 까지
+                                                {% endif %}
+                                                {% if site.end_date == None and site.pub_date != None %}
+                                                    발매 : {{ site.pub_date }} ~ 
+                                                {% endif %}
+                                                {% if site.end_date == None and site.pub_date == None %}
+                                                    해당 사항 없음 
+                                                {% endif %}   
+                                                {% if site.end_date != None and site.pub_date != None %}
+                                                    {{ site.pub_date }} ~ {{ site.end_date }} 까지
+                                                {% endif %}  
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
                         {% else %}
                         <div class="wrapper-items-blur" style=" position: relative; ">
                             <div class="wrapper-items-blur-box">
@@ -687,7 +713,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 
 {% block extra_js %}
 <script>const STATIC_FULL_URL = "{% url 'draw:map' %}?serialnum=";const STATIC_IMAGES_URL = "{% static 'draw/images/' %}"; const DETAILS_URL = "{% url 'draw:상세정보' %}?serialnum=";</script>
-<script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}" defer=""></script>
+<script class="u-script" type="text/javascript" src="{% static 'draw/js/nicepage.js' %}"></script>
 <script src="{% static 'draw/js/details.js' %}"></script>
 <script src="{% static 'draw/js/headerScroll.js' %}"></script>
 <script src="{% static 'draw/js/sha1.js' %}"></script>

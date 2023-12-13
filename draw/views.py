@@ -3,7 +3,7 @@ from django.contrib import auth
 from urllib.parse import quote
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
-from draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg, Comment, SearchTerm, VerificationCode, Banner, DeletionReason
+from draw.models import Shoe, Member, Shoeimg, Shoesite, Shoesiteimg, Comment, SearchTerm, VerificationCode, Banner, DeletionReason, Rating
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_protect
 from datetime import timedelta, datetime
@@ -735,7 +735,6 @@ def details(request):
         # url = googleFormCrawl(url)
         googleSiteGet['sitelink'] = url
         googleSiteOnly = googleSiteGet
-        print(googleSiteOnly)
     img = Shoeimg.objects.filter(serialno=pk)
     
     shoebrand = shoe.shoebrand.split(' x ')
@@ -1035,7 +1034,9 @@ def comment_delete_details(request):
             context['result_msg'] = '로그인 후 이용바랍니다.'
 
     return JsonResponse(context, content_type="application/json")
-    
+
+from functools import reduce
+from operator import or_, and_
 @csrf_protect
 def full(request):
     shoe = Shoe.objects.all().order_by('-id')[0:12]
@@ -1053,12 +1054,27 @@ def full(request):
     # 필터링
     if request.method == 'GET' and 'brand' in request.GET:
         brandList = request.GET.get("brand").split(",")
-        if len(brandList) > 1:
-            shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[0:12]
-            shoe_count = Shoe.objects.filter(shoebrand__in = brandList).count()
-        else:
-            shoe = Shoe.objects.filter(shoebrand__contains=brandList[0]).order_by('-id')[0:12]
-            shoe_count = Shoe.objects.filter(shoebrand__contains=brandList[0]).count()
+        # q_list = [Q(shoebrand__contains=element) for element in brandList]
+        # combined_q = reduce(or_, q_list)
+        # shoe = Shoe.objects.filter(combined_q).order_by('-id')[0:12]
+        # shoe_count = Shoe.objects.filter(combined_q).count()
+        q_list = [Q(shoebrand__contains=element) for element in brandList]
+        if 'OTHERS' in brandList:
+            q_list = [q for q in q_list if not ('shoebrand__contains', 'OTHERS') in q.children]
+            exclude_others = ['NIKE', 'NIKE SB', 'JORDAN', 'ADIDAS', 'ADIDAS ORIGINALS', 'ADIDAS YEEZY', 'NEW BALANCE', 'REEBOK', 'PUMA', 'VANS', 'CONVERSE', 'ASICS']
+            others_list = [~Q(shoebrand__contains=element) for element in exclude_others]
+            combined_exclude = reduce(and_, others_list)
+            q_list.extend([combined_exclude])
+            
+        combined_q = reduce(or_, q_list)
+        shoe = Shoe.objects.filter(combined_q).order_by('-id')[0:12]
+        shoe_count = Shoe.objects.filter(combined_q).count()
+        # if len(brandList) > 1:
+        #     shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[0:12]
+        #     shoe_count = Shoe.objects.filter(shoebrand__in = brandList).count()
+        # else:
+        #     shoe = Shoe.objects.filter(shoebrand__contains=brandList[0]).order_by('-id')[0:12]
+        #     shoe_count = Shoe.objects.filter(shoebrand__contains=brandList[0]).count()
 
     # 정렬
     if request.method == 'GET' and 'sort' in request.GET:
@@ -1196,14 +1212,24 @@ def full(request):
             brandList = request.GET.get("brand").split(',')
         except:
             brandList = None
-
         if brandList != None:
-            if len(brandList) > 1:
-                shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[start_index:end_index]
-                shoe_count = Shoe.objects.filter(shoebrand__in=brandList).count()
-            else:
-                shoe = Shoe.objects.filter(shoebrand__contains=brandList[0]).order_by('-id')[start_index:end_index]
-                shoe_count = Shoe.objects.filter(shoebrand__contains=brandList[0]).count()
+            # if len(brandList) > 1:
+            #     shoe = Shoe.objects.filter(shoebrand__in=brandList).order_by('-id')[start_index:end_index]
+            #     shoe_count = Shoe.objects.filter(shoebrand__in=brandList).count()
+            # else:
+            #     shoe = Shoe.objects.filter(shoebrand__contains=brandList[0]).order_by('-id')[start_index:end_index]
+            #     shoe_count = Shoe.objects.filter(shoebrand__contains=brandList[0]).count()
+            q_list = [Q(shoebrand__contains=element) for element in brandList]
+            if 'OTHERS' in brandList:
+                q_list = [q for q in q_list if not ('shoebrand__contains', 'OTHERS') in q.children]
+                exclude_others = ['NIKE', 'NIKE SB', 'JORDAN', 'ADIDAS', 'ADIDAS ORIGINALS', 'ADIDAS YEEZY', 'NEW BALANCE', 'REEBOK', 'PUMA', 'VANS', 'CONVERSE', 'ASICS']
+                others_list = [~Q(shoebrand__contains=element) for element in exclude_others]
+                combined_exclude = reduce(and_, others_list)
+                q_list.extend([combined_exclude])
+                
+            combined_q = reduce(or_, q_list)
+            shoe = Shoe.objects.filter(combined_q).order_by('-id')[start_index:end_index]
+            shoe_count = Shoe.objects.filter(combined_q).count()
 
         # 검색
         term = request.GET.get("search_term")
@@ -1343,6 +1369,45 @@ def filtering(request):
     context['likes'] = likes
     context['shoe_count'] = shoe_count
     return JsonResponse(context, content_type="application/json")
+
+@csrf_protect
+def filtering2(request):
+    context = {}
+    bodydata = request.body.decode('utf-8')
+    bodyjson = json.loads(bodydata)
+    
+    selectedBrands = bodyjson['selectedBrands']
+    q_list = [Q(shoebrand__contains=element) for element in selectedBrands]
+    if len(q_list) > 0: 
+        if 'OTHERS' in selectedBrands:
+            q_list = [q for q in q_list if not ('shoebrand__contains', 'OTHERS') in q.children]
+            exclude_others = ['NIKE', 'NIKE SB', 'JORDAN', 'ADIDAS', 'ADIDAS ORIGINALS', 'ADIDAS YEEZY', 'NEW BALANCE', 'REEBOK', 'PUMA', 'VANS', 'CONVERSE', 'ASICS']
+            others_list = [~Q(shoebrand__contains=element) for element in exclude_others]
+            combined_exclude = reduce(and_, others_list)
+            q_list.extend([combined_exclude])
+            
+        combined_q = reduce(or_, q_list)
+        shoe = Shoe.objects.filter(combined_q).order_by('-id')[0:12]
+        shoe_count = Shoe.objects.filter(combined_q).count()
+    else:
+        shoe = Shoe.objects.filter().order_by('-id')[0:12]
+        shoe_count = Shoe.objects.filter().count()
+    # shoe = Shoe.objects.filter(shoebrand__in=selectedBrands).order_by('-id')[0:12]
+    # shoe_count = Shoe.objects.filter(shoebrand__in = selectedBrands).count()
+    shoes = serializers.serialize('json', shoe)
+
+    likes = []  # 멤버별 신발 좋아요 여부를 저장할 리스트
+    if request.session.has_key('member_no'):
+        member_no = request.session['member_no']
+        member = Member.objects.get(pk=member_no)
+        for shoe in shoe:
+            likes.append(member in shoe.likes.all())
+    context['flag'] = '0'
+    context['result_msg'] = '필터링 작업'
+    context['shoes'] = shoes
+    context['likes'] = likes
+    context['shoe_count'] = shoe_count
+    return JsonResponse(context, content_type="application/json")  
 
 @csrf_protect
 def filtering_order(request):
@@ -1530,6 +1595,8 @@ def naverSearchwww(request):
     return render(request, 'draw/naver73749ca69b9eff6e2574852408ea3ecf.html')
 
 def practice(request):
+    shoes = Rating.objects.select_related('shoe')
+    print(shoes)
     return render(request, 'draw/practice.html')
 
 from django.views.generic import View

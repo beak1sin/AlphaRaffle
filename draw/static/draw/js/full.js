@@ -60,35 +60,27 @@ $(document).ready(function() {
     // 필터링 버튼을 클릭하면 사이드바 열림
     $(document).on("click", ".menu-icon-label", function (e){
         $(".filter-layer").removeClass("off");
-        $('.u-section-1').removeClass("blurOff");
+        // $('.u-section-1').removeClass("blurOff");
         $(".filter-layer").addClass("on");
-        $('.u-section-1').addClass("blurOn");
-        // alert(target.has(e.target).length);
+        // $('.u-section-1').addClass("blurOn");
 
     });
     
     // 외부영역 클릭 시 사이드바 닫기
-    $(document).on("click", ".u-section-1.blurOn", function (e){
-        $(".filter-layer").removeClass("on");
-        $('.u-section-1').removeClass("blurOn");
-        $(".filter-layer").addClass("off");
-        $('.u-section-1').addClass("blurOff");
-    });
+    // $(document).on("click", ".u-section-1.blurOn", function (e){
+    //     $(".filter-layer").removeClass("on");
+    //     $('.u-section-1').removeClass("blurOn");
+    //     $(".filter-layer").addClass("off");
+    //     $('.u-section-1').addClass("blurOff");
+    // });
 
     // 필터링 종료 버튼 클릭 시 닫기
     $(document).on("click", ".exit-btn", function (e){
         $(".filter-layer").removeClass("on");
-        $('.u-section-1').removeClass("blurOn");
+        // $('.u-section-1').removeClass("blurOn");
         $(".filter-layer").addClass("off");
-        $('.u-section-1').addClass("blurOff");
+        // $('.u-section-1').addClass("blurOff");
     });
-
-    function exitBtn() {
-        $(".filter-layer").removeClass("on");
-        $('.u-section-1').removeClass("blurOn");
-        $(".filter-layer").addClass("off");
-        $('.u-section-1').addClass("blurOff");
-    }
 
     // 필터링 브랜드 아코디언
     // $(document).on("click", "#brand .filter-layer-content-content-title", function (e){
@@ -127,113 +119,118 @@ $(document).ready(function() {
     
 
     // 필터링 all
-    let brandList = [];
-    let regionList = [];
-    let onofflineList = [];
-    let releaseList = [];
-    let deliveryList = [];
+    // let brandList = [];
+    // let regionList = [];
+    // let onofflineList = [];
+    // let releaseList = [];
+    // let deliveryList = [];
+    // $("input[type=checkbox][name=brand], input[type=checkbox][name=region], input[type=checkbox][name=onoffline], input[type=checkbox][name=release], input[type=checkbox][name=delivery]").change(function() {
+    //     // 필터링 checkbox 값
+    //     let text = $(this).parent().parent(".circle-icon").next().text();
+    //     // 필터링 타이틀
+    //     let title = '';
+    //     if($(this).attr('name') == 'brand'){
+    //         title = $(this).parents(".filter-layer-content-content").children(".filter-layer-content-content-title").text().trim().split(' ')[0];
+    //     } else {
+    //         title = $(this).parents(".filter-layer-content-content").children(".filter-layer-content-content-title").text().trim();
+    //     }
+    //     let valueName = $(this).val(text);
+    //     if ($(this).is(':checked')) {
+    //         // 브랜드만 비교시 false로 나와 임의설정
+    //         if (title.includes("브랜드")) {
+    //             title = '브랜드';
+    //         }
+    //         // 필터링별 체크시 리스트 추가
+    //         switch (title) {
+    //             case '브랜드':
+    //                 brandList.push(valueName.val());
+    //                 break;
+    //             case '국내 해외':
+    //                 regionList.push(valueName.val());
+    //                 break;
+    //             case '발매 장소':
+    //                 onofflineList.push(valueName.val());
+    //                 break;
+    //             case '발매 유형':
+    //                 releaseList.push(valueName.val());
+    //                 break;
+    //             case '배송방식':
+    //                 deliveryList.push(valueName.val());
+    //                 break;
+    //             default:
+    //                 alert('아무것도 선택 안됨');
+    //                 break;
+    //         }
+    //         console.log(brandList);
+    //         // 체크박스 체크 시 필터링 개수 증가
+    //         filterCount++;
+    //         $('span#filterCount').text('('+filterCount+')');
+    //         $('a.u-apply-btn').removeClass('disabled');
+    //     } else {
+    //         // 브랜드만 비교시 false로 나와 임의설정
+    //         if (title.includes("브랜드")) {
+    //             title = '브랜드';
+    //         }
+    //         // 필터링별 체크해제시 리스트 삭제
+    //         switch (title) {
+    //             case '브랜드':
+    //                 for(var i = 0; i < brandList.length; i++){ 
+    //                     if (brandList[i] === valueName.val()) { 
+    //                         brandList.splice(i, 1);
+    //                         valueName.val('');
+    //                     }
+    //                 }
+    //                 break;
+    //             case '국내 해외':
+    //                 for(var i = 0; i < regionList.length; i++){ 
+    //                     if (regionList[i] === valueName.val()) { 
+    //                         regionList.splice(i, 1);
+    //                         valueName.val('');
+    //                     }
+    //                 }
+    //                 break;
+    //             case '발매 장소':
+    //                 for(var i = 0; i < onofflineList.length; i++){ 
+    //                     if (onofflineList[i] === valueName.val()) { 
+    //                         onofflineList.splice(i, 1);
+    //                         valueName.val('');
+    //                     }
+    //                 }
+    //                 break;
+    //             case '발매 유형':
+    //                 for(var i = 0; i < releaseList.length; i++){ 
+    //                     if (releaseList[i] === valueName.val()) { 
+    //                         releaseList.splice(i, 1);
+    //                         valueName.val('');
+    //                     }
+    //                 }
+    //                 break;
+    //             case '배송방식':
+    //                 for(var i = 0; i < deliveryList.length; i++){ 
+    //                     if (deliveryList[i] === valueName.val()) { 
+    //                         deliveryList.splice(i, 1);
+    //                         valueName.val('');
+    //                     }
+    //                 }
+    //                 break;
+    //             default:
+    //                 alert('아무것도 선택되지 않음2');
+    //                 break;
+    //         }
+    //         // 체크박스 해제 시 필터링 개수 감소
+    //         filterCount--;
+    //         if (filterCount < 1) {
+    //             $('span#filterCount').text('');
+    //             $('a.u-apply-btn').addClass('disabled');
+    //         } else {
+    //             $('span#filterCount').text('('+filterCount+')');
+    //         }
+    //     }
+    // });
+
     $("input[type=checkbox][name=brand], input[type=checkbox][name=region], input[type=checkbox][name=onoffline], input[type=checkbox][name=release], input[type=checkbox][name=delivery]").change(function() {
-        // 필터링 checkbox 값
-        let text = $(this).parent().parent(".circle-icon").next().text();
-        // 필터링 타이틀
-        let title = '';
-        if($(this).attr('name') == 'brand'){
-            title = $(this).parents(".filter-layer-content-content").children(".filter-layer-content-content-title").text().trim().split(' ')[0];
-        } else {
-            title = $(this).parents(".filter-layer-content-content").children(".filter-layer-content-content-title").text().trim();
-        }
-        let valueName = $(this).val(text);
-        if ($(this).is(':checked')) {
-            // 브랜드만 비교시 false로 나와 임의설정
-            if (title.includes("브랜드")) {
-                title = '브랜드';
-            }
-            // 필터링별 체크시 리스트 추가
-            switch (title) {
-                case '브랜드':
-                    brandList.push(valueName.val());
-                    break;
-                case '국내 해외':
-                    regionList.push(valueName.val());
-                    break;
-                case '발매 장소':
-                    onofflineList.push(valueName.val());
-                    break;
-                case '발매 유형':
-                    releaseList.push(valueName.val());
-                    break;
-                case '배송방식':
-                    deliveryList.push(valueName.val());
-                    break;
-                default:
-                    alert('아무것도 선택 안됨');
-                    break;
-            }
-            console.log(brandList);
-            // 체크박스 체크 시 필터링 개수 증가
-            filterCount++;
-            $('span#filterCount').text('('+filterCount+')');
-            $('a.u-apply-btn').removeClass('disabled');
-        } else {
-            // 브랜드만 비교시 false로 나와 임의설정
-            if (title.includes("브랜드")) {
-                title = '브랜드';
-            }
-            // 필터링별 체크해제시 리스트 삭제
-            switch (title) {
-                case '브랜드':
-                    for(var i = 0; i < brandList.length; i++){ 
-                        if (brandList[i] === valueName.val()) { 
-                            brandList.splice(i, 1);
-                            valueName.val('');
-                        }
-                    }
-                    break;
-                case '국내 해외':
-                    for(var i = 0; i < regionList.length; i++){ 
-                        if (regionList[i] === valueName.val()) { 
-                            regionList.splice(i, 1);
-                            valueName.val('');
-                        }
-                    }
-                    break;
-                case '발매 장소':
-                    for(var i = 0; i < onofflineList.length; i++){ 
-                        if (onofflineList[i] === valueName.val()) { 
-                            onofflineList.splice(i, 1);
-                            valueName.val('');
-                        }
-                    }
-                    break;
-                case '발매 유형':
-                    for(var i = 0; i < releaseList.length; i++){ 
-                        if (releaseList[i] === valueName.val()) { 
-                            releaseList.splice(i, 1);
-                            valueName.val('');
-                        }
-                    }
-                    break;
-                case '배송방식':
-                    for(var i = 0; i < deliveryList.length; i++){ 
-                        if (deliveryList[i] === valueName.val()) { 
-                            deliveryList.splice(i, 1);
-                            valueName.val('');
-                        }
-                    }
-                    break;
-                default:
-                    alert('아무것도 선택되지 않음2');
-                    break;
-            }
-            // 체크박스 해제 시 필터링 개수 감소
-            filterCount--;
-            if (filterCount < 1) {
-                $('span#filterCount').text('');
-                $('a.u-apply-btn').addClass('disabled');
-            } else {
-                $('span#filterCount').text('('+filterCount+')');
-            }
-        }
+        console.log($(this));
+        filteringURL();
     });
 
     // 초기화 버튼
@@ -638,6 +635,102 @@ $(document).ready(function() {
 
 });
 
+
+
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+var csrftoken = getCookie('csrftoken');
+
+var xhr;
+
+function filteringURL() {
+    var selectedBrands = [];
+    $("input[type=checkbox][name=brand]:checked, input[type=checkbox][name=region]:checked, input[type=checkbox][name=onoffline]:checked, input[type=checkbox][name=release]:checked, input[type=checkbox][name=delivery]:checked").each(function () {
+        let text = $(this).parent().parent(".circle-icon").next().text();
+        selectedBrands.push(text);
+    });
+    // var queryParams = [];
+    // if (selectedBrands.length > 0) {
+    //     queryParams.push('brand=' + selectedBrands.join('&brand='));
+    // }
+
+    // var url = window.location.href.split('?')[0];
+    // if (queryParams.length > 0) {
+    //     url += '?' + queryParams.join('&');
+    // }
+
+    // window.history.pushState({}, '', url);
+
+    // 현재 페이지 URL을 가져옵니다.
+    const currentURL = window.location.search;
+
+    // 새로운 URL 파라미터를 만듭니다. 여러 값을 쉼표로 연결합니다.
+    const newURLParams = new URLSearchParams(currentURL);
+    newURLParams.set("brand", selectedBrands.join(","));
+
+
+    // 기존 URL의 경로와 파라미터를 유지하면서 업데이트된 파라미터를 반영
+    const newURL = currentURL.split("?")[0] + "?" + newURLParams;
+
+    // 새로운 URL로 페이지를 이동합니다.
+    window.history.pushState({}, '', newURL);
+
+    var data = {selectedBrands: selectedBrands};
+    var datastr = JSON.stringify(data);
+    
+    xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+            var data = xhr.responseText;
+
+            var obj = JSON.parse(data);
+            if(obj.flag == "0"){
+                var shoe = JSON.parse(obj.shoes);
+                var likes = obj.likes;  // 멤버별 신발 좋아요 여부
+                let html = '';
+                for (let i=0; i<shoe.length; i++) {
+                    let shoe1 = shoe[i].fields;
+                    let liked = likes[i];
+                    html += '<div class="grid-box" data-value="' + shoe1.serialno + '">';
+                    html += '<a class="grid-link" href="'+ STATIC_FULL_URL + shoe1.serialno +'">';
+                    html += '<div class="grid-container"><div class="grid-img-box">';
+                    html += '<div class="img-box">'; 
+                    html += '<img class="lazyload shoeimg" data-src="' + STATIC_IMAGES_URL + shoe1.serialno + '0.avif" alt="' + shoe1.shoeengname + '"></div>';
+                    html += '<div class="bookmark-icon">';
+                    html += '<label class="bookmark-icon-label' + (liked ? ' on' : '') + '">';
+                    html += '<span class="icon"></span></label></div>';
+                    html += '</div>';
+                    html += '<div class="grid-shoename-box"><p class="shoename">' + shoe1.shoename + '</p></div>';
+                    html += '<div class="grid-pubdate-box"><p class="pubdate">' + shoe1.pubdate + ' 발매' + '</p></div>';
+                    html += '</div></a></div>';
+                }
+                $('.infinite-container').html('');
+                $('.infinite-container').append(html);
+                $('#shoe_count').text(obj.shoe_count + '개');
+            }
+        }
+    };
+    xhr.open("POST", "api/filtering");
+    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+    xhr.send(datastr);
+    
+}
+
 // document.addEventListener('DOMContentLoaded', function() {
 //     if (window.location.hostname != "127.0.0.1") {
 //         // 화면의 너비에 따라 적절한 광고 데이터 설정
@@ -699,4 +792,3 @@ $(document).ready(function() {
 //     }
     
 // });
-

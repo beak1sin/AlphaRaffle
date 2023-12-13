@@ -1144,7 +1144,6 @@ def nullCheck():
             product_no_list.append(shoe.product_no)
 
         for i, site in enumerate(shoesite1231):
-            print(f'{i}/{len(shoesite1231)}')
             no = int(product_no_list[i])
             url = 'https://www.luck-d.com/release/product/%d/'%no
             html = requests.get(url).text
