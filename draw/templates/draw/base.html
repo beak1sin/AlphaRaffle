@@ -32,6 +32,8 @@
     </script>
     {% block meta_title %}
     {% endblock %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 </head>
 
 <body class="{% block body_class %}{% endblock %}">
@@ -47,7 +49,6 @@
 
     {% include 'draw/go_up.html' %}
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
     <script src="{% static 'draw/js/alpharaffle.js' %}"></script>
     {% block extra_js %}
