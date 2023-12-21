@@ -1595,6 +1595,7 @@ def naverSearchwww(request):
     return render(request, 'draw/naver73749ca69b9eff6e2574852408ea3ecf.html')
 
 def practice(request):
+    # 연습용
     shoes = Rating.objects.select_related('shoe')
     print(shoes)
     return render(request, 'draw/practice.html')
