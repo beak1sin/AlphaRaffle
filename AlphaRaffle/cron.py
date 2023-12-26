@@ -67,11 +67,6 @@ import pillow_avif
 import unicodedata
 import traceback
 
-def hello():
-    now = datetime.datetime.now()
-    print(now)
-    return
-
 currentDateTime = datetime.datetime.now()
 date = currentDateTime.date()
 year = date.strftime("%Y")
