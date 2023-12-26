@@ -559,7 +559,7 @@ def crawl():
         
         try:
             # uwsgi 재실행 등.. 서버 재배포
-            subprocess.call(['/usr/local/share/AlphaRaffle/bin/start.sh'])
+            subprocess.call(['/usr/local/share/docker-server/AlphaRaffle/bin/start.sh'])
             # 서버 재배포 성공 메세지(텔레그램)
             telegram_crawl.serverRestart_complete_msg()
             print('서버 재배포 성공')
