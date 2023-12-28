@@ -134,8 +134,8 @@
   left: 25px; 
   top: 50%; 
   content: '';
-  width: 30px; /* 사이즈 */
-  height: 30px; /* 사이즈 */
+  width: 20px; /* 사이즈 */
+  height: 20px; /* 사이즈 */
   border-left: 5px solid rgba(255, 255, 255, 0.5); /* 선 두께 */
   border-bottom: 5px solid rgba(255, 255, 255, 0.5); /* 선 두께 */
   transform: rotate(45deg) translateY(-50%); /* 각도 */
@@ -153,8 +153,8 @@
   right: 42px; 
   top: 50%; 
   content: '';
-  width: 30px; /* 사이즈 */
-  height: 30px; /* 사이즈 */
+  width: 20px; /* 사이즈 */
+  height: 20px; /* 사이즈 */
   border-top: 5px solid rgba(255, 255, 255, 0.5); /* 선 두께 */
   border-right: 5px solid rgba(255, 255, 255, 0.5); /* 선 두께 */
   transform: rotate(45deg) translateY(-50%); /* 각도 */
