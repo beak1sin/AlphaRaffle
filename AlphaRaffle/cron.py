@@ -293,7 +293,7 @@ def luckd_crowler(no):
 
         # #종료일
         end_date = soup.select('li.release_time > label > span')[i].text.strip()
-
+        current_year = year
         # 종료일이 미정일 경우
         if '미정' in end_date:
             end_date = '2024-12-31 23:59:59'
@@ -330,10 +330,10 @@ def luckd_crowler(no):
                 # end_date = end_date + ":59"
                 end_date = "".join(end_date)
                 # 2024년 1월 사이트인데 2023년 1월로 저장이 되어버려서 조건문 추가
-                if year < '2024':
+                if current_year < '2024':
                     if end_date[:2] == '01':
-                        year = '2024'
-                end_date = year +'-'+ end_date
+                        current_year = '2024'
+                end_date = current_year +'-'+ end_date
                 if len(end_date) == 11:
                     end_date = end_date.replace(" ",'')
                     end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d')
@@ -353,10 +353,10 @@ def luckd_crowler(no):
                 # end_date = end_date + ":59"
                 end_date = "".join(end_date)
                 # 2024년 1월 사이트인데 2023년 1월로 저장이 되어버려서 조건문 추가
-                if year < '2024':
+                if current_year < '2024':
                     if end_date[:2] == '01':
-                        year = '2024'
-                end_date = year +'-'+ end_date
+                        current_year = '2024'
+                end_date = current_year +'-'+ end_date
                 
                 if len(end_date) == 11:
                     end_date = end_date.replace(" ",'')
@@ -377,10 +377,10 @@ def luckd_crowler(no):
                 # end_date = end_date + ":59"
                 end_date = "".join(end_date)
                 # 2024년 1월 사이트인데 2023년 1월로 저장이 되어버려서 조건문 추가
-                if year < '2024':
+                if current_year < '2024':
                     if end_date[:2] == '01':
-                        year = '2024'
-                end_date = year +'-'+ end_date
+                        current_year = '2024'
+                end_date = current_year +'-'+ end_date
                 
                 if len(end_date) == 11:
                     end_date = end_date.replace(" ",'')
@@ -714,13 +714,14 @@ def crawl_test():
             shoenum.append(link[39:].split('/')[0].replace("'",""))
 
         # shoenum = sorted(list(set(shoenum)), reverse=True)
-        shoenum = ['8595', '8594', '8593', '8592', '8591', '8590', '8589', '8588', '8582', '8581', '8580', '8573', '8572', '8571', '8568', '8566', '8565', '8558', '8557', '8556', '8555', '8554', '8553', '8552', '8551', '8550', '8539', '8538', '8537', '8531', '8524', '8516', '8515', '8448', '8447', '8446', '8445', '8444', '8443', '8412', '8409', '8402', '8387', '8254', '8111', '8108', '7527', '7456', '7455', '7218', '7194', '5676', '5675', '5250', '4899', '4355', '4080', '3400']
+        # shoenum = ['8595', '8594', '8593', '8592', '8591', '8590', '8589', '8588', '8582', '8581', '8580', '8573', '8572', '8571', '8568', '8566', '8565', '8558', '8557', '8556', '8555', '8554', '8553', '8552', '8551', '8550', '8539', '8538', '8537', '8531', '8524', '8516', '8515', '8448', '8447', '8446', '8445', '8444', '8443', '8412', '8409', '8402', '8387', '8254', '8111', '8108', '7527', '7456', '7455', '7218', '7194', '5676', '5675', '5250', '4899', '4355', '4080', '3400']
+        shoenum = ['8952', '8951', '8943', '8941', '8936', '8904', '8880', '8879', '8878', '8635', '8417', '8184', '8142', '8141', '8114', '8076', '7943', '7681', '7614', '7592', '7410', '7235', '6454', '6364', '5830']
         # print(len(shoenum),shoenum)
         # shoenum = ['8515']
 
         for num in shoenum:
             now = datetime.datetime.now()
-            print(now)
+            # print(now)
             randomTime = random.randint(30, 60)
             # luckd_crowler(int(num))
             luckd_crowler_test(int(num))
@@ -787,7 +788,7 @@ def luckd_crowler_test(no):
         trade_info = soup.select('img.trade_platform_img')
         for i in range(len(trade_info)):
             onclick_string = trade_info[i].get('onclick')
-            print(onclick_string)
+            # print(onclick_string)
             if 'soldout' in onclick_string:
                 soldout_number = onclick_string.lower().split('product%2f')[-1].split("');")[0]
             if 'kream' in onclick_string:
@@ -912,6 +913,7 @@ def luckd_crowler_test(no):
         # #종료일
         end_date = soup.select('li.release_time > label > span')[i].text.strip()
 
+        current_year = year
         # 종료일이 미정일 경우
         if '미정' in end_date:
             end_date = '2024-12-31 23:59:59'
@@ -944,7 +946,11 @@ def luckd_crowler_test(no):
                 end_date = end_date.replace("지",'')
                 # end_date = end_date + ":59"
                 end_date = "".join(end_date)
-                end_date = year +'-'+ end_date
+                if current_year < '2024':
+                    if end_date[:2] == '01':
+                        current_year = '2024'
+                end_date = current_year +'-'+ end_date
+
                 if len(end_date) == 11:
                     end_date = end_date.replace(" ",'')
                     end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d')
@@ -963,8 +969,11 @@ def luckd_crowler_test(no):
                 end_date = end_date.replace("매",'')       
                 # end_date = end_date + ":59"
                 end_date = "".join(end_date)
-                end_date = year +'-'+ end_date
-                
+                if current_year < '2024':
+                    if end_date[:2] == '01':
+                        current_year = '2024'
+                end_date = current_year +'-'+ end_date
+
                 if len(end_date) == 11:
                     end_date = end_date.replace(" ",'')
                     pub_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d')
@@ -983,8 +992,11 @@ def luckd_crowler_test(no):
                 end_date = end_date.replace("작",'')        
                 # end_date = end_date + ":59"
                 end_date = "".join(end_date)
-                end_date = year +'-'+ end_date
-                
+                if current_year < '2024':
+                    if end_date[:2] == '01':
+                        current_year = '2024'
+                end_date = current_year +'-'+ end_date
+
                 if len(end_date) == 11:
                     end_date = end_date.replace(" ",'')
                     pub_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d')
@@ -1105,6 +1117,7 @@ def mijungCheck():
 
                 if site.shoesiteunique == shoeunique:
                     end_date = soup.select('li.release_time > label > span')[k].text.strip()
+                    current_year = year
                     if '미정' in end_date:
                         end_date = '2024-12-31 23:59:59'
                         end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
@@ -1118,7 +1131,10 @@ def mijungCheck():
                         end_date = end_date.replace("지",'')
                         # end_date = end_date + ":59"
                         end_date = "".join(end_date)
-                        end_date = year +'-'+ end_date
+                        if current_year < '2024':
+                            if end_date[:2] == '01':
+                                current_year = '2024'
+                        end_date = current_year +'-'+ end_date
                         if len(end_date) == 11:
                             end_date = end_date.replace(" ",'')
                             end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d')
@@ -1184,6 +1200,7 @@ def nullCheck():
 
                 if site.shoesiteunique == shoeunique:
                     end_date = soup.select('li.release_time > label > span')[k].text.strip()
+                    current_year = year
                     if '까지' in end_date:
                         end_date = end_date.replace("월",'-')
                         end_date = end_date.replace(" ",'')
@@ -1192,7 +1209,10 @@ def nullCheck():
                         end_date = end_date.replace("지",'')
                         # end_date = end_date + ":59"
                         end_date = "".join(end_date)
-                        end_date = year +'-'+ end_date
+                        if current_year < '2024':
+                            if end_date[:2] == '01':
+                                current_year = '2024'
+                        end_date = current_year +'-'+ end_date
                         if len(end_date) == 11:
                             end_date = end_date.replace(" ",'')
                             end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d')
