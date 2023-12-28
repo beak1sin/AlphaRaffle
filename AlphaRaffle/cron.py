@@ -311,6 +311,7 @@ def luckd_crowler(no):
                 normalized_address = unicodedata.normalize('NFC', address)
 
                 Shoesite.objects.filter(shoesiteunique = shoeunique).update(address = normalized_address)
+            # 다음 반복문으로 넘어감
             continue
 
         # #시간이 종료일 경우
@@ -328,12 +329,16 @@ def luckd_crowler(no):
                 end_date = end_date.replace("지",'')
                 # end_date = end_date + ":59"
                 end_date = "".join(end_date)
+                # 2024년 1월 사이트인데 2023년 1월로 저장이 되어버려서 조건문 추가
+                if year < '2024':
+                    if end_date[:2] == '01':
+                        year = '2024'
                 end_date = year +'-'+ end_date
                 if len(end_date) == 11:
                     end_date = end_date.replace(" ",'')
                     end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d')
                 elif len(end_date) == 16:
-                    end_date = end_date + ":59"
+                    end_date = end_date + ":00"
                     end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S')
                     
                 Shoesite.objects.filter(shoesiteunique = shoeunique).update(end_date = end_date_datetime)
@@ -347,6 +352,10 @@ def luckd_crowler(no):
                 end_date = end_date.replace("매",'')       
                 # end_date = end_date + ":59"
                 end_date = "".join(end_date)
+                # 2024년 1월 사이트인데 2023년 1월로 저장이 되어버려서 조건문 추가
+                if year < '2024':
+                    if end_date[:2] == '01':
+                        year = '2024'
                 end_date = year +'-'+ end_date
                 
                 if len(end_date) == 11:
@@ -367,6 +376,10 @@ def luckd_crowler(no):
                 end_date = end_date.replace("작",'')        
                 # end_date = end_date + ":59"
                 end_date = "".join(end_date)
+                # 2024년 1월 사이트인데 2023년 1월로 저장이 되어버려서 조건문 추가
+                if year < '2024':
+                    if end_date[:2] == '01':
+                        year = '2024'
                 end_date = year +'-'+ end_date
                 
                 if len(end_date) == 11:

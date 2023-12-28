@@ -601,7 +601,7 @@ def upload(request):
             object_storage = oci.object_storage.ObjectStorageClient(config)
             namespace = object_storage.get_namespace().data
 
-            bucket_name = "alpharaffle-storage"
+            bucket_name = "shoeneakers-storage"
             object_prefix = 'profiles/' + member_nickname + '-'
 
             list_objects_response = object_storage.list_objects(namespace, bucket_name, prefix=object_prefix)

@@ -14,7 +14,7 @@
     <meta name="theme-color" content="#ffffff">
 
     <link rel="stylesheet" href="{% static 'draw/css/normalize.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'draw/css/alpharaffle.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'draw/css/shoeneakers.css' %}" media="screen">
 
     {% block extra_css %}
     {% endblock %}
@@ -31,6 +31,9 @@
     gtag('config', 'G-FKLV3QNRNC');
     </script>
     {% block meta_title %}
+    {% endblock %}
+
+    {% block naver_map %}
     {% endblock %}
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -50,7 +53,7 @@
     {% include 'draw/go_up.html' %}
     
     <script src="{% static 'draw/js/lazysizes.min.js' %}"></script>
-    <script src="{% static 'draw/js/alpharaffle.js' %}"></script>
+    <script src="{% static 'draw/js/shoeneakers.js' %}"></script>
     {% block extra_js %}
     {% endblock %}
 </body>
