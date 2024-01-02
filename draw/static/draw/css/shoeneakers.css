@@ -383,7 +383,6 @@ html { font-size: 16px; }
 .grid-wrapper-box {
     width: 100vw;
     display: flex;
-    background-color: #FBFBFB;
     position: relative;
     /* display: flex;
     flex-direction: column; */
@@ -727,7 +726,7 @@ html { font-size: 16px; }
 }
 
 .main-box {
-  height: calc(100vh - 64px); top: 64px;
+  height: calc(100vh - 64px); top: 64px; background-color: #FBFBFB;
 }
 
 .full-box, .map-box, .mypage-box {
