@@ -473,7 +473,6 @@ html { font-size: 16px; }
 }
 @media(hover: hover) and (pointer: fine) {
   .grid-container:hover {
-    /* border: 0.4px solid #333333; */
     background-color: #333333;
   }
 
