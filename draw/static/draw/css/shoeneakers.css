@@ -72,7 +72,6 @@ footer {
 /* 북마크 아이콘 */
 .bookmark-icon {
     position: absolute;
-    /* bottom: 10px; */
     top: 10px;
     right: 10px;
     width: 24px;
