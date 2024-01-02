@@ -31,7 +31,6 @@ from .tokens import account_activation_token
 from django.utils.encoding import force_bytes, force_str
 from django.utils import timezone
 
-nowtime = timezone.now()
 User = get_user_model()
 # Create your views here.
 
@@ -41,8 +40,6 @@ def start(request):
     if request.session.has_key('member_no'):
         member_no = request.session['member_no']
         member = Member.objects.get(pk= member_no)
-        #print(member_no)
-        
     else:
         member_no = None
         member = None
@@ -200,6 +197,8 @@ def home(request):
     member = None
     member_no = None
     recent_searches = None
+
+    nowtime = timezone.now()
 
     droppedSite = Shoesite.objects.filter(end_date__gte=nowtime).order_by('end_date')   #진행중
     endSite = Shoesite.objects.filter(end_date__lt=nowtime).order_by('-end_date')       #종료

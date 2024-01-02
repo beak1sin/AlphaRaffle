@@ -291,7 +291,7 @@ SESSION_COOKIE_AGE = 60 * 60 * 24
 
 
 
-PWA_APP_NAME = 'AlphaRaffle'
+PWA_APP_NAME = 'shoeneakers'
 PWA_APP_DESCRIPTION = "한정판 신발을 자동응모해주는 플랫폼입니다."
 PWA_APP_THEME_COLOR = '#000000'
 PWA_APP_BACKGROUND_COLOR = '#ffffff'
@@ -302,13 +302,13 @@ PWA_APP_START_URL = '/'
 PWA_APP_STATUS_BAR_COLOR = 'default'
 PWA_APP_ICONS = [
     {
-        'src': '/static/draw/necessary/apple-touch-icon-152x152.png',
+        'src': '/static/draw/necessary/shoeneakers_favicon.svg',
         'sizes': '152x152'
     }
 ]
 PWA_APP_ICONS_APPLE = [
     {
-        'src': '/static/draw/necessary/apple-touch-icon-152x152.png',
+        'src': '/static/draw/necessary/shoeneakers_favicon.svg',
         'sizes': '152x152'
     }
 ]
