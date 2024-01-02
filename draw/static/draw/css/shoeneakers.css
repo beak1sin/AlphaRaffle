@@ -73,7 +73,6 @@ footer {
 .bookmark-icon {
     position: absolute;
     /* bottom: 10px; */
-    /* left: 10px; */
     top: 10px;
     right: 10px;
     width: 24px;
@@ -94,11 +93,6 @@ footer {
     z-index: 1;
     transition: all 0.5s;
 }
-
-
-/* .bookmark-icon-label.on input:checked + .icon {
-    background: url(../necessary/like_fill.svg) no-repeat center center/24px auto;
-} */
 
 .bookmark-icon-label.on .icon {
   background: url(../necessary/like_fill.svg) no-repeat center center/20px auto;
