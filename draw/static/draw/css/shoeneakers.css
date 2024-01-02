@@ -95,12 +95,6 @@ footer {
     transition: all 0.5s;
 }
 
-/* .bookmark-icon-label input {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-} */
 
 /* .bookmark-icon-label.on input:checked + .icon {
     background: url(../necessary/like_fill.svg) no-repeat center center/24px auto;
