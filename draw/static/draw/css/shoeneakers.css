@@ -29,7 +29,6 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 footer {
     height: 120px;
     position: relative;
-    /* transform: translateY(-100%); */
     bottom: 0;
 }
 /* ---------푸터 하단 고정 */
