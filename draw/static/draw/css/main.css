@@ -22,7 +22,6 @@
 #slider-wrap{
   max-width: 1080px;
   height: 100%;
-  /* height:400px; */
   position:relative;
   overflow:hidden;
 }
