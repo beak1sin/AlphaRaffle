@@ -376,7 +376,6 @@ html { font-size: 16px; }
 }
 
 .ad-box {
-    /* width: 17.5vw; */
     height: 33vh;
     position: -webkit-sticky;
     position: sticky;
