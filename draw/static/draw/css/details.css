@@ -503,7 +503,6 @@ p {
   
   .commentLength {
     float: right;
-    /* right: 20px; */
     margin-top: 4px;
     margin-right: 25px;
     font-size: 12px;
