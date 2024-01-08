@@ -368,18 +368,21 @@ html { font-size: 16px; }
     width: 100vw;
     display: flex;
     position: relative;
+    background-color: #FBFBFB;
+    justify-content: center;
 }
 
 .grid-wrapper-box2 {
   max-width: 1080px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
 .ad-box {
     height: 33vh;
     position: -webkit-sticky;
     position: sticky;
-    
+    flex-basis: calc((100vw - 1080px) / 2);
+    max-width: calc((100vw - 1080px) / 2); /* Optional, for very wide screens */
     
 }
 
@@ -388,7 +391,11 @@ html { font-size: 16px; }
     transform: translateY(-50%);
 }
 
-
+@media (max-width: 1320px) {
+  .ad-box {
+      display: none;
+  }
+}
 
 /* grid */
 .grid-wrapper {

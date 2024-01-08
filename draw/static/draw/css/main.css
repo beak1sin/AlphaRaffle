@@ -218,20 +218,19 @@
 }
 
 .ad-box-pos {
-  /* left: 50%;  */
+  left: 50%; 
   position: absolute; 
-  /* transform: translateX(-50%); */
+  transform: translateX(-50%);
 }
 
 .ad-box-pos.fixed {
   top: 50%; 
-  /* transform: translate(-50%, -50%); */
-  transform: translate(0, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .mobile-ad-box {
   width: 100vw;
-  height: 60px;
+  height: 70px;
   float: left;
   background-color: #FBFBFB;
   display: none;

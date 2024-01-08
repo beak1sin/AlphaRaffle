@@ -750,23 +750,30 @@ p {
 
 .bottom-ad-box {
   float: left;
-  margin: 20px 0; width: 100%; height: 10vh;
+  width: 100%; height: 12vh;
 }
 
-.left-ad-box {
-  position: fixed; left: 0; top: 50%; transform: translateY(-50%);
+.left-ad-box, .right-ad-box {
+  flex-basis: calc((100vw - 1080px) / 2);
+  max-width: calc((100vw - 1080px) / 2);
+  height: 100vh;
+  position: sticky;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.right-ad-box {
-  position: fixed; right: 0; top: 50%; transform: translateY(-50%);
+@media (max-width: 1320px) {
+  .left-ad-box, .right-ad-box {
+      display: none;
+  }
 }
 
 .details-box {
-  width: 100vw; height: calc(100vh - 64px); top: 64px; position: relative;
+  width: 100vw; min-height: 100vh; top: 64px; position: relative; display: flex; justify-content: center;
 }
 
 .whole-box {
-  max-width: 1080px; padding: 0 10px; margin: 0 auto;
+  max-width: 1080px; padding: 0 10px;
 }
 
 .box1 {
