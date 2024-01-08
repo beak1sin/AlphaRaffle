@@ -762,9 +762,23 @@ p {
   transform: translateY(-50%);
 }
 
+.mobile-top-ad-box-js, .mobile-bottom-ad-box-js {
+  display: none;
+}
+
 @media (max-width: 1320px) {
   .left-ad-box, .right-ad-box {
       display: none;
+  }
+}
+
+@media (max-width: 920px) {
+  .top-ad-box-js, .bottom-ad-box-js {
+      display: none;
+  }
+
+  .mobile-top-ad-box-js, .mobile-bottom-ad-box-js {
+    display: block;
   }
 }
 

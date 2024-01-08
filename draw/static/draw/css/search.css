@@ -68,6 +68,12 @@ ol.search-ol > li{
     width: 17.5vw; height: 100%; float: left;
 }
 
+@media (max-width: 1320px) {
+    .search-ad-box {
+        display: none;
+    }
+  }
+
 .search-box {
     width: 65vw; height: 100%; float: left; display: flex; flex-direction: column;
 }
