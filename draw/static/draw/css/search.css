@@ -65,7 +65,7 @@ ol.search-ol > li{
 }
 
 .search-ad-box {
-    width: 17.5vw; height: 100%; float: left;
+    width: 17.5vw; height: 100%; float: left; position: relative;
 }
 
 @media (max-width: 1320px) {
