@@ -20,15 +20,16 @@
 
 {% block body_class %}u-body u-xl-mode{% endblock %}
 
-
+{% block google_adsense %}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2714501163035094"
+                        crossorigin="anonymous"></script>
+{% endblock %}
 
 {% block content %}
 <section style="width: 100vw; height: 100vh;">
     <div class="details-box">
         <div class="left-ad-box">
             <div class="left-ad-box-js">
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2714501163035094"
-                    crossorigin="anonymous"></script>
                 <!-- details 왼쪽 -->
                 <ins class="adsbygoogle"
                     style="display:block"
@@ -38,7 +39,9 @@
                     data-full-width-responsive="true"></ins>
                 <script>
                     window.onload = function() {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
+                        if (window.innerWidth >= 1320) {
+                            var timeoutID = window.setTimeout(function() {(adsbygoogle = window.adsbygoogle || []).push({});}, 1000);
+                        }
                     }
                 </script>
             </div>
@@ -46,8 +49,6 @@
         <div class="whole-box">
             <div class="top-ad-box" style="position: relative;">
                 <div class="top-ad-box-js" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2714501163035094"
-                            crossorigin="anonymous"></script>
                     <!-- details 상단 -->
                     <ins class="adsbygoogle"
                             style="display:inline-block;width:900px;height:150px"
@@ -55,13 +56,13 @@
                             data-ad-slot="2283362453"></ins>
                     <script>
                         window.onload = function() {
-                            (adsbygoogle = window.adsbygoogle || []).push({});
+                            if (window.innerWidth > 920) {
+                                var timeoutID = window.setTimeout(function() {(adsbygoogle = window.adsbygoogle || []).push({});}, 1000);
+                            }
                         }
                     </script>
                 </div>
                 <div class="mobile-top-ad-box-js" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2714501163035094"
-                        crossorigin="anonymous"></script>
                     <!-- details 상단(모바일) -->
                     <ins class="adsbygoogle"
                         style="display:inline-block;width:360px;height:100px"
@@ -69,7 +70,9 @@
                         data-ad-slot="6407306260"></ins>
                     <script>
                         window.onload = function() {
-                        (adsbygoogle = window.adsbygoogle || []).push({});
+                            if (window.innerWidth <= 920) {
+                                var timeoutID = window.setTimeout(function() {(adsbygoogle = window.adsbygoogle || []).push({});}, 1000);
+                            }
                         }
                     </script>
                 </div>
@@ -580,8 +583,6 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 
                 <div class="bottom-ad-box" style="position: relative;">
                     <div class="bottom-ad-box-js" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2714501163035094"
-                                crossorigin="anonymous"></script>
                         <!-- details 하단 -->
                         <ins class="adsbygoogle"
                                 style="display:inline-block;width:900px;height:100px"
@@ -589,13 +590,13 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                                 data-ad-slot="5897752954"></ins>
                         <script>
                             window.onload = function() {
-                                (adsbygoogle = window.adsbygoogle || []).push({});
+                                if (window.innerWidth > 920) {
+                                    var timeoutID = window.setTimeout(function() {(adsbygoogle = window.adsbygoogle || []).push({});}, 1000);
+                                }
                             }
                         </script>
                     </div>
                     <div class="mobile-bottom-ad-box-js" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2714501163035094"
-                            crossorigin="anonymous"></script>
                         <!-- details 하단(모바일) -->
                         <ins class="adsbygoogle"
                             style="display:inline-block;width:360px;height:100px"
@@ -603,7 +604,9 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                             data-ad-slot="1893346186"></ins>
                         <script>
                             window.onload = function() {
-                            (adsbygoogle = window.adsbygoogle || []).push({});
+                                if (window.innerWidth <= 920) {
+                                    var timeoutID = window.setTimeout(function() {(adsbygoogle = window.adsbygoogle || []).push({});}, 1000);
+                                }
                             }
                         </script>
                     </div>
@@ -755,8 +758,6 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 
         <div class="right-ad-box">
             <div class="right-ad-box-js">
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2714501163035094"
-                    crossorigin="anonymous"></script>
                 <!-- details 왼쪽 -->
                 <ins class="adsbygoogle"
                     style="display:block"
@@ -766,7 +767,9 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                     data-full-width-responsive="true"></ins>
                 <script>
                     window.onload = function() {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
+                        if (window.innerWidth >= 1320) {
+                            var timeoutID = window.setTimeout(function() {(adsbygoogle = window.adsbygoogle || []).push({});}, 1000);
+                        }
                     }
                 </script>
             </div>

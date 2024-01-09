@@ -16,6 +16,11 @@
 <meta property="og:description" content="Shoeneakers | 구글 폼 방식 응모를 자동으로 응모해주고 발매 정보를 실시간으로 제공해주는 플랫폼입니다.">
 {% endblock %}
 
+{% block google_adsense %}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2714501163035094"
+                        crossorigin="anonymous"></script>
+{% endblock %}
+
 {% block content %}
 <section id="scroll-container" class="u-section-1" style="width: 100vw; height: 100vh;">
     <div class="main-box" style="width: 100vw;">
@@ -73,8 +78,6 @@
         </div>
         <div class="mobile-ad-box">
             <div class="mobile-ad-box-js">
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2714501163035094"
-                    crossorigin="anonymous"></script>
                 <!-- 모바일메인 -->
                 <ins class="adsbygoogle"
                     style="display:inline-block;width:360px;height:60px"
@@ -82,7 +85,9 @@
                     data-ad-slot="4395354624"></ins>
                 <script>
                     window.onload = function() {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
+                        if (window.innerWidth <= 767) {
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        }
                     }
                 </script>
             </div>
@@ -90,8 +95,6 @@
         <div class="grid-wrapper-box">
             <div class="ad-box">
                 <div class="ad-box-pos left-ad-box-js">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2714501163035094"
-                            crossorigin="anonymous"></script>
                     <!-- 메인광고 -->
                     <ins class="adsbygoogle"
                             style="display:block"
@@ -100,7 +103,9 @@
                             data-ad-format="vertical"
                             data-full-width-responsive="true"></ins>
                     <script>
+                        if (window.innerWidth >= 1320) {
                             (adsbygoogle = window.adsbygoogle || []).push({});
+                        }
                     </script>
                 </div>
             </div>
@@ -125,8 +130,6 @@
                     </div>
                 </div>
                 <div class="grid-wrapper droppedShoe-section">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2714501163035094"
-                        crossorigin="anonymous"></script>
                     <ins class="adsbygoogle"
                         style="display:block"
                         data-ad-format="fluid"
@@ -252,8 +255,6 @@
             </div>
             <div class="ad-box">
                 <div class="ad-box-pos right-ad-box-js">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2714501163035094"
-                            crossorigin="anonymous"></script>
                     <!-- 메인광고 -->
                     <ins class="adsbygoogle"
                             style="display:block"
@@ -262,7 +263,9 @@
                             data-ad-format="vertical"
                             data-full-width-responsive="true"></ins>
                     <script>
+                        if (window.innerWidth >= 1320) {
                             (adsbygoogle = window.adsbygoogle || []).push({});
+                        }
                     </script>
                 </div>
             </div>
