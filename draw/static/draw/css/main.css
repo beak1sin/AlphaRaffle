@@ -241,6 +241,16 @@
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
 }
 
+.left-ad-box-js, .right-ad-box-js {
+  width: 300px;
+}
+
+@media (max-width: 1680px) {
+  .left-ad-box-js, .right-ad-box-js {
+      width: calc((100vw - 1080px) / 2);
+  }
+}
+
 @media (max-width: 810px) {
   .banner-box {
     height: 250px;
