@@ -244,6 +244,8 @@ $(document).ready(function() {
   $('.search-link, .search-icon').click(function() {
     $('.search-section').show();
     $('#scroll-container').css({'overflow': 'hidden'});
+    $('.left-search-ad-box-js').html('<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2714501163035094" data-ad-slot="9094761939" data-ad-format="vertical" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>');
+    $('.right-search-ad-box-js').html('<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2714501163035094" data-ad-slot="1575364567" data-ad-format="vertical" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>');
   });
 
   $('.cancel-icon').click(function() {

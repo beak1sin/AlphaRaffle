@@ -68,6 +68,16 @@ ol.search-ol > li{
     width: 17.5vw; height: 100%; float: left; position: relative;
 }
 
+.left-search-ad-box-js, .right-search-ad-box-js {
+    left: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%); width: 300px;
+}
+
+@media (max-width: 1680px) {
+    .left-search-ad-box-js, .right-search-ad-box-js {
+        width: 17.5vw;
+    }
+}
+
 @media (max-width: 1320px) {
     .search-ad-box {
         display: none;
