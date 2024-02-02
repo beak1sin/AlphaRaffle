@@ -141,6 +141,8 @@ def luckd_crowler(no):
                 soldout_number = onclick_string.lower().split('product%2f')[-1].split("');")[0]
             if 'kream' in onclick_string:
                 kream_number = onclick_string.lower().split('products/')[-1].split("');")[0]
+                if '?fetchrelated' in kream_number:
+                    kream_number = kream_number.split('?fetchrelated')[0]
     except Exception as e:
         print(f'soldout, kream 크롤링 실패: {traceback.format_exc()}')
         soldout_number = None
@@ -557,8 +559,8 @@ def crawl():
 
         for num in shoenum:
             now = datetime.datetime.now()
-            print(now)
-            randomTime = random.randint(30, 60)
+            print(num, now)
+            # randomTime = random.randint(30, 60)
             luckd_crowler(int(num))
             # time.sleep(randomTime)
 
@@ -715,7 +717,8 @@ def crawl_test():
 
         # shoenum = sorted(list(set(shoenum)), reverse=True)
         # shoenum = ['8595', '8594', '8593', '8592', '8591', '8590', '8589', '8588', '8582', '8581', '8580', '8573', '8572', '8571', '8568', '8566', '8565', '8558', '8557', '8556', '8555', '8554', '8553', '8552', '8551', '8550', '8539', '8538', '8537', '8531', '8524', '8516', '8515', '8448', '8447', '8446', '8445', '8444', '8443', '8412', '8409', '8402', '8387', '8254', '8111', '8108', '7527', '7456', '7455', '7218', '7194', '5676', '5675', '5250', '4899', '4355', '4080', '3400']
-        shoenum = ['8952', '8951', '8943', '8941', '8936', '8904', '8880', '8879', '8878', '8635', '8417', '8184', '8142', '8141', '8114', '8076', '7943', '7681', '7614', '7592', '7410', '7235', '6454', '6364', '5830']
+        # shoenum = ['8952', '8951', '8943', '8941', '8936', '8904', '8880', '8879', '8878', '8635', '8417', '8184', '8142', '8141', '8114', '8076', '7943', '7681', '7614', '7592', '7410', '7235', '6454', '6364', '5830']
+        shoenum = ['9169']
         # print(len(shoenum),shoenum)
         # shoenum = ['8515']
 
@@ -793,11 +796,14 @@ def luckd_crowler_test(no):
                 soldout_number = onclick_string.lower().split('product%2f')[-1].split("');")[0]
             if 'kream' in onclick_string:
                 kream_number = onclick_string.lower().split('products/')[-1].split("');")[0]
+                if '?fetchrelated' in kream_number:
+                    kream_number = kream_number.split('?fetchrelated')[0]
     except Exception as e:
         print(f'soldout, kream 크롤링 실패: {traceback.format_exc()}')
         soldout_number = None
         kream_number = None
-        
+    
+    # print(kream_number, soldout_number)
     # print(serialno, shoepubdate, shoeprice, product_detail)
 
     if len(serialno) <= 2:
